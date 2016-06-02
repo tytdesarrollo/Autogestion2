@@ -89,3 +89,10 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+.bg__grt-blue{
+  background : #1d2d47;
+  background : -moz-radial-gradient(center, ellipse cover, rgba(49,72,109,1) 1%, rgba(29,45,71,1) 100%);
+  background : -webkit-radial-gradient(center, ellipse cover, rgba(49,72,109,1) 1%,rgba(29,45,71,1) 100%);
+  background : radial-gradient(ellipse at center, rgba(49,72,109,1) 1%,rgba(29,45,71,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2e446d', endColorstr='#1d2d47',GradientType=1 );
+}
