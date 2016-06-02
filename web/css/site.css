@@ -89,10 +89,33 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+/* News Styles*/
+
 .bg__grt-blue{
   background : #1d2d47;
   background : -moz-radial-gradient(center, ellipse cover, rgba(49,72,109,1) 1%, rgba(29,45,71,1) 100%);
   background : -webkit-radial-gradient(center, ellipse cover, rgba(49,72,109,1) 1%,rgba(29,45,71,1) 100%);
   background : radial-gradient(ellipse at center, rgba(49,72,109,1) 1%,rgba(29,45,71,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2e446d', endColorstr='#1d2d47',GradientType=1 );
+}
+.bg__grt-blue .form-control{
+	color: #bdbdbd;
+}
+.bg__grt-blue .form-group.is-focused label,
+.bg__grt-blue .form-group.is-focused label.control-label {
+  color: #ffffff;
+}
+.bg__grt-blue .form-group.is-focused .form-control {
+  outline: none;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#ffffff)), -webkit-gradient(linear, left top, left bottom, from(#D2D2D2), to(#D2D2D2));
+  background-image: -webkit-linear-gradient(#ffffff, #ffffff), -webkit-linear-gradient(#D2D2D2, #D2D2D2);
+  background-image: -o-linear-gradient(#ffffff, #ffffff), -o-linear-gradient(#D2D2D2, #D2D2D2);
+  background-image: linear-gradient(#ffffff, #ffffff), linear-gradient(#D2D2D2, #D2D2D2);
+  -webkit-background-size: 100% 2px, 100% 1px;
+          background-size: 100% 2px, 100% 1px;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-transition-duration: 0.3s;
+       -o-transition-duration: 0.3s;
+          transition-duration: 0.3s;
 }
