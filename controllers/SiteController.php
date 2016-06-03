@@ -7,6 +7,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
+use app\models\IndexForm;
 use app\models\ContactForm;
 use app\models\ValidarFormulario;
 use app\models\ValidarFormularioAjax;
@@ -458,8 +459,19 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-		 $this->layout=false;
-        return $this->render('index');
+		 $this->layout=false;       
+		
+		if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new IndexForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goBack();
+        }
+        return $this->render('index', [
+            'model' => $model,
+        ]);
     }
 
     public function actionLogin()
@@ -499,8 +511,6 @@ class SiteController extends Controller
 
     public function actionAbout()
     {
-
-		
         return $this->render('about');
     }
 }
