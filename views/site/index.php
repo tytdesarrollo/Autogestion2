@@ -1,12 +1,7 @@
-<script>
-  $(function () {
-    $.material.init();
-  });
-</script>
-
 <?php
 use yii\helpers\Html;
 use app\assets\AppAsset;
+use yii\bootstrap\ActiveForm;
 
 AppAsset::register($this);
 
@@ -27,17 +22,43 @@ $this->title = '.:Autogestion:.';
 
 <?php $this->beginBody() ?>
 
- <div class="container">
-
-<div class="site-index">
-
-<?= Html::img('@web/img/Inicio-ag-Desktop_03.png', ['alt' => 'Logo Emp'], ['class' => 'profile-link']) ?>
-
-    </div>
+ <div class="container text-center">
+	<div class="row">
+		<div class="col-md-12 text-right"><h2 class="txt__light-100"> </h2></div>
+	</div>
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<div>
+				<?= Html::img('@web/img/logo_ag.png', ['alt' => 'Auto Gestión Web']) ?>
+			</div>
+			<div>
+				<h3 class="txt__light-100 mrg__top-30">Inicia sesión con tu cuenta</h3>
+				<div class="text-left">
+					<?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+						<?= $form->field($model, 'username', ['options' => ['class' => 'form-group label-floating']])->textInput(['autofocus' => true]) ?>
+						 <?= $form->field($model, 'password', ['options' => ['class' => 'form-group label-floating']])->passwordInput() ?>
+						<div class="form-group text-center">
+							<?= Html::submitButton('Ingresar', ['class' => 'btn btn-raised btn-info btn-block', 'name' => 'send-button']) ?>
+						</div>
+					<?php ActiveForm::end(); ?>
+				</div>
+			</div>
+			<div class="pdg__16">
+				<?= Html::img('@web/img/logo_telefonica.png', ['alt' => 'Telefónica']) ?>
+			</div>
+		</div>
+	</div>
 </div>
-
+<footer class="footer-login text-center">
+	<p class="txt__light-100">Power by Talentos & Tecnología</p>
+</footer>
 
 <?php $this->endBody() ?>
+<script>
+  $(function () {
+    $.material.init();
+  });
+</script>
 </body>
 </html>
 <?php $this->endPage() ?>
