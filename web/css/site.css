@@ -91,6 +91,47 @@ a.desc:after {
 }
 /* News Styles*/
 
+/* Reglas para el uso de textos blancos sobre un fondo oscuro. */
+.fnt__Thin{
+	font-weight: 100;
+}
+.fnt__Medium{
+	font-weight: 500;
+}
+.fnt__Bold{
+	font-weight: 700;
+}
+.txt__light-100{
+	color: #ffffff;
+}
+.txt__light-70{
+	color: rgba(255, 255, 255, 0.70);
+}
+.txt__light-50{
+	color: rgba(255, 255, 255, 0.50);
+}
+/* Reglas para el uso de textos oscuros sobre un fondos blancos. */
+.txt__dark-100{
+	color: #000000;
+}
+.txt__dark-87{
+	color: rgba(0, 0, 0, 0.87);
+}
+.txt__dark-54{
+	color: rgba(0, 0, 0, 0.54);
+}
+.txt__dark-38{
+	color: rgba(0, 0, 0, 0.38);
+}
+.pdg__16{
+	padding: 16px;
+}
+.pdg__24{
+	padding: 24px;
+}
+.mrg__top-30{
+	margin-top: 30px;
+}
 .bg__grt-blue{
   background : #1d2d47;
   background : -moz-radial-gradient(center, ellipse cover, rgba(49,72,109,1) 1%, rgba(29,45,71,1) 100%);
@@ -118,4 +159,13 @@ a.desc:after {
   -webkit-transition-duration: 0.3s;
        -o-transition-duration: 0.3s;
           transition-duration: 0.3s;
+}
+.footer-login{
+	bottom: 0;
+    position: absolute;
+    display: block;
+    width: 100%;
+}
+.footer-login p{
+	font-size: 12px;
 }
