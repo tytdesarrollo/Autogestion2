@@ -13,7 +13,7 @@ class Empleados_basic extends ActiveRecord{
 	
 	public static function tableName(){
 		
-		return "empleados_basic";
+		return "TALENTOS.EMPLEADOS_BASIC";
 	}
 	
 }

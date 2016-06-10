@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use app\assets\AppAsset;
 use yii\bootstrap\ActiveForm;
+use yii\bootstrap\Alert;
 
 AppAsset::register($this);
 
@@ -22,13 +23,15 @@ $this->title = '.:Autogestion:.';
 
 <?php $this->beginBody() ?>
 
- <div class="alert-login text-center">
- <div class="alert alert-dismissible alert-info">
-  <button type="button" class="close" data-dismiss="alert">×</button>
-  <strong>Importante!</strong> Por favor escribe tu <strong>usuario de red</strong> sin dominio <strong>(NH/TELECOM)</strong> y seguido tu <strong>clave de red</strong>.
+<div class="alert-login text-center">
+ <?php echo Alert::widget([
+    'options' => [
+        'class' => 'alert-info',
+    ],
+    'body' => '<strong>Importante!</strong> Por favor escribe tu usuario de red sin dominio (NH/TELECOM) y seguido su clave de red.',
+]);?>
 </div>
- </div>
-
+ 
  <div class="container text-center">
 
 	<div class="row">
