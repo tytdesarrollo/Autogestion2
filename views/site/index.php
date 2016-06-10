@@ -22,7 +22,15 @@ $this->title = '.:Autogestion:.';
 
 <?php $this->beginBody() ?>
 
+ <div class="alert-login text-center">
+ <div class="alert alert-dismissible alert-info">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <strong>Importante!</strong> Por favor escribe tu <strong>usuario de red</strong> sin dominio <strong>(NH/TELECOM)</strong> y seguido tu <strong>clave de red</strong>.
+</div>
+ </div>
+
  <div class="container text-center">
+
 	<div class="row">
 		<div class="col-md-12 text-right"><h2 class="txt__light-100"> </h2></div>
 	</div>
@@ -35,8 +43,8 @@ $this->title = '.:Autogestion:.';
 				<h3 class="txt__light-100 mrg__top-30">Inicia sesión con tu cuenta</h3>
 				<div class="text-left">
 					<?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-						<?= $form->field($model, 'username', ['options' => ['class' => 'form-group label-floating']])->textInput(['autofocus' => true]) ?>
-						 <?= $form->field($model, 'password', ['options' => ['class' => 'form-group label-floating']])->passwordInput() ?>
+						<?= $form->field($model, 'usuario', ['options' => ['class' => 'form-group label-floating']])->textInput(['autofocus' => true]) ?>
+						 <?= $form->field($model, 'clave', ['options' => ['class' => 'form-group label-floating']])->passwordInput() ?>
 						<div class="form-group text-center">
 							<?= Html::submitButton('Ingresar', ['class' => 'btn btn-raised btn-info btn-block', 'name' => 'send-button']) ?>
 						</div>
