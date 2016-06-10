@@ -31,7 +31,7 @@ $this->title = '.:Autogestion:.';
     'body' => '<strong>Importante!</strong> Por favor escribe tu usuario de red sin dominio (NH/TELECOM) y seguido su clave de red.',
 ]);?>
 </div>
-
+ 
  <div class="container text-center">
 
 	<div class="row">
