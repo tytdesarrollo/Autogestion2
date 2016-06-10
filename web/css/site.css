@@ -305,9 +305,3 @@ a.desc:after {
 	-webkit-transition: opacity 0.4s;
 	transition: opacity 0.4s;
 }
-.alert-login{
-	top: 0px;
-    position: relative;
-    display: block;
-    width: 100%;
-}

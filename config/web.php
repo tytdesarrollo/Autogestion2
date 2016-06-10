@@ -5,7 +5,6 @@ $params = require(__DIR__ . '/params.php');
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
-	'language' => 'es',
     'bootstrap' => ['log'],
     'components' => [
         'request' => [

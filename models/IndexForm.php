@@ -13,8 +13,8 @@ use yii\base\Model;
  */
 class IndexForm extends Model
 {
-    public $usuario;
-    public $clave;
+    public $username;
+    public $password;
     public $rememberMe = true;
 
     private $_user = false;
@@ -27,11 +27,11 @@ class IndexForm extends Model
     {
         return [
             // username and password are both required
-            [['usuario', 'clave'], 'required'],
+            [['username', 'password'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
-            ['clave', 'validatePassword'],
+            ['password', 'validatePassword'],
         ];
     }
 
