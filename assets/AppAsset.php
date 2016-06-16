@@ -21,7 +21,8 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
-		'js/snap.svg-min.js',
+		'js/classie.js',
+		'js/mlpushmenu.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
