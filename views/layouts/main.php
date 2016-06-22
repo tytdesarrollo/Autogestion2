@@ -6,6 +6,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\bootstrap\Dropdown;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -70,9 +71,38 @@ AppAsset::register($this);
 								<div style="margin-top: 10px;"><p>Mesa Centro de servicios compartidos.</p></div>
 							</div>
 							<div class="content__icon-menu__aux pull-right">
-								<button id="menu-aux" class="icon-menu">
-									<span class="glyphicon glyphicon-option-vertical icon__24" aria-hidden="true"></span>
-								</button>
+								<div class="dropdown">
+									<a href="#" data-toggle="dropdown" class="dropdown-toggle menu-trigger glyphicon glyphicon-option-vertical icon__24"></a>
+									<ul class="dropdown-menu menu-profile">
+										<li>
+											<p class="txt-name fnt__Medium">John Doe</p>
+											<p class="txt-email">john.doe@hello.com</p>
+										</li>
+										<li class="divider"></li>
+										<li>
+											<p class="txt-cargo fnt__Medium">Profesional Nómina</p>
+											<p class="txt-info">C.C. 52513735</p>
+											<p class="txt-info">BOGOTÁ</p>
+										</li>
+										<li>
+											<p class="txt-subcat fnt__Medium">Jefe Inmediato:</p>
+											<p class="txt-info">Luis Alejandro Galindo Ramirez</p>
+										</li>
+										<li>
+											<p class="txt-subcat fnt__Medium">Regional:</p>
+											<p class="txt-info">Administración Central</p>
+										</li>
+										<li class="divider"></li>
+										<li>
+											<div class="pull-left">
+											<button class="btn btn-raised btn-default btn-sm">Ver Perfil</button>
+											</div>
+											<div class="pull-right">
+												<button class="btn btn-raised btn-default btn-sm">Salir</button>
+											</div>
+										</li>
+									</ul>
+								</div>
 							</div>
 						</div>
 					</nav>
