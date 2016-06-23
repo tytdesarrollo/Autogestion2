@@ -2207,7 +2207,7 @@ legend {
   float: right;
 }
 .navbar {
-  background-color: #009688;
+  background-color: #00296c;
   border: 0;
   border-radius: 0;
 }
@@ -2352,7 +2352,7 @@ fieldset[disabled] .navbar .btn-link:focus {
 }
 .navbar,
 .navbar.navbar-default {
-  background-color: #009688;
+  background-color: #00296c;
   color: rgba(255,255,255, 0.84);
 }
 .navbar .navbar-form .form-group input.form-control::-moz-placeholder,
