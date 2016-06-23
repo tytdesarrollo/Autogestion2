@@ -32,36 +32,53 @@ AppAsset::register($this);
 			<div class="mp-level">
 				<h2>Menu</h2>
 				<ul>
+					<li><a href="#">Inicio</a></li>
+					<li><a href="#">Equipo de nómina</a></li>
+					<li class="divider"></li>
+					<li>
+						<p class="category">Módulos</p>
+					</li>
+					<li><a href="#">Certificado Laboral</a></li>
+					<li><a href="#">Comprobantes de pago</a></li>
 					<li class="icon icon-menu-left">
-						<a href="#">Level 1</a>
+						<a href="#">Certificado de ingresos y retenciones</a>
 						<div class="mp-level">
-							<h2>level 1</h2>
-							<a class="mp-back" href="#">back</a>
+							<h2>Certificado de ingresos y retenciones</h2>
+							<a class="mp-back" href="#">Atrás</a>
 							<ul>
-								<li class="icon icon-menu-left">
-									<a href="#">level 2</a>
-									<div class="mp-level">
-										<h2>Level 2</h2>
-										<a class="mp-back" href="#">back</a>
-										<ul>
-											<li><a href="#">ítem 1</a></li>
-											<li><a href="#">ítem 2</a></li>
-											<li><a href="#">ítem 3</a></li>
-											<li><a href="#">ítem 4</a></li>
-										</ul>
-									</div>
-								</li>
+								<li><a href="#">Email masivo</a></li>
+								<li><a href="#">Descarga</a></li>
 							</ul>
 						</div>
 					</li>
-					<li><a href="#">ítem 1</a></li>
-					<li><a href="#">ítem 2</a></li>
+					<li class="icon icon-menu-left">
+						<a href="#">Vacaciones</a>
+						<div class="mp-level">
+							<h2>Vacaciones</h2>
+							<a class="mp-back" href="#">Atrás</a>
+							<ul>
+								<li><a href="#">Historial solicitudes empleado</a></li>
+								<li><a href="#">Historial solicitudes rechazadas</a></li>
+								<li><a href="#">Solicitudes Empleado vaciones vigentes</a></li>
+								<li><a href="#">Aprobar, editar, Rechazar solicitudes</a></li>
+							</ul>
+						</div>
+					</li>
+					<li><a href="#">Trabajo por turnos</a></li>
+					<li><a href="#">incapacidades</a></li>
+					<li class="divider"></li>
+					<li>
+						<p class="category">Información</p>
+					</li>
+					<li><a href="#">Actualidad laboral</a></li>
+					<li><a href="#">Cronográma cierre de nómina</a></li>
 				</ul>
 			</div>
 		</nav>
 		<div class="scroller">
 			<div class="scroller-inner content">
-					<nav class="navbar navbar-fixed-top">
+				<div id="menu-contenedor">
+					<nav id="menu" class="navbar">
 						<div class="container-fluid">
 							<div class="content__icon-menu__ham pull-left">
 								<a href="#" id="trigger" class="menu-trigger glyphicon glyphicon-menu-hamburger icon__24"></a>
@@ -106,13 +123,13 @@ AppAsset::register($this);
 							</div>
 						</div>
 					</nav>
-
-					<div class="container">
-						<?= Breadcrumbs::widget([
-							'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-						]) ?>
-						<?= $content ?>
-					</div>
+				</div>
+				<div class="container">
+					<?= Breadcrumbs::widget([
+						'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+					]) ?>
+					<?= $content ?>
+				</div>
 			</div>
 
 			<footer class="footer">
@@ -125,8 +142,25 @@ AppAsset::register($this);
 		</div>
 	</div>
 </div>
-
 <?php $this->endBody() ?>
+<script>
+  $(function() {
+  var menu = $('#menu');
+  var contenedor = $('#menu-contenedor');
+  var cont_offset = contenedor.offset().top;
+
+  $('.scroller').on('scroll', function() {
+	// alert($(window).scrollTop());
+	if($('.scroller').scrollTop() > cont_offset) {
+	  $( '.scroller-inner' ).addClass('fix');
+	  $( menu ).addClass('is-fixed');
+	} else {
+	  $( menu ).removeClass('is-fixed');
+	  $( '.scroller-inner' ).removeClass('fix');
+	};
+  });
+});
+</script>
 </body>
 </html>
 <?php $this->endPage() ?>
