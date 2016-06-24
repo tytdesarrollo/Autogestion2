@@ -24,6 +24,11 @@ body, .main , .scroller {
     padding: 89px 15px 20px;
 }
 
+#menu-contenedor{
+	width: 100%;
+	min-height: 89px;
+}
+
 .menu-trigger {
 	width: 48px;
     height: 48px;
@@ -492,6 +497,20 @@ a.desc:after {
 }
 .navbar{
 	margin-bottom: 0;
+	background-color: rgba(0, 37, 100, 0.85);
+    background-image: url(../img/nav_bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.navbar .bg-blue{
+	background-color: rgba(0, 37, 100, 0.85);
+}
+@media (min-width: 1200px){
+	.navbar .bg-blue:before{
+	content: url(../img/figure.svg);
+    position: absolute;
+    right: 0;
+	}
 }
 .footer-login{
 	bottom: 0;
@@ -522,7 +541,7 @@ a.desc:after {
 	background: transparent;
 }
 .content {
-	position: absolute;
+	position: relative;
 	z-index: 1;
 }
 .mp-pushed .navbar-fixed-top{
@@ -568,9 +587,16 @@ a.desc:after {
 	top: 0;
 	right: 0;
     left: 0;
+	width: 100%;
 }
+@media (min-width: 1200px){
+	.is-fixed{
+		width: calc(100% - 17px);
+	}
+}
+
 .fix .container{
 	-webkit-animation: animate-margin-top 0.3s;
     -moz-animation: animate-margin-top 0.3s;
     animation: animate-margin-top 0.3s;
-	margin-top: 89px;
+}
