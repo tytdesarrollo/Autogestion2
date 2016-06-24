@@ -79,7 +79,7 @@ AppAsset::register($this);
 			<div class="scroller-inner content">
 				<div id="menu-contenedor">
 					<nav id="menu" class="navbar">
-						<div class="container-fluid">
+						<div class="container-fluid bg-blue">
 							<div class="content__icon-menu__ham pull-left">
 								<a href="#" id="trigger" class="menu-trigger glyphicon glyphicon-menu-hamburger icon__24"></a>
 							</div>
