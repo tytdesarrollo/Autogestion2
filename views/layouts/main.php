@@ -30,20 +30,20 @@ AppAsset::register($this);
 	<div class="mp-pusher" id="mp-pusher">
 		<nav id="mp-menu" class="mp-menu">
 			<div class="mp-level">
-				<h2>Menu</h2>
+				<h2></h2>
 				<ul>
-					<li><a href="#">Inicio</a></li>
-					<li><a href="#">Equipo de nómina</a></li>
+					<li><a href="#"><i class="material-icons">&#xE88A;</i><span>Inicio</span></a></li>
+					<li><a href="#"><i class="material-icons">&#xE7EF;</i><span>Equipo de nómina</span></a></li>
 					<li class="divider"></li>
 					<li>
 						<p class="category">Módulos</p>
 					</li>
-					<li><a href="#">Certificado Laboral</a></li>
-					<li><a href="#">Comprobantes de pago</a></li>
+					<li><a href="#"><i class="material-icons">&#xE873;</i><span>Certificado Laboral</span></a></li>
+					<li><a href="#"><i class="material-icons">&#xE53E;</i><span>Comprobantes de pago</span></a></li>
 					<li class="icon icon-menu-left">
-						<a href="#">Certificado de ingresos y retenciones</a>
+						<a href="#"><i class="material-icons">&#xE84F;</i><span>Certificado de ingresos y retención</span></a>
 						<div class="mp-level">
-							<h2>Certificado de ingresos y retenciones</h2>
+								<h2>Certificado de ingresos y retención</h2>
 							<a class="mp-back" href="#">Atrás</a>
 							<ul>
 								<li><a href="#">Email masivo</a></li>
@@ -52,7 +52,7 @@ AppAsset::register($this);
 						</div>
 					</li>
 					<li class="icon icon-menu-left">
-						<a href="#">Vacaciones</a>
+						<a href="#"><i class="material-icons">&#xEB48;</i><span>Vacaciones</span></a>
 						<div class="mp-level">
 							<h2>Vacaciones</h2>
 							<a class="mp-back" href="#">Atrás</a>
@@ -64,14 +64,14 @@ AppAsset::register($this);
 							</ul>
 						</div>
 					</li>
-					<li><a href="#">Trabajo por turnos</a></li>
-					<li><a href="#">incapacidades</a></li>
+					<li><a href="#"><i class="material-icons">&#xE856;</i><span>Trabajo por turnos</span></a></li>
+					<li><a href="#"><i class="material-icons">&#xE3F3;</i><span>incapacidades</span></a></li>
 					<li class="divider"></li>
 					<li>
 						<p class="category">Información</p>
 					</li>
-					<li><a href="#">Actualidad laboral</a></li>
-					<li><a href="#">Cronográma cierre de nómina</a></li>
+					<li><a href="#"><i class="material-icons">&#xE801;</i><span>Actualidad laboral</span></a></li>
+					<li><a href="#"><i class="material-icons">&#xE916;</i><span>Cronográma cierre de nómina</span></a></li>
 				</ul>
 			</div>
 		</nav>
