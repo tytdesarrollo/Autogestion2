@@ -509,8 +509,8 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionAbout()
+    public function actionPrincipal()
     {
-        return $this->render('about');
+        return $this->render('principal');
     }
 }

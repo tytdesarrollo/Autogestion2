@@ -85,7 +85,7 @@ AppAsset::register($this);
 							</div>
 							<div class="content__logo pull-left">
 								<?= Html::img('@web/img/logo_small.svg', ['alt' => 'Auto Gestión Web', 'height' => '38px']) ?>
-								<div style="margin-top: 10px;"><p>Mesa Centro de servicios compartidos.</p></div>
+								<div class="hidden-xs" style="margin-top: 10px;"><p>Mesa Centro de servicios compartidos.</p></div>
 							</div>
 							<div class="content__icon-menu__aux pull-right">
 								<div class="dropdown">
@@ -124,7 +124,7 @@ AppAsset::register($this);
 						</div>
 					</nav>
 				</div>
-				<div class="container">
+				<div class="fluid-container main-content">
 					<?= Breadcrumbs::widget([
 						'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
 					]) ?>
@@ -146,6 +146,7 @@ AppAsset::register($this);
 <script>
   $(function() {
   var menu = $('#menu');
+  var tabbar = $('#tabbar');
   var contenedor = $('#menu-contenedor');
   var cont_offset = contenedor.offset().top;
 
@@ -154,8 +155,10 @@ AppAsset::register($this);
 	if($('.scroller').scrollTop() > cont_offset) {
 	  $( '.scroller-inner' ).addClass('fix');
 	  $( menu ).addClass('is-fixed');
+	  $( tabbar ).addClass('is-fixed');
 	} else {
 	  $( menu ).removeClass('is-fixed');
+	  $( tabbar ).removeClass('is-fixed');
 	  $( '.scroller-inner' ).removeClass('fix');
 	};
   });
@@ -167,6 +170,7 @@ AppAsset::register($this);
 <script>
   $(function () {
     $.material.init();
+	$('[data-toggle="tooltip"]').tooltip();
   });
 </script>
 <script>
