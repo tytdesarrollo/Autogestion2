@@ -1,36 +1,32 @@
 html,
-body, .main , .scroller {
+body {
     height: 100%;
 }
-
-.scroller {
-	overflow-y: auto;
-}
-
-.scroller,
-.scroller-inner {
+.scroller-inner{
 	position: relative;
-}
-
-.scroller-inner {
 	min-height: 100%;
     height: auto;
     margin: 0 auto -60px;
     padding: 0 0 60px;
 	width: 100%;
+	padding-top: 89px;
 }
-
-#menu-contenedor{
-	width: 100%;
+#header{
 	min-height: 89px;
+	position: fixed;
+	z-index: 3;
+	width: 100%;
+    left: 0;
+	top: 0;
 }
-
 @media (max-width: 767px){
-	#menu-contenedor{
+	#header{
 		min-height: 60px;
 	}
+	.scroller-inner{
+		padding-top: 60px;
+	}
 }
-
 .menu-trigger {
 	width: 48px;
     height: 48px;
@@ -40,35 +36,42 @@ body, .main , .scroller {
 	color: #ffffff;
 	text-decoration: none;
 }
-
 .menu-trigger:hover, .menu-trigger:focus {
 	color: #ffffff;
 	text-decoration: none;
 }
 
-.main {
-	position: relative;
-	overflow: hidden;
-}
-
+/* Menu Lateral */
 .mp-pusher {
-	position: relative;
-	left: 0;
+	position: fixed;
+	z-index: 2;
+	width: 300px;
 	height: 100%;
+	-webkit-transform: translate3d(-300px, 0, 0);
+	-moz-transform: translate3d(-300px, 0, 0);
+	transform: translate3d(-300px, 0, 0) !important;
 }
-
+.mp-pushed{
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0) !important;
+}
+.mp-level-overlay{
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	transform: translate3d(-100%, 0, 0);
+}
 .mp-menu {
-	position: absolute;
-	top: 0;
+	position: fixed;
+	top: 37px;
 	left: 0;
 	z-index: 1;
 	width: 300px;
-	height: 100%;
-	-webkit-transform: translate3d(-100%, 0, 0);
-	-moz-transform: translate3d(-100%, 0, 0);
-	transform: translate3d(-100%, 0, 0);
+	height: calc(100% - 37px);
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
 }
-
 .mp-level {
 	position: absolute;
 	top: 0;
@@ -83,7 +86,8 @@ body, .main , .scroller {
     background-position: 100% 100%;
     background-repeat: no-repeat;
 }
-/* overlays for pusher and for level that gets covered */
+
+/* Superposiciones de empuje y de nivel que se cubre */
 .mp-pusher::after,
 .mp-level::after,
 .mp-level::before {
@@ -95,7 +99,6 @@ body, .main , .scroller {
 	content: '';
 	opacity: 0;
 }
-
 .mp-pusher::after,
 .mp-level::after {
 	background: rgba(0,0,0,0.3);
@@ -103,11 +106,9 @@ body, .main , .scroller {
 	-moz-transition: opacity 0.3s, width 0.1s 0.3s, height 0.1s 0.3s;
 	transition: opacity 0.3s, width 0.1s 0.3s, height 0.1s 0.3s;
 }
-
 .mp-level::after {
 	z-index: -1;
 }
-
 .mp-level .divider{
 	height: 1px;
     margin: 1em;
@@ -129,22 +130,18 @@ body, .main , .scroller {
 	-moz-transition: opacity 0.3s;
 	transition: opacity 0.3s;
 }
-
 .mp-pusher.mp-pushed::after{
-	z-index: 2;
+	/* z-index: 2; */
 }
-
 .mp-level.mp-level-overlay {
 	cursor: pointer;
 }
-
 .mp-level.mp-level-overlay.mp-level::before {
 	width: 100%;
 	height: 100%;
 	background: transparent;
 	opacity: 1;
 }
-
 .mp-pusher,
 .mp-level {
 	-webkit-transition: all 0.5s;
@@ -152,7 +149,7 @@ body, .main , .scroller {
 	transition: all 0.5s;
 }
 
-/* overlap */
+/* Overlap */
 .mp-overlap .mp-level.mp-level-open {
 	box-shadow: 1px 0 2px rgba(0,0,0,0.2);
 	-webkit-transform: translate3d(-40px, 0, 0);
@@ -160,7 +157,7 @@ body, .main , .scroller {
 	transform: translate3d(-40px, 0, 0);
 }
 
-/* First level */
+/* Primer nivel */
 .mp-menu > .mp-level,
 .mp-menu > .mp-level.mp-level-open,
 .mp-menu.mp-overlap > .mp-level,
@@ -171,26 +168,24 @@ body, .main , .scroller {
 	transform: translate3d(0, 0, 0);
 }
 
-/* cover */
+/* Cover */
 .mp-cover .mp-level.mp-level-open {
 	-webkit-transform: translate3d(0, 0, 0);
 	-moz-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
 }
-
 .mp-cover .mp-level.mp-level-open > ul > li > .mp-level:not(.mp-level-open) {
 	-webkit-transform: translate3d(-100%, 0, 0);
 	-moz-transform: translate3d(-100%, 0, 0);
 	transform: translate3d(-100%, 0, 0);
 }
 
-/* content style */
+/* Estilo del contenido */
 .mp-menu ul {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 }
-
 .mp-menu ul li.icon::before{
     display: inline-block;
     font-family: 'Glyphicons Halflings';
@@ -202,11 +197,9 @@ body, .main , .scroller {
     -moz-osx-font-smoothing: grayscale;
 	margin-right: 0.6em;
 }
-
 .mp-menu ul li.icon-menu-left::before{
 	content: "\e257";
 }
-
 .mp-menu h2 {
 	margin: 0;
 	padding: 1em;
@@ -215,7 +208,6 @@ body, .main , .scroller {
 	font-weight: 300;
 	font-size: 2em;
 }
-
 .mp-menu.mp-overlap h2::before {
 	position: absolute;
 	top: 0;
@@ -231,14 +223,12 @@ body, .main , .scroller {
 	-moz-transform: translateX(-100%);
 	transform: translateX(-100%);
 }
-
 .mp-menu.mp-cover h2 {
 	text-transform: uppercase;
 	font-weight: 700;
 	letter-spacing: 1px;
 	font-size: 1.313em;
 }
-
 .mp-overlap .mp-level.mp-level-overlay > h2::before {
 	opacity: 1;
 	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
@@ -248,7 +238,6 @@ body, .main , .scroller {
 	-moz-transform: translateX(0);
 	transform: translateX(0);
 }
-
 .mp-menu ul li > a {
 	display: block;
 	padding: 0.5em 1em 0.5em 1.8em;
@@ -269,7 +258,6 @@ body, .main , .scroller {
 	display: inline-block;
 	margin-top: 1px;
 }
-
 .mp-menu ul li::before {
 	position: absolute;
 	left: 10px;
@@ -278,26 +266,21 @@ body, .main , .scroller {
 	color: rgba(255,255,255,0.2);
 	line-height: 2.7 !important;
 }
-
 .mp-level > ul > li:first-child > a {
 }
-
 .mp-menu ul li a:hover,
 .mp-level > ul > li:first-child > a:hover {
 	background: rgba(0,0,0,0.2);
 	box-shadow: inset 0 -1px rgba(0,0,0,0);
 }
-
 .mp-menu .mp-level.mp-level-overlay > ul > li > a,
 .mp-level.mp-level-overlay > ul > li:first-child > a {
 	box-shadow: inset 0 -1px rgba(0,0,0,0);
 }
-
 .mp-level > ul > li:first-child > a:hover,
 .mp-level.mp-level-overlay > ul > li:first-child > a {
 	box-shadow: inset 0 -1px rgba(0,0,0,0), inset 0 1px rgba(0,0,0,0);
-} /* seems like Chrome 34.0.1847.131 needs the second shadow otherwise the transition breaks */
-
+} /* Chrome 34.0.1847.131 necesita la segunda sombra de lo contrario, los descansos de transición */
 .mp-back {
 	background: rgba(0,0,0,0.1);
 	outline: none;
@@ -314,7 +297,6 @@ body, .main , .scroller {
 	-moz-transition: background 0.3s;
 	transition: background 0.3s;
 }
-
 .mp-back::after {
 	font-family: 'Glyphicons Halflings';
 	position: absolute;
@@ -324,12 +306,10 @@ body, .main , .scroller {
 	color: rgba(255,255,255,0.3);
 	line-height: 18px;
 }
-
 .mp-back:hover, .mp-back:focus {
 	color: #ffffff;
 	text-decoration: none;
 }
-
 .mp-menu .mp-level.mp-level-overlay > .mp-back,
 .mp-menu .mp-level.mp-level-overlay > .mp-back::after {
 	background: transparent;
@@ -337,22 +317,21 @@ body, .main , .scroller {
 	color: transparent;
 }
 
-/* Fallback example for browsers that don't support 3D transforms (and no JS fallback) */
-/* We'll show the first level only */
+/* Ejemplo de repliegue para los navegadores que no soportan transformaciones 3D (y sin retorno JS ) */
+/* Vamos a mostrar sólo el primer nivel */
 .no-csstransforms3d .mp-pusher,
 .no-js .mp-pusher {
 	padding-left: 300px;
 }
-
 .no-csstransforms3d .mp-menu .mp-level,
 .no-js .mp-menu .mp-level {
 	display: none;
 }
-
 .no-csstransforms3d .mp-menu > .mp-level,
 .no-js .mp-menu > .mp-level {
 	display: block;
 }
+/* Fin menu Lateral */
 
 .footer {
     height: 60px;
@@ -360,22 +339,18 @@ body, .main , .scroller {
     border-top: 1px solid #ddd;
     padding-top: 20px;
 }
-
 .jumbotron {
     text-align: center;
     background-color: transparent;
 }
-
 .jumbotron .btn {
     font-size: 21px;
     padding: 14px 24px;
 }
-
 .not-set {
     color: #c55;
     font-style: italic;
 }
-
 /* add sorting icons to gridview sort links */
 a.asc:after, a.desc:after {
     position: relative;
@@ -387,41 +362,32 @@ a.asc:after, a.desc:after {
     line-height: 1;
     padding-left: 5px;
 }
-
 a.asc:after {
     content: /*"\e113"*/ "\e151";
 }
-
 a.desc:after {
     content: /*"\e114"*/ "\e152";
 }
-
 .sort-numerical a.asc:after {
     content: "\e153";
 }
-
 .sort-numerical a.desc:after {
     content: "\e154";
 }
-
 .sort-ordinal a.asc:after {
     content: "\e155";
 }
-
 .sort-ordinal a.desc:after {
     content: "\e156";
 }
-
 .grid-view th {
     white-space: nowrap;
 }
-
 .hint-block {
     display: block;
     margin-top: 5px;
     color: #999;
 }
-
 .error-summary {
     color: #a94442;
     background: #fdf7f7;
@@ -429,6 +395,7 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
 /* News Styles*/
 
 /* Reglas para el uso de textos blancos sobre un fondo oscuro. */
@@ -463,6 +430,7 @@ a.desc:after {
 .txt__dark-38{
 	color: rgba(0, 0, 0, 0.38);
 }
+
 /* Reglas para el tamaño de iconos. */
 .icon__12{
 	font-size: 12px;
@@ -470,7 +438,6 @@ a.desc:after {
 .icon__24{
 	font-size: 24px;
 }
-
 .pdg__16{
 	padding: 16px;
 }
@@ -516,7 +483,6 @@ a.desc:after {
 }
 .main-content{
 	position: relative;
-	z-index: 1;
 }
 .dropdown-menu{
 	z-index: 3;
@@ -532,10 +498,12 @@ a.desc:after {
 	background-color: rgba(0, 37, 100, 0.85);
 }
 @media (min-width: 1200px){
-	.navbar .bg-blue:before{
+	
+	.has-scrolled .navbar .bg-blue:before, .navbar .bg-blue:before{
 	content: url(../img/figure.svg);
     position: absolute;
     right: 0;
+	bottom: -6px;
 	}
 }
 .footer-login{
@@ -565,13 +533,6 @@ a.desc:after {
 	padding:12px;
 	border: none;
 	background: transparent;
-}
-.content {
-	position: relative;
-	z-index: 1;
-}
-.mp-pushed .navbar-fixed-top{
-	position: absolute;
 }
 .alert-login{
 	top: 0px;
@@ -608,35 +569,15 @@ a.desc:after {
 	color: #333333;
 	margin: 10px 0 0;
 }
-.is-fixed{
-	position: fixed;
-	width: 100%;
-	z-index: 2;
-}
-@media (min-width: 1200px){
-	.is-fixed{
-		width: calc(100% - 17px);
-	}
-}
-.fix .container{
-	-webkit-animation: animate-margin-top 0.3s;
-    -moz-animation: animate-margin-top 0.3s;
-    animation: animate-margin-top 0.3s;
-}
-.fix .tab-content-main{
-	-webkit-animation: animate-margin-top 0.3s;
-    -moz-animation: animate-margin-top 0.3s;
-    animation: animate-margin-top 0.3s;
-	margin-top: 39px;
-}
-.tab-content-main .tab-pane{
-	padding-top: 30px;
-}
 .tab-bar{
 	background-color: #00183f;
 	-webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
+	position: fixed;
+	z-index: 2;
+	left: 0;
+	width: 100%;
 }
 .tab-bar .nav-tabs{
 	background: transparent;
@@ -659,6 +600,9 @@ a.desc:after {
 	width: 100%;
     background-color: rgba(255, 255, 255, 0.5);
     height: 100%;
+}
+.tab-content{
+	padding-top: 69px;
 }
 @media (min-width: 768px){
 .col-no-pad-left{
