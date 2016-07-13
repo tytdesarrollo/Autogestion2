@@ -63,17 +63,18 @@ body {
 }
 .mp-menu {
 	position: fixed;
-	top: 37px;
+	top: 0;
 	left: 0;
 	z-index: 1;
 	width: 300px;
-	height: calc(100% - 37px);
+	height: 100%;
 	-webkit-transform: translate3d(0, 0, 0);
 	-moz-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
 }
 .mp-level {
 	position: absolute;
+	padding-top: 37px;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -83,7 +84,7 @@ body {
 	-moz-transform: translate3d(-100%, 0, 0);
 	transform: translate3d(-100%, 0, 0);
 	background-image: url(../img/cover_menu.png);
-    background-position: 100% 100%;
+    background-position: 100% 90%;
     background-repeat: no-repeat;
 }
 
