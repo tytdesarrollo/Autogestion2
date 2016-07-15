@@ -8,14 +8,12 @@ use yii\widgets\LinkPager;
 <table class="table table-bordered">
 
 
- <?php foreach($emplea as $rows): ?>
+ <?php foreach($emplea as $row): ?>
 
  <tr>
 
 
-         <td><?= var_dump($rows) ?></td>
-
- <td><?= $rows->PRIVILEGIO ?></td>
+ <td><?= $row->COD_EPL ?></td>
  </tr>
 
 
