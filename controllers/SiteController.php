@@ -21,6 +21,10 @@ use yii\data\Pagination;
 use yii\helpers\Url;
 use app\models\Users;
 use app\models\FormRegister;
+use app\models\Empleados_basic;
+use app\models\QueryPrueba;
+use yii\db\Command;
+
 
 
 class SiteController extends Controller
@@ -39,6 +43,16 @@ class SiteController extends Controller
         }
         return $key;
     }
+  
+      public function actionCopia()
+    {
+        $query = new Empleados_basic;
+
+        $emplea = $query->find()->where(["ESTADO"=>"A","CEDULA"=>"79944076"])->all();
+
+        return $this->render('copia', ['emplea' => $emplea]);
+    } 
+
   
  public function actionConfirm()
  {
@@ -342,13 +356,11 @@ class SiteController extends Controller
 	}
 	
 	public function actionSaluda(){
-		$mensaje = "hola mundo";
-		$numeros = [0,1,2,3,4,5];
-		
-		return $this->render("saluda", 
-		["mensaje"=>$mensaje,
-		"array" => $numeros		
-		]);
+
+		$rows = Yii::$app->confidencial->createCommand("SELECT A.NOM_EPL AS NOMBRE FROM TALENTOS.EMPLEADOS_BASIC A, TALENTOS.EMPLEADOS_GRAL B
+WHERE  A.ESTADO = 'A' AND A.COD_EPL = B.COD_EPL")->queryAll();
+
+        return $this->render('saluda', ['rows' => $rows]);
 	}
 	
 	

@@ -3,8 +3,9 @@
 namespace app\models;
 use Yii;
 use yii\db\ActiveRecord;
+use yii\db\Command;
 
-class Empleados_basic extends ActiveRecord{
+class QueryPrueba extends Command{
 	
 	public static function getDb(){
 		
@@ -13,7 +14,7 @@ class Empleados_basic extends ActiveRecord{
 	
 	public static function tableName(){
 	
-		return "TALENTOS.EMPLEADOS_BASIC";
+		return "TALENTOS.T_ADMIN";
 	}
 	
 }

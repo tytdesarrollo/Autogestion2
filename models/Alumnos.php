@@ -4,7 +4,7 @@ namespace app\models;
 use Yii;
 use yii\db\ActiveRecord;
 
-class Empleados_basic extends ActiveRecord{
+class Alumnos extends ActiveRecord{
 	
 	public static function getDb(){
 		
@@ -13,7 +13,7 @@ class Empleados_basic extends ActiveRecord{
 	
 	public static function tableName(){
 		
-		return "empleados_basic";
+		return "alumnos";
 	}
 	
 }

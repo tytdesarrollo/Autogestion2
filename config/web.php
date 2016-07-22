@@ -46,7 +46,10 @@ $config = [
                 ],
             ],
         ],
-        'db' => require(__DIR__ . '/db.php'),
+        'telmovil' => require(__DIR__ . '/telmovil.php'),
+        'confidencial' => require(__DIR__ . '/confidencial.php'),
+        'tgt' => require(__DIR__ . '/tgt.php'),
+        'fundacion' => require(__DIR__ . '/fundacion.php'),
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
