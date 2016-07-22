@@ -29,7 +29,20 @@ AppAsset::register($this);
 	<nav id="menu" class="navbar">
 		<div class="container-fluid bg-blue">
 			<div class="content__icon-menu__ham pull-left">
-				<a href="#" id="trigger" class="menu-trigger glyphicon glyphicon-menu-hamburger icon__24"></a>
+				<!--<a href="#" id="trigger" class="menu-trigger glyphicon glyphicon-menu-hamburger icon__24">
+					<div class="line-wrap">
+						<div class="line top"></div>
+						<div class="line center"></div>
+						<div class="line bottom"></div>
+					</div>
+				</a>-->
+				<a href="#" id="trigger" class="menu-trigger">
+					<div class="line-wrap">
+						<div class="line top"></div>
+						<div class="line center"></div>
+						<div class="line bottom"></div>
+					</div>
+				</a>
 			</div>
 			<div class="content__logo pull-left">
 				<?= Html::img('@web/img/logo_small.svg', ['alt' => 'Auto Gestión Web', 'height' => '38px']) ?>
@@ -37,7 +50,7 @@ AppAsset::register($this);
 			</div>
 			<div class="content__icon-menu__aux pull-right">
 				<div class="dropdown">
-					<a href="#" data-toggle="dropdown" class="dropdown-toggle menu-trigger glyphicon glyphicon-option-vertical icon__24"></a>
+					<a href="#" data-toggle="dropdown" class="dropdown-toggle menu-trigger"><i class="btn-menu-profile glyphicon glyphicon-option-vertical icon__24"></i></a>
 					<ul class="dropdown-menu menu-profile">
 						<li>
 							<p class="txt-name fnt__Medium">John Doe</p>
