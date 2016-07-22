@@ -56,7 +56,7 @@ $this->title = 'Pagina Principal';
 						</div>
 					</div>
 					<div class="col-sm-6">
-						<div class="panel panel-danger panel-cert-ing text-center">
+						<div class="panel panel-cert-ing text-center">
 							<div class="panel-body">
 								<div class="content-btn"><a href="#"><i class="material-icons">&#xE84F;</i></a></div>
 								<div>
@@ -140,9 +140,300 @@ $this->title = 'Pagina Principal';
 		</div>
 	</div>
 	<div class="tab-pane fade" id="info">
+		<div class="block-header">
+			<h2>John Doe<small>Jefe Nómina</small></h2>
+			<button type="button" class="btn btn-float btn-help animated infinite ring" data-toggle="modal" data-target="#ayuda">
+				<i class="material-icons">&#xE887;</i>
+			</button>
+			<div class="modal fade" id="ayuda" tabindex="-1" role="dialog" aria-labelledby="ayudaLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="ayudaLabel">Centro de Ayuda</h4>
+							<small>Elije una opción entre los siguientes enlaces para obtener mayor información.</small>
+						</div>
+						<div class="modal-body">
+							...
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary">Save changes</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="row">
-			<div class="col-md-6">Datos Informativos</div>
-			<div class="col-md-6">Info</div>
+			<div class="col-md-3">
+				<div class="panel bg-blue-std widget-extrasmall-htl">
+					<div class="panel-body">
+						<div class="dis-inline-block">
+							<h5 class="fnt__Medium no-mrg">Tipo de salario:</h5>
+							<h3 class="fnt__Medium no-mrg">Básico</h3>
+						</div>
+						<i class="material-icons">&#xE227;</i>
+					</div>
+				</div>
+				<div class="panel bg-cyan-std widget-extrasmall-htl">
+					<div class="panel-body">
+						<div class="dis-inline-block">
+							<h5 class="fnt__Medium no-mrg">Tipo de contrato:</h5>
+							<h3 class="fnt__Medium no-mrg">Indefinido</h3>
+						</div>
+						<i class="material-icons">&#xE880;</i>
+					</div>
+				</div>
+				<div class="panel bg-teal-std widget-extrasmall-htl">
+					<div class="panel-body">
+						<div class="dis-inline-block">
+							<h5 class="fnt__Medium no-mrg">Fecha de ingreso:</h5>
+							<h3 class="fnt__Medium no-mrg">17-09-2014</h3>
+						</div>
+						<i class="material-icons">&#xE8DF;</i>
+					</div>
+				</div>
+				<div class="panel panel-contact">
+					<div class="panel-body">
+						<h2 class="fnt__Medium">Datos Personales</h2>
+						<ul>
+							<li><i class="material-icons">&#xE0BE;</i>john.doe@hello.com</li>
+							<li><i class="material-icons">&#xE86D;</i>C.C. 52513735</li>
+							<li><i class="material-icons">&#xE0C8;</i>BOGOTÁ</li>
+						</ul>
+						<div class="mrg__top-15">
+							<h5 class="fnt__Medium no-mrg-bottom">Jefe inmediato:</h5>
+							<p>Luis Alejandro Galindo Ramirez</p>
+						</div>
+						<div class="mrg__top-15">
+							<h5 class="fnt__Medium no-mrg-bottom">Regional:</h5>
+							<p>Administración Central</p>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-contact">
+					<div class="panel-body">
+						<h2 class="fnt__Medium">Datos Informativos</h2>
+						<table class="table table-no-border">
+							<tbody>
+								<tr>
+									<td class="fnt__Medium">Declarante de renta</td>
+									<td>Si</td>
+								</tr>
+								<tr>
+									<td class="fnt__Medium">Procedimiento retención en la fuente</td>
+									<td>2</td>
+								</tr>
+								<tr>
+									<td class="fnt__Medium">Porcentaje de retención</td>
+									<td>2.92</td>
+								</tr>
+								<tr>
+									<td class="fnt__Medium">Cuota máxima disponible de descuento</td>
+									<td>0</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div class="row">
+					<div class="col-md-7">
+						<div class="panel">
+							<div class="panel-heading">
+								<h4 class="fnt__Medium">Cuenta bancaria</h4>
+							</div>
+							<div class="panel-body">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Entidad bancaria</th>
+											<th>Número de cuenta</th>
+											<th>Tipo de cuenta</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Banco BBVA</td>
+											<td>765006192</td>
+											<td>ahorros</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="panel widget-small-htl">
+							<div class="row">
+								<div class="col-xs-4 text-center bg-lightblue-std">
+									<button type="button" class="btn" data-toggle="modal" data-target="#formNovedades">
+										<i class="material-icons">&#xE7F7;</i>
+									</button>
+								</div>
+								<div class="col-xs-8">
+									<div class="panel-body">
+										<h4 class="fnt__Medium">Novedades</h4>
+										<p>Reporta novedades para Pensión voluntaria y AFC, cambio de cuenta de nómina, declarante de renta y reporte paz y salvo libranzas.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal fade" id="formNovedades" tabindex="-1" role="dialog" aria-labelledby="formNovedadesLabel">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title" id="formNovedadesLabel">Modal title</h4>
+								</div>
+								<div class="modal-body">
+									...
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									<button type="button" class="btn btn-primary">Save changes</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel">
+					<div class="panel-heading">
+						<h4 class="fnt__Medium">Afiliaciones - Seguridad social</h4>
+					</div>
+					<div class="panel-body">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Concepto</th>
+									<th>Entidad</th>
+									<th>Fecha vinculación</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Aporte salud</td>
+									<td>Coomeva EPS</td>
+									<td>17-09-2014</td>
+								</tr>
+								<tr>
+									<td>Aporte pensión</td>
+									<td>Protección pensiones Obligator</td>
+									<td>01-06-2015</td>
+								</tr>
+								<tr>
+									<td>Aporte riesgos laborales</td>
+									<td>Colmena riesgos profesionales</td>
+									<td>17-09-2014</td>
+								</tr>
+								<tr>
+									<td>Caja de compensación</td>
+									<td>Cafam</td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="panel">
+					<div class="panel-heading">
+						<h4 class="fnt__Medium">Deducibles de retención en la fuente</h4>
+					</div>
+					<div class="panel-body">
+						<h5 class="fnt__Medium">Pensiones voluntarias y AFC(cuenta de ahorro para vivienda)</h5>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Concepto</th>
+									<th>Entidad</th>
+									<th>Aporte actual</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Pensión vol / AFC - bonif.unica y ext.</td>
+									<td>Fdo pensiones voluntarias prot</td>
+									<td>$8,000,000</td>
+								</tr>
+								<tr>
+									<td>pensiones voluntarias</td>
+									<td>Fdo pensiones voluntarias prot</td>
+									<td>$2,000,000</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="panel">
+					<div class="panel-heading">
+						<h4 class="fnt__Medium">Certificados de beneficio</h4>
+					</div>
+					<div class="panel-body">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Tipo</th>
+									<th>Valor mensual</th>
+									<th>Fecha de vencimiento</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Intereses de Vivienda</td>
+									<td>$ 435,451</td>
+									<td>31-03-2016</td>
+								</tr>
+								<tr>
+									<td>Salud Prepagada</td>
+									<td>$ 61,950</td>
+									<td>31-03-2016</td>
+								</tr>
+								<tr>
+									<td>Dependientes</td>
+									<td>$ 600,000</td>
+									<td>31-03-2016</td>
+								</tr>
+								<tr>
+									<td>Salud Obligatoria</td>
+									<td>$ 165,394</td>
+									<td>31-12-2016</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="content__help">
+					<h3 class="fnt__Medium">Ayuda</h3>
+					<div class="col-md-4">
+						<ul>
+							<li><a href="#">Pensiones voluntarias</a></li>
+							<li><a href="#">Cuentas AFC</a></li>
+							<li><a href="#">Bancos</a></li>
+							<li><a href="#">Deducibles de retención en la fuente</a></li>
+							<li><a href="#">Horas extra</a></li>
+						</ul>
+					</div>
+					<div class="col-md-4">
+						<ul>
+							<li><a href="#">EPS entidad promotora de salud</a></li>
+							<li><a href="#">Pensiones</a></li>
+							<li><a href="#">ARL</a></li>
+							<li><a href="#">Incapacidades</a></li>
+							<li><a href="#">Retiro de sesantías</a></li>
+						</ul>
+					</div>
+					<div class="col-md-4">
+						<ul>
+							<li><a href="#">Caja de compensación y subsidio familiar</a></li>
+							<li><a href="#">Seguro de vida</a></li>
+							<li><a href="#">Plan global de acciones</a></li>
+							<li><a href="#">Libranzas</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
