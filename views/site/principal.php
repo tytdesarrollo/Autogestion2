@@ -142,27 +142,6 @@ $this->title = 'Pagina Principal';
 	<div class="tab-pane fade" id="info">
 		<div class="block-header">
 			<h2>John Doe<small>Jefe Nómina</small></h2>
-			<button type="button" class="btn btn-float btn-help animated infinite ring" data-toggle="modal" data-target="#ayuda">
-				<i class="material-icons">&#xE887;</i>
-			</button>
-			<div class="modal fade" id="ayuda" tabindex="-1" role="dialog" aria-labelledby="ayudaLabel">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="ayudaLabel">Centro de Ayuda</h4>
-							<small>Elije una opción entre los siguientes enlaces para obtener mayor información.</small>
-						</div>
-						<div class="modal-body">
-							...
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary">Save changes</button>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-3">
