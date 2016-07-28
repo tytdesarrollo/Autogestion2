@@ -7,7 +7,9 @@ use yii\helpers\Html;
 <table class="table table-bordered">
 
 
- <?php foreach($rows as $item): ?>
+ <?php 
+ 
+foreach($rows as $item): ?>
 
  <tr>
 
