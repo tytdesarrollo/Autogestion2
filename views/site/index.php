@@ -49,7 +49,7 @@ $this->title = '.:Autogestion:.';
 						<?= $form->field($model, 'usuario', ['options' => ['class' => 'form-group label-floating']])->textInput(['autofocus' => true]) ?>
 						 <?= $form->field($model, 'clave', ['options' => ['class' => 'form-group label-floating']])->passwordInput() ?>
 						<div class="form-group text-center">
-							<?= Html::submitButton('Ingresar', ['class' => 'btn btn-raised btn-info btn-block', 'name' => 'send-button']) ?>
+							<?= Html::submitButton('Ingresar', ['class' => 'btn btn-raised btn-info btn-block', 'name' => 'login-button']) ?>
 						</div>
 					<?php ActiveForm::end(); ?>
 				</div>

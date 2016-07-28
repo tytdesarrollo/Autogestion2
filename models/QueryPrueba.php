@@ -7,15 +7,10 @@ use yii\db\Command;
 
 class QueryPrueba extends Command{
 	
-	public static function getDb(){
+	
 		
-		return Yii::$app->telmovil;
-	}
+		return Yii::$app->telmovil->createCommand("SELECT A.NOM_EPL AS NOMBRE FROM TALENTOS.EMPLEADOS_BASIC A, TALENTOS.EMPLEADOS_GRAL B
+WHERE  A.ESTADO = 'A' AND A.COD_EPL = B.COD_EPL")->queryAll();
 	
-	public static function tableName(){
-	
-		return "TALENTOS.T_ADMIN";
-	}
 	
 }
-

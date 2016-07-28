@@ -22,8 +22,6 @@ use yii\helpers\Url;
 use app\models\Users;
 use app\models\FormRegister;
 use app\models\Empleados_basic;
-use app\models\QueryPrueba;
-use yii\db\Command;
 
 
 
@@ -356,9 +354,11 @@ class SiteController extends Controller
 	}
 	
 	public function actionSaluda(){
+		
 
-		$rows = Yii::$app->confidencial->createCommand("SELECT A.NOM_EPL AS NOMBRE FROM TALENTOS.EMPLEADOS_BASIC A, TALENTOS.EMPLEADOS_GRAL B
+		$rows = Yii::$app->confidencial->createCommand("SELECT A.NOM_EPL AS NOMBRE FROM EMPLEADOS_BASIC A, EMPLEADOS_GRAL B
 WHERE  A.ESTADO = 'A' AND A.COD_EPL = B.COD_EPL")->queryAll();
+
 
         return $this->render('saluda', ['rows' => $rows]);
 	}
@@ -474,7 +474,7 @@ WHERE  A.ESTADO = 'A' AND A.COD_EPL = B.COD_EPL")->queryAll();
 		 $this->layout=false;       
 		
 		if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+			return $this->redirect( ['site/principal']);
         }
 
         $model = new IndexForm();
@@ -496,6 +496,7 @@ WHERE  A.ESTADO = 'A' AND A.COD_EPL = B.COD_EPL")->queryAll();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
+		
         return $this->render('login', [
             'model' => $model,
         ]);
@@ -508,17 +509,9 @@ WHERE  A.ESTADO = 'A' AND A.COD_EPL = B.COD_EPL")->queryAll();
         return $this->goHome();
     }
 
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
+    public function actionVacaciones()
+    {        
+                return $this->render('vacaciones');
     }
 
     public function actionPrincipal()
