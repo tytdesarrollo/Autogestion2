@@ -53,7 +53,7 @@ AppAsset::register($this);
 					<a href="#" data-toggle="dropdown" class="dropdown-toggle menu-trigger"><i class="btn-menu-profile glyphicon glyphicon-option-vertical icon__24"></i></a>
 					<ul class="dropdown-menu menu-profile">
 						<li>
-							<p class="txt-name fnt__Medium">John Doe</p>
+							<p class="txt-name fnt__Medium"><?= Yii::$app->user->identity->usuario ?></p>
 							<p class="txt-email">john.doe@hello.com</p>
 						</li>
 						<li class="divider"></li>
@@ -76,7 +76,12 @@ AppAsset::register($this);
 							<button class="btn btn-raised btn-default btn-sm">Ver Perfil</button>
 							</div>
 							<div class="pull-right">
-								<button class="btn btn-raised btn-default btn-sm">Salir</button>
+							<?= Html::beginForm(['/site/logout'],
+							'post', 
+							['class' => 'form-inline']); ?>
+							<?= Html::submitButton('Salir',['class' => 'btn btn-raised btn-default btn-sm']) ?>
+							<?= Html::endForm() ?>
+								<!--<button class="btn btn-raised btn-default btn-sm">Salir</button>-->
 							</div>
 						</li>
 					</ul>
