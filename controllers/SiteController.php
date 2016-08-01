@@ -28,27 +28,19 @@ use app\models\Empleados_basic;
 class SiteController extends Controller
 {
 	
-	
-	private function randKey($str='', $long=0)
-    {
-        $key = null;
-        $str = str_split($str);
-        $start = 0;
-        $limit = count($str)-1;
-        for($x=0; $x<$long; $x++)
-        {
-            $key .= $str[rand($start, $limit)];
-        }
-        return $key;
-    }
   
       public function actionCopia()
     {
         $query = new Empleados_basic;
+		
+		if (Yii::$app->user->isGuest) {
+			 return $this->goBack();
+        }else{
 
         $emplea = $query->find()->where(["ESTADO"=>"A","CEDULA"=>"79944076"])->all();
 
         return $this->render('copia', ['emplea' => $emplea]);
+		}
     } 
 
   
@@ -511,11 +503,20 @@ WHERE  A.ESTADO = 'A' AND A.COD_EPL = B.COD_EPL")->queryAll();
 
     public function actionVacaciones()
     {        
+	if (Yii::$app->user->isGuest) {
+			 return $this->goBack();
+        }else{
                 return $this->render('vacaciones');
+		}
     }
 
     public function actionPrincipal()
     {
+				if (Yii::$app->user->isGuest) {
+			 return $this->goBack();
+        }else{
+		
         return $this->render('principal');
+		}
     }
 }
