@@ -73,7 +73,9 @@ AppAsset::register($this);
 						</li>
 						<li class="divider"></li>
 						<li>
-							
+							<div class="pull-left">
+							<button class="btn btn-raised btn-default btn-sm">Ver Perfil</button>
+							</div>
 							<div class="pull-right">
 							<?= Html::beginForm(['/site/logout'],
 							'post', 
@@ -107,22 +109,38 @@ AppAsset::register($this);
 					<?= Html::a('<i class="material-icons">&#xE873;</i><span>Certificado Laboral</span>', ['site/certificadolaboral']) ?></li>
 					<li>
 					<?= Html::a('<i class="material-icons">&#xE53E;</i><span>Comprobantes de pago</span>', ['site/comprobantespago']) ?></li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE84F;</i><span>Certificado de ingresos y retención</span>', ['site/certificadosretencion']) ?></li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xEB48;</i><span>Vacaciones</span>', ['site/vacaciones']) ?></li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE856;</i><span>Trabajo por turnos</span>', ['site/novedades']) ?></li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE3F3;</i><span>Incapacidades</span>', ['site/incapacidades']) ?></li>					
+					<li class="icon icon-menu-left">
+						<a href="#"><i class="material-icons">&#xE84F;</i><span>Certificado de ingresos y retención</span></a>
+						<div class="mp-level">
+								<h2>Certificado de ingresos y retención</h2>
+							<a class="mp-back" href="#">Atrás</a>
+							<ul>
+								<li><a href="#">Email masivo</a></li>
+								<li><a href="#">Descarga</a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="icon icon-menu-left">
+						<a href="#"><i class="material-icons">&#xEB48;</i><span>Vacaciones</span></a>
+						<div class="mp-level">
+							<h2>Vacaciones</h2>
+							<a class="mp-back" href="#">Atrás</a>
+							<ul>
+								<li><a href="#">Historial solicitudes empleado</a></li>
+								<li><a href="#">Historial solicitudes rechazadas</a></li>
+								<li><a href="#">Solicitudes Empleado vaciones vigentes</a></li>
+								<li><a href="#">Aprobar, editar, Rechazar solicitudes</a></li>
+							</ul>
+						</div>
+					</li>
+					<li><a href="#"><i class="material-icons">&#xE856;</i><span>Trabajo por turnos</span></a></li>
+					<li><a href="#"><i class="material-icons">&#xE3F3;</i><span>incapacidades</span></a></li>
 					<li class="divider"></li>
 					<li>
 						<p class="category">Información</p>
 					</li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE801;</i><span>Actualidad laboral</span>', ['site/actualidadlaboral']) ?></li>	
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE916;</i><span>Cronográma cierre de nómina</span>', ['site/cronogramanomina']) ?></li>	
+					<li><a href="#"><i class="material-icons">&#xE801;</i><span>Actualidad laboral</span></a></li>
+					<li><a href="#"><i class="material-icons">&#xE916;</i><span>Cronográma cierre de nómina</span></a></li>
 				</ul>
 			</div>
 		</nav>

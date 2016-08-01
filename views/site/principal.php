@@ -28,8 +28,8 @@ $this->title = 'Pagina Principal';
 				</div>
 				<div class="panel panel-vacaci">
 					<div class="panel-heading">
-						<h4 class="fnt__Medium">Agenda aquí tus vacaciones!</h4>
-						<button type="button" class="btn btn-raised btn-float btn-amber"><i class="material-icons">&#xEB48;</i></button>
+						<h4 class="fnt__Medium">Agenda aquí tus vacaciones!</h4>						
+						<?= Html::a('<i class="material-icons">&#xEB48;</i>', ['site/vacaciones'], ['class'=>'btn btn-raised btn-float btn-amber']) ?>
 					</div>
 					<div class="panel-body text-center">
 						<div class="content-main-days">
@@ -46,7 +46,8 @@ $this->title = 'Pagina Principal';
 					<div class="col-sm-6">
 						<div class="panel panel-certify text-center">
 							<div class="panel-body">
-								<div class="content-btn"><a href="#"><i class="material-icons">&#xE873;</i></a></div>
+								<div class="content-btn">
+								<?= Html::a('<i class="material-icons">&#xE873;</i>', ['site/certificadolaboral']) ?></div>
 								<div>
 									<h4 class="fnt__Medium">Certificado Laboral</h4>
 									<div class="divider"></div>
@@ -58,7 +59,7 @@ $this->title = 'Pagina Principal';
 					<div class="col-sm-6">
 						<div class="panel panel-cert-ing text-center">
 							<div class="panel-body">
-								<div class="content-btn"><a href="#"><i class="material-icons">&#xE84F;</i></a></div>
+								<div class="content-btn"><?= Html::a('<i class="material-icons">&#xE84F;</i>', ['site/certificadosretencion']) ?></div>
 								<div>
 									<h4 class="fnt__Medium">Certificado de ingresos y retención</h4>
 									<div class="divider"></div>
@@ -74,7 +75,7 @@ $this->title = 'Pagina Principal';
 					<div class="panel-heading">
 						<h4 class="fnt__Medium">Comprobantes de pago</h4>
 						<small>Genera de manera personalizada tus comprobantes de pago.</small>
-						<button type="button" class="btn btn-raised btn-float btn-blue-A700"><i class="material-icons">&#xE53E;</i></button>
+						<?= Html::a('<i class="material-icons">&#xE53E;</i>', ['site/comprobantespago'], ['class'=>'btn btn-raised btn-float btn-blue-A700']) ?>						
 					</div>
 					<div class="panel-body">
 						<table class="table table-widget-comp-pago table-striped table-hover mrg__top-30">
@@ -117,7 +118,7 @@ $this->title = 'Pagina Principal';
 								<?= Html::img('@web/img/turnos.jpg', ['alt' => 'Trabajo por turnos', 'class' => 'img-bg img-responsive']) ?>
 							</div>
 							<div class="panel-body">
-								<button type="button" class="btn btn-raised btn-float btn-blue-A700"><i class="material-icons">&#xE856;</i></button>
+							<?= Html::a('<i class="material-icons">&#xE856;</i>', ['site/novedades'], ['class'=>'btn btn-raised btn-float btn-blue-A700']) ?>
 								<h4 class="fnt__Medium">Te invitamos a registrar tus novedades</h4>
 								<p>Este módulo permitirá optimizar el proceso de registro y transcripción de los reportes mensuales.</p>
 							</div>
@@ -126,7 +127,9 @@ $this->title = 'Pagina Principal';
 					<div class="col-sm-6">
 						<div class="panel panel-incapacidades text-center">
 							<div class="panel-body">
-								<div class="content-btn"><a href="#"><i class="material-icons">&#xE3F3;</i></a></div>
+								<div class="content-btn">
+								<?= Html::a('<i class="material-icons">&#xE3F3;</i>', ['site/incapacidades']) ?>
+								</div>
 								<div>
 									<h4 class="fnt__Medium">Incapacidades</h4>
 									<div class="divider"></div>
