@@ -147,14 +147,76 @@ $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>
+
 <script>
   $(function () {
     $.material.init();
 	$('[data-toggle="tooltip"]').tooltip();
+	$(".slide-box-back .btn-toggle").click(function(){
+	  $(".container-v").toggleClass("sld-in");
+	});
+	$("#help").modal("show");
   });
 </script>
 <script>
 	new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ), {
 		type : 'cover'
 	} );
+</script>
+<script>
+	$(function() {
+		
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			defaultDate: '2016-06-12',
+			selectable: true,
+			selectHelper: true,
+			select: function(start, end) {
+				var title = prompt('Event Title:');
+				var eventData;
+				if (title) {
+					eventData = {
+						title: title,
+						start: start,
+						end: end
+					};
+					$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+				}
+				$('#calendar').fullCalendar('unselect');
+			},
+			editable: true,
+			eventLimit: true, // allow "more" link when too many events
+			events: [
+				{
+					title: 'All Day Event',
+					start: '2016-06-01'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2016-06-09T16:00:00'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2016-06-16T16:00:00'
+				},
+				{
+					title: 'Birthday Party',
+					start: '2016-06-13T07:00:00'
+				},
+				{
+					title: 'Click for Google',
+					url: 'http://google.com/',
+					start: '2016-06-28'
+				}
+			]
+		});
+		
+	});
+
 </script>
