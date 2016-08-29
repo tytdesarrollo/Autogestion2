@@ -22,6 +22,7 @@ use yii\helpers\Url;
 use app\models\Users;
 use app\models\FormRegister;
 use app\models\Empleados_basic;
+use app\models\Calendario;
 
 
 
@@ -502,11 +503,16 @@ WHERE  A.ESTADO = 'A' AND A.COD_EPL = B.COD_EPL")->queryAll();
     }
 
     public function actionVacaciones()
-    {        
+    {
+        
+	
 	if (Yii::$app->user->isGuest) {
 			 return $this->goBack();
         }else{
-                return $this->render('vacaciones');
+			
+			$events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
+			
+                return $this->render('vacaciones',['events' => $events]);
 		}
     }
 
