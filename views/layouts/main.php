@@ -164,32 +164,46 @@ $this->endBody() ?>
 	} );
 </script>
 <script>
-	$(function() {
+	$(document).ready(function() {
 		
 		$('#calendar').fullCalendar({
 			header: {
-				left: 'prev,next today',
+				left: 'prev, ,next',
 				center: 'title',
-				right: 'month,agendaWeek,agendaDay'
-			},
-			defaultDate: '2016-06-12',
-			selectable: true,
-			selectHelper: true,
-			select: function(start, end) {
-				var title = prompt('Event Title:');
-				var eventData;
-				if (title) {
-					eventData = {
-						title: title,
-						start: start,
-						end: end
-					};
-					$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-				}
-				$('#calendar').fullCalendar('unselect');
-			},
+				right: ''
+			},	
+			businessHours: true,
 			editable: true,
 			eventLimit: true, // allow "more" link when too many events
+			selectable: true,
+			selectHelper: true,
+			selectOverlap: false,
+			select: function(start, end) {
+				
+				$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
+				$('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
+				$('#ModalAdd').modal('show');
+				
+			},
+			eventRender: function(event, element) {
+				element.bind('dblclick', function() {
+					$('#ModalEdit #id').val(event.id);
+					$('#ModalEdit #title').val(event.title);
+					$('#ModalEdit #color').val(event.color);
+					$('#ModalEdit').modal('show');
+					
+				});
+			},
+			eventDrop: function(event, delta, revertFunc) { // si changement de position
+
+				edit(event);
+
+			},
+			eventResize: function(event,dayDelta,minuteDelta,revertFunc) { // si changement de longueur
+
+				edit(event);
+
+			},
 			events: [
 				{
 					title: 'All Day Event',
@@ -216,6 +230,35 @@ $this->endBody() ?>
 				}
 			]
 		});
+		
+		function edit(event){
+			start = event.start.format('YYYY-MM-DD HH:mm:ss');
+			if(event.end){
+				end = event.end.format('YYYY-MM-DD HH:mm:ss');
+			}else{
+				end = start;
+			}
+			
+			id =  event.id;
+			
+			Event = [];
+			Event[0] = id;
+			Event[1] = start;
+			Event[2] = end;
+			
+			$.ajax({
+			 url: 'editEventDate.php',
+			 type: "POST",
+			 data: {Event:Event},
+			 success: function(rep) {
+					if(rep == 'OK'){
+						alert('Registro actualizado');
+					}else{
+						alert('El registro no fue guardado, intente de nuevo.'); 
+					}
+				}
+			});
+		}
 		
 	});
 

@@ -48,7 +48,7 @@ class IndexForm extends Model
             $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->clave)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, 'Usuario o contraseña incorrecto.');
             }
         }
     }

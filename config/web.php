@@ -53,6 +53,7 @@ $config = [
         'confidencial' => require(__DIR__ . '/confidencial.php'),
         'tgt' => require(__DIR__ . '/tgt.php'),
         'fundacion' => require(__DIR__ . '/fundacion.php'),
+        'mysqldb' => require(__DIR__ . '/mysqldb.php'),
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
