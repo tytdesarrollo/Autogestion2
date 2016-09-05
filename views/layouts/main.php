@@ -10,9 +10,10 @@ use yii\bootstrap\Dropdown;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
+
 AppAsset::register($this);
 ?>
-<?php $this->beginPage() ?>
+	<?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
@@ -24,8 +25,8 @@ AppAsset::register($this);
 	<script src="../web/js/modernizr.custom.js"></script>
 </head>
 <body>
-<?php $this->beginBody() 
-?>
+	<?php $this->beginBody() ?>
+	<?php @$events = $this->params['customParam']; ?>
 <header id="header" class="clearfix">
 	<nav id="menu" class="navbar">
 		<div class="container-fluid bg-blue">
@@ -55,7 +56,7 @@ AppAsset::register($this);
 					<ul class="dropdown-menu menu-profile">
 						<li>
 							<p class="txt-name fnt__Medium"><?= Yii::$app->user->identity->usuario ?></p>
-							<p class="txt-email">john.doe@hello.com</p>
+							<p class="txt-email">asdasd</p>
 						</li>
 						<li class="divider"></li>
 						<li>
@@ -142,11 +143,10 @@ AppAsset::register($this);
 		<p class="pull-right">Powered by <a href="http://www.talentsw.com/" target="_blank">Talentos & Tecnología</a></p>
 	</div>
 </footer>
-<?php 
-$this->endBody() ?>
+	<?php $this->endBody() ?>
 </body>
 </html>
-<?php $this->endPage() ?>
+	<?php $this->endPage() ?>
 
 <script>
   $(function () {
@@ -173,7 +173,7 @@ $this->endBody() ?>
 				right: ''
 			},	
 			businessHours: true,
-			editable: true,
+			editable: false,
 			eventLimit: true, // allow "more" link when too many events
 			selectable: true,
 			selectHelper: true,
@@ -204,31 +204,46 @@ $this->endBody() ?>
 				edit(event);
 
 			},
+			
+			<?php
+				if(isset($events)){			
+			?>
+
 			events: [
-				{
-					title: 'All Day Event',
-					start: '2016-06-01'
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2016-06-09T16:00:00'
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2016-06-16T16:00:00'
-				},
-				{
-					title: 'Birthday Party',
-					start: '2016-06-13T07:00:00'
-				},
-				{
-					title: 'Click for Google',
-					url: 'http://google.com/',
-					start: '2016-06-28'
+			
+			<?php
+								
+			foreach($events as $event): 
+			
+				$start = explode(" ", $event['START']);
+				$end = explode(" ", $event['END']);
+				if($start[1] == '00:00:00'){
+					$start = $start[0];
+				}else{
+					$start = $event['START'];
 				}
+				if($end[1] == '00:00:00'){
+					$end = $end[0];
+				}else{
+					$end = $event['END'];
+				}
+			?>
+				{
+					id: '<?php echo $event['ID']; ?>',
+					title: '<?php echo $event['TITLE']; ?>',
+					start: '<?php echo $start; ?>',
+					end: '<?php echo $end; ?>',
+					color: '<?php echo $event['COLOR']; ?>',
+					overlap: false,
+					
+					
+				},
+						
+			<?php endforeach; ?>
+					
 			]
+			
+			<?php }; ?>
 		});
 		
 		function edit(event){
