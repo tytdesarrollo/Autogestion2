@@ -504,17 +504,40 @@ WHERE  A.ESTADO = 'A' AND A.COD_EPL = B.COD_EPL")->queryAll();
 
     public function actionVacaciones()
     {
-        
-	
+        	
 	if (Yii::$app->user->isGuest) {
 			 return $this->goBack();
         }else{
 			
 			$events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
 			
+			$this->view->params['customParam'] = $events;
+
                 return $this->render('vacaciones',['events' => $events]);
 		}
     }
+	
+	public function actionAddevent(){
+		
+		if (Yii::$app->request->post()){
+			
+			$titulo = Html::encode($_POST["title"]);
+			if(isset($titulo)){		
+
+					echo "Alumno con id $titulo eliminado con exito, redireccionando ..";
+					echo "<meta http-equiv='refresh' content='3;'".Url::toRoute("site/vacaciones")."'>";
+					
+				}else{
+					
+				echo "ha ocurrido un error, redireccionando";
+				echo "<meta http-equiv='refresh' content='3;'".Url::toRoute("site/vacaciones")."'>";
+				}
+				
+			}else{
+			
+			return $this->redirect(["site/vacaciones"]);
+		}
+	}
 
     public function actionPrincipal()
     {

@@ -1,5 +1,7 @@
 <?php
+use yii\helpers\Url;
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 $this->title = 'Vacaciones';
 ?>
 
@@ -458,7 +460,7 @@ $this->title = 'Vacaciones';
 						<div class="modal-header">
 							<div class="header-box">
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<h3 class="modal-title txt__light-100" id="helpLabel">Recuerda!!!</h3>
+								<h3 class="modal-title txt__light-100" id="helpLabel">Recuerda!!! </h3>
 							</div>
 						</div>
 						<div class="modal-body">
@@ -555,8 +557,9 @@ $this->title = 'Vacaciones';
 		<div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		  <div class="modal-dialog" role="document">
 			<div class="modal-content">
-			<form class="form-horizontal" method="POST" action="addEvent.php">
 			
+	
+ <?= Html::beginForm(Url::toRoute("site/addevent"), "POST") ?>
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="myModalLabel">Solicitud de Vacaciones</h4>
@@ -603,7 +606,7 @@ $this->title = 'Vacaciones';
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar Solicitud</button>
 				<button type="submit" class="btn btn-primary">Guardar Fecha</button>
 			  </div>
-			</form>
+			<?= Html::endForm() ?>
 			</div>
 		  </div>
 		</div>
@@ -612,7 +615,14 @@ $this->title = 'Vacaciones';
 		<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		  <div class="modal-dialog" role="document">
 			<div class="modal-content">
-			<form class="form-horizontal" method="POST" action="editEventTitle.php">
+						<?php $form = ActiveForm::begin([
+    'method' => 'post',
+	'options' => [
+                'class' => 'form-horizontal'
+             ],
+ 'id' => 'editEventTitle',
+]);
+?>
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="myModalLabel">Desea eliminar esta solicitud?</h4>
@@ -631,7 +641,7 @@ $this->title = 'Vacaciones';
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 				<button type="submit" class="btn btn-primary">Eliminar Solicitud</button>
 			  </div>
-			</form>
+				<?php $form->end() ?>
 			</div>
 		  </div>
 		</div>
