@@ -50,45 +50,54 @@ AppAsset::register($this);
 				<?= Html::img('@web/img/logo_small.svg', ['alt' => 'Auto Gestión Web', 'height' => '38px']) ?>
 				<div class="hidden-xs" style="margin-top: 10px;"><p>Mesa Centro de servicios compartidos.</p></div>
 			</div>
-			<div class="content__icon-menu__aux pull-right">
-				<div class="dropdown">
-					<a href="#" data-toggle="dropdown" class="dropdown-toggle menu-trigger"><i class="btn-menu-profile glyphicon glyphicon-option-vertical icon__24"></i></a>
-					<ul class="dropdown-menu menu-profile">
-						<li>
-							<p class="txt-name fnt__Medium"><?= Yii::$app->user->identity->usuario ?></p>
-							<p class="txt-email">asdasd</p>
-						</li>
-						<li class="divider"></li>
-						<li>
-							<p class="txt-cargo fnt__Medium">Profesional Nómina</p>
-							<p class="txt-info">C.C. 52513735</p>
-							<p class="txt-info">BOGOTÁ</p>
-						</li>
-						<li>
-							<p class="txt-subcat fnt__Medium">Jefe Inmediato:</p>
-							<p class="txt-info">Luis Alejandro Galindo Ramirez</p>
-						</li>
-						<li>
-							<p class="txt-subcat fnt__Medium">Regional:</p>
-							<p class="txt-info">Administración Central</p>
-						</li>
-						<li class="divider"></li>
-						<li>
-							
-							<div class="pull-right">
-							<?= Html::beginForm(['/site/logout'],
-							'post', 
-							['class' => 'form-inline']); ?>
-							<?= Html::submitButton('Salir',['class' => 'btn btn-raised btn-default btn-sm']) ?>
-							<?= Html::endForm() ?>
-								<!--<button class="btn btn-raised btn-default btn-sm">Salir</button>-->
-							</div>
-						</li>
-					</ul>
+			<div class="pull-right">
+				<div class="content__icon-menu__aux">
+					<a id="search" href="#" class="menu-trigger"><i class="material-icons icon__26">&#xE8B6;</i></a>
+				</div>
+				<div class="content__icon-menu__aux">
+					<a id="avatar" href="#" class="menu-trigger">
+						<?= Html::img('@web/img/avatar.png', ['alt' => 'avatar', 'class' => 'img-avatar img-circle']) ?>
+					</a>
+				</div>
+				<div class="content__icon-menu__aux">
+					<div class="dropdown">
+						<a href="#" data-toggle="dropdown" class="dropdown-toggle menu-trigger"><i class="btn-menu-profile glyphicon glyphicon-option-vertical icon__24"></i></a>
+						<ul class="dropdown-menu menu-profile">
+							<li>
+								<p class="txt-name fnt__Medium"><?= Yii::$app->user->identity->usuario ?></p>
+								<p class="txt-email">john.doe@hello.com</p>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<p class="txt-cargo fnt__Medium">Profesional Nómina</p>
+								<p class="txt-info">C.C. 52513735</p>
+								<p class="txt-info">BOGOTÁ</p>
+							</li>
+							<li>
+								<p class="txt-subcat fnt__Medium">Jefe Inmediato:</p>
+								<p class="txt-info">Luis Alejandro Galindo Ramirez</p>
+							</li>
+							<li>
+								<p class="txt-subcat fnt__Medium">Regional:</p>
+								<p class="txt-info">Administración Central</p>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<div class="pull-right">
+								<?= Html::beginForm(['/site/logout'],
+								'post', 
+								['class' => 'form-inline']); ?>
+								<?= Html::submitButton('Salir',['class' => 'btn btn-raised btn-default btn-sm']) ?>
+								<?= Html::endForm() ?>
+								</div>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
 	</nav>
+	<div class="top-search-content"><div class="search-content"><i id="search-close" class="material-icons clear-icon">&#xE14C;</i><input type="text" class="search-input"><i class="material-icons search-icon">&#xE8B6;</i></div></div>
 </header>
 <section class="scroller-inner">
 	<aside class="mp-pusher" id="mp-pusher">
@@ -159,6 +168,22 @@ AppAsset::register($this);
   });
 </script>
 <script>
+	(function(){
+        $('body').on('click', '#search', function(e){
+            e.preventDefault();
+
+            $('#header').addClass('search-toggled');
+            $('.top-search-content input').focus();
+        });
+
+        $('body').on('click', '#search-close', function(e){
+            e.preventDefault();
+
+            $('#header').removeClass('search-toggled');
+        });
+    })();
+</script>
+<script>
 	new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ), {
 		type : 'cover'
 	} );
@@ -168,10 +193,11 @@ AppAsset::register($this);
 		
 		$('#calendar').fullCalendar({
 			header: {
-				left: 'prev, ,next',
+				left: 'prev',
 				center: 'title',
-				right: ''
-			},	
+				right: 'next'
+			},
+			height: 'auto',
 			businessHours: true,
 			editable: false,
 			eventLimit: true, // allow "more" link when too many events
