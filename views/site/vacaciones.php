@@ -546,7 +546,6 @@ $this->title = 'Vacaciones';
 						<p class="no-mrg"><strong>Desde: 16/05/2016</strong></p>
 						<p class="no-mrg"><strong>Hasta: 31/05/2016</strong></p>
 						<hr>
-						<button class="btn btn-default no-mrg">Cambiar fecha</button>
 					</div>
 				</div>
 				<div class="content-slide">
@@ -643,7 +642,53 @@ $this->title = 'Vacaciones';
 							<!-- /.CALENDARIO -->
 						</div>
 						<div class="slide-item detail pdg__16">
-							<h4>contenido pendiente</h4>
+							<div class="text-center pdg__16">
+								<h3 class="no-mrg fnt__Medium">Vacaciones solicitadas</h3>
+							</div>
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Fecha inicio</th>
+											<th>Fecha fin</th>
+											<th>Días hábiles</th>
+											<th>Estado</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>24-04-2016</td>
+											<td>24-04-2016</td>
+											<td>10</td>
+											<td><div class="label-table label-success">Aprobado</div></td>
+										</tr>
+										<tr>
+											<td>24-04-2016</td>
+											<td>24-04-2016</td>
+											<td>10</td>
+											<td><div class="label-table label-success">Aprobado</div></td>
+										</tr>
+										<tr>
+											<td>24-04-2016</td>
+											<td>24-04-2016</td>
+											<td>10</td>
+											<td><div class="label-table label-success">Aprobado</div></td>
+										</tr>
+										<tr>
+											<td>24-04-2016</td>
+											<td>24-04-2016</td>
+											<td>10</td>
+											<td><div class="label-table label-success">Aprobado</div></td>
+										</tr>
+										<tr>
+											<td>24-04-2016</td>
+											<td>24-04-2016</td>
+											<td>10</td>
+											<td><div class="label-table label-success">Aprobado</div></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
