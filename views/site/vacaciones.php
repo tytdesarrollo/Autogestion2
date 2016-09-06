@@ -46,60 +46,62 @@ $this->title = 'Vacaciones';
 										<h3 class="fnt__Medium">Historial solicitudes de vacaciones</h3>
 									</div>
 									<div class="body">
-										<table class="table">
-											<thead>
-												<tr>
-													<th>Consecutivo</th>
-													<th>Fecha solicitud</th>
-													<th>Fecha inicio</th>
-													<th>Fecha fin</th>
-													<th>Días hábiles</th>
-													<th>Estado</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>00001</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00002</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00003</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00004</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00005</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-											</tbody>
-										</table>
+										<div class="table-responsive">
+											<table class="table">
+												<thead>
+													<tr>
+														<th>Consecutivo</th>
+														<th>Fecha solicitud</th>
+														<th>Fecha inicio</th>
+														<th>Fecha fin</th>
+														<th>Días hábiles</th>
+														<th>Estado</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>00001</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td><div class="label-table label-success">Aprobado</div></td>
+													</tr>
+													<tr>
+														<td>00002</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td><div class="label-table label-success">Aprobado</div></td>
+													</tr>
+													<tr>
+														<td>00003</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td><div class="label-table label-success">Aprobado</div></td>
+													</tr>
+													<tr>
+														<td>00004</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td><div class="label-table label-success">Aprobado</div></td>
+													</tr>
+													<tr>
+														<td>00005</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td><div class="label-table label-success">Aprobado</div></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
 								<div class="tab-pane fade in" id="tab2">
@@ -107,60 +109,62 @@ $this->title = 'Vacaciones';
 										<h3 class="fnt__Medium">Historial solicitudes de vacaciones</h3>
 									</div>
 									<div class="body">
-										<table class="table">
-											<thead>
-												<tr>
-													<th>Consecutivo</th>
-													<th>Fecha solicitud</th>
-													<th>Fecha inicio</th>
-													<th>Fecha fin</th>
-													<th>Días hábiles</th>
-													<th>Estado</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>00001</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00002</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00003</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00004</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00005</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-											</tbody>
-										</table>
+										<div class="table-responsive">
+											<table class="table">
+												<thead>
+													<tr>
+														<th>Consecutivo</th>
+														<th>Fecha solicitud</th>
+														<th>Fecha inicio</th>
+														<th>Fecha fin</th>
+														<th>Días hábiles</th>
+														<th>Estado</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>00001</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td><div class="label-table label-success">Aprobado</div></td>
+													</tr>
+													<tr>
+														<td>00002</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td><div class="label-table label-success">Aprobado</div></td>
+													</tr>
+													<tr>
+														<td>00003</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td><div class="label-table label-success">Aprobado</div></td>
+													</tr>
+													<tr>
+														<td>00004</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td><div class="label-table label-success">Aprobado</div></td>
+													</tr>
+													<tr>
+														<td>00005</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td><div class="label-table label-success">Aprobado</div></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
 								<div class="tab-pane fade in" id="tab3">
@@ -168,60 +172,62 @@ $this->title = 'Vacaciones';
 										<h3 class="fnt__Medium">Historial solicitudes de vacaciones</h3>
 									</div>
 									<div class="body">
-										<table class="table">
-											<thead>
-												<tr>
-													<th>Consecutivo</th>
-													<th>Fecha solicitud</th>
-													<th>Fecha inicio</th>
-													<th>Fecha fin</th>
-													<th>Días hábiles</th>
-													<th>Estado</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>00001</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00002</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00003</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00004</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00005</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-											</tbody>
-										</table>
+										<div class="table-responsive">
+											<table class="table">
+												<thead>
+													<tr>
+														<th>Consecutivo</th>
+														<th>Fecha solicitud</th>
+														<th>Fecha inicio</th>
+														<th>Fecha fin</th>
+														<th>Días hábiles</th>
+														<th>Estado</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>00001</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td><div class="label-table label-success">Aprobado</div></td>
+													</tr>
+													<tr>
+														<td>00002</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td><div class="label-table label-success">Aprobado</div></td>
+													</tr>
+													<tr>
+														<td>00003</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td><div class="label-table label-success">Aprobado</div></td>
+													</tr>
+													<tr>
+														<td>00004</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td><div class="label-table label-success">Aprobado</div></td>
+													</tr>
+													<tr>
+														<td>00005</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td><div class="label-table label-success">Aprobado</div></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
 								<div class="tab-pane fade in" id="tab4">
@@ -229,152 +235,154 @@ $this->title = 'Vacaciones';
 										<h3 class="fnt__Medium">Solicitudes por aprobar o rechazar</h3>
 									</div>
 									<div class="body">
-										<table class="table">
-											<thead>
-												<tr>
-													<th>Consec</th>
-													<th>Código</th>
-													<th>Cédula</th>
-													<th>Nombres y apellidos</th>
-													<th>Área</th>
-													<th>Cargo</th>
-													<th>Fecha inicial</th>
-													<th>Fecha final</th>
-													<th>Fecha solicitud</th>
-													<th>Días hábiles</th>
-													<th>Aceptar</th>
-													<th>Rechazar</th>
-													<th>Comentario rechazo</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>00001</td>
-													<td>12345678</td>
-													<td>12345678</td>
-													<td>John Doe</td>
-													<td>Gerencia</td>
-													<td>Jefe nómina</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td>
-														<div class="togglebutton">
-															<label>
-																<input type="checkbox" checked>
-															</label>
-														</div>
-													</td>
-													<td>
-														<button type="button" class="btn btn-table btn-danger">
-															<i class="material-icons">&#xE15C;</i>
-														</button>
-													</td>
-													<td><input class="input-table" type="text"></td>
-												</tr>
-												<tr>
-													<td>00002</td>
-													<td>12345678</td>
-													<td>12345678</td>
-													<td>John Doe</td>
-													<td>Gerencia</td>
-													<td>Jefe nómina</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td>
-														<div class="togglebutton">
-															<label>
-																<input type="checkbox">
-															</label>
-														</div>
-													</td>
-													<td>
-														<button type="button" class="btn btn-table btn-danger">
-															<i class="material-icons">&#xE15C;</i>
-														</button>
-													</td>
-													<td><input class="input-table" type="text"></td>
-												</tr>
-												<tr>
-													<td>00003</td>
-													<td>12345678</td>
-													<td>12345678</td>
-													<td>John Doe</td>
-													<td>Gerencia</td>
-													<td>Jefe nómina</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td>
-														<div class="togglebutton">
-															<label>
-																<input type="checkbox">
-															</label>
-														</div>
-													</td>
-													<td>
-														<button type="button" class="btn btn-table btn-danger">
-															<i class="material-icons">&#xE15C;</i>
-														</button>
-													</td>
-													<td><input class="input-table" type="text"></td>
-												</tr>
-												<tr>
-													<td>00004</td>
-													<td>12345678</td>
-													<td>12345678</td>
-													<td>John Doe</td>
-													<td>Gerencia</td>
-													<td>Jefe nómina</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td>
-														<div class="togglebutton">
-															<label>
-																<input type="checkbox">
-															</label>
-														</div>
-													</td>
-													<td>
-														<button type="button" class="btn btn-table btn-danger">
-															<i class="material-icons">&#xE15C;</i>
-														</button>
-													</td>
-													<td><input class="input-table" type="text"></td>
-												</tr>
-												<tr>
-													<td>00005</td>
-													<td>12345678</td>
-													<td>12345678</td>
-													<td>John Doe</td>
-													<td>Gerencia</td>
-													<td>Jefe nómina</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td>
-														<div class="togglebutton">
-															<label>
-																<input type="checkbox">
-															</label>
-														</div>
-													</td>
-													<td>
-														<button type="button" class="btn btn-table btn-danger">
-															<i class="material-icons">&#xE15C;</i>
-														</button>
-													</td>
-													<td><input class="input-table" type="text"></td>
-												</tr>
-											</tbody>
-										</table>
+										<div class="table-responsive">
+											<table class="table">
+												<thead>
+													<tr>
+														<th>Consec</th>
+														<th>Código</th>
+														<th>Cédula</th>
+														<th>Nombres y apellidos</th>
+														<th>Área</th>
+														<th>Cargo</th>
+														<th>Fecha inicial</th>
+														<th>Fecha final</th>
+														<th>Fecha solicitud</th>
+														<th>Días hábiles</th>
+														<th>Aceptar</th>
+														<th>Rechazar</th>
+														<th>Comentario rechazo</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>00001</td>
+														<td>12345678</td>
+														<td>12345678</td>
+														<td>John Doe</td>
+														<td>Gerencia</td>
+														<td>Jefe nómina</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td>
+															<div class="togglebutton">
+																<label>
+																	<input type="checkbox" checked>
+																</label>
+															</div>
+														</td>
+														<td>
+															<button type="button" class="btn btn-table btn-danger">
+																<i class="material-icons">&#xE15C;</i>
+															</button>
+														</td>
+														<td><input class="input-table" type="text"></td>
+													</tr>
+													<tr>
+														<td>00002</td>
+														<td>12345678</td>
+														<td>12345678</td>
+														<td>John Doe</td>
+														<td>Gerencia</td>
+														<td>Jefe nómina</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td>
+															<div class="togglebutton">
+																<label>
+																	<input type="checkbox">
+																</label>
+															</div>
+														</td>
+														<td>
+															<button type="button" class="btn btn-table btn-danger">
+																<i class="material-icons">&#xE15C;</i>
+															</button>
+														</td>
+														<td><input class="input-table" type="text"></td>
+													</tr>
+													<tr>
+														<td>00003</td>
+														<td>12345678</td>
+														<td>12345678</td>
+														<td>John Doe</td>
+														<td>Gerencia</td>
+														<td>Jefe nómina</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td>
+															<div class="togglebutton">
+																<label>
+																	<input type="checkbox">
+																</label>
+															</div>
+														</td>
+														<td>
+															<button type="button" class="btn btn-table btn-danger">
+																<i class="material-icons">&#xE15C;</i>
+															</button>
+														</td>
+														<td><input class="input-table" type="text"></td>
+													</tr>
+													<tr>
+														<td>00004</td>
+														<td>12345678</td>
+														<td>12345678</td>
+														<td>John Doe</td>
+														<td>Gerencia</td>
+														<td>Jefe nómina</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td>
+															<div class="togglebutton">
+																<label>
+																	<input type="checkbox">
+																</label>
+															</div>
+														</td>
+														<td>
+															<button type="button" class="btn btn-table btn-danger">
+																<i class="material-icons">&#xE15C;</i>
+															</button>
+														</td>
+														<td><input class="input-table" type="text"></td>
+													</tr>
+													<tr>
+														<td>00005</td>
+														<td>12345678</td>
+														<td>12345678</td>
+														<td>John Doe</td>
+														<td>Gerencia</td>
+														<td>Jefe nómina</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>24-04-2016</td>
+														<td>10</td>
+														<td>
+															<div class="togglebutton">
+																<label>
+																	<input type="checkbox">
+																</label>
+															</div>
+														</td>
+														<td>
+															<button type="button" class="btn btn-table btn-danger">
+																<i class="material-icons">&#xE15C;</i>
+															</button>
+														</td>
+														<td><input class="input-table" type="text"></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -394,60 +402,62 @@ $this->title = 'Vacaciones';
 									<h3 class="fnt__Medium">Historial solicitudes de vacaciones</h3>
 								</div>
 								<div class="body">
-									<table class="table">
-										<thead>
-											<tr>
-												<th>Consecutivo</th>
-												<th>Fecha solicitud</th>
-												<th>Fecha inicio</th>
-												<th>Fecha fin</th>
-												<th>Días hábiles</th>
-												<th>Estado</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>00001</td>
-												<td>24-04-2016</td>
-												<td>24-04-2016</td>
-												<td>24-04-2016</td>
-												<td>10</td>
-												<td><div class="label-table label-success">Aprobado</div></td>
-											</tr>
-											<tr>
-												<td>00002</td>
-												<td>24-04-2016</td>
-												<td>24-04-2016</td>
-												<td>24-04-2016</td>
-												<td>10</td>
-												<td><div class="label-table label-success">Aprobado</div></td>
-											</tr>
-											<tr>
-												<td>00003</td>
-												<td>24-04-2016</td>
-												<td>24-04-2016</td>
-												<td>24-04-2016</td>
-												<td>10</td>
-												<td><div class="label-table label-success">Aprobado</div></td>
-											</tr>
-											<tr>
-												<td>00004</td>
-												<td>24-04-2016</td>
-												<td>24-04-2016</td>
-												<td>24-04-2016</td>
-												<td>10</td>
-												<td><div class="label-table label-success">Aprobado</div></td>
-											</tr>
-											<tr>
-												<td>00005</td>
-												<td>24-04-2016</td>
-												<td>24-04-2016</td>
-												<td>24-04-2016</td>
-												<td>10</td>
-												<td><div class="label-table label-success">Aprobado</div></td>
-											</tr>
-										</tbody>
-									</table>
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Consecutivo</th>
+													<th>Fecha solicitud</th>
+													<th>Fecha inicio</th>
+													<th>Fecha fin</th>
+													<th>Días hábiles</th>
+													<th>Estado</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>00001</td>
+													<td>24-04-2016</td>
+													<td>24-04-2016</td>
+													<td>24-04-2016</td>
+													<td>10</td>
+													<td><div class="label-table label-success">Aprobado</div></td>
+												</tr>
+												<tr>
+													<td>00002</td>
+													<td>24-04-2016</td>
+													<td>24-04-2016</td>
+													<td>24-04-2016</td>
+													<td>10</td>
+													<td><div class="label-table label-success">Aprobado</div></td>
+												</tr>
+												<tr>
+													<td>00003</td>
+													<td>24-04-2016</td>
+													<td>24-04-2016</td>
+													<td>24-04-2016</td>
+													<td>10</td>
+													<td><div class="label-table label-success">Aprobado</div></td>
+												</tr>
+												<tr>
+													<td>00004</td>
+													<td>24-04-2016</td>
+													<td>24-04-2016</td>
+													<td>24-04-2016</td>
+													<td>10</td>
+													<td><div class="label-table label-success">Aprobado</div></td>
+												</tr>
+												<tr>
+													<td>00005</td>
+													<td>24-04-2016</td>
+													<td>24-04-2016</td>
+													<td>24-04-2016</td>
+													<td>10</td>
+													<td><div class="label-table label-success">Aprobado</div></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -536,121 +546,149 @@ $this->title = 'Vacaciones';
 						<p class="no-mrg"><strong>Desde: 16/05/2016</strong></p>
 						<p class="no-mrg"><strong>Hasta: 31/05/2016</strong></p>
 						<hr>
-						<button class="btn btn-default no-mrg">Cambiar fecha</button>
 					</div>
 				</div>
 				<div class="content-slide">
 					<div class="slide-box-back">
-						<button class="btn btn-toggle no-mrg"><i class="material-icons shake animated infinite">&#xE5C8;</i></button>
+						<button class="btn btn-toggle no-mrg"><div><i class="material-icons shake animated infinite">&#xE5C8;</i></div></button>
 					</div>
 					<div class="slide-box">
 						<div class="slide-item calendar pdg__16">
 							<!-- CALENDARIO -->
-
-        <div class="row">         
-                <div id="calendar" class="col-centered">         
-            </div>			
-        </div>
-        <!-- /.row -->
-		
-		<!-- Modal -->
-		<div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		  <div class="modal-dialog" role="document">
-			<div class="modal-content">
-			
-	
- <?= Html::beginForm(Url::toRoute("site/addevent"), "POST") ?>
-			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Solicitud de Vacaciones</h4>
-			  </div>
-			  <div class="modal-body">
-				
-				  <div class="form-group">
-					<label for="title" class="col-sm-2 control-label">Titulo</label>
-					<div class="col-sm-10">
-					  <input type="text" name="title" class="form-control" id="title" placeholder="Titulo">
-					</div>
-				  </div>
-				  <div class="form-group">
-					<label for="color" class="col-sm-2 control-label">Color</label>
-					<div class="col-sm-10">
-					  <select name="color" class="form-control" id="color">
-						  <option value="">Seleccione...</option>
-						  <option style="color:#0071c5;" value="#0071c5">&#9724; Azul Oscuro</option>
-						  <option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquesa</option>
-						  <option style="color:#008000;" value="#008000">&#9724; Verde</option>						  
-						  <option style="color:#FFD700;" value="#FFD700">&#9724; Amarillo</option>
-						  <option style="color:#FF8C00;" value="#FF8C00">&#9724; Naranja</option>
-						  <option style="color:#FF0000;" value="#FF0000">&#9724; Rojo</option>
-						  <option style="color:#000;" value="#000">&#9724; Negro</option>
-						  
-						</select>
-					</div>
-				  </div>
-				  <div class="form-group">
-					<label for="start" class="col-sm-2 control-label">Fecha Inicial</label>
-					<div class="col-sm-10">
-					  <input type="text" name="start" class="form-control" id="start" readonly>
-					</div>
-				  </div>
-				  <div class="form-group">
-					<label for="end" class="col-sm-2 control-label">Fecha Final</label>
-					<div class="col-sm-10">
-					  <input type="text" name="end" class="form-control" id="end" readonly>
-					</div>
-				  </div>
-				
-			  </div>
-			  <div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar Solicitud</button>
-				<button type="submit" class="btn btn-primary">Guardar Fecha</button>
-			  </div>
-			<?= Html::endForm() ?>
-			</div>
-		  </div>
-		</div>
-		
-		<!-- Modal -->
-		<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		  <div class="modal-dialog" role="document">
-			<div class="modal-content">
-						<?php $form = ActiveForm::begin([
-    'method' => 'post',
-	'options' => [
-                'class' => 'form-horizontal'
-             ],
- 'id' => 'editEventTitle',
-]);
-?>
-			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Desea eliminar esta solicitud?</h4>
-			  </div>
-			  <div class="modal-body">
-				
-				  <div class="form-group">
-					<label>Realmente desea eliminar esta solicitud de vacaciones? recuerde que se le notificara al lider encargado.</label>
-					</div>
-				  
-				  <input type="hidden" name="id" class="form-control" id="id">
-				  <input type="hidden" name="delete" class="form-control" id="delete">
-				
-			  </div>
-			  <div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-				<button type="submit" class="btn btn-primary">Eliminar Solicitud</button>
-			  </div>
-				<?php $form->end() ?>
-			</div>
-		  </div>
-		</div>
-
-
-    <!-- /.CALENDARIO -->
+							<div id="calendar" class="col-centered"></div>
+							<!-- Modal -->
+							<div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<?= Html::beginForm(Url::toRoute("site/addevent"), "POST") ?>
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="myModalLabel">Solicitud de Vacaciones</h4>
+										</div>
+										<div class="modal-body">
+											<div class="form-group">
+												<label for="title" class="col-sm-2 control-label">Titulo</label>
+												<div class="col-sm-10">
+													<input type="text" name="title" class="form-control" id="title" placeholder="Titulo">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="color" class="col-sm-2 control-label">Color</label>
+												<div class="col-sm-10">
+													<select name="color" class="form-control" id="color">
+														<option value="">Seleccione...</option>
+														<option style="color:#0071c5;" value="#0071c5">&#9724; Azul Oscuro</option>
+														<option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquesa</option>
+														<option style="color:#008000;" value="#008000">&#9724; Verde</option>						  
+														<option style="color:#FFD700;" value="#FFD700">&#9724; Amarillo</option>
+														<option style="color:#FF8C00;" value="#FF8C00">&#9724; Naranja</option>
+														<option style="color:#FF0000;" value="#FF0000">&#9724; Rojo</option>
+														<option style="color:#000;" value="#000">&#9724; Negro</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="start" class="col-sm-2 control-label">Fecha Inicial</label>
+												<div class="col-sm-10">
+													<input type="text" name="start" class="form-control" id="start" readonly>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="end" class="col-sm-2 control-label">Fecha Final</label>
+												<div class="col-sm-10">
+													<input type="text" name="end" class="form-control" id="end" readonly>
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar Solicitud</button>
+											<button type="submit" class="btn btn-primary">Guardar Fecha</button>
+										</div>
+										<?= Html::endForm() ?>
+									</div>
+								</div>
+							</div>
+							<!-- Modal -->
+							<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<?php $form = ActiveForm::begin([
+											'method' => 'post',
+											'options' => [
+														'class' => 'form-horizontal'
+													 ],
+										 'id' => 'editEventTitle',
+										]);
+										?>
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="myModalLabel">Desea eliminar esta solicitud?</h4>
+										</div>
+										<div class="modal-body">
+											<div class="form-group">
+												<label>Realmente desea eliminar esta solicitud de vacaciones? recuerde que se le notificara al lider encargado.</label>
+											</div>
+											<input type="hidden" name="id" class="form-control" id="id">
+											<input type="hidden" name="delete" class="form-control" id="delete">
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+											<button type="submit" class="btn btn-primary">Eliminar Solicitud</button>
+										</div>
+										<?php $form->end() ?>
+									</div>
+								</div>
+							</div>
+							<!-- /.CALENDARIO -->
 						</div>
 						<div class="slide-item detail pdg__16">
-							<h4>contenido pendiente</h4>
+							<div class="text-center pdg__16">
+								<h3 class="no-mrg fnt__Medium">Vacaciones solicitadas</h3>
+							</div>
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Fecha inicio</th>
+											<th>Fecha fin</th>
+											<th>Días hábiles</th>
+											<th>Estado</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>24-04-2016</td>
+											<td>24-04-2016</td>
+											<td>10</td>
+											<td><div class="label-table label-success">Aprobado</div></td>
+										</tr>
+										<tr>
+											<td>24-04-2016</td>
+											<td>24-04-2016</td>
+											<td>10</td>
+											<td><div class="label-table label-success">Aprobado</div></td>
+										</tr>
+										<tr>
+											<td>24-04-2016</td>
+											<td>24-04-2016</td>
+											<td>10</td>
+											<td><div class="label-table label-success">Aprobado</div></td>
+										</tr>
+										<tr>
+											<td>24-04-2016</td>
+											<td>24-04-2016</td>
+											<td>10</td>
+											<td><div class="label-table label-success">Aprobado</div></td>
+										</tr>
+										<tr>
+											<td>24-04-2016</td>
+											<td>24-04-2016</td>
+											<td>10</td>
+											<td><div class="label-table label-success">Aprobado</div></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>

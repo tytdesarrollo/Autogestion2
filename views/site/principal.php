@@ -227,22 +227,24 @@ $this->title = 'Pagina Principal';
 								<h4 class="fnt__Medium">Cuenta bancaria</h4>
 							</div>
 							<div class="panel-body">
-								<table class="table">
-									<thead>
-										<tr>
-											<th>Entidad bancaria</th>
-											<th>Número de cuenta</th>
-											<th>Tipo de cuenta</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Banco BBVA</td>
-											<td>765006192</td>
-											<td>ahorros</td>
-										</tr>
-									</tbody>
-								</table>
+								<div class="table-responsive">
+									<table class="table">
+										<thead>
+											<tr>
+												<th>Entidad bancaria</th>
+												<th>Número de cuenta</th>
+												<th>Tipo de cuenta</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>Banco BBVA</td>
+												<td>765006192</td>
+												<td>ahorros</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -286,37 +288,39 @@ $this->title = 'Pagina Principal';
 						<h4 class="fnt__Medium">Afiliaciones - Seguridad social</h4>
 					</div>
 					<div class="panel-body">
-						<table class="table">
-							<thead>
-								<tr>
-									<th>Concepto</th>
-									<th>Entidad</th>
-									<th>Fecha vinculación</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Aporte salud</td>
-									<td>Coomeva EPS</td>
-									<td>17-09-2014</td>
-								</tr>
-								<tr>
-									<td>Aporte pensión</td>
-									<td>Protección pensiones Obligator</td>
-									<td>01-06-2015</td>
-								</tr>
-								<tr>
-									<td>Aporte riesgos laborales</td>
-									<td>Colmena riesgos profesionales</td>
-									<td>17-09-2014</td>
-								</tr>
-								<tr>
-									<td>Caja de compensación</td>
-									<td>Cafam</td>
-									<td></td>
-								</tr>
-							</tbody>
-						</table>
+						<div class="table-responsive">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Concepto</th>
+										<th>Entidad</th>
+										<th>Fecha vinculación</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Aporte salud</td>
+										<td>Coomeva EPS</td>
+										<td>17-09-2014</td>
+									</tr>
+									<tr>
+										<td>Aporte pensión</td>
+										<td>Protección pensiones Obligator</td>
+										<td>01-06-2015</td>
+									</tr>
+									<tr>
+										<td>Aporte riesgos laborales</td>
+										<td>Colmena riesgos profesionales</td>
+										<td>17-09-2014</td>
+									</tr>
+									<tr>
+										<td>Caja de compensación</td>
+										<td>Cafam</td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 				<div class="panel">
@@ -325,27 +329,29 @@ $this->title = 'Pagina Principal';
 					</div>
 					<div class="panel-body">
 						<h5 class="fnt__Medium">Pensiones voluntarias y AFC(cuenta de ahorro para vivienda)</h5>
-						<table class="table">
-							<thead>
-								<tr>
-									<th>Concepto</th>
-									<th>Entidad</th>
-									<th>Aporte actual</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Pensión vol / AFC - bonif.unica y ext.</td>
-									<td>Fdo pensiones voluntarias prot</td>
-									<td>$8,000,000</td>
-								</tr>
-								<tr>
-									<td>pensiones voluntarias</td>
-									<td>Fdo pensiones voluntarias prot</td>
-									<td>$2,000,000</td>
-								</tr>
-							</tbody>
-						</table>
+						<div class="table-responsive">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Concepto</th>
+										<th>Entidad</th>
+										<th>Aporte actual</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Pensión vol / AFC - bonif.unica y ext.</td>
+										<td>Fdo pensiones voluntarias prot</td>
+										<td>$8,000,000</td>
+									</tr>
+									<tr>
+										<td>pensiones voluntarias</td>
+										<td>Fdo pensiones voluntarias prot</td>
+										<td>$2,000,000</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 				<div class="panel">
@@ -353,37 +359,39 @@ $this->title = 'Pagina Principal';
 						<h4 class="fnt__Medium">Certificados de beneficio</h4>
 					</div>
 					<div class="panel-body">
-						<table class="table">
-							<thead>
-								<tr>
-									<th>Tipo</th>
-									<th>Valor mensual</th>
-									<th>Fecha de vencimiento</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Intereses de Vivienda</td>
-									<td>$ 435,451</td>
-									<td>31-03-2016</td>
-								</tr>
-								<tr>
-									<td>Salud Prepagada</td>
-									<td>$ 61,950</td>
-									<td>31-03-2016</td>
-								</tr>
-								<tr>
-									<td>Dependientes</td>
-									<td>$ 600,000</td>
-									<td>31-03-2016</td>
-								</tr>
-								<tr>
-									<td>Salud Obligatoria</td>
-									<td>$ 165,394</td>
-									<td>31-12-2016</td>
-								</tr>
-							</tbody>
-						</table>
+						<div class="table-responsive">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Tipo</th>
+										<th>Valor mensual</th>
+										<th>Fecha de vencimiento</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Intereses de Vivienda</td>
+										<td>$ 435,451</td>
+										<td>31-03-2016</td>
+									</tr>
+									<tr>
+										<td>Salud Prepagada</td>
+										<td>$ 61,950</td>
+										<td>31-03-2016</td>
+									</tr>
+									<tr>
+										<td>Dependientes</td>
+										<td>$ 600,000</td>
+										<td>31-03-2016</td>
+									</tr>
+									<tr>
+										<td>Salud Obligatoria</td>
+										<td>$ 165,394</td>
+										<td>31-12-2016</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 				<div class="content__help">
