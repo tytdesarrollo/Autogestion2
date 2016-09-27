@@ -20,7 +20,6 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
 		'css/fullcalendar.css',
-		'css/fullcalendar.print.css',
     ];
     public $js = [
 		'js/classie.js',
@@ -32,6 +31,7 @@ class AppAsset extends AssetBundle
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapPluginAsset',
 		'yii\bootstrap\BootMaterialCssAsset',
-        'yii\bootstrap\BootMaterialJsAsset'
+        'yii\bootstrap\BootMaterialJsAsset',
+		'yii\flickity\flickityPluginAsset',
     ];
 }

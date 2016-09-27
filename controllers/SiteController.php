@@ -478,6 +478,17 @@ WHERE  A.ESTADO = 'A' AND A.COD_EPL = B.COD_EPL")->queryAll();
             'model' => $model,
         ]);
     }
+	
+	public function actionAsignapassword()
+    {
+		$this->layout=false;
+		if (Yii::$app->user->isGuest) {
+			 return $this->goBack();
+        }else{
+		
+        return $this->render('asignapassword');
+		}
+    }
 
     public function actionLogin()
     {

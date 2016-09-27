@@ -46,9 +46,12 @@ $this->title = '.:Autogestion:.';
 				<h3 class="txt__light-100 mrg__top-30">Inicia sesión con tu cuenta</h3>
 				<div class="text-left">
 					<?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-						<?= $form->field($model, 'usuario', ['options' => ['class' => 'form-group label-floating']])->textInput(['autofocus' => true]) ?>
-						 <?= $form->field($model, 'clave', ['options' => ['class' => 'form-group label-floating']])->passwordInput() ?>
-						<div class="form-group text-center">
+						<?= $form->field($model, 'usuario', ['options' => ['class' => 'input-white form-group label-floating']])->textInput(['autofocus' => true]) ?>
+						 <?= $form->field($model, 'clave', ['options' => ['class' => 'input-white form-group label-floating']])->passwordInput() ?>
+						 <div class="text-right">
+							<a class="color-white" href="" data-toggle="modal" data-target="#recordarpass">Olvidaste tu contraseña?</a>
+						 </div>
+						<div class="form-group text-center mrg__top-15">
 							<?= Html::submitButton('Ingresar', ['class' => 'btn btn-raised btn-info btn-block', 'name' => 'login-button']) ?>
 						</div>
 					<?php ActiveForm::end(); ?>
@@ -56,6 +59,29 @@ $this->title = '.:Autogestion:.';
 			</div>
 			<div class="pdg__16">
 				<?= Html::img('@web/img/logo_telefonica.png', ['alt' => 'Telefónica']) ?>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade modal-std modal-vertically-center" id="recordarpass" tabindex="-1" role="dialog" aria-labelledby="recordarpassLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h3 class="modal-title fnt__Medium">Olvidaste tu contraseña?</h3>
+			</div>
+			<div class="modal-body">
+				<div class="text-justify">
+					<p>Por favor ingresa tu número de cédula y te enviaremos las instrucciones para restaurar tu contraseña al correo electrónico que tengas registrado en nómina.<br /> Gracias por utilizar este servicio.</p>
+					<div class="clearfix"></div>
+					<div class="form-group label-floating mrg__top-15">
+						<label class="control-label" for="email">Cédula</label>
+						<input class="form-control" id="email" type="text">
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary">enviar</button>
 			</div>
 		</div>
 	</div>
