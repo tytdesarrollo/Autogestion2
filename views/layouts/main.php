@@ -55,17 +55,24 @@ AppAsset::register($this);
 					<a id="search" href="#" class="menu-trigger"><i class="material-icons icon__26">&#xE8B6;</i></a>
 				</div>
 				<div class="content__icon-menu__aux">
-					<a id="avatar" href="#" class="menu-trigger">
+					<div id="avatar" class="content-avatar__nav hidden-xs">
 						<?= Html::img('@web/img/avatar.png', ['alt' => 'avatar', 'class' => 'img-avatar img-circle']) ?>
-					</a>
+					</div>
 				</div>
 				<div class="content__icon-menu__aux">
 					<div class="dropdown">
 						<a href="#" data-toggle="dropdown" class="dropdown-toggle menu-trigger"><i class="btn-menu-profile glyphicon glyphicon-option-vertical icon__24"></i></a>
 						<ul class="dropdown-menu menu-profile">
 							<li>
-								<p class="txt-name fnt__Medium"><?= Yii::$app->user->identity->usuario ?></p>
-								<p class="txt-email">john.doe@hello.com</p>
+								<div class="dis-inline-block">
+									<p class="txt-name fnt__Medium"><?= Yii::$app->user->identity->usuario ?></p>
+									<p class="txt-email">john.doe@hello.com</p>
+								</div>
+								<div class="dis-inline-block pull-right">
+									<div class="content-avatar__menu-profile">
+										<?= Html::img('@web/img/avatar.png', ['alt' => 'avatar', 'class' => 'img-avatar img-circle']) ?>
+									</div>
+								</div>
 							</li>
 							<li class="divider"></li>
 							<li>
@@ -83,6 +90,9 @@ AppAsset::register($this);
 							</li>
 							<li class="divider"></li>
 							<li>
+								<div class="pull-left">
+									<button class="btn btn-raised btn-default btn-sm">Actualizar</button>
+								</div>
 								<div class="pull-right">
 								<?= Html::beginForm(['/site/logout'],
 								'post', 
@@ -156,7 +166,14 @@ AppAsset::register($this);
 </body>
 </html>
 	<?php $this->endPage() ?>
-
+<script>
+	/*
+	 * Detectar Navegador móvil
+	 */
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+	   $('html').addClass('mobile');
+	}
+</script>
 <script>
   $(function () {
     $.material.init();
@@ -165,8 +182,25 @@ AppAsset::register($this);
 	  $(".container-v").toggleClass("sld-in");
 	});
 	$("#help").modal("show");
+	$("#swipeUp").click(function(){
+	  $("#modVac").addClass("open-swipeUp");
+	});
+	$("#swipeDown").click(function(){
+	  $("#modVac").removeClass("open-swipeUp");
+	});
   });
 </script>
+<script>
+		$('.ag-carousel').flickity({
+		  // options
+		  setGallerySize: false,
+		  cellAlign: 'left',
+		  initialIndex: 1,
+		  // contain: true,
+		  pageDots: false,
+		  dragThreshold: 10,
+		});
+	</script>
 <script>
 	(function(){
         $('body').on('click', '#search', function(e){
