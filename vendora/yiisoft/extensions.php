@@ -66,4 +66,13 @@ return array (
       '@yii/flickity' => $vendorDir . '/yiisoft/yii2-flickity',
     ),
   ),
+  'yiisoft/yii2-sweetalert' => 
+  array (
+    'name' => 'yiisoft/yii2-sweetalert',
+    'version' => '1.1.3.0',
+    'alias' => 
+    array (
+      '@yii/sweetalert' => $vendorDir . '/yiisoft/yii2-sweetalert',
+    ),
+  ),
 );
