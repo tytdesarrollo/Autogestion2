@@ -7,6 +7,9 @@ use yii\bootstrap\Alert;
 AppAsset::register($this);
 
 $this->title = '.:Autogestion:.';
+
+$request = Yii::$app->request;
+
 ?>
 
 <?php $this->beginPage() ?>
@@ -45,7 +48,13 @@ $this->title = '.:Autogestion:.';
 			<div>
 				<h3 class="txt__light-100 mrg__top-30">Inicia sesión con tu cuenta</h3>
 				<div class="text-left">
-					<?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+					<?php $form = ActiveForm::begin([
+					"method" => "post",
+					"id" => "login-form",
+					"enableClientValidation" => false,
+					"enableAjaxValidation" => true,
+					]); 
+					?>
 						<?= $form->field($model, 'usuario', ['options' => ['class' => 'input-white form-group label-floating']])->textInput(['autofocus' => true]) ?>
 						 <?= $form->field($model, 'clave', ['options' => ['class' => 'input-white form-group label-floating']])->passwordInput() ?>
 						 <div class="text-right">
@@ -96,6 +105,17 @@ $this->title = '.:Autogestion:.';
     $.material.init();
   });
 </script>
+<?php
+if($request->get('error')){
+?>
+
+<script>
+ $(document).ready(function(){
+  swal(<?php echo '"'.$request->get('error').'"'; ?>, "Por favor revise su usuario y contraseña", "error");
+ });
+</script>
+
+<?php }; ?>
 </body>
 </html>
 <?php $this->endPage() ?>

@@ -65,7 +65,7 @@ AppAsset::register($this);
 						<ul class="dropdown-menu menu-profile">
 							<li>
 								<div class="dis-inline-block">
-									<p class="txt-name fnt__Medium"><?= Yii::$app->user->identity->usuario ?></p>
+									<p class="txt-name fnt__Medium">ususario</p>
 									<p class="txt-email">john.doe@hello.com</p>
 								</div>
 								<div class="dis-inline-block pull-right">
@@ -94,7 +94,7 @@ AppAsset::register($this);
 									<button class="btn btn-raised btn-default btn-sm">Actualizar</button>
 								</div>
 								<div class="pull-right">
-								<?= Html::beginForm(['/site/logout'],
+								<?= Html::beginForm(['/site/salida'],
 								'post', 
 								['class' => 'form-inline']); ?>
 								<?= Html::submitButton('Salir',['class' => 'btn btn-raised btn-default btn-sm']) ?>

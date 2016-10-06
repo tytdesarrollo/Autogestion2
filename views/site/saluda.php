@@ -7,16 +7,10 @@ use yii\helpers\Html;
 <table class="table table-bordered">
 
 
- <?php 
- 
-foreach($rows as $item): ?>
-
  <tr>
 
- <td><?= $item['NOMBRE'] ?></td>
+ <td><?= $rows[2] ?></td>
  </tr>
 
-
-    <?php endforeach; ?>
 
 </table>
