@@ -23,6 +23,9 @@ use app\models\Users;
 use app\models\FormRegister;
 use app\models\Empleados_basic;
 use app\models\Calendario;
+use PDO;
+use app\models\TwPcIdentity;
+use app\models\Ldap;
 
 
 
@@ -266,7 +269,6 @@ class SiteController extends Controller
 		}
 	}
 	
-	
 	public function actionView(){
 		
 		$form= new FormSearch;
@@ -342,40 +344,24 @@ class SiteController extends Controller
 				$model->getErrors();
 			}
 		}
-		
+
 		return $this->render("create", ["model" => $model, "msg"=>$msg]);
 	}
-	
+
 	public function actionSaluda(){
-		
 
-		$rows = Yii::$app->confidencial->createCommand("SELECT A.NOM_EPL AS NOMBRE FROM EMPLEADOS_BASIC A, EMPLEADOS_GRAL B
-WHERE  A.ESTADO = 'A' AND A.COD_EPL = B.COD_EPL")->queryAll();
+		$model = new TwPcIdentity;
 
+		$proce = $model->procedimiento();
 
-        return $this->render('saluda', ['rows' => $rows]);
+        return $this->render('saluda', ["rows"=>$proce]);
 	}
-	
-	
+		
 	public function actionFormulario($mensaje = null){
 		
 		return $this->render("formulario", ["mensaje"=>$mensaje]);
 		
-	}
-	
-	public function actionRequest (){
-		
-		$mensaje = null;
-		
-		if  (isset($_REQUEST["nombre"])){
-			
-			$mensaje = "has enviado tu nombre correctamente: ".$_REQUEST["nombre"]."";
-			
-		}
-		
-		$this->redirect(["site/formulario", "mensaje" => $mensaje]);
-		
-	}
+	}	
 	
 	public function actionValidarformulario(){
 		
@@ -464,52 +450,74 @@ WHERE  A.ESTADO = 'A' AND A.COD_EPL = B.COD_EPL")->queryAll();
 
     public function actionIndex()
     {
-		 $this->layout=false;       
-		
-		if (!Yii::$app->user->isGuest) {
-			return $this->redirect( ['site/principal']);
-        }
+		 $this->layout=false;       			
 
         $model = new IndexForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-        return $this->render('index', [
-            'model' => $model,
-        ]);
-    }
-	
-	public function actionAsignapassword()
-    {
-		$this->layout=false;
-		if (Yii::$app->user->isGuest) {
-			 return $this->goBack();
-        }else{
 		
-        return $this->render('asignapassword');
+		if($model->load(Yii::$app->request->post()) && Yii::$app->request->isAjax){
+			
+			Yii::$app->response->format = Response::FORMAT_JSON;
+			return ActiveForm::validate($model);			
 		}
-    }
-
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
 		
-        return $this->render('login', [
-            'model' => $model,
-        ]);
+		if($model->load(Yii::$app->request->post())){
+		if($model->validate()){
+			
+			Yii::$app->params['usuario'] = $model->usuario;
+			Yii::$app->params['clave'] = $model->clave;
+			
+			return $this->redirect(['site/logueo','usuario'=>$model->usuario,'clave'=>$model->clave]);
+			
+		}else{
+			
+			 return $this->goBack();
+			 
+			}		
+		}
+		
+        return $this->render('index', ['model' => $model]);
     }
 
-    public function actionLogout()
+	public function actionLogueo()
     {
-        Yii::$app->user->logout();
-
+		$modeladp = new Ldap;
+		
+		$ladpcon = $modeladp->directorioactivo();
+		
+		if(isset($ladpcon[0]) && $ladpcon[2]=="true"){
+			
+				return $this->redirect(['site/principal']);
+				
+		}elseif(isset($ladpcon[1]) && $ladpcon[2]=="true"){
+			
+			return $this->redirect(['site/index', "error"=>$ladpcon[1]]);
+			
+		}elseif($ladpcon[2]=="false"){
+		
+		$model = new TwPcIdentity;
+		
+		$twpcidentity = $model->procedimiento();
+		
+		if($twpcidentity[1]=="0"){
+			
+			return $this->redirect(['site/asignapassword']);
+			
+		}elseif($twpcidentity[1]=="1"){
+			
+			return $this->redirect(['site/principal']);
+			
+		}else{
+			
+			return $this->redirect(['site/index', "error"=>$twpcidentity[2]]);
+			
+		}        
+			}else{
+				return $this->redirect(['site/index', "error"=>"No hay conexion, por favor contacte con el administrador."]);
+			}	   
+    }
+		
+    public function actionSalida()
+    {
         return $this->goHome();
     }
 
@@ -574,8 +582,7 @@ WHERE  A.ESTADO = 'A' AND A.COD_EPL = B.COD_EPL")->queryAll();
 
 			}
 			else if ($mobile_browser > 0) {
-			// Si es dispositivo mobil has lo que necesites
-			   // print 'es un mobil';
+			// Si es dispositivo mobil has lo que necesites			
 			   $events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
 			
 			$this->view->params['customParam'] = $events;
@@ -587,7 +594,7 @@ WHERE  A.ESTADO = 'A' AND A.COD_EPL = B.COD_EPL")->queryAll();
 			$events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
 			
 			$this->view->params['customParam'] = $events;
-
+				
                 return $this->render('vacaciones',['events' => $events]);
 			}        
 		}
@@ -598,16 +605,21 @@ WHERE  A.ESTADO = 'A' AND A.COD_EPL = B.COD_EPL")->queryAll();
 		if (Yii::$app->request->post()){
 			
 			$titulo = Html::encode($_POST["title"]);
-			if(isset($titulo)){		
+			$start = Html::encode($_POST['start']);
+			$end = Html::encode($_POST['end']);
+			$color = Html::encode($_POST['color']);
+			
+			if(isset($titulo)){
 
-					echo "Alumno con id $titulo eliminado con exito, redireccionando ..";
-					echo "<meta http-equiv='refresh' content='3;'".Url::toRoute("site/vacaciones")."'>";
+			//INSERTO VACACIONES
+			
+			return $this->redirect(["site/vacaciones"]);
 					
 				}else{
 					
-				echo "ha ocurrido un error, redireccionando";
+				echo "ha ocurrido un error, redireccionando...";
 				echo "<meta http-equiv='refresh' content='3;'".Url::toRoute("site/vacaciones")."'>";
-				}
+				}				
 				
 			}else{
 			
@@ -616,14 +628,12 @@ WHERE  A.ESTADO = 'A' AND A.COD_EPL = B.COD_EPL")->queryAll();
 	}
 
     public function actionPrincipal()
-    {
-				if (Yii::$app->user->isGuest) {
-			 return $this->goBack();
-        }else{
+    {				
 		
         return $this->render('principal');
-		}
+		
     }
+	
 	    public function actionMvacaciones()
     {
 				if (Yii::$app->user->isGuest) {
@@ -679,13 +689,19 @@ WHERE  A.ESTADO = 'A' AND A.COD_EPL = B.COD_EPL")->queryAll();
 			}
 			else if ($mobile_browser > 0) {
 			// Si es dispositivo mobil has lo que necesites
-			   // print 'es un mobil';
 			   return $this->render('mvacaciones');
 			}
 			else {
-			// Si es ordenador de escritorio has lo que necesites
+			// Si es ordenador de escritorio has lo que necesites			 
 			  return $this->render('vacaciones');
 			}        
 		}
     }
+		public function actionAsignapassword()
+    {
+		  $this->layout=false;		  
+		  
+        return $this->render('asignapassword');
+			
+	}
 }
