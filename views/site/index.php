@@ -58,7 +58,7 @@ $request = Yii::$app->request;
 						<?= $form->field($model, 'usuario', ['options' => ['class' => 'input-white form-group label-floating']])->textInput(['autofocus' => true]) ?>
 						 <?= $form->field($model, 'clave', ['options' => ['class' => 'input-white form-group label-floating']])->passwordInput() ?>
 						 <div class="text-right">
-							<a class="color-white" href="" data-toggle="modal" data-target="#recordarpass">Olvidaste tu contraseña?</a>
+							<?= $recordar ?>
 						 </div>
 						<div class="form-group text-center mrg__top-15">
 							<?= Html::submitButton('Ingresar', ['class' => 'btn btn-raised btn-info btn-block', 'name' => 'login-button']) ?>
@@ -100,18 +100,38 @@ $request = Yii::$app->request;
 </footer>
 
 <?php $this->endBody() ?>
+
+<script>
+$(document).ready(function(){
+history.pushState(null, "", "index.php");
+});
+</script>
+
 <script>
   $(function () {
     $.material.init();
   });
 </script>
+
+<?php
+if($request->get('activate')){
+?>
+
+<script>
+ $(document).ready(function(){
+  swal({   title: "",   text: <?php echo '"'.$request->get('activate').'"'; ?>,   type: "warning",   showCancelButton: true,   confirmButtonColor: "#0288D1",   confirmButtonText: "Si, deseo activarlo!",   cancelButtonText: "No activar aún",   closeOnConfirm: false,   closeOnCancel: false }, function(isConfirm){   if (isConfirm) {     swal("", "Hemos enviado las instrucciones de activación al correo electrónico que tienes registrado en nómina, por favor revisa tu bandeja de entrada.", "success");   } else {     swal("Cancelado", "Tu usuario aún no ha sido activado, por favor activalo.", "error");  } });
+
+ });
+</script>
+
+<?php }; ?>
 <?php
 if($request->get('error')){
 ?>
 
 <script>
  $(document).ready(function(){
-  swal(<?php echo '"'.$request->get('error').'"'; ?>, "Por favor revise su usuario y contraseña", "error");
+  swal(<?php echo '"'.$request->get('error').'"'; ?>, "", "error");
  });
 </script>
 
