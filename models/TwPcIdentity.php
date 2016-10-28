@@ -14,21 +14,29 @@ class TwPcIdentity extends Model{
 
 	$usuario =  Yii::$app->request->get('usuario');
 	$clave = Yii::$app->request->get('clave');
+	$operacion = Yii::$app->request->get('operacion');
+	$key_act = Yii::$app->request->get('tokenreset');
 
+	// OPERACION L CONSULTA
+	// OPERACION C INSERT
+	// OPERACION U UPDATE
+	// OPERACION T VALIDA TOKEN
+	// OPERACION F CREA PASS POR PRIMERA VEZ
+	
   $ID_LOGIN= $usuario;
-  $PASS= $clave;
-  $OPERACION= 'L';
+  $IN_PASS= $clave;
+  $OPERACION= $operacion;
+  $KEY_ACT= $key_act;
   $EMPLOYEE_ID= '';
   $OUTPUT= '';
   $MESSAGE= '';
-  $KEY_ACT= '';
   
 		$rows = Yii::$app->telmovil->createCommand("BEGIN 
-		TW_PC_IDENTITY ( :ID_LOGIN, :PASS, :OPERACION, :KEY_ACT, :EMPLOYEE_ID, :OUTPUT, :MESSAGE);
+		TW_PC_IDENTITY ( :ID_LOGIN, :IN_PASS, :OPERACION, :KEY_ACT, :EMPLOYEE_ID, :OUTPUT, :MESSAGE);
 		END;");
 
 $rows->bindParam(":ID_LOGIN", $ID_LOGIN, PDO::PARAM_STR);
-$rows->bindParam(":PASS", $PASS, PDO::PARAM_STR);
+$rows->bindParam(":IN_PASS", $IN_PASS, PDO::PARAM_STR);
 $rows->bindParam(":OPERACION", $OPERACION, PDO::PARAM_STR);
 $rows->bindParam(":KEY_ACT", $KEY_ACT, PDO::PARAM_STR);
 $rows->bindParam(":EMPLOYEE_ID", $EMPLOYEE_ID, PDO::PARAM_INT,200);
