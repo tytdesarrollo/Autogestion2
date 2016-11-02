@@ -7,6 +7,8 @@ use yii\bootstrap\Alert;
 AppAsset::register($this);
 
 $this->title = '.:Autogestion:.';
+
+$request = Yii::$app->request;
 ?>
 
 <?php $this->beginPage() ?>
@@ -37,19 +39,27 @@ $this->title = '.:Autogestion:.';
 				</div>
 			</div>
 			<div class="col-sm-6 col-md-5 text-left mrg__bottom-20">
+			<?php $form = ActiveForm::begin([
+					"method" => "post",
+					"id" => "login-form",
+					"enableClientValidation" => false,
+					"enableAjaxValidation" => true,
+					]); 
+					?>
 				<p>Establece una única contraseña para tu próximo inicio de sesión.</p>
 				<div class="clearfix"></div>
 				<div class="form-group label-floating mrg__top-15">
-					<label class="control-label" for="focusedInput1">Nueva contraseña</label>
-					<input class="form-control" id="focusedInput1" type="text">
+					
+					<?= $form->field($model, 'clave', ['options' => ['class' => 'input-white form-group label-floating']])->passwordInput() ?>
 				</div>
 				<div class="form-group label-floating mrg__top-15">
-					<label class="control-label" for="focusedInput1">Confirma contraseña</label>
-					<input class="form-control" id="focusedInput1" type="text">
+					
+					<?= $form->field($model, 'nuevaclave', ['options' => ['class' => 'input-white form-group label-floating']])->passwordInput() ?>
 				</div>
 				<div class="form-group text-right no-mrg">
 					<button class="btn btn-raised btn-info">Continuar</button>
 				</div>
+				<?php ActiveForm::end(); ?>
 			</div>
 		</div>
 	</div>
@@ -64,6 +74,17 @@ $this->title = '.:Autogestion:.';
     $.material.init();
   });
 </script>
+<?php
+if($request->get('error')){
+?>
+
+<script>
+ $(document).ready(function(){
+  swal(<?php echo '"'.$request->get('error').'"'; ?>, "Presiona OK para ingresar una nueva contraseña", "error");
+ });
+</script>
+
+<?php }; ?>
 </body>
 </html>
 <?php $this->endPage() ?>
