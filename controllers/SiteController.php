@@ -73,7 +73,7 @@ class SiteController extends Controller
 		$recordar = null;
 		
 		$this->layout=false;       			
-
+		
         $model = new IndexForm();
 		
 		$modeladp = new Ldap;
@@ -94,8 +94,8 @@ class SiteController extends Controller
 		if($model->load(Yii::$app->request->post())){
 		if($model->validate()){
 			
-			Yii::$app->params['usuario'] = $model->usuario;
-			Yii::$app->params['clave'] = $model->clave;
+			//Yii::$app->params['usuario'] = $model->usuario;
+			//Yii::$app->params['clave'] = $model->clave;
 			
 			return $this->redirect(['site/logueo','usuario'=>$model->usuario,'clave'=>$model->clave,'operacion'=>'L']);
 			
@@ -131,7 +131,7 @@ class SiteController extends Controller
 		
 		if($twpcidentity[1]=="2"){
 			
-			return $this->redirect(['site/asignapassword', "error"=>$twpcidentity[2],"type"=>'login']);
+			return $this->redirect(['site/asignapassword', "error"=>$twpcidentity[2]]);
 			
 		}elseif($twpcidentity[1]=="1"){
 			
@@ -139,7 +139,7 @@ class SiteController extends Controller
 			
 		}elseif($twpcidentity[1]=="0"){
 			
-			return $this->redirect(['site/index', "activate"=>$twpcidentity[2]]);
+			return $this->redirect(['site/index', "activate"=>$twpcidentity[2], 'usuario'=>Yii::$app->request->get('usuario'), 'clave'=>Yii::$app->request->get('clave')]);
 			
 		}else{
 			
@@ -351,9 +351,9 @@ class SiteController extends Controller
 		}
 		
 		if($modelform->load(Yii::$app->request->post())){
-		if($modelform->validate()){			
+		if($modelform->validate()){		
 			
-			return $this->redirect(['site/principal','clave'=>$modelform->clave,'nuevaclave'=>$modelform->nuevaclave]);
+			return $this->redirect(['site/validapassword','clave'=>$modelform->nuevaclave, 'tokenreset'=>Yii::$app->request->get('tokenreset') , 'usuario'=>Yii::$app->request->get('usuario'), 'operacion'=>'F']);
 			
 		}else{
 			
@@ -370,19 +370,55 @@ class SiteController extends Controller
 			
 			return $this->redirect(['site/index', "error"=>$twpcidentity[2]]);
 			
-		}elseif(Yii::$app->request->get('type')=='login'){
-			
-			return $this->render('asignapassword',['model' => $modelform]);
-			
 		}else{
 			
 			return $this->redirect(['site/index', "error"=>$twpcidentity[2]]);
 			
-		}		       
+		}
 		
 	}
-	public function ValidaAsignaPassword()
+		public function actionValidapassword()
 	{
-		
+				$model = new TwPcIdentity;
+				
+				$twpcidentity = $model->procedimiento();
+				
+				if($twpcidentity[1]=="1"){
+					
+					return $this->redirect(['site/principal', "message"=>$twpcidentity[2]]);
+					
+				}else{
+					
+					return $this->redirect(['site/validapassword', "error"=>$twpcidentity[2], 'tokenreset'=>Yii::$app->request->get('tokenreset') , 'usuario'=>Yii::$app->request->get('usuario'), 'operacion'=>'F']);
+				}	
 	}
+	
+	public function actionOlvidapassword()
+	{
+				$model = new TwPcIdentity;
+				
+				$twpcidentity = $model->procedimiento();
+				
+			
+	}
+	public function actionActivapassword()
+	{
+				$model = new TwPcIdentity;
+				
+				$twpcidentity = $model->procedimiento();
+								
+				 if($_POST['activate'] AND Yii::$app->request->get('usuario') AND Yii::$app->request->get('clave')){					 			
+							
+					$datos = $twpcidentity[1];
+							
+					echo(($datos)?json_encode($datos):'');
+				
+				}else{
+					
+					$datos = 0; 
+					
+					echo(($datos)?json_encode($datos):''); 
+				}			
+	}
+	
 }
