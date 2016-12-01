@@ -3,7 +3,8 @@
 namespace app\models;
 use Yii;
 use yii\base\Model;
-//use app\models\TwPcIdentity;
+use app\models\TwPcIdentity;
+
 
 class AsignaForm extends Model
 {   
@@ -27,5 +28,6 @@ class AsignaForm extends Model
 		"nuevaclave"=>"Confirma contraseña",
 		];
 	}
+	
 	
 }

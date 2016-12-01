@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use app\assets\AppAsset;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Alert;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 
@@ -119,9 +120,43 @@ if($request->get('activate')){
 
 <script>
  $(document).ready(function(){
-  swal({   title: "",   text: <?php echo '"'.$request->get('activate').'"'; ?>,   type: "warning",   showCancelButton: true,   confirmButtonColor: "#0288D1",   confirmButtonText: "Si, deseo activarlo!",   cancelButtonText: "No activar aún",   closeOnConfirm: false,   closeOnCancel: false }, function(isConfirm){   if (isConfirm) {     swal("", "Hemos enviado las instrucciones de activación al correo electrónico que tienes registrado en nómina, por favor revisa tu bandeja de entrada.", "success");   } else {     swal("Cancelado", "Tu usuario aún no ha sido activado, por favor activalo.", "error");  } });
-
- });
+			  swal({   title: "",   
+			  text: <?php echo '"'.$request->get('activate').'"'; ?>,   
+			  type: "warning",   showCancelButton: true,   
+			  confirmButtonColor: "#0288D1",   
+			  confirmButtonText: "Si, deseo activarlo!",   
+			  cancelButtonText: "No activar aún",   
+			  closeOnConfirm: false,   
+			  closeOnCancel: false 
+			  }, 
+			  function(isConfirm){   
+			  
+			  if (isConfirm) {
+				  
+	   $.ajax({
+       url: '<?php echo Url::toRoute(['site/activapassword', 'usuario' => $request->get('usuario'), 'operacion' => 'C']);?>',
+       type: 'post',
+       data: {'activate' : <?php echo '"'.$request->get('activate').'"'; ?>},
+       success: function (data) {
+          
+		  if (data == 0){
+                                        swal("", "A ocurrido un error al enviar las instrucciones a tu correo, por favor intenta de nuevo.", "error");  
+										
+								}
+                                else{
+																	
+									swal("", data, "error");  
+									
+								}
+						}
+				});  
+				  
+			 // swal("", "Hemos enviado las instrucciones de activación al correo electrónico que tienes registrado en nómina, por favor revisa tu bandeja de entrada.", "success");   
+			  } else {
+			  swal("Cancelado", "Tu usuario aún no ha sido activado, por favor activalo.", "error");  
+			  } 
+			  });
+  });
 </script>
 
 <?php }; ?>
