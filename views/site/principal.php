@@ -44,29 +44,10 @@ $this->title = 'Pagina Principal';
 				</div>
 				<div class="row">
 					<div class="col-sm-6">
-						<div class="panel panel-certify text-center">
-							<div class="panel-body">
-								<div class="content-btn">
-								<?= Html::a('<i class="material-icons">&#xE873;</i>', ['site/certificadolaboral']) ?></div>
-								<div>
-									<h4 class="fnt__Medium">Certificado Laboral</h4>
-									<div class="divider"></div>
-									<p>Genera aquí de manera personalizada tus certificados laborales, los puedes descargar en formato PDF o enviarlos por correo electrónico.</p>
-								</div>
-							</div>
-						</div>
+						<?= Html::a('<div class="panel panel-certify text-center"><div class="panel-body"><div class="content-btn"><div class="content-icon"><img src="img/certlaboral_icon_white.svg" alt="Certificado laboral"></div></div><div><h4 class="fnt__Medium">Certificado Laboral</h4><div class="divider"></div><p>Genera aquí de manera personalizada tus certificados laborales, los puedes descargar en formato PDF o enviarlos por correo electrónico.</p></div></div></div>', ['site/certificadolaboral'], ['class'=>'link-panel']) ?>
 					</div>
 					<div class="col-sm-6">
-						<div class="panel panel-cert-ing text-center">
-							<div class="panel-body">
-								<div class="content-btn"><?= Html::a('<i class="material-icons">&#xE84F;</i>', ['site/certificadosretencion']) ?></div>
-								<div>
-									<h4 class="fnt__Medium">Certificado de ingresos y retención</h4>
-									<div class="divider"></div>
-									<p>Genera tus certificados de ingreso y retención, selecciona el año que desees y descargalo.</p>
-								</div>
-							</div>
-						</div>
+						<?= Html::a('<div class="panel panel-cert-ing text-center"><div class="panel-body"><div class="content-btn"><div class="content-icon"><img src="img/certingreso_icon_white.svg" alt="Certificado de ingresos y retención"></div></div><div><h4 class="fnt__Medium">Certificado de ingresos y retención</h4><div class="divider"></div><p>Genera tus certificados de ingreso y retención, selecciona el año que desees y descargalo.</p></div></div></div>', ['site/certificadosretencion'], ['class'=>'link-panel']) ?>
 					</div>
 				</div>
 			</div>
@@ -124,7 +105,7 @@ $this->title = 'Pagina Principal';
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-6">
+					<!--<div class="col-sm-6">
 						<div class="panel panel-incapacidades text-center">
 							<div class="panel-body">
 								<div class="content-btn">
@@ -137,7 +118,7 @@ $this->title = 'Pagina Principal';
 								</div>
 							</div>
 						</div>
-					</div>
+					</div>-->
 				</div>
 			</div>
 		</div>
@@ -265,19 +246,168 @@ $this->title = 'Pagina Principal';
 							</div>
 						</div>
 					</div>
-					<div class="modal fade" id="formNovedades" tabindex="-1" role="dialog" aria-labelledby="formNovedadesLabel">
-						<div class="modal-dialog" role="document">
+					<div class="modal fade modal-vrtl" id="formNovedades" tabindex="-1" role="dialog" aria-labelledby="formNovedadesLabel">
+						<div class="modal-dialog modal-lg" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									<h4 class="modal-title" id="formNovedadesLabel">Modal title</h4>
+									<div class="header-box">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h3 class="modal-title txt__light-100" id="formNovedadesLabel">Reporte de novedades</h3>
+									</div>
 								</div>
 								<div class="modal-body">
-									...
+									<p>Si tienes alguna novedad por reportar, por favor tener en cuenta lo siguiente:</p>
+									<div class="list-group list-novedades mrg__top-30">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="list-group-item">
+													<div class="row-picture">
+														<div class="content-number bg-blue-A700 fnt__Medium">1</div>
+													</div>
+													<div class="row-content">
+													  <h5 class="fnt__Medium txt__blue mrg__bottom-5">Reporte Paz y Salvos libranzas:</h5>
+													  <p class="list-group-item-text">Adjuntar certificado del banco del crédito y formato único diligenciado y firmado.</p>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="list-group-item">
+													<div class="row-picture">
+														<div class="content-number bg-blue-A700 fnt__Medium">2</div>
+													</div>
+													<div class="row-content">
+														<h5 class="fnt__Medium txt__blue mrg__bottom-5">Para modificar cuenta bancaria de nómina:</h5>
+														<p class="list-group-item-text">Adjuntar certificado del banco y formato único diligenciado y firmado.</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="list-group-separator"></div>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="list-group-item">
+													<div class="row-picture">
+														<div class="content-number bg-blue-A700 fnt__Medium">3</div>
+													</div>
+													<div class="row-content">
+													  <h5 class="fnt__Medium txt__blue mrg__bottom-5">Para adicionar, modificar o suspender aporte a pensiones voluntarias:</h5>
+													  <p class="list-group-item-text">Adjuntar formato único diligenciado y firmado.</p>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="list-group-item">
+													<div class="row-picture">
+														<div class="content-number bg-blue-A700 fnt__Medium">4</div>
+													</div>
+													<div class="row-content">
+														<h5 class="fnt__Medium txt__blue mrg__bottom-5">Para adicionar, modificar o suspender aporte AFC:</h5>
+														<p class="list-group-item-text">Si es cuenta nueva adjuntar certificado del banco y formato único diligenciado y firmado, de lo contrario únicamente el formato único diligenciado y firmado.</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="list-group-separator"></div>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="list-group-item">
+													<div class="row-picture">
+														<div class="content-number bg-blue-A700 fnt__Medium">5</div>
+													</div>
+													<div class="row-content">
+														<h5 class="fnt__Medium txt__blue mrg__bottom-5">Para reportar intereses de vivienda:</h5>
+														<p class="list-group-item-text">Adjuntar certificado del banco y formato único diligenciado y firmado.</p>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="list-group-item">
+													<div class="row-picture">
+														<div class="content-number bg-blue-A700 fnt__Medium">6</div>
+													</div>
+													<div class="row-content">
+														<h5 class="fnt__Medium txt__blue mrg__bottom-5">Para reportar medicina prepagada:</h5>
+														<p class="list-group-item-text">Adjuntar certificado de la entidad y formato único diligenciado y firmado.</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="list-group-separator"></div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="list-group-item">
+													<div class="row-picture">
+														<div class="content-number bg-blue-A700 fnt__Medium">7</div>
+													</div>
+													<div class="row-content">
+														<h5 class="fnt__Medium txt__blue mrg__bottom-5">Para reportar dependientes:</h5>
+														<p class="list-group-item-text">Adjuntar formato único diligenciado y firmado teniendo en cuenta:</p>
+														<div class="box__blue-50 pdg__24 mrg__top-15 mrg__left-15">
+															<div class="list-indent">
+																<ul>
+																	<li>Hijos hasta 18 años, adjuntar registro civil de nacimiento</li>
+																	<li>Hijos de 18 a 23 años, adjuntar registro civil de nacimiento y certificado de estudios de institución de educación superior</li>
+																	<li>Cónyuge o compañero, padres y hermanos con dependencia económica del trabajador, debe adjuntar certificación de contador público indicando la dependencia económica y la no generación de ingresos</li>
+																	<li>Discapacidad física / mental de Cónyuge o compañero, padres, hermanos e hijos mayores de 23 años, debe adjuntar certificado de medicina legar o entidad competente para determinar la discapacidad.</li>
+																</ul>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="text-center mrg__top-30 mrg__bottom-30">
+										<a href="#" class="btn btn-raised btn-blue-A700">
+											Descarga tu formulario único <i class="material-icons">&#xE2C4;</i>
+										</a>
+									</div>
+									<div class="row mrg__top-40">
+										<div class="col-md-8 col-md-offset-2"><small>Los campos marcados con (*) son obligatorios.</small></div>
+										<div class="col-md-8 col-md-offset-2">
+											<div class="form-group label-floating">
+												<label class="control-label" for="focusedInput1">
+													Nombre*
+												</label>
+												<input class="form-control" id="focusedInput1" type="text">
+											</div>
+										</div>
+										<div class="col-md-8 col-md-offset-2">
+											<div class="form-group label-floating">
+												<label class="control-label" for="focusedInput1">
+													email corporativo*
+												</label>
+												<input class="form-control" id="focusedInput1" type="text">
+											</div>
+										</div>
+										<div class="col-md-8 col-md-offset-2">
+											<div class="form-group">
+												<input type="file" id="inputFile4" multiple="">
+												<div class="input-group">
+													<input type="text" readonly="" class="form-control" placeholder="Seleccionar archivo...">
+													<span class="input-group-btn input-group-sm">
+														<button type="button" class="btn btn-fab btn-fab-mini">
+															<i class="material-icons">attach_file</i>
+														</button>
+												  </span>
+												</div>
+												<span class="help-block">Puede adjuntar hasta 10 archivos.</span>
+											</div>
+										</div>
+										<div class="col-md-8 col-md-offset-2">
+											<div class="form-group label-floating">
+												<label for="textArea" class="control-label">Comentarios*</label>
+												<textarea class="form-control" rows="3" id="textArea"></textarea>
+											</div>
+										</div>
+										<div class="col-md-8 col-md-offset-2">
+											<p class="mrg__top-30">Verifique por favor su email antes de dar click en enviar.</p>
+										</div>
+									</div>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-									<button type="button" class="btn btn-primary">Save changes</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+									<button type="button" class="btn btn-primary">Enviar</button>
 								</div>
 							</div>
 						</div>
