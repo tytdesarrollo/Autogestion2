@@ -161,10 +161,7 @@ class SiteController extends Controller
     public function actionVacaciones()
     {
         	
-	if (Yii::$app->user->isGuest) {
-			 return $this->goBack();
-			 
-        }else{
+	
 		
 		$tablet_browser = 0;
 			$mobile_browser = 0;
@@ -234,7 +231,7 @@ class SiteController extends Controller
 				
                 return $this->render('vacaciones',['events' => $events]);
 			}        
-		}
+		
     }
 	
 	public function actionAddevent(){
@@ -420,5 +417,40 @@ class SiteController extends Controller
 					echo(($datos)?json_encode($datos):''); 
 				}			
 	}
-	
+	public function actionCertificadolaboral()
+    {				
+		
+        return $this->render('certificadolaboral');
+		
+    }
+	public function actionCertificadosretencion()
+    {				
+		
+        return $this->render('certificadosretencion');
+		
+    }
+	public function actionComprobantespago()
+    {				
+		
+        return $this->render('comprobantespago');
+		
+    }
+	public function actionEquiponomina()
+    {				
+		
+        return $this->render('equiponomina');
+		
+    }
+	public function actionCronogramanomina()
+    {				
+		
+        return $this->render('cronogramanomina');
+		
+    }
+	public function actionActualidadlaboral()
+    {				
+		
+        return $this->render('actualidadlaboral');
+		
+    }
 }

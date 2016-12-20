@@ -51,7 +51,7 @@ AppAsset::register($this);
 				<div class="hidden-xs" style="margin-top: 10px;"><p>Mesa Centro de servicios compartidos.</p></div>
 			</div>
 			<div class="pull-right">
-				<div class="content__icon-menu__aux">
+				<div class="content__icon-menu__aux hidden-xxs">
 					<a id="search" href="#" class="menu-trigger"><i class="material-icons icon__26">&#xE8B6;</i></a>
 				</div>
 				<div class="content__icon-menu__aux">
@@ -133,8 +133,8 @@ AppAsset::register($this);
 					<?= Html::a('<i class="material-icons">&#xEB48;</i><span>Vacaciones</span>', ['site/vacaciones']) ?></li>
 					<li>
 					<?= Html::a('<i class="material-icons">&#xE856;</i><span>Trabajo por turnos</span>', ['site/novedades']) ?></li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE3F3;</i><span>Incapacidades</span>', ['site/incapacidades']) ?></li>					
+					<!--<li>
+					<?= Html::a('<i class="material-icons">&#xE3F3;</i><span>Incapacidades</span>', ['site/incapacidades']) ?></li>-->				
 					<li class="divider"></li>
 					<li>
 						<p class="category">Información</p>
@@ -221,6 +221,47 @@ AppAsset::register($this);
 	new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ), {
 		type : 'cover'
 	} );
+</script>
+<script>
+	$(function () {
+  
+	// /////
+	// MAD-SELECT
+		var madSelectHover = 0;
+		$(".mad-select").each(function() {
+			var $input = $(this).find("input"),
+				$ul = $(this).find("> ul"),
+				$ulDrop =  $ul.clone().addClass("mad-select-drop");
+
+			$(this)
+			  .append('<i class="material-icons">arrow_drop_down</i>', $ulDrop)
+			  .on({
+			  hover : function() { madSelectHover ^= 1; },
+			  click : function() { $ulDrop.toggleClass("show");}
+			});
+
+			// PRESELECT
+			$ul.add($ulDrop).find("li[data-value='"+ $input.val() +"']").addClass("selected");
+
+			// MAKE SELECTED
+			$ulDrop.on("click", "li", function(evt) {
+			  evt.stopPropagation();
+			  $input.val($(this).data("value")); // Update hidden input value
+			  $ul.find("li").eq($(this).index()).add(this).addClass("selected")
+				.siblings("li").removeClass("selected");
+			});
+			// UPDATE LIST SCROLL POSITION
+			$ul.on("click", function() {
+			  var liTop = $ulDrop.find("li.selected").position().top;
+			  $ulDrop.scrollTop(liTop + $ulDrop[0].scrollTop);
+			});
+		});
+
+		$(document).on("mouseup", function(){
+			if(!madSelectHover) $(".mad-select-drop").removeClass("show");
+		});
+		  
+	});
 </script>
 <script>
 	$(document).ready(function() {
