@@ -17,7 +17,10 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'enableAutoLogin' => false,
+			'authTimeout' => 657567576,
+            'enableSession' => true,
+            'autoRenewCookie' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -46,7 +49,11 @@ $config = [
                 ],
             ],
         ],
-        'db' => require(__DIR__ . '/db.php'),
+        'telmovil' => require(__DIR__ . '/telmovil.php'),
+        'confidencial' => require(__DIR__ . '/confidencial.php'),
+        'tgt' => require(__DIR__ . '/tgt.php'),
+        'fundacion' => require(__DIR__ . '/fundacion.php'),
+        'mysqldb' => require(__DIR__ . '/mysqldb.php'),
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,

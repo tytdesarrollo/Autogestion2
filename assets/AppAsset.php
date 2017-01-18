@@ -19,15 +19,20 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
+		'css/fullcalendar.css',
     ];
     public $js = [
 		'js/classie.js',
 		'js/mlpushmenu.js',
+		'js/moment.min.js',
+		'js/fullcalendar.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapPluginAsset',
 		'yii\bootstrap\BootMaterialCssAsset',
-        'yii\bootstrap\BootMaterialJsAsset'
+        'yii\bootstrap\BootMaterialJsAsset',
+		'yii\flickity\flickityPluginAsset',
+		'yii\sweetalert\sweetalertPluginAsset',
     ];
 }

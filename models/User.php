@@ -5,23 +5,23 @@ namespace app\models;
 class User extends \yii\base\Object implements \yii\web\IdentityInterface
 {
     public $id;
-    public $username;
-    public $password;
+    public $usuario;
+    public $clave;
     public $authKey;
     public $accessToken;
 
     private static $users = [
         '100' => [
             'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
+            'usuario' => 'admin',
+            'clave' => 'admin',
             'authKey' => 'test100key',
             'accessToken' => '100-token',
         ],
         '101' => [
             'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
+            'usuario' => 'demo',
+            'clave' => 'demo',
             'authKey' => 'test101key',
             'accessToken' => '101-token',
         ],
@@ -56,10 +56,10 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername($username)
+    public static function findByUsername($usuario)
     {
         foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
+            if (strcasecmp($user['usuario'], $usuario) === 0) {
                 return new static($user);
             }
         }
@@ -97,8 +97,37 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      * @param string $password password to validate
      * @return boolean if password provided is valid for current user
      */
-    public function validatePassword($password)
+    public function validatePassword($clave)
     {
-        return $this->password === $password;
+        return $this->clave === $clave;
     }
 }
+
+/*
+<?php
+
+namespace app\models;
+
+use Yii;
+use yii\base\Model;
+
+
+class User extends Model
+{
+    public $usuario;
+    public $clave;
+	
+	 function ValidarUsuario($usuario,$clave){ 
+
+    			$users = Yii::$app->confidencial->createCommand("SELECT CEDULA AS CEDULA FROM EMPLEADOS_BASIC WHERE ESTADO = 'A' AND CEDULA = '14320786'")->queryAll();
+				
+
+				
+	 }
+	 
+	
+}
+
+*/
+
+
