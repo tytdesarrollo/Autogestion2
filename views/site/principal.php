@@ -99,7 +99,7 @@ $this->title = 'Pagina Principal';
 								<?= Html::img('@web/img/turnos.jpg', ['alt' => 'Trabajo por turnos', 'class' => 'img-bg img-responsive']) ?>
 							</div>
 							<div class="panel-body">
-							<?= Html::a('<i class="material-icons">&#xE856;</i>', ['site/novedades'], ['class'=>'btn btn-raised btn-float btn-blue-A700']) ?>
+							<?= Html::a('<i class="material-icons">&#xE856;</i>', ['site/turnos'], ['class'=>'btn btn-raised btn-float btn-blue-A700']) ?>
 								<h4 class="fnt__Medium">Te invitamos a registrar tus novedades</h4>
 								<p>Este módulo permitirá optimizar el proceso de registro y transcripción de los reportes mensuales.</p>
 							</div>
