@@ -14,10 +14,10 @@ class IndexForm extends Model
         return [
 			
 			["usuario", "required", "message"=>"Escribe tu usuario, es requerido"],
-			["usuario", "match", "pattern"=>"/^.{3,10}$/", "message"=>"Minimo 3 y maximo 10 caracteres"],
+			["usuario", "match", "pattern"=>"/^.{3,20}$/", "message"=>"Minimo 3 y maximo 20 caracteres"],
 			//["usuario", "match", "pattern"=>"/^[0-9a-z]+$/i", "message"=>"Solo se aceptan letras y numeros"],
 			["clave", "required", "message"=>"Escribe tu clave, es requerida"],
-			["clave", "match", "pattern"=>"/^.{3,10}$/", "message"=>"Minimos de 3 a 10 caracteres"]					
+			["clave", "match", "pattern"=>"/^.{3,20}$/", "message"=>"Minimos de 3 a 20 caracteres"]					
         ];
     }
 	
