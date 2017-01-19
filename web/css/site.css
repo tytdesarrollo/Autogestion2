@@ -12,6 +12,15 @@ body {
 	width: 100%;
 	padding-top: 89px;
 }
+.scroller-inner #content{
+	min-height: 100%;
+	height: 100%;
+}
+@media (min-height: 700px){
+	.scroller-inner{
+		height: 100%;
+	}
+}
 #header{
 	min-height: 89px;
 	position: fixed;
@@ -711,6 +720,10 @@ a.desc:after {
 .bg-dark-87{
 	background-color: rgba(0, 0, 0, 0.87);
 }
+.bg-orange-std{
+	background-color: #ff5722;
+	color: #ffffff;
+}
 .bg-amber-A700{
 	background-color: #ffaa00;
 	color: #ffffff;
@@ -779,6 +792,8 @@ a.desc:after {
 }
 .main-content{
 	position: relative;
+	min-height: 100%;
+	height: 100%;
 }
 .dropdown-menu{
 	z-index: 3;
@@ -1340,11 +1355,11 @@ a.btn-float i.material-icons{
 }
 .container-v{
 	position: relative;
-	margin: 55px 90px 60px;
+	margin: 55px 90px 120px;
 	background-color: rgba(0,0,0,0.8);
 }
 .bg-turnos .container-v{
-	margin: 55px 60px 60px;
+	margin: 55px 60px 120px;
 }
 .container-v .box{
 	position: absolute;
@@ -1526,12 +1541,16 @@ a.btn-float i.material-icons{
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 70%;
+	min-height: 100%;
+	height: 100%;
 }
 .bg-turnos{
 	background-image: url(../img/office_bg.jpg);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 60%;
+	min-height: 100%;
+	height: 100%;
 }
 .cont-float-vac{
 	position: absolute;
@@ -2294,14 +2313,15 @@ MATERIAL-SELECT
   display:inline-block;
   vertical-align:middle;
   border-bottom: 1px solid rgba(0,0,0,0.12);
-  padding-right: 8px;
+  padding-right: 13px;
   min-width: 100px;
   height: 38px;
 }
 .mad-select ul {
   list-style: none;
   display:inline-block;
-  margin:0; padding:0;
+  margin: 0 5px 0 0;
+  padding:0;
 }
 .mad-select li{
   vertical-align: middle;
@@ -2314,7 +2334,7 @@ MATERIAL-SELECT
   box-sizing: initial;
 }
 .mad-select > ul:first-of-type{
-   max-width:120px; /* COMMENT FOR AUTO WIDTH */
+   /* max-width:120px; */ /* COMMENT FOR AUTO WIDTH */
 }
 .mad-select > ul:first-of-type li.selected{
   display: inline-block;
@@ -2329,7 +2349,7 @@ MATERIAL-SELECT
   padding:0;
   position: absolute;
   top: 7px;
-  right: 8px;
+  right: 5px;
 }
 /*jQ*/
 .mad-select ul.mad-select-drop{

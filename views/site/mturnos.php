@@ -107,7 +107,7 @@ $this->title = 'Trabajo por Turnos';
 						</div>
 						<div class="text-center txt__light-100">
 							<div class="content-main-days">
-								<div class="content-days bg-amber-A700 center-block">
+								<div class="content-days bg-orange-std center-block">
 									<div class="ds-txt">
 										<p class="text-ini">Te han aprobado</p>
 										<span class="text-number">12</span>
@@ -357,7 +357,7 @@ $this->title = 'Trabajo por Turnos';
 			</div>
 			<div class="modal-body">
 				<div class="heading">
-					<h3 class="fnt__Medium">Solicitud de Vacaciones</h3>
+					<h3 class="fnt__Medium">Solicitud de horas extras</h3>
 				</div>
 				<div class="form-group">
 					<label for="title" class="col-sm-2 control-label">Titulo</label>
@@ -365,31 +365,52 @@ $this->title = 'Trabajo por Turnos';
 						<input type="text" name="title" class="form-control" id="title" placeholder="Titulo">
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group select-m">
 					<label for="color" class="col-sm-2 control-label">Color</label>
 					<div class="col-sm-10">
-						<select name="color" class="form-control" id="color">
-							<option value="">Seleccione...</option>
-							<option style="color:#0071c5;" value="#0071c5">&#9724; Azul Oscuro</option>
-							<option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquesa</option>
-							<option style="color:#008000;" value="#008000">&#9724; Verde</option>						  
-							<option style="color:#FFD700;" value="#FFD700">&#9724; Amarillo</option>
-							<option style="color:#FF8C00;" value="#FF8C00">&#9724; Naranja</option>
-							<option style="color:#FF0000;" value="#FF0000">&#9724; Rojo</option>
-							<option style="color:#000;" value="#000">&#9724; Negro</option>
-						</select>
+						<div class="mad-select">
+							<ul>
+								<li data-value="0">Seleccione...</li>
+								<li style="color:#0071c5;" data-value="1">Azul Oscuro</li>
+								<li style="color:#40E0D0;" data-value="2">Turquesa</li>
+								<li style="color:#008000;" data-value="3">Verde</li>
+								<li style="color:#FFD700;" data-value="4">Amarillo</li>
+								<li style="color:#FF8C00;" data-value="5">Naranja</li>
+								<li style="color:#FF0000;" data-value="6">Rojo</li>
+								<li style="color:#000;" data-value="7">Negro</li>
+							</ul>
+							<input type="hidden" id="color" name="color" value="0" class="form-control">
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="start" class="col-sm-2 control-label">Fecha Inicial</label>
+					<label for="start" class="col-sm-2 control-label">Hora Inicial</label>
 					<div class="col-sm-10">
 						<input type="text" name="start" class="form-control" id="start" readonly>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="end" class="col-sm-2 control-label">Fecha Final</label>
+					<label for="end" class="col-sm-2 control-label">Hora Final</label>
 					<div class="col-sm-10">
 						<input type="text" name="end" class="form-control" id="end" readonly>
+					</div>
+				</div>
+				<div class="form-group select-m">
+					<label for="concepto" class="col-sm-2 control-label">Concepto</label>
+					<div class="col-sm-10">
+						<div class="mad-select">
+							<ul>
+								<li data-value="0">Seleccione...</li>
+								<li data-value="1">Recargo nocturno ordinario - 1005</li>
+								<li data-value="2">Horas extras diurnas - 1006</li>
+								<li data-value="3">Horas extras nocturnas - 1007</li>
+								<li data-value="4">Horas extras festiva diurna - 1008</li>
+								<li data-value="5">Horas extras festiva nocturna - 1009</li>
+								<li data-value="6">Recargo nocturno dominical/festivo - 1118</li>
+								<li data-value="7">Recargo diurno dominical/festivo - 1119</li>
+							</ul>
+							<input type="hidden" id="concepto" name="concepto" value="0" class="form-control">
+						</div>
 					</div>
 				</div>
 			</div>
