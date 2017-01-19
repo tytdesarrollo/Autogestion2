@@ -1343,6 +1343,9 @@ a.btn-float i.material-icons{
 	margin: 55px 90px 60px;
 	background-color: rgba(0,0,0,0.8);
 }
+.bg-turnos .container-v{
+	margin: 55px 60px 60px;
+}
 .container-v .box{
 	position: absolute;
 	left: 0;
@@ -1399,6 +1402,12 @@ a.btn-float i.material-icons{
 .info-item .table tbody > tr > td{
 	border-color: #ddd !important;
 }
+.container-v .content .content-info .info-item.info-item-lft{
+	width: 40%;
+}
+.container-v .content .content-info .info-item.info-item-rgt{
+	width: 60%;
+}
 .container-v .content .content-slide{
 	position: absolute;
 	left: -30px;
@@ -1411,6 +1420,10 @@ a.btn-float i.material-icons{
 	-o-transition: all 0.5s;
 	-webkit-transition: all 0.5s;
 	transition: all 0.5s;
+}
+.bg-turnos .container-v .content .content-slide{
+	width: calc(40% + 30px);
+	height: calc(100% + 50px);
 }
 .container-v .content .content-slide .slide-box-back{
 	position: absolute;
@@ -1513,6 +1526,12 @@ a.btn-float i.material-icons{
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 70%;
+}
+.bg-turnos{
+	background-image: url(../img/office_bg.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 0 60%;
 }
 .cont-float-vac{
 	position: absolute;
@@ -1854,6 +1873,9 @@ a.color-white:hover{
 .line-divider-info-vacaciones.bottom{
 	margin-top: 10px;
 }
+.bg-turnos .calendar-main-content{
+	left: 0;
+}
 .calendar-main-content{
 	position: fixed;
 	overflow-y: hidden;
@@ -1930,6 +1952,16 @@ a.color-white:hover{
     height: 100%;
 }
 .mobile .scroller-inner .main-content  > .bg-vacaciones  > .bg-dark-87 > .container{
+    height: 100%;
+}
+.mobile .scroller-inner .main-content  > .bg-turnos{
+	min-height: 100%;
+    height: 100%;
+}
+.mobile .scroller-inner .main-content  > .bg-turnos  > .bg-dark-87{
+    height: 100%;
+}
+.mobile .scroller-inner .main-content  > .bg-turnos  > .bg-dark-87 > .container{
     height: 100%;
 }
 .mobile .content-days{
@@ -2081,6 +2113,35 @@ a.color-white:hover{
 .vrtl-grid .content-info-2 .content-label .label p{
 	font-size: 15px;
 }
+
+/* ESTILOS VISTA HORAS EXTRAS MOBILE */
+
+.mobile .bg-turnos .content-days .ds-txt{
+	position: absolute;
+	width: 100%;
+	left: 0;
+}
+.mobile .bg-turnos .content-days .ds-txt .text-end{
+	font-size: 2.300em;
+}
+.mobile .bg-turnos .content-main-days{
+	position: absolute;
+    width: 100%;
+    left: 0;
+    top: calc(50% - 108px);
+}
+.mobile .bg-turnos .content-days{
+	width: 160px;
+    height: 160px;
+}
+.mobile .bg-turnos .content-days .text-ini{
+	margin-top: 5px;
+}
+.mobile .bg-turnos .content-days .text-number{
+	font-size: 7.500em;
+	margin-right: 12px;
+}
+
 .mobile footer{
 	display: none;
 }
@@ -2301,6 +2362,9 @@ MATERIAL-SELECT
   background: rgba(0,0,0,0.05);
 }
 
+.vrtl-al__txt-b{
+	vertical-align: text-bottom;
+}
 .modal-pdfviewer .modal-body{
 	padding: 0;
 }

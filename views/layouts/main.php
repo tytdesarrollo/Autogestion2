@@ -132,7 +132,7 @@ AppAsset::register($this);
 					<li>
 					<?= Html::a('<i class="material-icons">&#xEB48;</i><span>Vacaciones</span>', ['site/vacaciones']) ?></li>
 					<li>
-					<?= Html::a('<i class="material-icons">&#xE856;</i><span>Trabajo por turnos</span>', ['site/novedades']) ?></li>
+					<?= Html::a('<i class="material-icons">&#xE856;</i><span>Trabajo por turnos</span>', ['site/turnos']) ?></li>
 					<!--<li>
 					<?= Html::a('<i class="material-icons">&#xE3F3;</i><span>Incapacidades</span>', ['site/incapacidades']) ?></li>-->				
 					<li class="divider"></li>
@@ -191,6 +191,15 @@ AppAsset::register($this);
   });
 </script>
 <script>
+		$('.ag-carousel.sec').flickity({
+		  // options
+		  setGallerySize: false,
+		  cellAlign: 'left',
+		  initialIndex: 0,
+		  // contain: true,
+		  pageDots: false,
+		  dragThreshold: 10,
+		});
 		$('.ag-carousel').flickity({
 		  // options
 		  setGallerySize: false,
@@ -199,8 +208,8 @@ AppAsset::register($this);
 		  // contain: true,
 		  pageDots: false,
 		  dragThreshold: 10,
-		});
-	</script>
+		});		
+</script>
 <script>
 	(function(){
         $('body').on('click', '#search', function(e){
