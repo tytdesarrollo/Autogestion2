@@ -17,7 +17,7 @@ class Ldap extends Model{
 
 	// DATOS PARA DIRECTORIO ACTIVO
 	$directorio01 = "talentos";
-	$dominio01 = "co";
+	$dominio01 = "local";
 	
 	//parametro para habilitar el directorio activo, si es "true" esta habilitado y omite base de datos, si es "false" pasa a validar con base de datos
 	$directorioactivo = "false";
