@@ -784,6 +784,9 @@ a.desc:after {
 .box__blue-50{
 	background-color: #e2f1fc;
 }
+.dis-block{
+	display: block;
+}
 .dis-inline-block{
 	display: inline-block;
 }
@@ -1734,6 +1737,40 @@ a.btn-float i.material-icons{
 }
 .modal-modtabs .tab-content{
 	padding-top: 0;
+}
+.modal-header-gray .modal-header{
+	color: rgba(0,0,0, 0.87);
+    background-color: #eeeeee;
+	padding: 15px 24px;
+}
+.modal-header-gray .modal-header .close{
+	font-size: 34px;
+    text-shadow: none;
+    font-weight: 400;
+    filter: alpha(opacity=50);
+    opacity: .5;
+}
+.modal-header-gray .modal-header h3{
+	margin: 10px 0px;
+}
+.modal-mobile-header-gray .modal-header{
+	color: rgba(0,0,0, 0.87);
+    background-color: #eeeeee;
+}
+.modal-mobile-header-gray .modal-header .close{
+	font-size: 34px;
+    text-shadow: none;
+    font-weight: 400;
+    filter: alpha(opacity=50);
+    opacity: .5;
+}
+.modal-mobile-header-gray .modal-header h3{
+	font-size: 18px;
+    margin: 10px 0px;
+}
+.modal-mobile-header-gray .modal-body{
+	padding-left: 24px !important;
+    padding-right: 24px !important;
 }
 .content-mrg__top-10{
 	margin-top: 10%;
