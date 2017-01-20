@@ -557,57 +557,53 @@ $this->title = 'Vacaciones';
 							<!-- CALENDARIO -->
 							<div id="calendar" class="col-centered"></div>
 							<!-- Modal -->
-							<div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							<div class="modal fade modal-header-gray" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
 										
 										<?php $form = ActiveForm::begin([
 											'method' => 'POST',
 											'options' => [
-														'class' => 'form-horizontal'
+														'class' => ' '
 													 ],
 											'action' => ['site/addevent'],
 										]);
 										?>
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											<h4 class="modal-title" id="myModalLabel">Solicitud de Vacaciones</h4>
+											<h3 class="fnt__Medium">Solicitud de vacaciones</h3>
 										</div>
 										<div class="modal-body">
-											<div class="form-group">
-												<label for="title" class="col-sm-2 control-label">Titulo</label>
-												<div class="col-sm-10">
-													<input type="text" name="title" class="form-control" id="title" placeholder="Titulo">
-												</div>
-											</div>
-											<div class="form-group select-m">
-												<label for="color" class="col-sm-2 control-label">Color</label>
-												<div class="col-sm-10">
-													<div class="mad-select">
-														<ul>
-															<li data-value="0">Seleccione...</li>
-															<li style="color:#0071c5;" data-value="1">Azul Oscuro</li>
-															<li style="color:#40E0D0;" data-value="2">Turquesa</li>
-															<li style="color:#008000;" data-value="3">Verde</li>
-															<li style="color:#FFD700;" data-value="4">Amarillo</li>
-															<li style="color:#FF8C00;" data-value="5">Naranja</li>
-															<li style="color:#FF0000;" data-value="6">Rojo</li>
-															<li style="color:#000;" data-value="7">Negro</li>
-														</ul>
-														<input type="hidden" id="color" name="color" value="0" class="form-control">
+											<div class="row">
+												<div class="col-sm-10 col-sm-offset-1">
+													<div class="form-group label-floating mrg__top-15">
+														<label for="title" class="control-label">Titulo</label>
+															<input type="text" name="title" class="form-control" id="title">
 													</div>
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="start" class="col-sm-2 control-label">Fecha Inicial</label>
-												<div class="col-sm-10">
-													<input type="text" name="start" class="form-control" id="start" readonly>
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="end" class="col-sm-2 control-label">Fecha Final</label>
-												<div class="col-sm-10">
-													<input type="text" name="end" class="form-control" id="end" readonly>
+													<div class="form-group select-m mrg__top-15">
+														<label for="color" class="control-label dis-block">Color</label>
+														<div class="mad-select">
+															<ul>
+																<li data-value="0">Seleccione...</li>
+																<li style="color:#0071c5;" data-value="1">Azul Oscuro</li>
+																<li style="color:#40E0D0;" data-value="2">Turquesa</li>
+																<li style="color:#008000;" data-value="3">Verde</li>
+																<li style="color:#FFD700;" data-value="4">Amarillo</li>
+																<li style="color:#FF8C00;" data-value="5">Naranja</li>
+																<li style="color:#FF0000;" data-value="6">Rojo</li>
+																<li style="color:#000;" data-value="7">Negro</li>
+															</ul>
+															<input type="hidden" id="color" name="color" value="0" class="form-control">
+														</div>
+													</div>
+													<div class="form-group mrg__top-15">
+														<label for="start" class="control-label">Fecha Inicial</label>
+														<input type="text" name="start" class="form-control" id="start" readonly>
+													</div>
+													<div class="form-group mrg__top-15">
+														<label for="end" class="control-label">Fecha Final</label>
+														<input type="text" name="end" class="form-control" id="end" readonly>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -620,25 +616,23 @@ $this->title = 'Vacaciones';
 								</div>
 							</div>
 							<!-- Modal -->
-							<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							<div class="modal fade modal-header-gray" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
 										<?php $form = ActiveForm::begin([
 											'method' => 'post',
 											'options' => [
-														'class' => 'form-horizontal'
+														'class' => ''
 													 ],
 											'action' => ['controller/action'],											
 										]);
 										?>
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											<h4 class="modal-title" id="myModalLabel">Desea eliminar esta solicitud?</h4>
+											<h3 class="fnt__Medium">Desea eliminar esta solicitud?</h3>
 										</div>
 										<div class="modal-body">
-											<div class="form-group">
-												<label>Realmente desea eliminar esta solicitud de vacaciones? recuerde que se le notificara al lider encargado.</label>
-											</div>
+											<p>Realmente desea eliminar esta solicitud de vacaciones? recuerde que se le notificara al lider encargado.</p>
 											<input type="hidden" name="id" class="form-control" id="id">
 											<input type="hidden" name="delete" class="form-control" id="delete">
 										</div>
