@@ -9,90 +9,6 @@ $this->title = 'Trabajo por Turnos';
 	<div class="bg-dark-87">
 		<!-- CONTENT TOUCH CAROUSEL -->
 		<div class="ag-carousel sec">
-			<!-- MÓDULO IZQUIERDA --> <!--
-			<div class="ag-carousel__cell ag-carousel__cell-1">
-				<div class="ag-carousel__cell-content">
-					<div id="modVacVig" class="container bg__grt-blue__mobile">
-						<div class="header">
-							<h4 class="fnt__Medium">Vacaciones vigentes</h4>
-						</div>
-						<div class="vrtl-grid mrg__top-30">
-							<div class="vrtl-grid__cell">
-								<div class="vrtl-grid__cell-content content-icon">
-									<i class="material-icons">&#xE88E;</i>
-								</div>
-								<div class="vrtl-grid__cell-content content-info-1">
-									<p class="title">24-04-2016</p>
-									<div class="txt__light-50">
-										<p class="dis-inline-block no-mrg">Inicio: </p>
-										<p class="dis-inline-block no-mrg">24-04-2016</p>
-									</div>
-								</div>
-								<div class="vrtl-grid__cell-content content-info-2">
-									<div class="content-label">
-										<div class="label">
-											<p class="dis-inline-block no-mrg">10</p>
-											<p class="dis-inline-block no-mrg">Días</p>
-										</div>
-									</div>
-									<div class="txt__light-50">
-										<p class="dis-inline-block no-mrg">Fin: </p>
-										<p class="dis-inline-block no-mrg">24-04-2016</p>
-									</div>
-								</div>
-							</div>
-							<div class="vrtl-grid__cell">
-								<div class="vrtl-grid__cell-content content-icon">
-									<i class="material-icons">&#xE88E;</i>
-								</div>
-								<div class="vrtl-grid__cell-content content-info-1">
-									<p class="title">24-04-2016</p>
-									<div class="txt__light-50">
-										<p class="dis-inline-block no-mrg">Inicio: </p>
-										<p class="dis-inline-block no-mrg">24-04-2016</p>
-									</div>
-								</div>
-								<div class="vrtl-grid__cell-content content-info-2">
-									<div class="content-label">
-										<div class="label">
-											<p class="dis-inline-block no-mrg">10</p>
-											<p class="dis-inline-block no-mrg">Días</p>
-										</div>
-									</div>
-									<div class="txt__light-50">
-										<p class="dis-inline-block no-mrg">Fin: </p>
-										<p class="dis-inline-block no-mrg">24-04-2016</p>
-									</div>
-								</div>
-							</div>
-							<div class="vrtl-grid__cell">
-								<div class="vrtl-grid__cell-content content-icon">
-									<i class="material-icons">&#xE88E;</i>
-								</div>
-								<div class="vrtl-grid__cell-content content-info-1">
-									<p class="title">24-04-2016</p>
-									<div class="txt__light-50">
-										<p class="dis-inline-block no-mrg">Inicio: </p>
-										<p class="dis-inline-block no-mrg">24-04-2016</p>
-									</div>
-								</div>
-								<div class="vrtl-grid__cell-content content-info-2">
-									<div class="content-label">
-										<div class="label">
-											<p class="dis-inline-block no-mrg">10</p>
-											<p class="dis-inline-block no-mrg">Días</p>
-										</div>
-									</div>
-									<div class="txt__light-50">
-										<p class="dis-inline-block no-mrg">Fin: </p>
-										<p class="dis-inline-block no-mrg">24-04-2016</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>-->
 			<!-- */ MÓDULO IZQUIERDA -->
 			<!-- MÓDULO CENTRAL -->
 			<div class="ag-carousel__cell ag-carousel__cell-1">
@@ -226,90 +142,9 @@ $this->title = 'Trabajo por Turnos';
 </div>
 
  <!-- // MODALS // -->
-<!-- MODALS TOP BUTTONS -->
-<!---------------------------------------------------
-  // MODAL RECORD
-  // Modal de historial de solicitudes de vacaciones.
-------------------------------------------------------->
-<div class="modal fade modal-record" id="record" tabindex="-1" role="dialog" aria-labelledby="recordLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			</div>
-			<div class="modal-body">
-				<div class="container">
-					<div class="heading">
-						<h3 class="fnt__Medium">Historial solicitudes de vacaciones</h3>
-					</div>
-					<div class="body">
-						<div class="table-responsive">
-							<table class="table">
-								<thead>
-									<tr>
-										<th>Consecutivo</th>
-										<th>Fecha solicitud</th>
-										<th>Fecha inicio</th>
-										<th>Fecha fin</th>
-										<th>Días hábiles</th>
-										<th>Estado</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>00001</td>
-										<td>24-04-2016</td>
-										<td>24-04-2016</td>
-										<td>24-04-2016</td>
-										<td>10</td>
-										<td><div class="label-table label-success">Aprobado</div></td>
-									</tr>
-									<tr>
-										<td>00002</td>
-										<td>24-04-2016</td>
-										<td>24-04-2016</td>
-										<td>24-04-2016</td>
-										<td>10</td>
-										<td><div class="label-table label-success">Aprobado</div></td>
-									</tr>
-									<tr>
-										<td>00003</td>
-										<td>24-04-2016</td>
-										<td>24-04-2016</td>
-										<td>24-04-2016</td>
-										<td>10</td>
-										<td><div class="label-table label-success">Aprobado</div></td>
-									</tr>
-									<tr>
-										<td>00004</td>
-										<td>24-04-2016</td>
-										<td>24-04-2016</td>
-										<td>24-04-2016</td>
-										<td>10</td>
-										<td><div class="label-table label-success">Aprobado</div></td>
-									</tr>
-									<tr>
-										<td>00005</td>
-										<td>24-04-2016</td>
-										<td>24-04-2016</td>
-										<td>24-04-2016</td>
-										<td>10</td>
-										<td><div class="label-table label-success">Aprobado</div></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- */ MODAL RECORD -->
-
 <!---------------------------------------------------
   // MODAL HELP
-  // Modal de información sobre el módulo de vacaciones.
+  // Modal de información sobre el módulo de turnos.
 ------------------------------------------------------->
 <div class="modal fade modal-help" id="help" tabindex="-1" role="dialog" aria-labelledby="helpLabel">
 	<div class="modal-dialog modal-lg" role="document">
@@ -346,70 +181,62 @@ $this->title = 'Trabajo por Turnos';
 <!-- MODALS CALENDARIO -->
 <!---------------------------------------------------
   // MODAL ADD
-  // Modal formulario para solicitar vacaciones.
+  // Modal formulario para reportar horas extras.
 ------------------------------------------------------->
-<div class="modal fade modal-sv-calendar" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade modal-mobile-header-gray" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<?= Html::beginForm(Url::toRoute("site/addevent"), "POST") ?>
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h3 class="fnt__Medium">Solicitud de horas extras</h3>
 			</div>
 			<div class="modal-body">
-				<div class="heading">
-					<h3 class="fnt__Medium">Solicitud de horas extras</h3>
-				</div>
-				<div class="form-group">
-					<label for="title" class="col-sm-2 control-label">Titulo</label>
-					<div class="col-sm-10">
-						<input type="text" name="title" class="form-control" id="title" placeholder="Titulo">
-					</div>
-				</div>
-				<div class="form-group select-m">
-					<label for="color" class="col-sm-2 control-label">Color</label>
-					<div class="col-sm-10">
-						<div class="mad-select">
-							<ul>
-								<li data-value="0">Seleccione...</li>
-								<li style="color:#0071c5;" data-value="1">Azul Oscuro</li>
-								<li style="color:#40E0D0;" data-value="2">Turquesa</li>
-								<li style="color:#008000;" data-value="3">Verde</li>
-								<li style="color:#FFD700;" data-value="4">Amarillo</li>
-								<li style="color:#FF8C00;" data-value="5">Naranja</li>
-								<li style="color:#FF0000;" data-value="6">Rojo</li>
-								<li style="color:#000;" data-value="7">Negro</li>
-							</ul>
-							<input type="hidden" id="color" name="color" value="0" class="form-control">
+				<div class="row">
+					<div class="col-sm-10 col-sm-offset-1">
+						<div class="form-group label-floating mrg__top-15">
+							<label for="title" class="control-label">Titulo</label>
+								<input type="text" name="title" class="form-control" id="title">
 						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="start" class="col-sm-2 control-label">Hora Inicial</label>
-					<div class="col-sm-10">
-						<input type="text" name="start" class="form-control" id="start" readonly>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="end" class="col-sm-2 control-label">Hora Final</label>
-					<div class="col-sm-10">
-						<input type="text" name="end" class="form-control" id="end" readonly>
-					</div>
-				</div>
-				<div class="form-group select-m">
-					<label for="concepto" class="col-sm-2 control-label">Concepto</label>
-					<div class="col-sm-10">
-						<div class="mad-select">
-							<ul>
-								<li data-value="0">Seleccione...</li>
-								<li data-value="1">Recargo nocturno ordinario - 1005</li>
-								<li data-value="2">Horas extras diurnas - 1006</li>
-								<li data-value="3">Horas extras nocturnas - 1007</li>
-								<li data-value="4">Horas extras festiva diurna - 1008</li>
-								<li data-value="5">Horas extras festiva nocturna - 1009</li>
-								<li data-value="6">Recargo nocturno dominical/festivo - 1118</li>
-								<li data-value="7">Recargo diurno dominical/festivo - 1119</li>
-							</ul>
-							<input type="hidden" id="concepto" name="concepto" value="0" class="form-control">
+						<div class="form-group select-m mrg__top-15">
+							<label for="color" class="control-label dis-block">Color</label>
+							<div class="mad-select">
+								<ul>
+									<li data-value="0">Seleccione...</li>
+									<li style="color:#0071c5;" data-value="1">Azul Oscuro</li>
+									<li style="color:#40E0D0;" data-value="2">Turquesa</li>
+									<li style="color:#008000;" data-value="3">Verde</li>
+									<li style="color:#FFD700;" data-value="4">Amarillo</li>
+									<li style="color:#FF8C00;" data-value="5">Naranja</li>
+									<li style="color:#FF0000;" data-value="6">Rojo</li>
+									<li style="color:#000;" data-value="7">Negro</li>
+								</ul>
+								<input type="hidden" id="color" name="color" value="0" class="form-control">
+							</div>
+						</div>
+						<div class="form-group mrg__top-15">
+							<label for="start" class="control-label">Hora Inicial</label>
+							<input type="text" name="start" class="form-control" id="start" readonly>
+						</div>
+						<div class="form-group mrg__top-15">
+							<label for="end" class="control-label">Hora Final</label>
+							<input type="text" name="end" class="form-control" id="end" readonly>
+						</div>
+						<div class="form-group select-m mrg__top-15">
+							<label for="concepto" class="control-label dis-block">Concepto</label>
+							<div class="mad-select">
+								<ul>
+									<li data-value="0">Seleccione...</li>
+									<li data-value="1">Recargo nocturno ordinario - 1005</li>
+									<li data-value="2">Horas extras diurnas - 1006</li>
+									<li data-value="3">Horas extras nocturnas - 1007</li>
+									<li data-value="4">Horas extras festiva diurna - 1008</li>
+									<li data-value="5">Horas extras festiva nocturna - 1009</li>
+									<li data-value="6">Recargo nocturno dominical/festivo - 1118</li>
+									<li data-value="7">Recargo diurno dominical/festivo - 1119</li>
+								</ul>
+								<input type="hidden" id="concepto" name="concepto" value="0" class="form-control">
+							</div>
 						</div>
 					</div>
 				</div>
@@ -426,7 +253,7 @@ $this->title = 'Trabajo por Turnos';
 
 <!--------------------------------------------------------------
   // MODAL EDIT
-  // Modal formulario para eliminar la solicitud de vacaciones.
+  // Modal formulario para eliminar el reporte de horas extras.
 ---------------------------------------------------------------->
 <div class="modal fade modal-sv-calendar" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
