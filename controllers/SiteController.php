@@ -16,6 +16,7 @@ use yii\data\Pagination;
 use yii\helpers\Url;
 use PDO;
 use app\models\TwPcIdentity;
+use app\models\TwPcPersonalData;
 use app\models\Ldap;
 
 
@@ -23,14 +24,15 @@ use app\models\Ldap;
 class SiteController extends Controller
 { 	
 
+
 	public function actionSaluda(){
 
-		$model = new TwPcIdentity;
+		$model = new TwPcPersonalData;
 
 		$proce = $model->procedimiento();
 
         return $this->render('saluda', ["rows"=>$proce]);
-	}		
+	}	
 	
     public function behaviors()
     {
@@ -117,7 +119,7 @@ class SiteController extends Controller
 		
 		if(isset($ladpcon[0]) && $ladpcon[2]=="true"){
 			
-				return $this->redirect(['site/principal']);
+				return $this->redirect(['site/principal', "cedula"=>$ladpcon[0]]);
 				
 		}elseif(isset($ladpcon[1]) && $ladpcon[2]=="true"){
 			
@@ -262,10 +264,26 @@ class SiteController extends Controller
 	}
 
     public function actionPrincipal()
-    {				
+    {
 		
-        return $this->render('principal');
+		$model = new TwPcPersonalData;
+
+		$twpcpersonaldata = $model->procedimiento();
 		
+		//convierto los bloques en arrays y divido los bloques por posicion
+		
+		$bloque1 = explode("_*", $twpcpersonaldata[0]);
+		$bloque2 = explode("_*", $twpcpersonaldata[1]);
+		$bloque3 = explode("_*", $twpcpersonaldata[2]);
+		$bloque4 = explode("_*", $twpcpersonaldata[3]);
+		$bloque5 = explode("_*", $twpcpersonaldata[4]);
+		$bloque6 = explode("_*", $twpcpersonaldata[5]);
+		$bloque7 = explode("_*", $twpcpersonaldata[6]);
+		$bloque8 = explode("_*", $twpcpersonaldata[7]);
+		
+	
+        return $this->render('principal', ["bloque1"=>$bloque1,"bloque2"=>$bloque2,"bloque3"=>$bloque3,"bloque4"=>$bloque4,"bloque5"=>$bloque5,"bloque6"=>$bloque6,"bloque7"=>$bloque7,"bloque8"=>$bloque8]);
+	
     }
 	
 	    public function actionMvacaciones()
@@ -395,9 +413,9 @@ class SiteController extends Controller
 				$model = new TwPcIdentity;
 				
 				$twpcidentity = $model->procedimiento();
-				
-			
+						
 	}
+	
 	public function actionActivapassword()
 	{
 				$model = new TwPcIdentity;
@@ -417,6 +435,144 @@ class SiteController extends Controller
 					echo(($datos)?json_encode($datos):''); 
 				}			
 	}
+	
+	public function actionTurnos()
+    {
+		$tablet_browser = 0;
+			$mobile_browser = 0;
+			$body_class = 'desktop';
+			 
+			if (preg_match('/(tablet|ipad|playbook)|(android(?!.*(mobi|opera mini)))/i', strtolower($_SERVER['HTTP_USER_AGENT']))) {
+				$tablet_browser++;
+				$body_class = "tablet";
+			}
+			 
+			if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|android|iemobile)/i', strtolower($_SERVER['HTTP_USER_AGENT']))) {
+				$mobile_browser++;
+				$body_class = "mobile";
+			}
+			 
+			if ((strpos(strtolower($_SERVER['HTTP_ACCEPT']),'application/vnd.wap.xhtml+xml') > 0) or ((isset($_SERVER['HTTP_X_WAP_PROFILE']) or isset($_SERVER['HTTP_PROFILE'])))) {
+				$mobile_browser++;
+				$body_class = "mobile";
+			}
+			 
+			$mobile_ua = strtolower(substr($_SERVER['HTTP_USER_AGENT'], 0, 4));
+			$mobile_agents = array(
+				'w3c ','acs-','alav','alca','amoi','audi','avan','benq','bird','blac',
+				'blaz','brew','cell','cldc','cmd-','dang','doco','eric','hipt','inno',
+				'ipaq','java','jigs','kddi','keji','leno','lg-c','lg-d','lg-g','lge-',
+				'maui','maxo','midp','mits','mmef','mobi','mot-','moto','mwbp','nec-',
+				'newt','noki','palm','pana','pant','phil','play','port','prox',
+				'qwap','sage','sams','sany','sch-','sec-','send','seri','sgh-','shar',
+				'sie-','siem','smal','smar','sony','sph-','symb','t-mo','teli','tim-',
+				'tosh','tsm-','upg1','upsi','vk-v','voda','wap-','wapa','wapi','wapp',
+				'wapr','webc','winw','winw','xda ','xda-');
+			 
+			if (in_array($mobile_ua,$mobile_agents)) {
+				$mobile_browser++;
+			}
+			 
+			if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']),'opera mini') > 0) {
+				$mobile_browser++;
+				//Check for tablets on opera mini alternative headers
+				$stock_ua = strtolower(isset($_SERVER['HTTP_X_OPERAMINI_PHONE_UA'])?$_SERVER['HTTP_X_OPERAMINI_PHONE_UA']:(isset($_SERVER['HTTP_DEVICE_STOCK_UA'])?$_SERVER['HTTP_DEVICE_STOCK_UA']:''));
+				if (preg_match('/(tablet|ipad|playbook)|(android(?!.*mobile))/i', $stock_ua)) {
+				  $tablet_browser++;
+				}
+			}
+			if ($tablet_browser > 0) {
+			// Si es tablet has lo que necesites
+			$events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
+			
+			$this->view->params['customParam'] = $events;
+
+                return $this->render('mturnos',['events' => $events]);
+
+			}
+			else if ($mobile_browser > 0) {
+			// Si es dispositivo mobil has lo que necesites			
+			   $events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
+			
+			$this->view->params['customParam'] = $events;
+
+                return $this->render('mturnos',['events' => $events]);
+			}
+			else {
+			// Si es ordenador de escritorio has lo que necesites
+			$events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
+			
+			$this->view->params['customParam'] = $events;
+				
+                return $this->render('turnos',['events' => $events]);
+			}        
+		
+    }
+	
+	public function actionMturnos()
+    {
+				if (Yii::$app->user->isGuest) {
+			 return $this->goBack();
+        }else{
+		
+		$tablet_browser = 0;
+			$mobile_browser = 0;
+			$body_class = 'desktop';
+			 
+			if (preg_match('/(tablet|ipad|playbook)|(android(?!.*(mobi|opera mini)))/i', strtolower($_SERVER['HTTP_USER_AGENT']))) {
+				$tablet_browser++;
+				$body_class = "tablet";
+			}
+			 
+			if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|android|iemobile)/i', strtolower($_SERVER['HTTP_USER_AGENT']))) {
+				$mobile_browser++;
+				$body_class = "mobile";
+			}
+			 
+			if ((strpos(strtolower($_SERVER['HTTP_ACCEPT']),'application/vnd.wap.xhtml+xml') > 0) or ((isset($_SERVER['HTTP_X_WAP_PROFILE']) or isset($_SERVER['HTTP_PROFILE'])))) {
+				$mobile_browser++;
+				$body_class = "mobile";
+			}
+			 
+			$mobile_ua = strtolower(substr($_SERVER['HTTP_USER_AGENT'], 0, 4));
+			$mobile_agents = array(
+				'w3c ','acs-','alav','alca','amoi','audi','avan','benq','bird','blac',
+				'blaz','brew','cell','cldc','cmd-','dang','doco','eric','hipt','inno',
+				'ipaq','java','jigs','kddi','keji','leno','lg-c','lg-d','lg-g','lge-',
+				'maui','maxo','midp','mits','mmef','mobi','mot-','moto','mwbp','nec-',
+				'newt','noki','palm','pana','pant','phil','play','port','prox',
+				'qwap','sage','sams','sany','sch-','sec-','send','seri','sgh-','shar',
+				'sie-','siem','smal','smar','sony','sph-','symb','t-mo','teli','tim-',
+				'tosh','tsm-','upg1','upsi','vk-v','voda','wap-','wapa','wapi','wapp',
+				'wapr','webc','winw','winw','xda ','xda-');
+			 
+			if (in_array($mobile_ua,$mobile_agents)) {
+				$mobile_browser++;
+			}
+			 
+			if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']),'opera mini') > 0) {
+				$mobile_browser++;
+				//Check for tablets on opera mini alternative headers
+				$stock_ua = strtolower(isset($_SERVER['HTTP_X_OPERAMINI_PHONE_UA'])?$_SERVER['HTTP_X_OPERAMINI_PHONE_UA']:(isset($_SERVER['HTTP_DEVICE_STOCK_UA'])?$_SERVER['HTTP_DEVICE_STOCK_UA']:''));
+				if (preg_match('/(tablet|ipad|playbook)|(android(?!.*mobile))/i', $stock_ua)) {
+				  $tablet_browser++;
+				}
+			}
+			if ($tablet_browser > 0) {
+			// Si es tablet has lo que necesites
+			   return $this->render('mturnos');
+			}
+			else if ($mobile_browser > 0) {
+			// Si es dispositivo mobil has lo que necesites
+			   return $this->render('mturnos');
+			}
+			else {
+			// Si es ordenador de escritorio has lo que necesites			 
+			  return $this->render('turnos');
+			}
+		}
+    }
+	
 	public function actionCertificadolaboral()
     {				
 		

@@ -17,10 +17,5 @@ return [
     'username' => 'TELEPRU',
     'password' => 'tytcali',
 	'charset' => 'utf8',
-
 		
 ];
-
-
-
-
