@@ -123,9 +123,16 @@ $this->title = 'Pagina Principal';
 			</div>
 		</div>
 	</div>
+	
+	
+	<!--    PAGINA DE DATOS PERSONALES    -->
+	
 	<div class="tab-pane fade" id="info">
+	
+	<!--    BLOQUE 1    -->
+	
 		<div class="block-header">
-			<h2>John Doe<small>Jefe Nómina</small></h2>
+			<h2><?= @$bloque1[0] ?><small><?= @$bloque1[1] ?></small></h2>
 		</div>
 		<div class="row">
 			<div class="col-md-3">
@@ -133,7 +140,7 @@ $this->title = 'Pagina Principal';
 					<div class="panel-body">
 						<div class="dis-inline-block">
 							<h5 class="fnt__Medium no-mrg">Tipo de salario:</h5>
-							<h3 class="fnt__Medium no-mrg">Básico</h3>
+							<h3 class="fnt__Medium no-mrg"><?= @$bloque1[2] ?></h3>
 						</div>
 						<i class="material-icons">&#xE227;</i>
 					</div>
@@ -142,7 +149,7 @@ $this->title = 'Pagina Principal';
 					<div class="panel-body">
 						<div class="dis-inline-block">
 							<h5 class="fnt__Medium no-mrg">Tipo de contrato:</h5>
-							<h3 class="fnt__Medium no-mrg">Indefinido</h3>
+							<h3 class="fnt__Medium no-mrg"><?= @$bloque1[3] ?></h3>
 						</div>
 						<i class="material-icons">&#xE880;</i>
 					</div>
@@ -151,29 +158,35 @@ $this->title = 'Pagina Principal';
 					<div class="panel-body">
 						<div class="dis-inline-block">
 							<h5 class="fnt__Medium no-mrg">Fecha de ingreso:</h5>
-							<h3 class="fnt__Medium no-mrg">17-09-2014</h3>
+							<h3 class="fnt__Medium no-mrg"><?= @$bloque1[4] ?></h3>
 						</div>
 						<i class="material-icons">&#xE8DF;</i>
 					</div>
 				</div>
+				
+	<!--    BLOQUE 2    -->
+				
 				<div class="panel panel-contact">
 					<div class="panel-body">
 						<h2 class="fnt__Medium">Datos Personales</h2>
 						<ul>
-							<li><i class="material-icons">&#xE0BE;</i>john.doe@hello.com</li>
-							<li><i class="material-icons">&#xE86D;</i>C.C. 52513735</li>
-							<li><i class="material-icons">&#xE0C8;</i>BOGOTÁ</li>
+							<li><i class="material-icons">&#xE0BE;</i><?= @$bloque2[0] ?></li>
+							<li><i class="material-icons">&#xE86D;</i><?= @$bloque2[1] ?></li>
+							<li><i class="material-icons">&#xE0C8;</i><?= @$bloque2[2] ?></li>
 						</ul>
 						<div class="mrg__top-15">
 							<h5 class="fnt__Medium no-mrg-bottom">Jefe inmediato:</h5>
-							<p>Luis Alejandro Galindo Ramirez</p>
+							<p><?= @$bloque2[3] ?></p>
 						</div>
 						<div class="mrg__top-15">
 							<h5 class="fnt__Medium no-mrg-bottom">Regional:</h5>
-							<p>Administración Central</p>
+							<p><?= @$bloque2[4] ?></p>
 						</div>
 					</div>
 				</div>
+				
+	<!--    BLOQUE 4    -->
+				
 				<div class="panel panel-contact">
 					<div class="panel-body">
 						<h2 class="fnt__Medium">Datos Informativos</h2>
@@ -181,27 +194,31 @@ $this->title = 'Pagina Principal';
 							<tbody>
 								<tr>
 									<td class="fnt__Medium">Declarante de renta</td>
-									<td>Si</td>
+									<td><?= @$bloque4[0] ?></td>
 								</tr>
 								<tr>
 									<td class="fnt__Medium">Procedimiento retención en la fuente</td>
-									<td>2</td>
+									<td><?= @$bloque4[1] ?></td>
 								</tr>
 								<tr>
 									<td class="fnt__Medium">Porcentaje de retención</td>
-									<td>2.92</td>
+									<td><?= @$bloque4[2] ?></td>
 								</tr>
 								<tr>
 									<td class="fnt__Medium">Cuota máxima disponible de descuento</td>
-									<td>0</td>
+									<td><?= @$bloque4[3] ?></td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
-			</div>
+			</div>		
+			
 			<div class="col-md-9">
 				<div class="row">
+				
+	<!--    BLOQUE 3    -->
+				
 					<div class="col-md-7">
 						<div class="panel">
 							<div class="panel-heading">
@@ -219,9 +236,9 @@ $this->title = 'Pagina Principal';
 										</thead>
 										<tbody>
 											<tr>
-												<td>Banco BBVA</td>
-												<td>765006192</td>
-												<td>ahorros</td>
+												<td><?= @$bloque3[0] ?></td>
+												<td><?= @$bloque3[1] ?></td>
+												<td><?= @$bloque3[2] ?></td>
 											</tr>
 										</tbody>
 									</table>
@@ -229,6 +246,9 @@ $this->title = 'Pagina Principal';
 							</div>
 						</div>
 					</div>
+					
+	<!--    BLOQUE 5    -->
+					
 					<div class="col-md-5">
 						<div class="panel widget-small-htl">
 							<div class="row">
@@ -239,8 +259,8 @@ $this->title = 'Pagina Principal';
 								</div>
 								<div class="col-xs-8">
 									<div class="panel-body">
-										<h4 class="fnt__Medium">Novedades</h4>
-										<p>Reporta novedades para Pensión voluntaria y AFC, cambio de cuenta de nómina, declarante de renta y reporte paz y salvo libranzas.</p>
+										<h4 class="fnt__Medium"><?= @$bloque5[0] ?></h4>
+										<p><?= @$bloque5[1] ?></p>
 									</div>
 								</div>
 							</div>
@@ -413,6 +433,9 @@ $this->title = 'Pagina Principal';
 						</div>
 					</div>
 				</div>
+				
+	<!--    BLOQUE 6    -->
+				
 				<div class="panel">
 					<div class="panel-heading">
 						<h4 class="fnt__Medium">Afiliaciones - Seguridad social</h4>
@@ -429,30 +452,38 @@ $this->title = 'Pagina Principal';
 								</thead>
 								<tbody>
 									<tr>
-										<td>Aporte salud</td>
-										<td>Coomeva EPS</td>
-										<td>17-09-2014</td>
+										<td><?= @$bloque6[0] ?></td>
+										<td><?= @$bloque6[1] ?></td>
+										<td><?= @$bloque6[2] ?></td>
 									</tr>
 									<tr>
-										<td>Aporte pensión</td>
-										<td>Protección pensiones Obligator</td>
-										<td>01-06-2015</td>
+										<td><?= @$bloque6[3] ?></td>
+										<td><?= @$bloque6[4] ?></td>
+										<td><?= @$bloque6[5] ?></td>
 									</tr>
 									<tr>
-										<td>Aporte riesgos laborales</td>
-										<td>Colmena riesgos profesionales</td>
-										<td>17-09-2014</td>
+										<td><?= @$bloque6[6] ?></td>
+										<td><?= @$bloque6[7] ?></td>
+										<td><?= @$bloque6[8] ?></td>
 									</tr>
 									<tr>
-										<td>Caja de compensación</td>
-										<td>Cafam</td>
+										<td><?= @$bloque6[9] ?></td>
+										<td><?= @$bloque6[10] ?></td>
+										<td><?= @$bloque6[11] ?></td>
 										<td></td>
+									</tr>
+									<tr>
+										<td><?= @$bloque6[12] ?></td>
+										<td><?= @$bloque6[13] ?></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
+				
+	<!--    BLOQUE 7    -->
+				
 				<div class="panel">
 					<div class="panel-heading">
 						<h4 class="fnt__Medium">Deducibles de retención en la fuente</h4>
@@ -470,20 +501,23 @@ $this->title = 'Pagina Principal';
 								</thead>
 								<tbody>
 									<tr>
-										<td>Pensión vol / AFC - bonif.unica y ext.</td>
-										<td>Fdo pensiones voluntarias prot</td>
-										<td>$8,000,000</td>
+										<td><?= @$bloque7[0] ?></td>
+										<td><?= @$bloque7[1] ?></td>
+										<td><?= @$bloque7[2] ?></td>
 									</tr>
 									<tr>
-										<td>pensiones voluntarias</td>
-										<td>Fdo pensiones voluntarias prot</td>
-										<td>$2,000,000</td>
-									</tr>
+										<td><?= @$bloque7[3] ?></td>
+										<td><?= @$bloque7[4] ?></td>
+										<td><?= @$bloque7[5] ?></td>
+									</tr>								
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
+				
+	<!--    BLOQUE 8    -->
+				
 				<div class="panel">
 					<div class="panel-heading">
 						<h4 class="fnt__Medium">Certificados de beneficio</h4>
@@ -501,29 +535,32 @@ $this->title = 'Pagina Principal';
 								<tbody>
 									<tr>
 										<td>Intereses de Vivienda</td>
-										<td>$ 435,451</td>
-										<td>31-03-2016</td>
+										<td><?= @$bloque8[0] ?></td>
+										<td><?= @$bloque8[1] ?></td>
 									</tr>
 									<tr>
 										<td>Salud Prepagada</td>
-										<td>$ 61,950</td>
-										<td>31-03-2016</td>
+										<td><?= @$bloque8[2] ?></td>
+										<td><?= @$bloque8[3] ?></td>
 									</tr>
 									<tr>
 										<td>Dependientes</td>
-										<td>$ 600,000</td>
-										<td>31-03-2016</td>
+										<td><?= @$bloque8[4] ?></td>
+										<td><?= @$bloque8[5] ?></td>
 									</tr>
 									<tr>
 										<td>Salud Obligatoria</td>
-										<td>$ 165,394</td>
-										<td>31-12-2016</td>
+										<td><?= @$bloque8[6] ?></td>
+										<td><?= @$bloque8[7] ?></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
+				
+	<!--    ZONA DE AYUDA    -->				
+				
 				<div class="content__help">
 					<h3 class="fnt__Medium">Ayuda</h3>
 					<div class="col-md-4">
