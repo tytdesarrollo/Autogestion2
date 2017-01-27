@@ -1,6 +1,6 @@
 <?php
 return[
-'adminEmail' => 'vladix88@gmail.com',
+'adminEmail' => 'vladimir.bello@talentsw.com',
 'title' => 'Aplicación Yii',
 'salt' => 'fsddsflj38343lj0',
 ];

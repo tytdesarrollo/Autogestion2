@@ -280,9 +280,15 @@ class SiteController extends Controller
 		$bloque6 = explode("_*", $twpcpersonaldata[5]);
 		$bloque7 = explode("_*", $twpcpersonaldata[6]);
 		$bloque8 = explode("_*", $twpcpersonaldata[7]);
+		$bloque9 = explode("_*", $twpcpersonaldata[8]);
+		$bloque10 = explode("_*", $twpcpersonaldata[9]);
+		$bloque11 = explode("_*", $twpcpersonaldata[10]);
+		$bloque12 = explode("_*", $twpcpersonaldata[11]);
+		$bloque13 = explode("_*", $twpcpersonaldata[12]);
+		$bloque14 = explode("_*", $twpcpersonaldata[13]);
 		
 	
-        return $this->render('principal', ["bloque1"=>$bloque1,"bloque2"=>$bloque2,"bloque3"=>$bloque3,"bloque4"=>$bloque4,"bloque5"=>$bloque5,"bloque6"=>$bloque6,"bloque7"=>$bloque7,"bloque8"=>$bloque8]);
+        return $this->render('principal', ["bloque1"=>$bloque1,"bloque2"=>$bloque2,"bloque3"=>$bloque3,"bloque4"=>$bloque4,"bloque5"=>$bloque5,"bloque6"=>$bloque6,"bloque7"=>$bloque7,"bloque8"=>$bloque8,"bloque9"=>$bloque9,"bloque10"=>$bloque10,"bloque11"=>$bloque11,"bloque12"=>$bloque12,"bloque13"=>$bloque13,"bloque14"=>$bloque14]);
 	
     }
 	
