@@ -16,8 +16,9 @@ class TwPcPersonalData extends Model{
 		//SI EL BLOQUE RETORNA "INACTIVO" ES POR Q EL ROL DEL EMPLEADO NO PUEDE VISUALIZAR ESA INFORMACION
 		// 35326177
 		// 52513735
-		
-	$cedula =  Yii::$app->request->get('cedula');
+
+	$cedula = Yii::$app->session['cedula'];
+
 	$rol = '1';
 
 	
