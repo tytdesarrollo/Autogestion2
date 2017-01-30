@@ -12,6 +12,8 @@ use app\assets\AppAsset;
 
 
 AppAsset::register($this);
+
+$session = Yii::$app->session;
 ?>
 	<?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -64,30 +66,32 @@ AppAsset::register($this);
 					<div class="dropdown">
 						<a href="#" data-toggle="dropdown" class="dropdown-toggle menu-trigger"><i class="btn-menu-profile glyphicon glyphicon-option-vertical icon__24"></i></a>
 						<ul class="dropdown-menu menu-profile">
-							<li>
-								<div class="dis-inline-block">
-									<p class="txt-name fnt__Medium">ususario</p>
-									<p class="txt-email">john.doe@hello.com</p>
-								</div>
-								<div class="dis-inline-block pull-right">
+							<li><!--
+							<div class="dis-inline-block pull-left">
 									<div class="content-avatar__menu-profile">
 										<?= Html::img('@web/img/avatar.png', ['alt' => 'avatar', 'class' => 'img-avatar img-circle']) ?>
 									</div>
+							</div>
+							-->
+								<div class="dis-inline-block">
+									<p class="txt-name fnt__Medium"><?= @$session['datopersonal'][0]; ?></p>
+									<p class="txt-email"><?= @$session['datopersonaldos'][0]; ?></p>
 								</div>
+								
 							</li>
 							<li class="divider"></li>
 							<li>
-								<p class="txt-cargo fnt__Medium">Profesional Nómina</p>
-								<p class="txt-info">C.C. 52513735</p>
-								<p class="txt-info">BOGOTÁ</p>
+								<p class="txt-cargo fnt__Medium"><?= @$session['datopersonal'][1]; ?></p>
+								<p class="txt-info"><?= @$session['datopersonaldos'][1]; ?></p>
+								<p class="txt-info"><?= @$session['datopersonaldos'][2]; ?></p>
 							</li>
 							<li>
 								<p class="txt-subcat fnt__Medium">Jefe Inmediato:</p>
-								<p class="txt-info">Luis Alejandro Galindo Ramirez</p>
+								<p class="txt-info"><?= @$session['datopersonaldos'][3]; ?></p>
 							</li>
 							<li>
 								<p class="txt-subcat fnt__Medium">Regional:</p>
-								<p class="txt-info">Administración Central</p>
+								<p class="txt-info"><?= @$session['datopersonaldos'][4]; ?></p>
 							</li>
 							<li class="divider"></li>
 							<li>

@@ -31,7 +31,7 @@ class SiteController extends Controller
 
 		$proce = $model->procedimiento();
 
-        return $this->render('saluda', ["rows"=>$proce]);
+        return $this->render('saluda');
 	}	
 	
     public function behaviors()
@@ -94,10 +94,7 @@ class SiteController extends Controller
 		}
 		
 		if($model->load(Yii::$app->request->post())){
-		if($model->validate()){
-			
-			//Yii::$app->params['usuario'] = $model->usuario;
-			//Yii::$app->params['clave'] = $model->clave;
+		if($model->validate()){		
 			
 			return $this->redirect(['site/logueo','usuario'=>$model->usuario,'clave'=>$model->clave,'operacion'=>'L']);
 			
@@ -108,7 +105,16 @@ class SiteController extends Controller
 			}		
 		}
 		
+		if (isset(Yii::$app->session['cedula'])){
+			
+		return $this->redirect(['site/principal']);
+			
+									}else{
+		
         return $this->render('index', ['model' => $model,'recordar' => $recordar]);
+
+											}
+		
     }
 
 	public function actionLogueo()
@@ -119,7 +125,11 @@ class SiteController extends Controller
 		
 		if(isset($ladpcon[0]) && $ladpcon[2]=="true"){
 			
-				return $this->redirect(['site/principal', "cedula"=>$ladpcon[0]]);
+			//envio los parametros del bloque de datos personales hacia el modelo PersonalData	
+		
+		Yii::$app->session['cedula'] = $ladpcon[0];
+			
+				return $this->redirect(['site/principal']);
 				
 		}elseif(isset($ladpcon[1]) && $ladpcon[2]=="true"){
 			
@@ -157,13 +167,16 @@ class SiteController extends Controller
 		
     public function actionSalida()
     {
+		//Elimino session de la cedula que es el parametro principal
+		Yii::$app->session['cedula'];
+		
+		Yii::$app->session->destroy();
+		
         return $this->goHome();
     }
 
     public function actionVacaciones()
-    {
-        	
-	
+    {        		
 		
 		$tablet_browser = 0;
 			$mobile_browser = 0;
@@ -264,8 +277,7 @@ class SiteController extends Controller
 	}
 
     public function actionPrincipal()
-    {
-		
+    {	
 		$model = new TwPcPersonalData;
 
 		$twpcpersonaldata = $model->procedimiento();
@@ -287,9 +299,21 @@ class SiteController extends Controller
 		$bloque13 = explode("_*", $twpcpersonaldata[12]);
 		$bloque14 = explode("_*", $twpcpersonaldata[13]);
 		
-	
+		//envio los parametros del bloque de datos personales hacia el main
+		
+		Yii::$app->session['datopersonal'] = $bloque1;
+		Yii::$app->session['datopersonaldos'] = $bloque2;		
+		
+		//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
+		if (isset(Yii::$app->session['cedula'])){
+		
         return $this->render('principal', ["bloque1"=>$bloque1,"bloque2"=>$bloque2,"bloque3"=>$bloque3,"bloque4"=>$bloque4,"bloque5"=>$bloque5,"bloque6"=>$bloque6,"bloque7"=>$bloque7,"bloque8"=>$bloque8,"bloque9"=>$bloque9,"bloque10"=>$bloque10,"bloque11"=>$bloque11,"bloque12"=>$bloque12,"bloque13"=>$bloque13,"bloque14"=>$bloque14]);
-	
+									
+									}else{
+										
+										 return $this->goHome();
+										
+											}
     }
 	
 	    public function actionMvacaciones()
