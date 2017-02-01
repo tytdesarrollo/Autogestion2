@@ -16,11 +16,11 @@ $this->title = 'Pagina Principal';
 			<div class="col-md-6">
 				<div class="panel panel-news">
 					<div class="panel-heading clearfix">
-						<div class="pull-left fnt__Medium">Cierre de novedades:</div>
-						<div class="pull-right fnt__Medium">05/05/2016</div>
+						<div class="pull-left fnt__Medium"><?= @$bloque9[0]?></div>
+						<div class="pull-right fnt__Medium"><?= @$bloque9[2]?></div>
 					</div>
 					<div class="panel-body">
-						Las novedades se trasmiten por fuera de los límites establecidos en el cronográma de actividades de nómina, serán registradas para el pago de la nómina del mes siguiente.
+						<?= @$bloque9[1]?>
 					</div>
 					<div class="panel-footer clearfix">
 						<button class="btn btn-default btn-sm pull-right">Entendido</button>
@@ -35,7 +35,7 @@ $this->title = 'Pagina Principal';
 						<div class="content-main-days">
 							<div class="content-days bg-blue-A700 center-block">
 								<p class="text-ini">Cuentas con</p>
-								<span class="text-number">12</span>
+								<span class="text-number"><?= @$bloque11[0] ?></span>
 								<p class="text-end">Días</p>
 							</div>
 						</div>
@@ -63,29 +63,29 @@ $this->title = 'Pagina Principal';
 							<thead>
 								<tr>
 									<th> </th>
-									<th>Column heading</th>
-									<th>Column heading</th>
-									<th>Column heading</th>
+									<th>Periodo</th>
+									<th>Año</th>
+									<th>Fecha</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
 									<td><a href="#"><i class="material-icons">&#xE8F4;</i></a></td>
-									<td>Column content</td>
-									<td>Column content</td>
-									<td>Column content</td>
+									<td><?= @$bloque10[0] ?></td>
+									<td><?= @$bloque10[1] ?></td>
+									<td><?= @$bloque10[2] ?></td>
 								</tr>
 								<tr>
 									<td><a href="#"><i class="material-icons">&#xE8F4;</i></a></td>
-									<td>Column content</td>
-									<td>Column content</td>
-									<td>Column content</td>
+									<td><?= @$bloque10[3] ?></td>
+									<td><?= @$bloque10[4] ?></td>
+									<td><?= @$bloque10[5] ?></td>
 								</tr>
 								<tr>
 									<td><a href="#"><i class="material-icons">&#xE8F4;</i></a></td>
-									<td>Column content</td>
-									<td>Column content</td>
-									<td>Column content</td>
+									<td><?= @$bloque10[6] ?></td>
+									<td><?= @$bloque10[7] ?></td>
+									<td><?= @$bloque10[8] ?></td>
 								</tr>
 							</tbody>
 						</table>

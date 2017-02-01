@@ -6,11 +6,13 @@ use yii\helpers\Html;
 
 <table class="table table-bordered">
 
+	<tr>
+		<td><?= $rows[0] ?></td>
+	</tr>
+	
+		<tr>
+		<td><?= $rows[1] ?></td>
+	</tr>
 
- <tr>
-
- <td><?= $rows[2] ?></td>
- </tr>
-
-
+	
 </table>
