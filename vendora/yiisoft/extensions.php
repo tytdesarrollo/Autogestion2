@@ -75,4 +75,13 @@ return array (
       '@yii/sweetalert' => $vendorDir . '/yiisoft/yii2-sweetalert',
     ),
   ),
+  'yiisoft/yii2-tcpdf' => 
+  array (
+    'name' => 'yiisoft/yii2-tcpdf',
+    'version' => '1.1.3.0',
+    'alias' => 
+    array (
+      '@yii/tcpdf' => $vendorDir . '/yiisoft/yii2-tcpdf',
+    ),
+  ),
 );

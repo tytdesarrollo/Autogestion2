@@ -49,6 +49,10 @@ $config = [
                 ],
             ],
         ],
+ // Yii2 TCPDF
+        'tcpdf' => [
+            'class' => 'yii\tcpdf\TCPDF',
+        ],
         'telmovil' => require(__DIR__ . '/telmovil.php'),
         'confidencial' => require(__DIR__ . '/confidencial.php'),
         'tgt' => require(__DIR__ . '/tgt.php'),
