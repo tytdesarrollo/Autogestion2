@@ -10,7 +10,6 @@ use app\models\IndexForm;
 use app\models\AsignaForm;
 use yii\widgets\ActiveForm;
 use yii\web\Response;
-use app\models\FormSearch;
 use yii\helpers\Html;
 use yii\data\Pagination;
 use yii\helpers\Url;
@@ -20,17 +19,18 @@ use app\models\TwPcPersonalData;
 use app\models\Ldap;
 
 
-
 class SiteController extends Controller
 { 	
 
 
-	public function actionSaluda(){
+	public function actionSaluda(){	
 
-		$model = new TwPcPersonalData;
-
-		$proce = $model->procedimiento();
-
+	Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+	Yii::$app->response->headers->add('Content-Type', 'application/pdf');
+	
+			// Load Component Yii2 TCPDF 
+	Yii::$app->get('tcpdf');
+	
         return $this->render('saluda');
 	}	
 	
