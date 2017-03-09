@@ -7,7 +7,7 @@ $this->title = 'Equipo de nómina';
 	<div class="block-header">
 		<h2>Jefatura de nómina / Gerencia de servicios económicos</h2>
 	</div>
-	<p class="mrg__bottom-20">La <b>Dirección de Operaciones Comerciales</b> a través del Centro de Servicios Compartidos, te presenta la Jefatura de Nómina.</p>
+	<p class="txt__light-70 mrg__bottom-20">La <span class="txt__light-100 fnt__Medium">Dirección de Operaciones Comerciales</span> a través del Centro de Servicios Compartidos, te presenta la Jefatura de Nómina.</p>
 	<div class="row">
 		<div class="col-md-3">
 			<div class="panel">

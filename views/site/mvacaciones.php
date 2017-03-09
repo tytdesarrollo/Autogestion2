@@ -9,7 +9,7 @@ $this->title = 'Vacaciones';
 	<div class="bg-dark-87">
 		<!-- CONTENT TOUCH CAROUSEL -->
 		<div class="ag-carousel">
-			<!-- M”DULO IZQUIERDA --> 
+			<!-- M√ìDULO IZQUIERDA --> 
 			<div class="ag-carousel__cell ag-carousel__cell-1">
 				<div class="ag-carousel__cell-content">
 					<div id="modVacVig" class="container bg__grt-blue__mobile">
@@ -32,7 +32,7 @@ $this->title = 'Vacaciones';
 									<div class="content-label">
 										<div class="label">
 											<p class="dis-inline-block no-mrg">10</p>
-											<p class="dis-inline-block no-mrg">DÌas</p>
+											<p class="dis-inline-block no-mrg">D√≠as</p>
 										</div>
 									</div>
 									<div class="txt__light-50">
@@ -56,7 +56,7 @@ $this->title = 'Vacaciones';
 									<div class="content-label">
 										<div class="label">
 											<p class="dis-inline-block no-mrg">10</p>
-											<p class="dis-inline-block no-mrg">DÌas</p>
+											<p class="dis-inline-block no-mrg">D√≠as</p>
 										</div>
 									</div>
 									<div class="txt__light-50">
@@ -80,7 +80,7 @@ $this->title = 'Vacaciones';
 									<div class="content-label">
 										<div class="label">
 											<p class="dis-inline-block no-mrg">10</p>
-											<p class="dis-inline-block no-mrg">DÌas</p>
+											<p class="dis-inline-block no-mrg">D√≠as</p>
 										</div>
 									</div>
 									<div class="txt__light-50">
@@ -93,8 +93,8 @@ $this->title = 'Vacaciones';
 					</div>
 				</div>
 			</div>
-			<!-- */ M”DULO IZQUIERDA -->
-			<!-- M”DULO CENTRAL -->
+			<!-- */ M√ìDULO IZQUIERDA -->
+			<!-- M√ìDULO CENTRAL -->
 			<div class="ag-carousel__cell ag-carousel__cell-2">
 				<div class="ag-carousel__cell-content">
 					<div id="modVac" class="container">
@@ -110,12 +110,12 @@ $this->title = 'Vacaciones';
 								<div class="content-days bg-amber-A700 center-block">
 									<p class="text-ini">Cuentas con</p>
 									<span class="text-number">12</span>
-									<p class="text-end">DÌas</p>
+									<p class="text-end">D√≠as</p>
 								</div>
 							</div>
 							<p class="text-desc">Para programar y disfrutar tus vacaciones.</p>
 							<hr class="line-divider-info-vacaciones top">
-							<p class="no-mrg">Tus posibles vacaciones serÌan</p>
+							<p class="no-mrg">Tus posibles vacaciones ser√≠an</p>
 							<p class="no-mrg"><strong>Desde: 16/05/2016</strong></p>
 							<p class="no-mrg"><strong>Hasta: 31/05/2016</strong></p>
 							<hr class="line-divider-info-vacaciones bottom">
@@ -134,8 +134,8 @@ $this->title = 'Vacaciones';
 					</div>
 				</div>
 			</div>
-			<!-- */ M”DULO CENTRAL -->
-			<!-- M”DULO DERECHA -->
+			<!-- */ M√ìDULO CENTRAL -->
+			<!-- M√ìDULO DERECHA -->
 			<div class="ag-carousel__cell ag-carousel__cell-3">
 				<div class="ag-carousel__cell-content">
 					<div id="modVacHist" class="container bg__grt-blue__mobile">
@@ -158,7 +158,7 @@ $this->title = 'Vacaciones';
 									<div class="content-label">
 										<div class="label">
 											<p class="dis-inline-block no-mrg">10</p>
-											<p class="dis-inline-block no-mrg">DÌas</p>
+											<p class="dis-inline-block no-mrg">D√≠as</p>
 										</div>
 									</div>
 									<div class="txt__light-50">
@@ -182,7 +182,7 @@ $this->title = 'Vacaciones';
 									<div class="content-label">
 										<div class="label">
 											<p class="dis-inline-block no-mrg">10</p>
-											<p class="dis-inline-block no-mrg">DÌas</p>
+											<p class="dis-inline-block no-mrg">D√≠as</p>
 										</div>
 									</div>
 									<div class="txt__light-50">
@@ -206,7 +206,7 @@ $this->title = 'Vacaciones';
 									<div class="content-label">
 										<div class="label">
 											<p class="dis-inline-block no-mrg">10</p>
-											<p class="dis-inline-block no-mrg">DÌas</p>
+											<p class="dis-inline-block no-mrg">D√≠as</p>
 										</div>
 									</div>
 									<div class="txt__light-50">
@@ -219,7 +219,7 @@ $this->title = 'Vacaciones';
 					</div>
 				</div>
 			</div>
-			<!-- */ M”DULO DERECHA -->
+			<!-- */ M√ìDULO DERECHA -->
 		</div>
 		<!-- */ CONTENT TOUCH CAROUSEL -->
 	</div>
@@ -251,7 +251,7 @@ $this->title = 'Vacaciones';
 										<th>Fecha solicitud</th>
 										<th>Fecha inicio</th>
 										<th>Fecha fin</th>
-										<th>DÌas h·biles</th>
+										<th>D√≠as h√°biles</th>
 										<th>Estado</th>
 									</tr>
 								</thead>
@@ -309,7 +309,7 @@ $this->title = 'Vacaciones';
 
 <!---------------------------------------------------
   // MODAL HELP
-  // Modal de informaciÛn sobre el mÛdulo de vacaciones.
+  // Modal de informaci√≥n sobre el m√≥dulo de vacaciones.
 ------------------------------------------------------->
 <div class="modal fade modal-help" id="help" tabindex="-1" role="dialog" aria-labelledby="helpLabel">
 	<div class="modal-dialog modal-lg" role="document">
@@ -321,18 +321,18 @@ $this->title = 'Vacaciones';
 				</div>
 			</div>
 			<div class="modal-body">
-				<p>En esta herramienta ˙nicamente debes registrar los dÌas de vacaciones h·biles que vas a disfrutar.</p>
+				<p>En esta herramienta √∫nicamente debes registrar los d√≠as de vacaciones h√°biles que vas a disfrutar.</p>
 				<p class="mrg__top-30">Ten en cuenta lo siguiente al momento de solicitar tus vacaciones:</p>
-				<h4 class="fnt__Medium txt__blue mrg__top-15">ProgramaciÛn de Vacaciones:</h4>
-				<p class="text-justify">Para realizar la programaciÛn de tus vacaciones debes reunirte con tu jefe y definir los dÌas que disfrutar·s, esta programaciÛn debe ser registrada antes del inicio de tus vacaciones, teniendo en cuenta las fechas de <em><strong>cronograma cierres novedades de nÛmina</strong></em>. ⁄nicamente debes registrar los dÌas de vacaciones h·biles que vas a disfrutar.</p>
+				<h4 class="fnt__Medium txt__blue mrg__top-15">Programaci√≥n de Vacaciones:</h4>
+				<p class="text-justify">Para realizar la programaci√≥n de tus vacaciones debes reunirte con tu jefe y definir los d√≠as que disfrutar√°s, esta programaci√≥n debe ser registrada antes del inicio de tus vacaciones, teniendo en cuenta las fechas de <em><strong>cronograma cierres novedades de n√≥mina</strong></em>. √önicamente debes registrar los d√≠as de vacaciones h√°biles que vas a disfrutar.</p>
 				<h4 class="fnt__Medium txt__blue mrg__top-30">Las vacaciones se pagan de acuerdo al mes de disfrute, no se adelanta pago del mes siguiente:</h4>
-				<p class="text-justify">Si tu periodo de vacaciones va del <strong>15-06-2013</strong> al <strong>15-07-2013</strong> y tu solicitud fue registrada antes del cierre de nÛmina de Junio, en ese mes recibir·s el pago de tu salario del <strong>01-06-2013</strong> al <strong>14-06-2013</strong> y los dÌas de vacaciones del <strong>15-06-2013</strong> al <strong>30-06-2013</strong>; el resto de tus vacaciones (<strong>01-07-2013</strong> al <strong>15-07-2013</strong>) ser·n pagadas en el mes de Julio, m·s los dÌas laborales que restan del mes de Julio (<strong>16-07-2013</strong> al <strong>30-07-2013</strong>).</p>
+				<p class="text-justify">Si tu periodo de vacaciones va del <strong>15-06-2013</strong> al <strong>15-07-2013</strong> y tu solicitud fue registrada antes del cierre de n√≥mina de Junio, en ese mes recibir√°s el pago de tu salario del <strong>01-06-2013</strong> al <strong>14-06-2013</strong> y los d√≠as de vacaciones del <strong>15-06-2013</strong> al <strong>30-06-2013</strong>; el resto de tus vacaciones (<strong>01-07-2013</strong> al <strong>15-07-2013</strong>) ser√°n pagadas en el mes de Julio, m√°s los d√≠as laborales que restan del mes de Julio (<strong>16-07-2013</strong> al <strong>30-07-2013</strong>).</p>
 				<div class="box__blue-50 pdg__24">
 					<h3 class="fnt__Medium txt__blue-A700 no-mrg">Beneficios Uno para tus vacaciones</h3>
 					<h4 class="fnt__Medium mrg__top-30">Beneficio UNO 15 = 17:</h4>
-					<p class="text-justify">Consiste en recibir 2 dÌas adicionales por programar y disfrutar mÌnimo un periodo completo de vacaciones (<strong>15 dÌas</strong>). Programa tu beneficio <span><a href="#">aquÌ</a></span> y <span><a href="#">progr·malo</a></span>.</p>
+					<p class="text-justify">Consiste en recibir 2 d√≠as adicionales por programar y disfrutar m√≠nimo un periodo completo de vacaciones (<strong>15 d√≠as</strong>). Programa tu beneficio <span><a href="#">aqu√≠</a></span> y <span><a href="#">progr√°malo</a></span>.</p>
 					<h4 class="fnt__Medium mrg__top-30">Beneficio UNO 8 es mejor:</h4>
-					<p class="text-justify">Consiste en recibir 1 dÌa adicional por programar 7 dÌas de vacaciones. Programa tu beneficio <span><a href="#">aquÌ</a></span> y <span><a href="#">progr·malo</a></span>.</p>
+					<p class="text-justify">Consiste en recibir 1 d√≠a adicional por programar 7 d√≠as de vacaciones. Programa tu beneficio <span><a href="#">aqu√≠</a></span> y <span><a href="#">progr√°malo</a></span>.</p>
 				</div>
 			</div>
 		</div>

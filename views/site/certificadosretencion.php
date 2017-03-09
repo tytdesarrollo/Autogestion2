@@ -42,7 +42,8 @@ $this->title = 'Certificado de ingresos y retención';
 							</div>
 						</div>
 						<div class="form-group text-right">
-							<button type="button" class="btn btn-raised btn-primary" data-toggle="modal" data-target="#pdfViewer">Generar</button>
+							<button type="button" class="btn btn-raised btn-primary visible-lg-inline-block" data-toggle="modal" data-target="#pdfViewer">Generar</button>
+							<a href="img/certificado_ingreso_retencion.pdf" target="_blank" class="btn btn-raised btn-primary hidden-lg">Generar</a>
 							<button class="btn btn-raised btn-primary">Enviar al correo</button>
 						</div>
 					</div>
@@ -57,13 +58,13 @@ $this->title = 'Certificado de ingresos y retención';
 			<div class="modal-header">
 				<div class="header-box">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h3 class="modal-title txt__light-100" id="pdfViewerLabel">Comprobante de pago</h3>
+					<h3 class="modal-title txt__light-100" id="pdfViewerLabel">Certificado de ingresos y retención</h3>
 				</div>
 			</div>
 			<div class="modal-body">
-				<object class="box-pdf" data="img/sample_pdf.pdf" type="application/pdf">
-					<embed src="img/sample_pdf.pdf" type="application/pdf"></embed>
-						<a href="img/sample_pdf.pdf">comprobante de pago.</a>
+				<object class="box-pdf" data="img/certificado_ingreso_retencion.pdf" type="application/pdf">
+					<embed src="img/certificado_ingreso_retencion.pdf" type="application/pdf"></embed>
+						<a href="img/certificado_ingreso_retencion.pdf">Certificado de ingresos y retención.</a>
                 </object>
 			</div>
 		</div>

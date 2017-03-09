@@ -7,7 +7,7 @@ $this->title = 'Actualidad laboral';
 	<div class="block-header">
 		<h2>Actualidad laboral</h2>
 	</div>
-	<p class="mrg__bottom-20">Aquí encontraras los datos laborales legales de los últimos 4 años:</p>
+	<p class="txt__light-70 mrg__bottom-20">Aquí encontraras los datos laborales legales de los últimos 4 años:</p>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel">
