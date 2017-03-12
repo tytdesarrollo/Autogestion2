@@ -47,11 +47,65 @@ $this->title = 'Pagina Principal';
 						<?= Html::a('<div class="panel panel-certify text-center"><div class="panel-body"><div class="content-btn"><div class="content-icon"><img src="img/certlaboral_icon_white.svg" alt="Certificado laboral"></div></div><div><h4 class="fnt__Medium">Certificado Laboral</h4><div class="divider"></div><p>Genera aquí de manera personalizada tus certificados laborales, los puedes descargar en formato PDF o enviarlos por correo electrónico.</p></div></div></div>', ['site/certificadolaboral'], ['class'=>'link-panel']) ?>
 					</div>
 					<div class="col-sm-6">
-						<?= Html::a('<div class="panel panel-cert-ing text-center"><div class="panel-body"><div class="content-btn"><div class="content-icon"><img src="img/certingreso_icon_white.svg" alt="Certificado de ingresos y retención"></div></div><div><h4 class="fnt__Medium">Certificado de ingresos y retención</h4><div class="divider"></div><p>Genera tus certificados de ingreso y retención, selecciona el año que desees y descargalo.</p></div></div></div>', ['site/certificadosretencion'], ['class'=>'link-panel']) ?>
+						<?= Html::a('<div class="panel panel-cert-ing text-center"><div class="panel-body"><div class="content-btn"><div class="content-icon"><img src="img/certingreso_icon_white.svg" alt="Certificado de ingresos y retención"></div></div><div><h4 class="fnt__Medium">Certificado de ingresos y retención</h4><div class="divider"></div><p>Genera tus certificados de ingreso y retención, selecciona el año que desees y descargalo.</p><br/></div></div></div>', ['site/certificadosretencion'], ['class'=>'link-panel']) ?>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-6">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="panel panel-head-img  text-center">
+							<div class="panel-heading">
+								<?= Html::img('@web/img/nomina_widget.png', ['alt' => 'Nómina', 'class' => 'img-bg img-responsive']) ?>
+							</div>
+							<div class="panel-body">
+								<?= Html::a('<i class="material-icons">&#xE145;</i>', ['site/principal'], ['class'=>'btn btn-raised btn-float btn-blue-A700']) ?>
+								<h4 class="fnt__Medium">Nómina</h4>
+								<p>Herramienta de gestión de nómina y recursos humanos.</p>
+								<br/>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="panel panel-head-img  text-center">
+							<div class="panel-heading">
+								<?= Html::img('@web/img/awa_widget4.png', ['alt' => 'Awa', 'class' => 'img-bg img-responsive']) ?>
+							</div>
+							<div class="panel-body">
+								<?= Html::a('<i class="material-icons">&#xE145;</i>', ['site/principal'], ['class'=>'btn btn-raised btn-float btn-blue-A700']) ?>
+								<h4 class="fnt__Medium">Awa</h4>
+								<p>Herramienta para la administración presupuestal, contable, financiera y comercial.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="panel panel-head-img  text-center">
+							<div class="panel-heading">
+								<?= Html::img('@web/img/hims_widget.png', ['alt' => 'Hims', 'class' => 'img-bg img-responsive']) ?>
+							</div>
+							<div class="panel-body">
+								<?= Html::a('<i class="material-icons">&#xE145;</i>', ['site/principal'], ['class'=>'btn btn-raised btn-float btn-blue-A700']) ?>
+								<h4 class="fnt__Medium">Hims</h4>
+								<p>Herrmanienta administrativa y financiera enfocada en controlar la gestión del negocio de las Instituciones Prestadoras de Servicios de Salud.</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="panel panel-turnos text-center">
+							<div class="panel-heading">
+								<?= Html::img('@web/img/turnos.jpg', ['alt' => 'Trabajo por turnos', 'class' => 'img-bg img-responsive']) ?>
+							</div>
+							<div class="panel-body">
+							<?= Html::a('<i class="material-icons">&#xE145;</i>', ['site/turnos'], ['class'=>'btn btn-raised btn-float btn-blue-A700']) ?>
+								<h4 class="fnt__Medium">Te invitamos a registrar tus novedades</h4>
+								<p>Este módulo permitirá optimizar el proceso de registro y transcripción de los reportes mensuales.</p>
+								<br/>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="panel">
 					<div class="panel-heading">
 						<h4 class="fnt__Medium">Comprobantes de pago</h4>
@@ -93,18 +147,6 @@ $this->title = 'Pagina Principal';
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-sm-6">
-						<div class="panel panel-turnos text-center">
-							<div class="panel-heading">
-								<?= Html::img('@web/img/turnos.jpg', ['alt' => 'Trabajo por turnos', 'class' => 'img-bg img-responsive']) ?>
-							</div>
-							<div class="panel-body">
-							<?= Html::a('<i class="material-icons">&#xE856;</i>', ['site/turnos'], ['class'=>'btn btn-raised btn-float btn-blue-A700']) ?>
-								<h4 class="fnt__Medium">Te invitamos a registrar tus novedades</h4>
-								<p>Este módulo permitirá optimizar el proceso de registro y transcripción de los reportes mensuales.</p>
-							</div>
-						</div>
-					</div>
 					<!--<div class="col-sm-6">
 						<div class="panel panel-incapacidades text-center">
 							<div class="panel-body">

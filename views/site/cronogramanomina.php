@@ -7,7 +7,7 @@ $this->title = 'Cronograma cierre novedades de nómina';
 	<div class="block-header">
 		<h2>Cronograma cierre novedades de nómina</h2>
 	</div>
-	<p class="mrg__bottom-20">El Centro de Servicios Compartidos te informa que la fecha de cierre de novedades para los colaboradores directos de Telefónica, para el año 2016</p>
+	<p class="txt__light-70 mrg__bottom-20">El Centro de Servicios Compartidos te informa que la fecha de cierre de novedades para los colaboradores directos de Telefónica, para el año 2016</p>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel">

@@ -27,7 +27,7 @@ $session = Yii::$app->session;
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
 	<script src="../web/js/modernizr.custom.js"></script>
 </head>
-<body>
+<body class="body-light">
 	<?php $this->beginBody() ?>
 	<?php @$events = $this->params['customParam']; ?>
 <div class="headerbar"></div>
@@ -229,43 +229,6 @@ $session = Yii::$app->session;
 	<div class="top-search-content"><div class="search-content"><i id="search-close" class="material-icons clear-icon">&#xE14C;</i><input type="text" class="search-input"><i class="material-icons search-icon">&#xE8B6;</i></div></div>
 </header>
 <section class="scroller-inner">
-	<!--<aside class="mp-pusher" id="mp-pusher">
-		<nav id="mp-menu" class="mp-menu">
-			<div class="mp-level">
-				<p></p>
-				<ul>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE88A;</i><span>Inicio</span>', ['site/principal']) ?></li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE7EF;</i><span>Equipo de nómina</span>', ['site/equiponomina']) ?></li>
-					<li class="divider"></li>
-					<li>
-						<p class="category">Módulos</p>
-					</li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE873;</i><span>Certificado Laboral</span>', ['site/certificadolaboral']) ?></li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE53E;</i><span>Comprobantes de pago</span>', ['site/comprobantespago']) ?></li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE84F;</i><span>Certificado de ingresos y retención</span>', ['site/certificadosretencion']) ?></li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xEB48;</i><span>Vacaciones</span>', ['site/vacaciones']) ?></li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE856;</i><span>Trabajo por turnos</span>', ['site/turnos']) ?></li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE3F3;</i><span>Incapacidades</span>', ['site/incapacidades']) ?></li>			
-					<li class="divider"></li>
-					<li>
-						<p class="category">Información</p>
-					</li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE801;</i><span>Actualidad laboral</span>', ['site/actualidadlaboral']) ?></li>	
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE916;</i><span>Cronográma cierre de nómina</span>', ['site/cronogramanomina']) ?></li>	
-				</ul>
-			</div>
-		</nav>
-	</aside>-->
 	<section id="content">
 		<div class="fluid-container main-content">
 			<?= Breadcrumbs::widget([
