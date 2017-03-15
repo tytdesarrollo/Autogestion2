@@ -24,7 +24,6 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
 		'js/classie.js',
-		'js/mlpushmenu.js',
 		'js/menumodal.js',
 		'js/moment.min.js',
 		'js/fullcalendar.min.js',
