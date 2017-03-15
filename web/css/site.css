@@ -507,7 +507,7 @@ a.desc:after {
 	height: 100%;
 }
 .dropdown-menu{
-	z-index: 3;
+	z-index: 1000;
 }
 .navbar{
 	margin-bottom: 0;
