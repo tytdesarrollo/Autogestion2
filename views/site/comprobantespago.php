@@ -59,7 +59,8 @@ $this->title = 'Comprobante de pago';
 							</div>
 						</div>
 						<div class="form-group text-right">
-							<button type="button" class="btn btn-raised btn-primary" data-toggle="modal" data-target="#pdfViewer">Generar</button>
+							<button type="button" class="btn btn-raised btn-primary visible-lg-inline-block" data-toggle="modal" data-target="#pdfViewer">Generar</button>
+							<a href="img/comprobante_pago.pdf" target="_blank" class="btn btn-raised btn-primary hidden-lg">Generar</a>
 							<button class="btn btn-raised btn-primary">Enviar al correo</button>
 						</div>
 					</div>
@@ -78,9 +79,9 @@ $this->title = 'Comprobante de pago';
 				</div>
 			</div>
 			<div class="modal-body">
-				<object class="box-pdf" data="img/sample_pdf.pdf" type="application/pdf">
-					<embed src="img/sample_pdf.pdf" type="application/pdf"></embed>
-						alt :<a href="img/sample_pdf.pdf">comprobante de pago.</a>
+				<object class="box-pdf" data="img/comprobante_pago.pdf" type="application/pdf">
+					<embed src="img/comprobante_pago.pdf" type="application/pdf"></embed>
+						<a href="img/comprobante_pago.pdf">comprobante de pago.</a>
                 </object>
 			</div>
 		</div>

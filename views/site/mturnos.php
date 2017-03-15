@@ -9,8 +9,8 @@ $this->title = 'Trabajo por Turnos';
 	<div class="bg-dark-87">
 		<!-- CONTENT TOUCH CAROUSEL -->
 		<div class="ag-carousel sec">
-			<!-- */ M”DULO IZQUIERDA -->
-			<!-- M”DULO CENTRAL -->
+			<!-- */ M√ìDULO IZQUIERDA -->
+			<!-- M√ìDULO CENTRAL -->
 			<div class="ag-carousel__cell ag-carousel__cell-1">
 				<div class="ag-carousel__cell-content">
 					<div id="modVac" class="container">
@@ -47,8 +47,8 @@ $this->title = 'Trabajo por Turnos';
 					</div>
 				</div>
 			</div>
-			<!-- */ M”DULO CENTRAL -->
-			<!-- M”DULO DERECHA -->
+			<!-- */ M√ìDULO CENTRAL -->
+			<!-- M√ìDULO DERECHA -->
 			<div class="ag-carousel__cell ag-carousel__cell-2">
 				<div class="ag-carousel__cell-content">
 					<div id="modVacHist" class="container bg__grt-blue__mobile">
@@ -76,7 +76,7 @@ $this->title = 'Trabajo por Turnos';
 										</div>
 									</div>
 									<div class="txt__light-50">
-										<p class="dis-inline-block no-mrg">Del dÌa: </p>
+										<p class="dis-inline-block no-mrg">Del d√≠a: </p>
 										<p class="dis-inline-block no-mrg">24-04-2016</p>
 									</div>
 								</div>
@@ -101,7 +101,7 @@ $this->title = 'Trabajo por Turnos';
 										</div>
 									</div>
 									<div class="txt__light-50">
-										<p class="dis-inline-block no-mrg">Del dÌa: </p>
+										<p class="dis-inline-block no-mrg">Del d√≠a: </p>
 										<p class="dis-inline-block no-mrg">24-04-2016</p>
 									</div>
 								</div>
@@ -126,7 +126,7 @@ $this->title = 'Trabajo por Turnos';
 										</div>
 									</div>
 									<div class="txt__light-50">
-										<p class="dis-inline-block no-mrg">Del dÌa: </p>
+										<p class="dis-inline-block no-mrg">Del d√≠a: </p>
 										<p class="dis-inline-block no-mrg">24-04-2016</p>
 									</div>
 								</div>
@@ -135,7 +135,7 @@ $this->title = 'Trabajo por Turnos';
 					</div>
 				</div>
 			</div>
-			<!-- */ M”DULO DERECHA -->
+			<!-- */ M√ìDULO DERECHA -->
 		</div>
 		<!-- */ CONTENT TOUCH CAROUSEL -->
 	</div>
@@ -144,7 +144,7 @@ $this->title = 'Trabajo por Turnos';
  <!-- // MODALS // -->
 <!---------------------------------------------------
   // MODAL HELP
-  // Modal de informaciÛn sobre el mÛdulo de turnos.
+  // Modal de informaci√≥n sobre el m√≥dulo de turnos.
 ------------------------------------------------------->
 <div class="modal fade modal-help" id="help" tabindex="-1" role="dialog" aria-labelledby="helpLabel">
 	<div class="modal-dialog modal-lg" role="document">
@@ -157,19 +157,19 @@ $this->title = 'Trabajo por Turnos';
 			</div>
 			<div class="modal-body">
 				<h4 class="fnt__Medium txt__blue">Trabajo por turnos:</h4>
-				<p>Este mÛdulo permitir· optimizar el proceso de registro y transcripciÛn de los reportes mensuales.</p>
-				<p class=""> Es importante que el lÌder revise el registro y garantice la informaciÛn suministrada.</p>
+				<p>Este m√≥dulo permitir√° optimizar el proceso de registro y transcripci√≥n de los reportes mensuales.</p>
+				<p class=""> Es importante que el l√≠der revise el registro y garantice la informaci√≥n suministrada.</p>
 				<div class="box__blue-50 pdg__24">
-					<p class="text-justify fnt__Medium">Se define <b>Turnos de Trabajo</b> cuando la naturaleza de la labor no exija actividad continua y se lleve a cabo por turnos de trabajadores, la duraciÛn de la jornada puede ampliarse en m·s de 8 horas diarias o en m·s de 48 horas semanales, siempre que el promedio de la horas de trabajo calculado para un periodo que no exceda de tres semanas, no pase de 8 horas diarias o de 48 a la semana. Esta ampliaciÛn no constituye trabajo suplementario o de horas extras.</p>
+					<p class="text-justify fnt__Medium">Se define <b>Turnos de Trabajo</b> cuando la naturaleza de la labor no exija actividad continua y se lleve a cabo por turnos de trabajadores, la duraci√≥n de la jornada puede ampliarse en m√°s de 8 horas diarias o en m√°s de 48 horas semanales, siempre que el promedio de la horas de trabajo calculado para un periodo que no exceda de tres semanas, no pase de 8 horas diarias o de 48 a la semana. Esta ampliaci√≥n no constituye trabajo suplementario o de horas extras.</p>
 				</div>
-				<p class="text-justify mrg__top-15">Si quieres consultar la polÌtica de la compaÒÌa respecto al tema, ingresa <span><a href="#">aquÌ</a></span></p>
+				<p class="text-justify mrg__top-15">Si quieres consultar la pol√≠tica de la compa√±√≠a respecto al tema, ingresa <span><a href="#">aqu√≠</a></span></p>
 				<hr class="mrg__top-30">
-				<h4 class="fnt__Medium txt__blue">Si eres lÌder ten encuenta:</h4>
+				<h4 class="fnt__Medium txt__blue">Si eres l√≠der ten encuenta:</h4>
 				<ul>
 					<li class="fnt__Medium"><b>Importante validar las horas extras solicitadas de tus colaboradores.</b></li>
-					<li><b>Verifica la programaciÛn de tu equipo de trabajo antes de la aprobaciÛn.</b></li>
-					<li><b>Si consideras que un colaborador debe cambiar las fechas de programaciÛn, puedes marcarla como rechazada.</b></li>
-					<li><b>Importante, Una vez aprobadas las horas extras, la herramienta no permite cambios en la programaciÛn.</b></li>
+					<li><b>Verifica la programaci√≥n de tu equipo de trabajo antes de la aprobaci√≥n.</b></li>
+					<li><b>Si consideras que un colaborador debe cambiar las fechas de programaci√≥n, puedes marcarla como rechazada.</b></li>
+					<li><b>Importante, Una vez aprobadas las horas extras, la herramienta no permite cambios en la programaci√≥n.</b></li>
 				</ul>
 			</div>
 		</div>

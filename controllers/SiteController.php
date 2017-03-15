@@ -605,19 +605,19 @@ class SiteController extends Controller
 	
 	public function actionCertificadolaboral()
     {				
-		
+		$this->layout='main_light';
         return $this->render('certificadolaboral');
 		
     }
 	public function actionCertificadosretencion()
     {				
-		
+		$this->layout='main_light';
         return $this->render('certificadosretencion');
 		
     }
 	public function actionComprobantespago()
     {				
-		
+		$this->layout='main_light';
         return $this->render('comprobantespago');
 		
     }

@@ -27,13 +27,22 @@ $session = Yii::$app->session;
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
 	<script src="../web/js/modernizr.custom.js"></script>
 </head>
-<body>
+<body class="body-light">
 	<?php $this->beginBody() ?>
 	<?php @$events = $this->params['customParam']; ?>
 <div class="headerbar"></div>
 <header id="header" class="clearfix">
 	<nav id="menu" class="navbar">
 		<div class="container-fluid">
+			<!--<div class="content__icon-menu__ham pull-left">
+				<a href="#" id="trigger" class="menu-trigger">
+					<div class="line-wrap">
+						<div class="line top"></div>
+						<div class="line center"></div>
+						<div class="line bottom"></div>
+					</div>
+				</a>
+			</div>-->
 			<div class="content__logo pull-left">
 				<?= Html::img('@web/img/logo_small.svg', ['alt' => 'Auto Gestión Web', 'height' => '38px']) ?>
 				<div class="hidden-xs" style="margin-top: 10px;"><p>Mesa Centro de servicios compartidos.</p></div>
@@ -303,6 +312,11 @@ $session = Yii::$app->session;
             $('#header').removeClass('search-toggled');
         });
     })();
+</script>
+<script>
+	new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ), {
+		type : 'cover'
+	} );
 </script>
 <script>
 	$(function () {
