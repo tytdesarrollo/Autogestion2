@@ -4,6 +4,7 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 
 $this->title = 'Certificado de ingresos y retención';
+
 ?>
 
 <div class="mod-docs">
@@ -24,28 +25,29 @@ $this->title = 'Certificado de ingresos y retención';
 						</div>
 						<h2 class="fnt__Medium text-center mrg__top-10 mrg__bottom-20">Certificado de ingresos y retención</h2>
 						<p class="mrg__bottom-20">Genera el certificado de ingresos y retención para el año que desees.</p>
+
 						<div class="form-group select-m">
 							<label class="control-label" for="certRetecionSelect">
 								Año
 							</label>
 							<div class="mad-select">
 								<ul>
-									<li data-value="1">2016</li>
-									<li data-value="2">2015</li>
-									<li data-value="3">2014</li>
-									<li data-value="4">2013</li>
-									<li data-value="5">2012</li>
-									<li data-value="6">2011</li>
-									<li data-value="7">2010</li>
+									<li data-value="2016">2016</li>
+									<li data-value="2015">2015</li>
+									<li data-value="2014">2014</li>
+									<li data-value="2013">2013</li>
+									<li data-value="2012">2012</li>
+									<li data-value="2011">2011</li>
+									<li data-value="2010">2010</li>
 								</ul>
 								<input type="hidden" id="certRetecionSelect" name="myOptions" value="1" class="form-control">
 							</div>
-						</div>
+						</div>					
 						<div class="form-group text-right">
-							<button type="button" class="btn btn-raised btn-primary visible-lg-inline-block" data-toggle="modal" data-target="#pdfViewer">Generar</button>
-							<a href="img/certificado_ingreso_retencion.pdf" target="_blank" class="btn btn-raised btn-primary hidden-lg">Generar</a>
-							<button class="btn btn-raised btn-primary">Enviar al correo</button>
+						<?= Html::Button('Generar', ['class' => 'btn btn-raised btn-primary', 'data-toggle'=>"modal", 'data-target'=>"#pdfViewer", 'name' => 'btnPdf', 'id' => 'btnPdf', 'onclick'=>'Warn();']) ?>
+						<?= Html::Button('Enviar al correo', ['class' => 'btn btn-raised btn-primary', 'name' => 'enviar-button']) ?>
 						</div>
+
 					</div>
 				</div>
 			</div>
@@ -58,15 +60,30 @@ $this->title = 'Certificado de ingresos y retención';
 			<div class="modal-header">
 				<div class="header-box">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h3 class="modal-title txt__light-100" id="pdfViewerLabel">Certificado de ingresos y retención</h3>
+					<h3 class="modal-title txt__light-100" id="pdfViewerLabel">Certificado de Ingresos y Retención</h3>
 				</div>
 			</div>
 			<div class="modal-body">
-				<object class="box-pdf" data="img/certificado_ingreso_retencion.pdf" type="application/pdf">
-					<embed src="img/certificado_ingreso_retencion.pdf" type="application/pdf"></embed>
-						<a href="img/certificado_ingreso_retencion.pdf">Certificado de ingresos y retención.</a>
+				<object class="box-pdf" data="<?php echo Url::toRoute(['site/pdf_certificadosretencion']);?>" type="application/pdf">	
                 </object>
 			</div>
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+
+function Warn() {
+
+
+$.ajax({
+              cache: false,
+             type: 'POST',
+              url: '<?php echo Url::toRoute(['site/pdf_certificadosretencion']); ?>',
+             data: {'ano' : <?php echo '2015'; ?>},
+             
+        });
+		 //var btnPdf = $("#btnPdf");
+
+	};
+
+</script>
