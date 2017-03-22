@@ -16,6 +16,7 @@ use yii\helpers\Url;
 use PDO;
 use app\models\TwPcIdentity;
 use app\models\TwPcPersonalData;
+use app\models\TwPcCertIngresos;
 use app\models\Ldap;
 
 
@@ -23,15 +24,25 @@ class SiteController extends Controller
 { 	
 
 
-	public function actionSaluda(){	
+	public function actionPrueba(){	
 
-	Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
-	Yii::$app->response->headers->add('Content-Type', 'application/pdf');
+	$model = new TwPcCertIngresos;
+
+			$twpccertingresos = $model->procedimiento();
+			
+			$BLOQUE1 = explode("_*", $twpccertingresos[0]);
+			
+			 if(isset($_POST['activate'])){					 			
+							
+					$datos = 'ENTRA';
+				
+				}else{
+					
+					$datos = 'SALE'; 
+				}	
 	
-			// Load Component Yii2 TCPDF 
-	Yii::$app->get('tcpdf');
+	return $this->render('prueba', ["datos"=>$BLOQUE1,"date"=>$datos]);
 	
-        return $this->render('saluda');
 	}	
 	
     public function behaviors()
@@ -612,7 +623,31 @@ class SiteController extends Controller
 	public function actionCertificadosretencion()
     {				
 		$this->layout='main_light';
+		$model = new TwPcCertIngresos;	
         return $this->render('certificadosretencion');
+		
+    }
+	public function actionPdf_certificadosretencion()
+    {				
+	
+	$model = new TwPcCertIngresos;
+	
+	//$resultado = $_POST['parametros'];
+	$resultado = $_POST['parametros'];
+
+	Yii::$app->session['ano'] = $resultado;
+
+			Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+			Yii::$app->response->headers->add('Content-Type', 'application/pdf');					
+			
+			// Load Component Yii2 TCPDF 
+			Yii::$app->get('tcpdf');
+
+			$twpccertingresos = $model->procedimiento();
+			
+			$BLOQUE1 = explode("_*", $twpccertingresos[0]);
+		
+        return $this->render('pdf_certificadosretencion', ["datos"=>$BLOQUE1]);
 		
     }
 	public function actionComprobantespago()

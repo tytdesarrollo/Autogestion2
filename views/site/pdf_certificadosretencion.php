@@ -1,9 +1,17 @@
 <?php
 
+//var_dump ($ano);
+
+//die;
+
+$GLOBALS['datos'] = $datos[0];
+
 // Extend the TCPDF class to create custom Header and Footer
 class MYPDF extends TCPDF {
 	//Page header
+	
 	public function Header() {
+	
 		// get the current page break margin
 		$bMargin = $this->getBreakMargin();
 		// get current auto-page-break mode
@@ -11,7 +19,10 @@ class MYPDF extends TCPDF {
 		// disable auto-page-break
 		$this->SetAutoPageBreak(false, 0);
 		// set bacground image
-		$img_file = K_PATH_IMAGES.'certificado2014.jpg';
+		//$img_file = K_PATH_IMAGES.'certificado2014.jpg';
+		
+		$img_file =$GLOBALS['datos'];
+		
 		$this->Image($img_file, 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
 		// restore auto-page-break status
 		$this->SetAutoPageBreak($auto_page_break, $bMargin);
@@ -20,6 +31,8 @@ class MYPDF extends TCPDF {
 	}
 }
 
+	
+
 // create new PDF document
 $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
@@ -27,8 +40,8 @@ $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('Talentos & Tecnología');
 $pdf->SetTitle('Certificado de ingresos y Retención');
-$pdf->SetSubject('Certificado 2016');
-$pdf->SetKeywords('Certificado,Certificado de ingresos, Certificiado 2016, PDF, ingresos, Retención');
+$pdf->SetSubject('Certificado');
+$pdf->SetKeywords('Certificado,Certificado de ingresos, PDF, ingresos, Retención');
 
 // set header and footer fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -50,12 +63,6 @@ $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 // set image scale factor
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
-// set some language-dependent strings (optional)
-if (@file_exists(dirname(__FILE__).'pdf/lang/spa.php')) {
-	require_once(dirname(__FILE__).'pdf/lang/spa.php');
-	$pdf->setLanguageArray($l);
-}
-
 // ---------------------------------------------------------
 
 // set font
@@ -64,148 +71,148 @@ $pdf->SetFont('Helvetica', '', 9);
 // add a page
 $pdf->AddPage();
 
-$pdf->SetXY(120, 27); //NUM_FOR_4
-$html = '<span>44836</span>';
+$pdf->SetXY($datos[2], $datos[3]); //NUM_FOR_4
+$html = '<span>'.$datos[1].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(48, 36); //NIT_5
-$html = '<span>830122566</span>';
+$pdf->SetXY($datos[5], $datos[6]); //NIT_5
+$html = '<span>'.$datos[4].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(66, 36); //DV_6
-$html = '<span>1</span>';
+$pdf->SetXY($datos[8], $datos[9]); //DV_6
+$html = '<span>'.$datos[7].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(15, 45); //DV_6X
-$html = '<span>COLOMBIA TELECOMUNICACIONES S.A. ESP</span>';
+$pdf->SetXY($datos[11], $datos[12]); //DV_6X
+$html = '<span>'.$datos[10].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(20, 55); //TIPO_24
-$html = '<span>13</span>';
+$pdf->SetXY($datos[14], $datos[15]); //TIPO_24
+$html = '<span>'.$datos[13].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(33, 53); //CEDULA_25
-$html = '<span>94493860</span>';
+$pdf->SetXY($datos[17], $datos[18]); //CEDULA_25
+$html = '<span>'.$datos[16].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(84, 54); //PRIMER_APE_26
-$html = '<span>WALLES</span>';
+$pdf->SetXY($datos[20], $datos[21]); //PRIMER_APE_26
+$html = '<span>'.$datos[19].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(114, 54); //SEG_APE_27
-$html = '<span>VALENCIA</span>';
+$pdf->SetXY($datos[23], $datos[24]); //SEG_APE_27
+$html = '<span>'.$datos[22].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(146, 54); //PRIMER_NOM_28
-$html = '<span>LEONARDO</span>';
+$pdf->SetXY($datos[26], $datos[27]); //PRIMER_NOM_28
+$html = '<span>'.$datos[25].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(176, 54); //SEG_NOM_29
-$html = '<span>JOSE</span>';
+$pdf->SetXY($datos[29], $datos[30]); //SEG_NOM_29
+$html = '<span>'.$datos[28].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(20, 63); //AÑO_F_INI_30
-$html = '<span>2015</span>';
+$pdf->SetXY($datos[32], $datos[33]); //AÑO_F_INI_30
+$html = '<span>'.$datos[31].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(32, 63); //MES_F_INI_30
-$html = '<span>01</span>';
+$pdf->SetXY($datos[35], $datos[36]); //MES_F_INI_30
+$html = '<span>'.$datos[34].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(39, 63); //DIA_F_INI_30
-$html = '<span>01</span>';
+$pdf->SetXY($datos[38], $datos[39]); //DIA_F_INI_30
+$html = '<span>'.$datos[37].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(57, 63); //AÑO_F_FIN_31
-$html = '<span>2015</span>';
+$pdf->SetXY($datos[41], $datos[42]); //AÑO_F_FIN_31
+$html = '<span>'.$datos[40].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(69, 63); //MES_F_FIN_31
-$html = '<span>12</span>';
+$pdf->SetXY($datos[44], $datos[45]); //MES_F_FIN_31
+$html = '<span>'.$datos[43].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(77, 63); //DIA_F_FIN_31
-$html = '<span>31</span>';
+$pdf->SetXY($datos[47], $datos[48]); //DIA_F_FIN_31
+$html = '<span>'.$datos[46].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(88, 63); //AÑO_F_EXP_32
-$html = '<span>2016</span>';
+$pdf->SetXY($datos[50], $datos[51]); //AÑO_F_EXP_32
+$html = '<span>'.$datos[49].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(100, 63); //MES_F_EXP_32X
-$html = '<span>03</span>';
+$pdf->SetXY($datos[53], $datos[54]); //MES_F_EXP_32X
+$html = '<span>'.$datos[52].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(108, 63); //DIA_F_EXP_32X
-$html = '<span>08</span>';
+$pdf->SetXY($datos[56], $datos[57]); //DIA_F_EXP_32X
+$html = '<span>'.$datos[55].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(120, 63); //LUGAR_EXPEDICION_33
-$html = '<span>BOGOTA D.C.</span>';
+$pdf->SetXY($datos[59], $datos[60]); //LUGAR_EXPEDICION_33
+$html = '<span>'.$datos[58].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(181, 63); //COD_DEP_34X
-$html = '<span>11</span>';
+$pdf->SetXY($datos[62], $datos[63]); //COD_DEP_34X
+$html = '<span>'.$datos[61].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(190, 63); //COD_CIU_MUNI_35
-$html = '<span>0 0 1</span>';
+$pdf->SetXY($datos[65], $datos[66]); //COD_CIU_MUNI_35
+$html = '<span>'.$datos[64].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(153, 68); //NUM_AGENCI_36
-$html = '<span>1</span>';
+$pdf->SetXY($datos[68], $datos[69]); //NUM_AGENCI_36
+$html = '<span>'.$datos[67].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
 $pdf->SetFont('Helvetica', '', 9);
 
-$pdf->SetY(77); //SALARIOS_37
-$html = '<span style="text-align:right;">65.614.000</span>';
+$pdf->SetY($datos[71]); //SALARIOS_37
+$html = '<span style="text-align:right;">'.$datos[70].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetY(81); //CESANTIAS_38
-$html = '<span style="text-align:right;">54.000</span>';
+$pdf->SetY($datos[73]); //CESANTIAS_38
+$html = '<span style="text-align:right;">'.$datos[72].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetY(85); //GASTOSREPRE_39
-$html = '<span style="text-align:right;">0</span>';
+$pdf->SetY($datos[75]); //GASTOSREPRE_39
+$html = '<span style="text-align:right;">'.$datos[74].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetY(89); //PENSIONES_40
-$html = '<span style="text-align:right;">0</span>';
+$pdf->SetY($datos[77]); //PENSIONES_40
+$html = '<span style="text-align:right;">'.$datos[76].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetY(94);//OTROS_ING_41
-$html = '<span style="text-align:right;">7.537.000</span>';
+$pdf->SetY($datos[79]);//OTROS_ING_41
+$html = '<span style="text-align:right;">'.$datos[78].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetY(98);//TOTAL_ING_42
-$html = '<span style="text-align:right;">73.205.000</span>';
+$pdf->SetY($datos[81]);//TOTAL_ING_42
+$html = '<span style="text-align:right;">'.$datos[80].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetY(108);//APOR_SALUD_43
-$html = '<span style="text-align:right;">2.625.000</span>';
+$pdf->SetY($datos[83]);//APOR_SALUD_43
+$html = '<span style="text-align:right;">'.$datos[82].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetY(112);//PENSION_SOLIDARIDAD_44
-$html = '<span style="text-align:right;">3.281.000</span>';
+$pdf->SetY($datos[85]);//PENSION_SOLIDARIDAD_44
+$html = '<span style="text-align:right;">'.$datos[84].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetY(116);//VOLUNTARIAS_45
-$html = '<span style="text-align:right;">4.450.000</span>';
+$pdf->SetY($datos[87]);//VOLUNTARIAS_45
+$html = '<span style="text-align:right;">'.$datos[86].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetY(121);//RETENCION_46
-$html = '<span style="text-align:right;">2.006.000</span>';
+$pdf->SetY($datos[89]);//RETENCION_46
+$html = '<span style="text-align:right;">'.$datos[88].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
 $pdf->SetFont('Helvetica', '', 10);
 
-$pdf->SetXY(20, 130);//NOM_PAGADOR
-$html = '<span>SE OMITE LA FIRMA DEL CERTIFICADO DE ACUERDO AL ART.10 DEL DECRETO 836 DE 1991</span>';
+$pdf->SetXY($datos[91], $datos[92]);//NOM_PAGADOR
+$html = '<span>'.$datos[90].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->SetXY(20, 135);//NOM_RET
-$html = '<span>LEONARDO WALLES VALENCIA</span>';
+$pdf->SetXY($datos[94], $datos[95]);//NOM_RET
+$html = '<span>'.$datos[93].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
 // ---------------------------------------------------------
