@@ -13,12 +13,9 @@ class TwPcCertIngresos extends Model{
     public function procedimiento()
     {
 		
-
 	$cod_epl = Yii::$app->session['cedula'];
-	$ano = Yii::$app->request->get('ano');
-	//$ano = '2014';
+	$ano = Yii::$app->session['ano'];
 
-	
   $CODIGO_EPL= $cod_epl;
   $ANO_FORMU= $ano;
   $BLOQUE1= '';

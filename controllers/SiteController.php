@@ -622,23 +622,40 @@ class SiteController extends Controller
     }
 	public function actionCertificadosretencion()
     {				
+			
 		$this->layout='main_light';
-		$model = new TwPcCertIngresos;	
-        return $this->render('certificadosretencion');
+		
+		$model = new TwPcCertIngresos;
+		
+		$twpccertingresos = $model->procedimiento();
+		
+		$BLOQUE2 = explode("_*", $twpccertingresos[1]);
+		
+        return $this->render('certificadosretencion',["anoscerti"=>$BLOQUE2]);
 		
     }
 	public function actionPdf_certificadosretencion()
     {				
 	
+	if (isset($_POST['myOptions'])){		
+		
+		$resultado = $_POST['myOptions'];
+		Yii::$app->session['ano'] = $resultado;		
+		
+		echo(($resultado)?json_encode($resultado):'');		
+		
+	}else{
+		
+		$resultado = 'ERROR';
+		
+		echo(($resultado)?json_encode($resultado):'');
+		
+	}
+	
 	$model = new TwPcCertIngresos;
 	
-	//$resultado = $_POST['parametros'];
-	$resultado = $_POST['parametros'];
-
-	Yii::$app->session['ano'] = $resultado;
-
 			Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
-			Yii::$app->response->headers->add('Content-Type', 'application/pdf');					
+			Yii::$app->response->headers->add('Content-Type', 'application/pdf');	
 			
 			// Load Component Yii2 TCPDF 
 			Yii::$app->get('tcpdf');
