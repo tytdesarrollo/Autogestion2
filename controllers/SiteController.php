@@ -463,9 +463,9 @@ class SiteController extends Controller
 				
 				$twpcidentity = $model->procedimiento();
 								
-				 if($_POST['activate'] AND Yii::$app->request->get('usuario') AND Yii::$app->request->get('clave')){					 			
+				 if(isset($_POST['activate'])){					 			
 							
-					$datos = $twpcidentity[1];
+					$datos = $twpcidentity[2];
 							
 					echo(($datos)?json_encode($datos):'');
 				
