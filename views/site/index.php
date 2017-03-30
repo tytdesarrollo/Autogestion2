@@ -141,18 +141,17 @@ if($request->get('activate')){
        success: function (data) {
           
 		  if (data == 0){
-                                        swal("", "A ocurrido un error al enviar las instrucciones a tu correo, por favor intenta de nuevo.", "error");  
+                                       swal("", "A ocurrido un error al enviar las instrucciones a tu correo, por favor intenta de nuevo.", "error"); 
 										
 								}
                                 else{
 																	
-									swal("", data, "error");  
+									swal("", data, "success");
 									
 								}
 						}
 				});  
-				  
-			 // swal("", "Hemos enviado las instrucciones de activación al correo electrónico que tienes registrado en nómina, por favor revisa tu bandeja de entrada.", "success");   
+
 			  } else {
 			  swal("Cancelado", "Tu usuario aún no ha sido activado, por favor activalo.", "error");  
 			  } 
