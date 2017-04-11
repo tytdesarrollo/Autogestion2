@@ -74,6 +74,13 @@ $request = Yii::$app->request;
 		</div>
 	</div>
 </div>
+<?php $form2 = ActiveForm::begin([
+					"method" => "post",
+					"id" => "remember-form",
+					"enableClientValidation" => false,
+					"enableAjaxValidation" => true,
+					]); 
+					?>
 <div class="modal fade modal-std modal-vertically-center" id="recordarpass" tabindex="-1" role="dialog" aria-labelledby="recordarpassLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -84,11 +91,8 @@ $request = Yii::$app->request;
 			<div class="modal-body">
 				<div class="text-justify">
 					<p>Por favor ingresa tu número de cédula y te enviaremos las instrucciones para restaurar tu contraseña al correo electrónico que tengas registrado en nómina.<br /> Gracias por utilizar este servicio.</p>
-					<div class="clearfix"></div>
-					<div class="form-group label-floating mrg__top-15">
-						<label class="control-label" for="email">Cédula</label>
-						<input class="form-control" id="email" type="text">
-					</div>
+					<div class="clearfix"></div>					
+					<?= $form2->field($model2, 'cedula', ['options' => ['class' => 'form-group label-floating mrg__top-15']])->textInput(['autofocus' => true]) ?>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -97,6 +101,7 @@ $request = Yii::$app->request;
 		</div>
 	</div>
 </div>
+<?php ActiveForm::end(); ?>
 <footer class="footer-login text-center">
 	<p class="txt__light-100">Power by Talentos & Tecnología</p>
 </footer>
@@ -167,6 +172,14 @@ if($request->get('error')){
 <script>
  $(document).ready(function(){
   swal(<?php echo '"'.$request->get('error').'"'; ?>, "", "error");
+ });
+</script>
+
+<?php }elseif($request->get('remember')){ ?>
+
+<script>
+ $(document).ready(function(){
+  swal(<?php echo '"'.$request->get('remember').'"'; ?>, "", "success");
  });
 </script>
 

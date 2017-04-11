@@ -14,8 +14,7 @@ class AsignaForm extends Model
     public function rules()
     {
         return [
-			[['clave', 'nuevaclave'], 'required', 'message' => 'Escribe tu clave, es requerida'],							
-			
+			[['clave', 'nuevaclave'], 'required', 'message' => 'Escribe tu clave, es requerida'],										
 			['clave', 'match', 'pattern' => "/^.{3,15}$/", 'message' => 'Mínimo 3 y máximo 15 caracteres'],
             ['nuevaclave', 'compare', 'compareAttribute' => 'clave', 'message' => 'Las contraseñas no coinciden'],
         ];
