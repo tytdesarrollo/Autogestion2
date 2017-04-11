@@ -7,6 +7,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\IndexForm;
+use app\models\RememberForm;
 use app\models\AsignaForm;
 use yii\widgets\ActiveForm;
 use yii\web\Response;
@@ -88,6 +89,8 @@ class SiteController extends Controller
 		$this->layout=false;       			
 		
         $model = new IndexForm();
+
+        $model2 = new RememberForm();
 		
 		$modeladp = new Ldap;
 		
@@ -98,6 +101,26 @@ class SiteController extends Controller
 			$recordar = "<a class='color-white' href='' data-toggle='modal' data-target='#recordarpass'>Olvidaste tu contraseña?</a>";
 		}
 		
+		//VALIDACIONES HTML PARA RECORDAR PASS
+		if($model2->load(Yii::$app->request->post()) && Yii::$app->request->isAjax){
+			
+			Yii::$app->response->format = Response::FORMAT_JSON;
+			return ActiveForm::validate($model2);			
+		}
+		
+		if($model2->load(Yii::$app->request->post())){
+		if($model2->validate()){		
+			
+			return $this->redirect(['site/olvidapassword','usuario'=>$model2->cedula,'operacion'=>'U']);
+			
+		}else{
+			
+			 return $this->goBack();
+			 
+			}
+		}			
+		
+		//VALIDACIONES HTML PARA USUARIO Y PASS
 		if($model->load(Yii::$app->request->post()) && Yii::$app->request->isAjax){
 			
 			Yii::$app->response->format = Response::FORMAT_JSON;
@@ -122,7 +145,7 @@ class SiteController extends Controller
 			
 									}else{
 		
-        return $this->render('index', ['model' => $model,'recordar' => $recordar]);
+        return $this->render('index', ['model' => $model,'model2' => $model2,'recordar' => $recordar]);
 
 											}
 		
@@ -158,7 +181,9 @@ class SiteController extends Controller
 			
 		}elseif($twpcidentity[1]=="1"){
 			
-			return $this->redirect(['site/principal']);
+			Yii::$app->session['cedula'] = $twpcidentity[0];
+					
+			return $this->redirect(['site/principal', "message"=>$twpcidentity[2]]);
 			
 		}elseif($twpcidentity[1]=="0"){
 			
@@ -392,7 +417,7 @@ class SiteController extends Controller
     }
 		public function actionAsignapassword()
     {
-		  $this->layout=false;
+		$this->layout=false;
 		  
 		$modelform = new AsignaForm();
 		
@@ -411,11 +436,7 @@ class SiteController extends Controller
 			
 			return $this->redirect(['site/validapassword','clave'=>$modelform->nuevaclave, 'tokenreset'=>Yii::$app->request->get('tokenreset') , 'usuario'=>Yii::$app->request->get('usuario'), 'operacion'=>'F']);
 			
-		}else{
-			
-			 return $this->goBack();
-			 
-			}		
+		}	
 		}
 		
 		if($twpcidentity[1]=="10"){
@@ -441,6 +462,8 @@ class SiteController extends Controller
 				
 				if($twpcidentity[1]=="1"){
 					
+					Yii::$app->session['cedula'] = $twpcidentity[0];
+					
 					return $this->redirect(['site/principal', "message"=>$twpcidentity[2]]);
 					
 				}else{
@@ -454,6 +477,20 @@ class SiteController extends Controller
 				$model = new TwPcIdentity;
 				
 				$twpcidentity = $model->procedimiento();
+				
+				if($twpcidentity[1]=="9"){
+					
+					return $this->redirect(['site/index', "remember"=>$twpcidentity[2]]);
+					
+				}elseif($twpcidentity[1]=="0"){
+					
+					return $this->redirect(['site/index', "error"=>$twpcidentity[2]]);
+					
+				}else{
+					
+					return $this->redirect(['site/index', "error"=>$twpcidentity[2]]);
+					
+				}
 						
 	}
 	
