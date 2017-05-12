@@ -74,32 +74,74 @@ $session = Yii::$app->session;
 							</li>
 							<li class="divider"></li>
 							<p class="txt-category fnt__Medium">Módulos</p>
-							<li class="modul">
-								<?= Html::a('<img class="icon-modul" src="img/icon_vacaciones.png" alt="Vacaciones"><span class="title-modul">Vacaciones</span>', ['site/vacaciones']) ?>
-							</li>
-							<li class="modul">
-								<?= Html::a('<img class="icon-modul" src="img/icon_turnos.png" alt="Horas extras"><span class="title-modul">Horas extras</span>', ['site/turnos']) ?>
-							</li>
-							<li class="modul">
-								<?= Html::a('<img class="icon-modul" src="img/icon_certlaboral.png" alt="Certificado laboral"><span class="title-modul">Certificado laboral</span>', ['site/certificadolaboral']) ?>
-							</li>
-							<li class="modul">
-								<?= Html::a('<img class="icon-modul" src="img/icon_compago.png" alt="Comprobante de pago"><span class="title-modul">Comprobante de pago</span>', ['site/comprobantespago']) ?>
-							</li>
-							<li class="modul">
-								<?= Html::a('<img class="icon-modul" src="img/icon_certingreso.png" alt="Certificado de ingresos y retención"><span class="title-modul">Certificado de ingresos</span>', ['site/certificadosretencion']) ?>
-							</li>
+							<?php
+								if(@$session['menus'][0]=='TRUE'){
+							?>
+								<li class="modul">
+									<?= Html::a('<img class="icon-modul" src="img/icon_vacaciones.png" alt="Vacaciones"><span class="title-modul">Vacaciones</span>', ['site/vacaciones']) ?>
+								</li>
+							<?php
+								}
+
+								if(@$session['menus'][1]=='TRUE'){
+							?>
+								<li class="modul">
+									<?= Html::a('<img class="icon-modul" src="img/icon_turnos.png" alt="Horas extras"><span class="title-modul">Horas extras</span>', ['site/turnos']) ?>
+								</li>
+							<?php
+								}
+
+								if(@$session['menus'][2]=='TRUE'){
+							?>
+								<li class="modul">
+									<?= Html::a('<img class="icon-modul" src="img/icon_certlaboral.png" alt="Certificado laboral"><span class="title-modul">Certificado laboral</span>', ['site/certificadolaboral']) ?>
+								</li>
+							<?php
+								}
+
+								if(@$session['menus'][3]=='TRUE'){
+							?>
+								<li class="modul">
+									<?= Html::a('<img class="icon-modul" src="img/icon_compago.png" alt="Comprobante de pago"><span class="title-modul">Comprobante de pago</span>', ['site/comprobantespago']) ?>
+								</li>
+							<?php
+								}
+
+								if(@$session['menus'][4]=='TRUE'){
+							?>
+								<li class="modul">
+									<?= Html::a('<img class="icon-modul" src="img/icon_certingreso.png" alt="Certificado de ingresos y retención"><span class="title-modul">Certificado de ingresos</span>', ['site/certificadosretencion']) ?>
+								</li>
+							<?php
+								}
+							?>
 							<li class="divider"></li>
 							<p class="txt-category fnt__Medium">Información</p>
-							<li class="modul">
-								<?= Html::a('<img class="icon-modul" src="img/icon_equipnomina.png" alt="Equipo de nómina"><span class="title-modul">Equipo de nómina</span>', ['site/equiponomina']) ?>
-							</li>
-							<li class="modul">
-								<?= Html::a('<img class="icon-modul" src="img/icon_actlaboral.png" alt="Actualidad laboral"><span class="title-modul">Actualidad laboral</span>', ['site/actualidadlaboral']) ?>
-							</li>
-							<li class="modul">
-								<?= Html::a('<img class="icon-modul" src="img/icon_cronograma.png" alt="Cronograma cierre de nómina"><span class="title-modul">Cronograma cierre nómina</span>', ['site/cronogramanomina']) ?>
-							</li>
+							<?php
+								if(@$session['menus'][5]=='TRUE'){
+							?>
+								<li class="modul">
+									<?= Html::a('<img class="icon-modul" src="img/icon_equipnomina.png" alt="Equipo de nómina"><span class="title-modul">Equipo de nómina</span>', ['site/equiponomina']) ?>
+								</li>
+							<?php
+								}
+
+								if(@$session['menus'][6]=='TRUE'){
+							?>
+								<li class="modul">
+									<?= Html::a('<img class="icon-modul" src="img/icon_actlaboral.png" alt="Actualidad laboral"><span class="title-modul">Actualidad laboral</span>', ['site/actualidadlaboral']) ?>
+								</li>
+							<?php
+								}
+
+								if(@$session['menus'][7]=='TRUE'){
+							?>
+								<li class="modul">
+									<?= Html::a('<img class="icon-modul" src="img/icon_cronograma.png" alt="Cronograma cierre de nómina"><span class="title-modul">Cronograma cierre nómina</span>', ['site/cronogramanomina']) ?>
+								</li>
+							<?php
+								}								
+							?>
 						</ul>
 					</div>
 				</div>
