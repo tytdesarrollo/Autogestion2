@@ -19,6 +19,7 @@ use app\models\TwPcIdentity;
 use app\models\TwPcPersonalData;
 use app\models\TwPcCertIngresos;
 use app\models\Ldap;
+use app\models\RolesPerfiles;
 
 
 class SiteController extends Controller
@@ -27,24 +28,39 @@ class SiteController extends Controller
 
 	public function actionPrueba(){	
 
-	$model = new TwPcCertIngresos;
+		$model = new RolesPerfiles;
+		$rolesperfiles = $model->spMenus();
+		$menus = $rolesperfiles[0];
+		$submenus = $rolesperfiles[1];
 
-			$twpccertingresos = $model->procedimiento();
-			
-			$BLOQUE1 = explode("_*", $twpccertingresos[0]);
-			
-			 if(isset($_POST['activate'])){					 			
-							
-					$datos = 'ENTRA';
-				
-				}else{
-					
-					$datos = 'SALE'; 
-				}	
-	
-	return $this->render('prueba', ["datos"=>$BLOQUE1,"date"=>$datos]);
+		return $this->render('prueba', ["menus"=>$submenus]);
 	
 	}	
+
+	public function actionMenu()
+	{
+		$model = new RolesPerfiles;
+		$rolesperfiles = $model->spMenus();
+		$menus = $rolesperfiles[0];
+		$submenus = $rolesperfiles[1];
+
+		$arraym =array();
+		$arraysm =array();
+
+		foreach ($menus as $key) {			
+			$arraym[] = $key['VALOR'];
+		}
+
+		foreach ($submenus as $key) {			
+			$arraysm[] = $key['VALOR'];
+		}
+
+		$_SESSION['arrayyy'] = $arraym[0];
+
+		$this->view->params['menus'] = $arraym;
+		$this->view->params['submenus'] = $arraysm;
+		
+	}
 	
     public function behaviors()
     {
@@ -340,6 +356,29 @@ class SiteController extends Controller
 		Yii::$app->session['datopersonal'] = $bloque1;
 		Yii::$app->session['datopersonaldos'] = $bloque2;		
 		
+
+		//=======================================PERFILES=========================================
+		$model = new RolesPerfiles;
+		$rolesperfiles = $model->spMenus();
+		$menus = $rolesperfiles[0];
+		$submenus = $rolesperfiles[1];
+
+		$arraym =array();
+		$arraysm =array();
+
+		foreach ($menus as $key) {			
+			$arraym[] = $key['VALOR'];
+		}
+
+		foreach ($submenus as $key) {			
+			$arraysm[] = $key['VALOR'];
+		}
+
+		Yii::$app->session['menus'] = $arraym;
+		Yii::$app->session['submenus'] = $arraysm;
+		//================================================================================
+
+
 		//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
 		if (isset(Yii::$app->session['cedula'])){
 		
