@@ -12,6 +12,8 @@ use app\assets\AppAsset;
 
 
 AppAsset::register($this);
+
+$session = Yii::$app->session;
 ?>
 	<?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -22,30 +24,17 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+	<link rel="shortcut icon" href="href="<?php echo Yii::$app->request->baseUrl; ?>/favicon.ico" type="image/x-icon" />
 	<script src="../web/js/modernizr.custom.js"></script>
 </head>
 <body>
 	<?php $this->beginBody() ?>
 	<?php @$events = $this->params['customParam']; ?>
+<div class="headerbar"></div>
 <header id="header" class="clearfix">
 	<nav id="menu" class="navbar">
-		<div class="container-fluid bg-blue">
-			<div class="content__icon-menu__ham pull-left">
-				<!--<a href="#" id="trigger" class="menu-trigger glyphicon glyphicon-menu-hamburger icon__24">
-					<div class="line-wrap">
-						<div class="line top"></div>
-						<div class="line center"></div>
-						<div class="line bottom"></div>
-					</div>
-				</a>-->
-				<a href="#" id="trigger" class="menu-trigger">
-					<div class="line-wrap">
-						<div class="line top"></div>
-						<div class="line center"></div>
-						<div class="line bottom"></div>
-					</div>
-				</a>
-			</div>
+		<div class="container-fluid">
 			<div class="content__logo pull-left">
 				<?= Html::img('@web/img/logo_small.svg', ['alt' => 'Auto Gestión Web', 'height' => '38px']) ?>
 				<div class="hidden-xs" style="margin-top: 10px;"><p>Mesa Centro de servicios compartidos.</p></div>
@@ -53,6 +42,168 @@ AppAsset::register($this);
 			<div class="pull-right">
 				<div class="content__icon-menu__aux hidden-xxs">
 					<a id="search" href="#" class="menu-trigger"><i class="material-icons icon__26">&#xE8B6;</i></a>
+				</div>
+				<div class="content__icon-menu__aux">
+					<?= Html::a('<i class="material-icons icon__24">&#xE88A;</i>', ['site/principal'], ['class' => 'menu-trigger']) ?>
+				</div>
+				<div class="content__icon-menu__aux visible-lg-inline-block">
+					<div class="dropdown">
+						<a href="#" data-toggle="dropdown" class="dropdown-toggle menu-trigger">
+							<i class="material-icons icon__24">&#xE5C3;</i>
+						</a>
+						<ul class="dropdown-menu menu-modul">
+							<div class="vin"></div>
+							<p class="txt-category fnt__Medium">Productos</p>
+							<li class="modul">
+								<a href="#">
+									<img src="img/icon_nomina.png" alt="Nómina" class="icon-modul">
+									<span class="title-modul">Nómina</span>
+								</a>
+							</li>
+							<li class="modul">
+								<a href="#">
+									<img src="img/icon_awa.png" alt="Awa" class="icon-modul">
+									<span class="title-modul">Awa</span>
+								</a>
+							</li>
+							<li class="modul">
+								<a href="#">
+									<img src="img/icon_hims.png" alt="Hims" class="icon-modul">
+									<span class="title-modul">Hims</span>
+								</a>
+							</li>
+							<li class="divider"></li>
+							<p class="txt-category fnt__Medium">Módulos</p>
+							<?php
+								if(@$session['menus'][0]=='TRUE'){
+							?>
+								<li class="modul">
+									<?= Html::a('<img class="icon-modul" src="img/icon_vacaciones.png" alt="Vacaciones"><span class="title-modul">Vacaciones</span>', ['site/vacaciones']) ?>
+								</li>
+							<?php
+								}
+
+								if(@$session['menus'][1]=='TRUE'){
+							?>
+								<li class="modul">
+									<?= Html::a('<img class="icon-modul" src="img/icon_turnos.png" alt="Horas extras"><span class="title-modul">Horas extras</span>', ['site/turnos']) ?>
+								</li>
+							<?php
+								}
+
+								if(@$session['menus'][2]=='TRUE'){
+							?>
+								<li class="modul">
+									<?= Html::a('<img class="icon-modul" src="img/icon_certlaboral.png" alt="Certificado laboral"><span class="title-modul">Certificado laboral</span>', ['site/certificadolaboral']) ?>
+								</li>
+							<?php
+								}
+
+								if(@$session['menus'][3]=='TRUE'){
+							?>
+								<li class="modul">
+									<?= Html::a('<img class="icon-modul" src="img/icon_compago.png" alt="Comprobante de pago"><span class="title-modul">Comprobante de pago</span>', ['site/comprobantespago']) ?>
+								</li>
+							<?php
+								}
+
+								if(@$session['menus'][4]=='TRUE'){
+							?>
+								<li class="modul">
+									<?= Html::a('<img class="icon-modul" src="img/icon_certingreso.png" alt="Certificado de ingresos y retención"><span class="title-modul">Certificado de ingresos</span>', ['site/certificadosretencion']) ?>
+								</li>
+							<?php
+								}
+							?>
+							<li class="divider"></li>
+							<p class="txt-category fnt__Medium">Información</p>
+							<?php
+								if(@$session['menus'][5]=='TRUE'){
+							?>
+								<li class="modul">
+									<?= Html::a('<img class="icon-modul" src="img/icon_equipnomina.png" alt="Equipo de nómina"><span class="title-modul">Equipo de nómina</span>', ['site/equiponomina']) ?>
+								</li>
+							<?php
+								}
+
+								if(@$session['menus'][6]=='TRUE'){
+							?>
+								<li class="modul">
+									<?= Html::a('<img class="icon-modul" src="img/icon_actlaboral.png" alt="Actualidad laboral"><span class="title-modul">Actualidad laboral</span>', ['site/actualidadlaboral']) ?>
+								</li>
+							<?php
+								}
+
+								if(@$session['menus'][7]=='TRUE'){
+							?>
+								<li class="modul">
+									<?= Html::a('<img class="icon-modul" src="img/icon_cronograma.png" alt="Cronograma cierre de nómina"><span class="title-modul">Cronograma cierre nómina</span>', ['site/cronogramanomina']) ?>
+								</li>
+							<?php
+								}								
+							?>
+						</ul>
+					</div>
+				</div>
+				<!-- MENÚ MODAL MOBILE -->
+				<div class="content__icon-menu__aux hidden-lg">
+						<a href="#" class="menu-modal-trigger menu-trigger">
+							<i class="material-icons icon__24">&#xE5C3;</i>
+						</a>
+						<div class="content-menu-modal">
+							<nav>
+								<ul class="menu-modal">
+									<p class="txt-category fnt__Medium">Productos</p>
+									<li class="modul">
+										<a href="#" onclick="alertsweet()">
+											<img src="img/icon_nomina.png" alt="Nómina" class="icon-modul">
+											<span class="title-modul">Nómina</span>
+										</a>
+									</li>
+									<li class="modul">
+										<a href="#" onclick="alertsweet()">
+											<img src="img/icon_awa.png" alt="Awa" class="icon-modul">
+											<span class="title-modul">Awa</span>
+										</a>
+									</li>
+									<li class="modul">
+										<a href="#" onclick="alertsweet()">
+											<img src="img/icon_hims.png" alt="Hims" class="icon-modul">
+											<span class="title-modul">Hims</span>
+										</a>
+									</li>
+									<div class="clearfix"></div>
+									<p class="txt-category fnt__Medium">Módulos</p>
+									<li class="modul">
+										<?= Html::a('<img class="icon-modul" src="img/icon_vacaciones.png" alt="Vacaciones"><span class="title-modul">Vacaciones</span>', ['site/vacaciones']) ?>
+									</li>
+									<li class="modul">
+										<?= Html::a('<img class="icon-modul" src="img/icon_turnos.png" alt="Horas extras"><span class="title-modul">Horas extras</span>', ['site/turnos']) ?>
+									</li>
+									<li class="modul">
+										<?= Html::a('<img class="icon-modul" src="img/icon_certlaboral.png" alt="Certificado laboral"><span class="title-modul">Certificado laboral</span>', ['site/certificadolaboral']) ?>
+									</li>
+									<li class="modul">
+										<?= Html::a('<img class="icon-modul" src="img/icon_compago.png" alt="Comprobante de pago"><span class="title-modul">Comprobante de pago</span>', ['site/comprobantespago']) ?>
+									</li>
+									<li class="modul">
+										<?= Html::a('<img class="icon-modul" src="img/icon_certingreso.png" alt="Certificado de ingresos y retención"><span class="title-modul">Certificado de ingresos</span>', ['site/certificadosretencion']) ?>
+									</li>
+									<div class="clearfix"></div>
+									<p class="txt-category fnt__Medium">Información</p>
+									<li class="modul">
+										<?= Html::a('<img class="icon-modul" src="img/icon_equipnomina.png" alt="Equipo de nómina"><span class="title-modul">Equipo de nómina</span>', ['site/equiponomina']) ?>
+									</li>
+									<li class="modul">
+										<?= Html::a('<img class="icon-modul" src="img/icon_actlaboral.png" alt="Actualidad laboral"><span class="title-modul">Actualidad laboral</span>', ['site/actualidadlaboral']) ?>
+									</li>
+									<li class="modul">
+										<?= Html::a('<img class="icon-modul" src="img/icon_cronograma.png" alt="Cronograma cierre de nómina"><span class="title-modul">Cronograma cierre nómina</span>', ['site/cronogramanomina']) ?>
+									</li>
+								</ul>
+							</nav>
+							<a href="" class="close-menu-modal"></a>
+						</div>
 				</div>
 				<div class="content__icon-menu__aux">
 					<div id="avatar" class="content-avatar__nav hidden-xs">
@@ -63,30 +214,32 @@ AppAsset::register($this);
 					<div class="dropdown">
 						<a href="#" data-toggle="dropdown" class="dropdown-toggle menu-trigger"><i class="btn-menu-profile glyphicon glyphicon-option-vertical icon__24"></i></a>
 						<ul class="dropdown-menu menu-profile">
-							<li>
-								<div class="dis-inline-block">
-									<p class="txt-name fnt__Medium">ususario</p>
-									<p class="txt-email">john.doe@hello.com</p>
-								</div>
-								<div class="dis-inline-block pull-right">
+							<li><!--
+							<div class="dis-inline-block pull-left">
 									<div class="content-avatar__menu-profile">
 										<?= Html::img('@web/img/avatar.png', ['alt' => 'avatar', 'class' => 'img-avatar img-circle']) ?>
 									</div>
+							</div>
+							-->
+								<div class="dis-inline-block">
+									<p class="txt-name fnt__Medium"><?= @$session['datopersonal'][0]; ?></p>
+									<p class="txt-email"><?= @$session['datopersonaldos'][0]; ?></p>
 								</div>
+								
 							</li>
 							<li class="divider"></li>
 							<li>
-								<p class="txt-cargo fnt__Medium">Profesional Nómina</p>
-								<p class="txt-info">C.C. 52513735</p>
-								<p class="txt-info">BOGOTÁ</p>
+								<p class="txt-cargo fnt__Medium"><?= @$session['datopersonal'][1]; ?></p>
+								<p class="txt-info"><?= @$session['datopersonaldos'][1]; ?></p>
+								<p class="txt-info"><?= @$session['datopersonaldos'][2]; ?></p>
 							</li>
 							<li>
 								<p class="txt-subcat fnt__Medium">Jefe Inmediato:</p>
-								<p class="txt-info">Luis Alejandro Galindo Ramirez</p>
+								<p class="txt-info"><?= @$session['datopersonaldos'][3]; ?></p>
 							</li>
 							<li>
 								<p class="txt-subcat fnt__Medium">Regional:</p>
-								<p class="txt-info">Administración Central</p>
+								<p class="txt-info"><?= @$session['datopersonaldos'][4]; ?></p>
 							</li>
 							<li class="divider"></li>
 							<li>
@@ -110,43 +263,6 @@ AppAsset::register($this);
 	<div class="top-search-content"><div class="search-content"><i id="search-close" class="material-icons clear-icon">&#xE14C;</i><input type="text" class="search-input"><i class="material-icons search-icon">&#xE8B6;</i></div></div>
 </header>
 <section class="scroller-inner">
-	<aside class="mp-pusher" id="mp-pusher">
-		<nav id="mp-menu" class="mp-menu">
-			<div class="mp-level">
-				<p></p>
-				<ul>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE88A;</i><span>Inicio</span>', ['site/principal']) ?></li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE7EF;</i><span>Equipo de nómina</span>', ['site/equiponomina']) ?></li>
-					<li class="divider"></li>
-					<li>
-						<p class="category">Módulos</p>
-					</li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE873;</i><span>Certificado Laboral</span>', ['site/certificadolaboral']) ?></li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE53E;</i><span>Comprobantes de pago</span>', ['site/comprobantespago']) ?></li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE84F;</i><span>Certificado de ingresos y retención</span>', ['site/certificadosretencion']) ?></li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xEB48;</i><span>Vacaciones</span>', ['site/vacaciones']) ?></li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE856;</i><span>Trabajo por turnos</span>', ['site/turnos']) ?></li>
-					<!--<li>
-					<?= Html::a('<i class="material-icons">&#xE3F3;</i><span>Incapacidades</span>', ['site/incapacidades']) ?></li>-->				
-					<li class="divider"></li>
-					<li>
-						<p class="category">Información</p>
-					</li>
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE801;</i><span>Actualidad laboral</span>', ['site/actualidadlaboral']) ?></li>	
-					<li>
-					<?= Html::a('<i class="material-icons">&#xE916;</i><span>Cronográma cierre de nómina</span>', ['site/cronogramanomina']) ?></li>	
-				</ul>
-			</div>
-		</nav>
-	</aside>
 	<section id="content">
 		<div class="fluid-container main-content">
 			<?= Breadcrumbs::widget([
@@ -172,6 +288,11 @@ AppAsset::register($this);
 	 */
 	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 	   $('html').addClass('mobile');
+	}
+</script>
+<script>
+	function alertsweet() {
+	sweetAlert("Atención", "Este módulo no está disponible para la versión móvil, porfavor ejecutar desde la versión de escritorio.", "warning");
 	}
 </script>
 <script>
@@ -225,11 +346,6 @@ AppAsset::register($this);
             $('#header').removeClass('search-toggled');
         });
     })();
-</script>
-<script>
-	new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ), {
-		type : 'cover'
-	} );
 </script>
 <script>
 	$(function () {

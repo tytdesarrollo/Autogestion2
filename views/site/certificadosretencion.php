@@ -4,6 +4,7 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 
 $this->title = 'Certificado de ingresos y retención';
+
 ?>
 
 <div class="mod-docs">
@@ -18,54 +19,67 @@ $this->title = 'Certificado de ingresos y retención';
 			</div>
 			<div class="col-md-8 col-md-offset-2">
 				<div class="panel panel-default">
+					<?php $form = ActiveForm::begin([
+					"method" => "post",
+					"id" => "certi-form",
+					"enableClientValidation" => false,
+					"enableAjaxValidation" => true,
+					]); 
+					?>				
 					<div class="panel-body">
 						<div class="box-certingreso-drw">
 							<img src="img/certingreso_drw.svg" alt="Certificado de ingresos y retención">
 						</div>
 						<h2 class="fnt__Medium text-center mrg__top-10 mrg__bottom-20">Certificado de ingresos y retención</h2>
 						<p class="mrg__bottom-20">Genera el certificado de ingresos y retención para el año que desees.</p>
+
 						<div class="form-group select-m">
 							<label class="control-label" for="certRetecionSelect">
 								Año
 							</label>
-							<div class="mad-select">
+
+							<div class="mad-select" id="pdfSelect">
 								<ul>
-									<li data-value="1">2016</li>
-									<li data-value="2">2015</li>
-									<li data-value="3">2014</li>
-									<li data-value="4">2013</li>
-									<li data-value="5">2012</li>
-									<li data-value="6">2011</li>
-									<li data-value="7">2010</li>
+								<?php foreach($anoscerti as $row): ?>
+									<li data-value="<?= $row ?>"><?= $row ?></li>		
+								<?php endforeach ?>
 								</ul>
 								<input type="hidden" id="certRetecionSelect" name="myOptions" value="1" class="form-control">
 							</div>
-						</div>
+					
+						</div>					
 						<div class="form-group text-right">
-							<button type="button" class="btn btn-raised btn-primary" data-toggle="modal" data-target="#pdfViewer">Generar</button>
-							<button class="btn btn-raised btn-primary">Enviar al correo</button>
+						<?= Html::Button('Generar', ['class' => 'btn btn-raised btn-primary', 'data-toggle'=>"modal",  'name' => 'btnPdf', 'id' => 'btnPdf', 'onclick'=>'Warn();']) ?>
+						<?= Html::Button('Enviar al correo', ['class' => 'btn btn-raised btn-primary', 'name' => 'enviar-button']) ?>
 						</div>
 					</div>
+					<?php ActiveForm::end(); ?>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="modal fade modal-vrtl modal-pdfviewer" id="pdfViewer" tabindex="-1" role="dialog" aria-labelledby="pdfViewerLabel">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<div class="header-box">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h3 class="modal-title txt__light-100" id="pdfViewerLabel">Comprobante de pago</h3>
-				</div>
-			</div>
-			<div class="modal-body">
-				<object class="box-pdf" data="img/sample_pdf.pdf" type="application/pdf">
-					<embed src="img/sample_pdf.pdf" type="application/pdf"></embed>
-						<a href="img/sample_pdf.pdf">comprobante de pago.</a>
-                </object>
-			</div>
-		</div>
-	</div>
-</div>
+<div class="modal fade modal-vrtl modal-pdfviewer" id="pdfViewer" tabindex="-1" role="dialog" aria-labelledby="pdfViewerLabel"> </div>
+<script type="text/javascript">
+
+function Warn() {
+	
+$.ajax({
+             cache: false,
+             type: 'POST',
+             url: '<?php echo Url::toRoute(['site/pdf_certificadosretencion']); ?>',
+             data: $("#certi-form").serialize(), 
+			 
+			success: function(data){				
+				
+				$('#pdfViewer').modal('toggle').html(
+        '<div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><div class="header-box"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title txt__light-100" id="pdfViewerLabel">Certificado de Ingresos y Retención</h3></div></div><div class="modal-body"><object class="box-pdf" data="<?php echo Url::toRoute(['site/pdf_certificadosretencion']);?>" type="application/pdf"></object></div></div></div>'
+		);
+			
+									}
+	             
+        });			
+
+	};
+
+</script>
