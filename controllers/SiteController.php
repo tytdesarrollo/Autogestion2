@@ -16,6 +16,7 @@ use yii\helpers\Url;
 use PDO;
 use app\models\TwPcIdentity;
 use app\models\TwPcPersonalData;
+use app\models\TwPcCertIngresos;
 use app\models\Ldap;
 
 
@@ -23,15 +24,25 @@ class SiteController extends Controller
 { 	
 
 
-	public function actionSaluda(){	
+	public function actionPrueba(){	
 
-	Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
-	Yii::$app->response->headers->add('Content-Type', 'application/pdf');
+	$model = new TwPcCertIngresos;
+
+			$twpccertingresos = $model->procedimiento();
+			
+			$BLOQUE1 = explode("_*", $twpccertingresos[0]);
+			
+			 if(isset($_POST['activate'])){					 			
+							
+					$datos = 'ENTRA';
+				
+				}else{
+					
+					$datos = 'SALE'; 
+				}	
 	
-			// Load Component Yii2 TCPDF 
-	Yii::$app->get('tcpdf');
+	return $this->render('prueba', ["datos"=>$BLOQUE1,"date"=>$datos]);
 	
-        return $this->render('saluda');
 	}	
 	
     public function behaviors()
@@ -611,8 +622,49 @@ class SiteController extends Controller
     }
 	public function actionCertificadosretencion()
     {				
+			
 		$this->layout='main_light';
-        return $this->render('certificadosretencion');
+		
+		$model = new TwPcCertIngresos;
+		
+		$twpccertingresos = $model->procedimiento();
+		
+		$BLOQUE2 = explode("_*", $twpccertingresos[1]);
+		
+        return $this->render('certificadosretencion',["anoscerti"=>$BLOQUE2]);
+		
+    }
+	public function actionPdf_certificadosretencion()
+    {				
+	
+	if (isset($_POST['myOptions'])){		
+		
+		$resultado = $_POST['myOptions'];
+		Yii::$app->session['ano'] = $resultado;		
+		
+		echo(($resultado)?json_encode($resultado):'');		
+		
+	}else{
+		
+		$resultado = 'ERROR';
+		
+		echo(($resultado)?json_encode($resultado):'');
+		
+	}
+	
+	$model = new TwPcCertIngresos;
+	
+			Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+			Yii::$app->response->headers->add('Content-Type', 'application/pdf');	
+			
+			// Load Component Yii2 TCPDF 
+			Yii::$app->get('tcpdf');
+
+			$twpccertingresos = $model->procedimiento();
+			
+			$BLOQUE1 = explode("_*", $twpccertingresos[0]);
+		
+        return $this->render('pdf_certificadosretencion', ["datos"=>$BLOQUE1]);
 		
     }
 	public function actionComprobantespago()

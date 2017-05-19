@@ -25,6 +25,7 @@ $session = Yii::$app->session;
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+	<link rel="shortcut icon" href="href="<?php echo Yii::$app->request->baseUrl; ?>/favicon.ico" type="image/x-icon" />
 	<script src="../web/js/modernizr.custom.js"></script>
 </head>
 <body>
