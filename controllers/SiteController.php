@@ -18,6 +18,7 @@ use PDO;
 use app\models\TwPcIdentity;
 use app\models\TwPcPersonalData;
 use app\models\TwPcCertIngresos;
+use app\models\TwPcCertLaborales;
 use app\models\Ldap;
 use app\models\TwPcRolesPerfiles;
 
@@ -28,12 +29,23 @@ class SiteController extends Controller
 
 	public function actionPrueba(){	
 
-		$model = new TwPcRolesPerfiles;
-		$rolesperfiles = $model->spMenus();
-		$menus = $rolesperfiles[0];
-		$submenus = $rolesperfiles[1];
+			Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+			Yii::$app->response->headers->add('Content-Type', 'application/pdf');	
+			
+			// Load Component Yii2 TCPDF 
+			Yii::$app->get('tcpdf');
+	
+		$model = new TwPcCertLaborales;
+		
+		$twpccertlaborales = $model->procedimiento();
+		
+		//$BLOQUE2 = explode("_*", $twpccertlaborales[1]);
+		$BLOQUEA = $twpccertlaborales[0];
+		$BLOQUET = $twpccertlaborales[1];
+		$BLOQUEB = $twpccertlaborales[2];
+		$BLOQUEC = $twpccertlaborales[3];
 
-		return $this->render('prueba', ["menus"=>$submenus]);
+		return $this->render('prueba', ["encabezado"=>$BLOQUEA,"titulo"=>$BLOQUET,"cuerpo"=>$BLOQUEB,"pie"=>$BLOQUEC]);
 	
 	}	
 
@@ -696,6 +708,49 @@ class SiteController extends Controller
         return $this->render('certificadolaboral');
 		
     }
+	public function actionPdf_certificadolaboral()
+    {				
+	
+	if (isset($_POST['optionsRadios'])&&isset($_POST['optionsText'])){		
+		
+		$radio = $_POST['optionsRadios'];
+		$text = $_POST['optionsText'];
+		
+		Yii::$app->session['checklab'] = $radio;		
+		Yii::$app->session['textlab'] = $text;		
+		
+		echo(($radio)?json_encode($radio):'');		
+		echo(($text)?json_encode($text):'');		
+		
+	}else{
+		
+		$radio = 'ERROR';
+		$text = 'ERROR';
+		
+		echo(($radio)?json_encode($radio):'');
+		echo(($text)?json_encode($text):'');
+		
+	}
+	
+		$model = new TwPcCertLaborales;
+	
+			Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+			Yii::$app->response->headers->add('Content-Type', 'application/pdf');	
+			
+			// Load Component Yii2 TCPDF 
+			Yii::$app->get('tcpdf');
+		
+		$twpccertlaborales = $model->procedimiento();
+		
+		//$BLOQUE2 = explode("_*", $twpccertlaborales[1]);
+		$BLOQUEA = $twpccertlaborales[0];
+		$BLOQUET = $twpccertlaborales[1];
+		$BLOQUEB = $twpccertlaborales[2];
+		$BLOQUEC = $twpccertlaborales[3];
+		
+        return $this->render('pdf_certificadolaboral', ["encabezado"=>$BLOQUEA,"titulo"=>$BLOQUET,"cuerpo"=>$BLOQUEB,"pie"=>$BLOQUEC]);
+		
+    }
 	public function actionCertificadosretencion()
     {				
 			
@@ -706,7 +761,7 @@ class SiteController extends Controller
 		$twpccertingresos = $model->procedimiento();
 		
 		$BLOQUE2 = explode("_*", $twpccertingresos[1]);
-		
+				
         return $this->render('certificadosretencion',["anoscerti"=>$BLOQUE2]);
 		
     }

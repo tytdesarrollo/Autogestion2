@@ -1,6 +1,4 @@
 <?php
-
-
 // Extend the TCPDF class to create custom Header and Footer
 class MYPDF extends TCPDF {
 	//Page header
@@ -25,7 +23,7 @@ $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor('Talentos & TecnologÃ­a');
+$pdf->SetAuthor('Talentos & Tecnología');
 $pdf->SetTitle('Certificado Laboral');
 $pdf->SetSubject('Certificado');
 $pdf->SetKeywords('Certificado,Certificado laboral, PDF');
@@ -95,7 +93,5 @@ $pdf->Output('Certificadolaboral.pdf', 'I');
 //============================================================+
 // END OF FILE
 //============================================================+
-
-
 
 ?>

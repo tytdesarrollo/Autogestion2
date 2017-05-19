@@ -18,6 +18,13 @@ $this->title = 'Certificado laboral';
 			</div>
 			<div class="col-md-8 col-md-offset-2">
 				<div class="panel panel-default">
+				<?php $form = ActiveForm::begin([
+					"method" => "post",
+					"id" => "carta-form",
+					"enableClientValidation" => false,
+					"enableAjaxValidation" => true,
+					]); 
+					?>
 					<div class="panel-body">
 						<div class="box-certlaboral-drw">
 							<img src="img/certlaboral_drw.svg" alt="Certificado laboral">
@@ -27,13 +34,13 @@ $this->title = 'Certificado laboral';
 						<div class="form-group">
 							<div class="radio radio-primary">
 								<label>
-									<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+									<input type="radio" name="optionsRadios" id="optionsRadios1" value="1" checked="">
 									Certificado normal con salario
 								</label>
 							</div>
 							<div class="radio radio-primary">
 								<label>
-									<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+									<input type="radio" name="optionsRadios" id="optionsRadios2" value="2">
 									Certificado normal sin salario
 								</label>
 							</div>
@@ -42,34 +49,40 @@ $this->title = 'Certificado laboral';
 							<label class="control-label" for="focusedInput1">
 								Dirigido a:
 							</label>
-							<input class="form-control" id="focusedInput1" type="text">
+							<input class="form-control" id="focusedInput1" type="text" name="optionsText">
 						</div>
 						<div class="form-group text-right">
-							<button type="button" class="btn btn-raised btn-primary visible-lg-inline-block" data-toggle="modal" data-target="#pdfViewer">Generar</button>
-							<a href="img/certificado_laboral.pdf" target="_blank" class="btn btn-raised btn-primary hidden-lg">Generar</a>
-							<button class="btn btn-raised btn-primary">Enviar al correo</button>
+						<?= Html::Button('Generar', ['class' => 'btn btn-raised btn-primary', 'data-toggle'=>"modal",  'name' => 'btnPdf', 'id' => 'btnPdf', 'onclick'=>'Warn();']) ?>
+						<?= Html::Button('Enviar al correo', ['class' => 'btn btn-raised btn-primary', 'name' => 'enviar-button']) ?>
 						</div>
+						<?php ActiveForm::end(); ?>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="modal fade modal-vrtl modal-pdfviewer" id="pdfViewer" tabindex="-1" role="dialog" aria-labelledby="pdfViewerLabel">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<div class="header-box">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h3 class="modal-title txt__light-100" id="pdfViewerLabel">Certificado laboral</h3>
-				</div>
-			</div>
-			<div class="modal-body">
-				<object class="box-pdf" data="img/certificado_laboral.pdf" type="application/pdf">
-					<embed src="img/certificado_laboral.pdf" type="application/pdf"></embed>
-						<a href="img/certificado_laboral.pdf">certificado laboral.</a>
-                </object>
-			</div>
-		</div>
-	</div>
-</div>
+<div class="modal fade modal-vrtl modal-pdfviewer" id="pdfViewer" tabindex="-1" role="dialog" aria-labelledby="pdfViewerLabel"> </div>
+<script type="text/javascript">
+
+function Warn() {
+	
+$.ajax({
+             cache: false,
+             type: 'POST',
+             url: '<?php echo Url::toRoute(['site/pdf_certificadolaboral']); ?>',
+             data: $("#carta-form").serialize(), 
+			 
+			success: function(data){				
+				
+				$('#pdfViewer').modal('toggle').html(
+        '<div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><div class="header-box"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title txt__light-100" id="pdfViewerLabel">Certificado Laboral</h3></div></div><div class="modal-body"><object class="box-pdf" data="<?php echo Url::toRoute(['site/pdf_certificadolaboral']);?>" type="application/pdf"></object></div></div></div>'
+		);
+			
+									}
+	             
+        });			
+
+	};
+
+</script>
