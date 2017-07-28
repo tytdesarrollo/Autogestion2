@@ -19,7 +19,7 @@ use app\models\TwPcIdentity;
 use app\models\TwPcPersonalData;
 use app\models\TwPcCertIngresos;
 use app\models\Ldap;
-use app\models\RolesPerfiles;
+use app\models\TwPcRolesPerfiles;
 
 
 class SiteController extends Controller
@@ -28,7 +28,7 @@ class SiteController extends Controller
 
 	public function actionPrueba(){	
 
-		$model = new RolesPerfiles;
+		$model = new TwPcRolesPerfiles;
 		$rolesperfiles = $model->spMenus();
 		$menus = $rolesperfiles[0];
 		$submenus = $rolesperfiles[1];
@@ -39,7 +39,7 @@ class SiteController extends Controller
 
 	public function actionMenu()
 	{
-		$model = new RolesPerfiles;
+		$model = new TwPcRolesPerfiles;
 		$rolesperfiles = $model->spMenus();
 		$menus = $rolesperfiles[0];
 		$submenus = $rolesperfiles[1];
@@ -358,7 +358,7 @@ class SiteController extends Controller
 		
 
 		//=======================================PERFILES=========================================
-		$model = new RolesPerfiles;
+		$model = new TwPcRolesPerfiles;
 		$rolesperfiles = $model->spMenus();
 		$menus = $rolesperfiles[0];
 		$submenus = $rolesperfiles[1];

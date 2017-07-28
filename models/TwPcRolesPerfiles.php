@@ -7,7 +7,7 @@ use yii\db\Command;
 use PDO;
 use yii\base\Model;
 
-class RolesPerfiles extends Model{
+class TwPcRolesPerfiles extends Model{
 
 	public function spMenus(){
 		$db = Yii::$app->params['orcl'];		
