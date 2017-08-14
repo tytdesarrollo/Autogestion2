@@ -21,33 +21,50 @@ use app\models\TwPcCertIngresos;
 use app\models\TwPcCertLaborales;
 use app\models\Ldap;
 use app\models\TwPcRolesPerfiles;
+use app\models\TwPcComprobantePago;
 
 
 class SiteController extends Controller
 { 	
 
 
-	public function actionPrueba(){	
-
-			Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
-			Yii::$app->response->headers->add('Content-Type', 'application/pdf');	
-			
-			// Load Component Yii2 TCPDF 
-			Yii::$app->get('tcpdf');
+	public function actionPrueba(){				
 	
-		$model = new TwPcCertLaborales;
+		$model = new TwPcComprobantePago;
 		
-		$twpccertlaborales = $model->procedimiento();
+		$twpccomprobantepago = $model->ComprobantePago();
 		
-		//$BLOQUE2 = explode("_*", $twpccertlaborales[1]);
-		$BLOQUEA = $twpccertlaborales[0];
-		$BLOQUET = $twpccertlaborales[1];
-		$BLOQUEB = $twpccertlaborales[2];
-		$BLOQUEC = $twpccertlaborales[3];
+		$ANO_ARR = array();
+		$PERIODO_ARR = array();		
+		$BLOQUE5_ARR0 = array();		
+		
+		$ANIO = $twpccomprobantepago[0];
+		$PERIODOS = $twpccomprobantepago[1];
+		$BLOQUE5 = $twpccomprobantepago[3];
+		$BLOQUE1 = $twpccomprobantepago[7];
 
-		return $this->render('prueba', ["encabezado"=>$BLOQUEA,"titulo"=>$BLOQUET,"cuerpo"=>$BLOQUEB,"pie"=>$BLOQUEC]);
+		foreach ($ANIO as $ANO_KEY) {			
+			$ANO_ARR[] = $ANO_KEY['ANO_INI'];	
+		}
+		
+		foreach ($PERIODOS as $PERIODO_KEY) {
+			$NOM_PERIODO_ARR[] = $PERIODO_KEY['PERIODO'];
+			$ANO_PERIODO_ARR[] = $PERIODO_KEY['ANO_INI'];
+		}
+		
+		//ELIMINO LOS ANIOS DUPLICADOS
+		$ANO_PERIODO_FILT = array_unique($ANO_PERIODO_ARR);
+		
+		foreach ($BLOQUE5 as $BLOQUE5_KEY) {
+			$BLOQUE5_ARR0[] = $BLOQUE5_KEY['CODCON2'];
+			$BLOQUE5_ARR1[] = $BLOQUE5_KEY['NOMCON2'];
+			$BLOQUE5_ARR2[] = $BLOQUE5_KEY['VALOR2'];
+			$BLOQUE5_ARR3[] = $BLOQUE5_KEY['SALDO2'];
+		}
+		
+		return $this->render('prueba', ["ANO_PERIODO_ARR"=>$ANO_PERIODO_FILT,"NOM_PERIODO_ARR"=>$NOM_PERIODO_ARR, "bloque1"=>$BLOQUE1, "BLOQUE5"=>$BLOQUE5_ARR3]);
 	
-	}	
+	}
 
 	public function actionMenu()
 	{
@@ -703,7 +720,7 @@ class SiteController extends Controller
     }
 	
 	public function actionCertificadolaboral()
-    {				
+    {
 		$this->layout='main_light';
         return $this->render('certificadolaboral');
 		
@@ -799,11 +816,79 @@ class SiteController extends Controller
 		
     }
 	public function actionComprobantespago()
-    {				
+    {
 		$this->layout='main_light';
-        return $this->render('comprobantespago');
+		
+		$model = new TwPcComprobantePago;
+		
+		$twpccomprobantepago = $model->ComprobantePago();
+		
+		$PERIODOS = $twpccomprobantepago[1];
+		
+		foreach ($PERIODOS as $PERIODO_KEY) {
+			$NOM_PERIODO_ARR[] = $PERIODO_KEY['PERIODO'];
+			$ANO_PERIODO_ARR[] = $PERIODO_KEY['ANO_INI'];
+		}
+		
+		//ELIMINO LOS ANIOS DUPLICADOS
+		$ANO_PERIODO_FILT = array_unique($ANO_PERIODO_ARR);
+					
+        return $this->render('comprobantespago', ["ANO_PERIODO_ARR"=>$ANO_PERIODO_FILT,"NOM_PERIODO_ARR"=>$NOM_PERIODO_ARR]);
 		
     }
+	public function actionPdf_comprobantespago()
+    {
+		$model = new TwPcComprobantePago;		
+		
+			Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+			Yii::$app->response->headers->add('Content-Type', 'application/pdf');	
+			
+			// Load Component Yii2 TCPDF 
+			Yii::$app->get('tcpdf');
+			
+		$twpccomprobantepago = $model->ComprobantePago();	
+		
+			//POSICIONES PARA CURSORES
+		$ANIO = $twpccomprobantepago[0];
+		$PERIODOS = $twpccomprobantepago[1];
+		$BLOQUE3 = $twpccomprobantepago[2];
+		$BLOQUE5 = $twpccomprobantepago[3];
+		
+			//RECORRE LOS CURSORES
+		foreach ($ANIO as $ANO_KEY) {			
+			$ANO_ARR[] = $ANO_KEY['ANO_INI'];	
+		}
+		
+		foreach ($PERIODOS as $PERIODOS_KEY) {
+			$PERIODO_ARR[] = $PERIODOS_KEY['PERIODO'];
+		}		
+		
+		foreach ($BLOQUE3 as $BLOQUE3_KEY) {
+			$BLOQUE3_ARR0[] = $BLOQUE3_KEY['COD_CON1'];
+			$BLOQUE3_ARR1[] = $BLOQUE3_KEY['NOM_CON1'];
+			$BLOQUE3_ARR2[] = $BLOQUE3_KEY['VALOR1'];
+			$BLOQUE3_ARR3[] = $BLOQUE3_KEY['CANT1'];
+		}
+		
+		foreach ($BLOQUE5 as $BLOQUE5_KEY) {
+			$BLOQUE5_ARR0[] = $BLOQUE5_KEY['CODCON2'];
+			$BLOQUE5_ARR1[] = $BLOQUE5_KEY['NOMCON2'];
+			$BLOQUE5_ARR2[] = $BLOQUE5_KEY['VALOR2'];
+			$BLOQUE5_ARR3[] = $BLOQUE5_KEY['SALDO2'];
+		}
+			
+			//POSICIONES PARA PROCEDIMIENTOS
+		$BLOQUE1 = explode("_*", $twpccomprobantepago[4]);
+		$BLOQUE2 = explode("_*", $twpccomprobantepago[5]);
+		$BLOQUE4 = explode("_*", $twpccomprobantepago[6]);
+		$BLOQUE6 = explode("_*", $twpccomprobantepago[7]);
+		$MESSAGE = explode("_*", $twpccomprobantepago[8]);
+		$OUTPUT = explode("_*", $twpccomprobantepago[9]);
+
+		
+		return $this->render('pdf_comprobantespago', ["bloque1"=>$BLOQUE1,"bloque2"=>$BLOQUE2, "bloque4"=>$BLOQUE4, "bloque6"=>$BLOQUE6, "bloque3_0"=>$BLOQUE3_ARR0, "bloque3_1"=>$BLOQUE3_ARR1, "bloque3_2"=>$BLOQUE3_ARR2, "bloque3_3"=>$BLOQUE3_ARR3, "bloque5_0"=>$BLOQUE5_ARR0, "bloque5_1"=>$BLOQUE5_ARR1, "bloque5_2"=>$BLOQUE5_ARR2, "bloque5_3"=>$BLOQUE5_ARR3]);
+	
+	}	
 	public function actionEquiponomina()
     {				
 		

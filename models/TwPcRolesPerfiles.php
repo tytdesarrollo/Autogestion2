@@ -11,8 +11,10 @@ class TwPcRolesPerfiles extends Model{
 
 	public function spMenus(){
 		$db = Yii::$app->params['orcl'];		
+		$usr = Yii::$app->params['usr'];		
+		$psw = Yii::$app->params['psw'];		
 
-		$CONEXION = oci_connect('TELEPRU', 'tytcali', $db);
+		$CONEXION = oci_connect($usr, $psw, $db);
 
 		$CEDULA = Yii::$app->session['cedula'];
 		$CURSORMENU;

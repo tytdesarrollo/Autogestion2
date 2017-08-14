@@ -11,7 +11,7 @@ return [
     )
     (CONNECT_DATA=
       (SERVER=dedicated)
-      (SERVICE_NAME=ORCL)
+      (SERVICE_NAME=orcl.talentos)
     )
   );charset=AL32UTF8;', // Oracle
     'username' => 'TELEPRU',
