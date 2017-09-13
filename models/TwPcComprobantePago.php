@@ -17,9 +17,9 @@ class TwPcComprobantePago extends Model{
 		$CONEXION = oci_connect($usr, $psw, $db);
 		
 		//Entrada
-		$CEDULAA = Yii::$app->session['cedula'];;
-		$ANO_FORMU = '2014';
-		$PERIODO_FORMU = '12';
+		$CEDULAA = Yii::$app->session['cedula'];
+		$ANO_FORMU = Yii::$app->session['ano_com'];
+		$PERIODO_FORMU = Yii::$app->session['per_com'];
 		
 		//Salida
 		
