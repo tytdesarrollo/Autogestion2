@@ -816,7 +816,7 @@ class SiteController extends Controller
 		
     }
 	public function actionComprobantespago()
-    {
+    {	
 		$this->layout='main_light';
 		
 		$model = new TwPcComprobantePago;
@@ -834,6 +834,26 @@ class SiteController extends Controller
 		$ANO_PERIODO_FILT = array_unique($ANO_PERIODO_ARR);
 					
         return $this->render('comprobantespago', ["ANO_PERIODO_ARR"=>$ANO_PERIODO_FILT,"NOM_PERIODO_ARR"=>$NOM_PERIODO_ARR]);
+		
+    }
+	public function actionMenucomprobantespago()
+    {
+		
+		if (isset($_POST['myOptions2'])){		
+		
+		$resultado = $_POST['myOptions2'];
+		
+		Yii::$app->session['ano_com'] = $resultado;		
+		
+		echo(($resultado)?json_encode($resultado):'');		
+		
+	}else{
+		
+		$resultado = 'ERROR';
+		
+		echo(($resultado)?json_encode($resultado):'');
+		
+	}
 		
     }
 	public function actionPdf_comprobantespago()
