@@ -34,35 +34,32 @@ class SiteController extends Controller
 		
 		$twpccomprobantepago = $model->ComprobantePago();
 		
-		$ANO_ARR = array();
-		$PERIODO_ARR = array();		
-		$BLOQUE5_ARR0 = array();		
-		
-		$ANIO = $twpccomprobantepago[0];
 		$PERIODOS = $twpccomprobantepago[1];
-		$BLOQUE5 = $twpccomprobantepago[3];
-		$BLOQUE1 = $twpccomprobantepago[7];
-
-		foreach ($ANIO as $ANO_KEY) {			
-			$ANO_ARR[] = $ANO_KEY['ANO_INI'];	
-		}
 		
 		foreach ($PERIODOS as $PERIODO_KEY) {
 			$NOM_PERIODO_ARR[] = $PERIODO_KEY['PERIODO'];
 			$ANO_PERIODO_ARR[] = $PERIODO_KEY['ANO_INI'];
+			$NUM_PERIODO_ARR[] = $PERIODO_KEY['NUM_PER'];
+			$JUN_PERIODO_ARR[] = $PERIODO_KEY['PERIODO'].'_*'.$PERIODO_KEY['ANO_INI'];
+			
+
 		}
 		
-		//ELIMINO LOS ANIOS DUPLICADOS
-		$ANO_PERIODO_FILT = array_unique($ANO_PERIODO_ARR);
+		for($i=0;$i<count($JUN_PERIODO_ARR);$i++) {
+				
+				$ARRAYJUN[] = explode("_*",$JUN_PERIODO_ARR[$i]);
+			
+			}
+				//$ARRAYJUN = explode(" ",$JUN_PERIODO_ARR);
 		
-		foreach ($BLOQUE5 as $BLOQUE5_KEY) {
-			$BLOQUE5_ARR0[] = $BLOQUE5_KEY['CODCON2'];
-			$BLOQUE5_ARR1[] = $BLOQUE5_KEY['NOMCON2'];
-			$BLOQUE5_ARR2[] = $BLOQUE5_KEY['VALOR2'];
-			$BLOQUE5_ARR3[] = $BLOQUE5_KEY['SALDO2'];
-		}
 		
-		return $this->render('prueba', ["ANO_PERIODO_ARR"=>$ANO_PERIODO_FILT,"NOM_PERIODO_ARR"=>$NOM_PERIODO_ARR, "bloque1"=>$BLOQUE1, "BLOQUE5"=>$BLOQUE5_ARR3]);
+		//$ARRAYJUN = array($ANO_PERIODO_ARR,$NOM_PERIODO_ARR);
+		
+		$my_value = 2013;
+		$filtered_array = array_filter($PERIODOS, function ($element) use ($my_value) { return ($element == $my_value); } );
+		
+		
+		return $this->render('prueba', ["filtered_array"=>$filtered_array,"JUN_PERIODO_ARR"=>$PERIODOS,"NUM_PERIODO_ARR"=>$NUM_PERIODO_ARR]);
 	
 	}
 
@@ -826,45 +823,69 @@ class SiteController extends Controller
 		$PERIODOS = $twpccomprobantepago[1];
 		
 		foreach ($PERIODOS as $PERIODO_KEY) {
-			$NOM_PERIODO_ARR[] = $PERIODO_KEY['PERIODO'];
 			$ANO_PERIODO_ARR[] = $PERIODO_KEY['ANO_INI'];
 		}
 		
 		//ELIMINO LOS ANIOS DUPLICADOS
 		$ANO_PERIODO_FILT = array_unique($ANO_PERIODO_ARR);
 					
-        return $this->render('comprobantespago', ["ANO_PERIODO_ARR"=>$ANO_PERIODO_FILT,"NOM_PERIODO_ARR"=>$NOM_PERIODO_ARR]);
+        return $this->render('comprobantespago', ["ANO_PERIODO_ARR"=>$ANO_PERIODO_FILT]);
 		
     }
 	public function actionMenucomprobantespago()
     {
 		
-		if (isset($_POST['myOptions2'])){		
+		$model = new TwPcComprobantePago;
 		
-		$resultado = $_POST['myOptions2'];
+		$twpccomprobantepago = $model->ComprobantePago();
 		
-		Yii::$app->session['ano_com'] = $resultado;		
+		$PERIODOS = $twpccomprobantepago[1];
 		
-		echo(($resultado)?json_encode($resultado):'');		
+		foreach ($PERIODOS as $PERIODO_KEY) {									
+									
+			if ($PERIODO_KEY['ANO_INI'] == $_POST['anoenv']) {
+								  
+			$NOM_PERIODO_ARR[] = $PERIODO_KEY['PERIODO'];
+			$NUR_PERIODO_ARR[] = $PERIODO_KEY['NUM_PER'];
+			
+				}
+			}
 		
-	}else{
+		if (isset($_POST['anoenv'])){		
 		
-		$resultado = 'ERROR';
+		$resultado = $_POST['anoenv'];
 		
-		echo(($resultado)?json_encode($resultado):'');
+		Yii::$app->session['ano_com'] = $resultado;			
+		
+		$ARRAY_PERIODO = array($NOM_PERIODO_ARR,$NUR_PERIODO_ARR);
+		
+		echo(($ARRAY_PERIODO)?json_encode($ARRAY_PERIODO):'');
 		
 	}
 		
     }
 	public function actionPdf_comprobantespago()
     {
+		
 		$model = new TwPcComprobantePago;		
 		
-			Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
-			Yii::$app->response->headers->add('Content-Type', 'application/pdf');	
+		Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+		Yii::$app->response->headers->add('Content-Type', 'application/pdf');	
 			
-			// Load Component Yii2 TCPDF 
-			Yii::$app->get('tcpdf');
+		// Load Component Yii2 TCPDF 
+		Yii::$app->get('tcpdf');
+		
+		//RECIBO PERIODO
+		
+		if (isset($_POST['perenv'])){		
+		
+		$resultado = $_POST['perenv'];
+		
+		Yii::$app->session['per_com'] = $resultado;			
+		
+		echo(($resultado)?json_encode($resultado):'');
+		
+		}
 			
 		$twpccomprobantepago = $model->ComprobantePago();	
 		
@@ -882,20 +903,6 @@ class SiteController extends Controller
 		foreach ($PERIODOS as $PERIODOS_KEY) {
 			$PERIODO_ARR[] = $PERIODOS_KEY['PERIODO'];
 		}		
-		
-		foreach ($BLOQUE3 as $BLOQUE3_KEY) {
-			$BLOQUE3_ARR0[] = $BLOQUE3_KEY['COD_CON1'];
-			$BLOQUE3_ARR1[] = $BLOQUE3_KEY['NOM_CON1'];
-			$BLOQUE3_ARR2[] = $BLOQUE3_KEY['VALOR1'];
-			$BLOQUE3_ARR3[] = $BLOQUE3_KEY['CANT1'];
-		}
-		
-		foreach ($BLOQUE5 as $BLOQUE5_KEY) {
-			$BLOQUE5_ARR0[] = $BLOQUE5_KEY['CODCON2'];
-			$BLOQUE5_ARR1[] = $BLOQUE5_KEY['NOMCON2'];
-			$BLOQUE5_ARR2[] = $BLOQUE5_KEY['VALOR2'];
-			$BLOQUE5_ARR3[] = $BLOQUE5_KEY['SALDO2'];
-		}
 			
 			//POSICIONES PARA PROCEDIMIENTOS
 		$BLOQUE1 = explode("_*", $twpccomprobantepago[4]);
@@ -906,7 +913,7 @@ class SiteController extends Controller
 		$OUTPUT = explode("_*", $twpccomprobantepago[9]);
 
 		
-		return $this->render('pdf_comprobantespago', ["bloque1"=>$BLOQUE1,"bloque2"=>$BLOQUE2, "bloque4"=>$BLOQUE4, "bloque6"=>$BLOQUE6, "bloque3_0"=>$BLOQUE3_ARR0, "bloque3_1"=>$BLOQUE3_ARR1, "bloque3_2"=>$BLOQUE3_ARR2, "bloque3_3"=>$BLOQUE3_ARR3, "bloque5_0"=>$BLOQUE5_ARR0, "bloque5_1"=>$BLOQUE5_ARR1, "bloque5_2"=>$BLOQUE5_ARR2, "bloque5_3"=>$BLOQUE5_ARR3]);
+		return $this->render('pdf_comprobantespago', ["bloque1"=>$BLOQUE1,"bloque2"=>$BLOQUE2, "bloque4"=>$BLOQUE4, "bloque6"=>$BLOQUE6, "bloque3_0"=>$BLOQUE3, "bloque5_0"=>$BLOQUE5]);
 	
 	}	
 	public function actionEquiponomina()
