@@ -22,6 +22,7 @@ use app\models\TwPcCertLaborales;
 use app\models\Ldap;
 use app\models\TwPcRolesPerfiles;
 use app\models\TwPcComprobantePago;
+use app\models\TwPcCronoCierreNomina;
 
 
 class SiteController extends Controller
@@ -30,36 +31,22 @@ class SiteController extends Controller
 
 	public function actionPrueba(){				
 	
-		$model = new TwPcComprobantePago;
+		$model = new TwPcCronoCierreNomina;
 		
-		$twpccomprobantepago = $model->ComprobantePago();
+		$twpccierrenomina = $model->CierreNomina();
 		
-		$PERIODOS = $twpccomprobantepago[1];
+		$crono = $twpccierrenomina[0];
 		
-		foreach ($PERIODOS as $PERIODO_KEY) {
+		/*foreach ($PERIODOS as $PERIODO_KEY) {
 			$NOM_PERIODO_ARR[] = $PERIODO_KEY['PERIODO'];
 			$ANO_PERIODO_ARR[] = $PERIODO_KEY['ANO_INI'];
 			$NUM_PERIODO_ARR[] = $PERIODO_KEY['NUM_PER'];
 			$JUN_PERIODO_ARR[] = $PERIODO_KEY['PERIODO'].'_*'.$PERIODO_KEY['ANO_INI'];
 			
 
-		}
+		}*/				
 		
-		for($i=0;$i<count($JUN_PERIODO_ARR);$i++) {
-				
-				$ARRAYJUN[] = explode("_*",$JUN_PERIODO_ARR[$i]);
-			
-			}
-				//$ARRAYJUN = explode(" ",$JUN_PERIODO_ARR);
-		
-		
-		//$ARRAYJUN = array($ANO_PERIODO_ARR,$NOM_PERIODO_ARR);
-		
-		$my_value = 2013;
-		$filtered_array = array_filter($PERIODOS, function ($element) use ($my_value) { return ($element == $my_value); } );
-		
-		
-		return $this->render('prueba', ["filtered_array"=>$filtered_array,"JUN_PERIODO_ARR"=>$PERIODOS,"NUM_PERIODO_ARR"=>$NUM_PERIODO_ARR]);
+		return $this->render('prueba', ["crono"=>$crono]);
 	
 	}
 
@@ -924,8 +911,13 @@ class SiteController extends Controller
     }
 	public function actionCronogramanomina()
     {				
+		$model = new TwPcCronoCierreNomina;
 		
-        return $this->render('cronogramanomina');
+		$twpccierrenomina = $model->CierreNomina();
+		
+		$crono = $twpccierrenomina[0];
+		
+        return $this->render('cronogramanomina', ["crono"=>$crono]);
 		
     }
 	public function actionActualidadlaboral()

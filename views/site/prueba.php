@@ -1,14 +1,11 @@
 								<?php
-								
-								foreach ($JUN_PERIODO_ARR as $PERIODO_KEY) {									
-									
-									  if ($PERIODO_KEY['ANO_INI'] == 2013) {
-								  
-			$NOM_PERIODO_ARR[] = $PERIODO_KEY['PERIODO'];
+var_dump($crono); 
+/*
+	foreach ($crono as $CRONO_KEY) {
+			$CRONO_ARR[] = $CRONO_KEY['MES'];
 			
-				}
-			}
-								var_dump($NOM_PERIODO_ARR); 
+			var_dump($CRONO_ARR); 
+		}	*/
 								?>
 								
 								
