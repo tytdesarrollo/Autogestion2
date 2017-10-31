@@ -23,6 +23,7 @@ use app\models\Ldap;
 use app\models\TwPcRolesPerfiles;
 use app\models\TwPcComprobantePago;
 use app\models\TwPcCronoCierreNomina;
+use app\models\TwPcEquipoNomina;
 
 
 class SiteController extends Controller
@@ -31,11 +32,11 @@ class SiteController extends Controller
 
 	public function actionPrueba(){				
 	
-		$model = new TwPcCronoCierreNomina;
+		$model = new TwPcEquipoNomina;
 		
-		$twpccierrenomina = $model->CierreNomina();
+		$twpcequiponomina = $model->EquipoNomina();
 		
-		$crono = $twpccierrenomina[0];
+		$equipo = $twpcequiponomina[6];
 		
 		/*foreach ($PERIODOS as $PERIODO_KEY) {
 			$NOM_PERIODO_ARR[] = $PERIODO_KEY['PERIODO'];
@@ -46,7 +47,7 @@ class SiteController extends Controller
 
 		}*/				
 		
-		return $this->render('prueba', ["crono"=>$crono]);
+		return $this->render('prueba', ["equipo"=>$equipo]);
 	
 	}
 
@@ -905,8 +906,19 @@ class SiteController extends Controller
 	}	
 	public function actionEquiponomina()
     {				
+		$model = new TwPcEquipoNomina;
 		
-        return $this->render('equiponomina');
+		$twpcequiponomina = $model->EquipoNomina();
+		
+		$bloque1 = $twpcequiponomina[0];
+		$bloque2 = $twpcequiponomina[1];
+		$bloque3 = $twpcequiponomina[2];
+		$bloque4 = $twpcequiponomina[3];
+		$bloque5 = $twpcequiponomina[4];
+		$bloque6 = $twpcequiponomina[5];
+		$bloque7 = $twpcequiponomina[6];
+		
+        return $this->render('equiponomina', ["bloque1"=>$bloque1,"bloque2"=>$bloque2,"bloque3"=>$bloque3,"bloque4"=>$bloque4,"bloque5"=>$bloque5,"bloque6"=>$bloque6,"bloque7"=>$bloque7]);
 		
     }
 	public function actionCronogramanomina()
