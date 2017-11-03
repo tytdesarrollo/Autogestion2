@@ -45,24 +45,26 @@ v_fechaFestivo  VARCHAR2(30);
 v_startDate     DATE;
 v_acu_vaca      DATE; -- VARIABLE QUE RETORNA LA FECHA FINAL.
 v_fecFDS        NUMBER(3); -- Controla si la fecha es un dia festivo. 1 es Festivo y 0 no es dias festivo
+v_formFecha    VARCHAR2(11);
 
 BEGIN
     v_cod_con := 1017;
     v_cod_aus := 1;
+    v_formFecha := 'YYYY-MM-DD';
     BEGIN
         --Query para verificar que la fecha solicitada no se encuentre registrada dentro  del rango con un solo dia        
         SELECT COUNT(COD_CON) 
         INTO COD_CON
         FROM ausencias_tmp
         WHERE cod_con=v_cod_con and cod_aus=v_cod_aus and estado in ('P','C') and cod_epl=e_codigo_epl
-        and (to_date(e_fecInicial,'YYYY-MM-DD') between fec_ini and fec_fin or
-        to_date(e_fecInicial,'YYYY-MM-DD') between fec_ini and fec_fin);
+        and (to_date(e_fecInicial,v_formFecha) between fec_ini and fec_fin or
+        to_date(e_fecInicial,v_formFecha) between fec_ini and fec_fin);
 
         --Query para verificar que la fecha solicitada no se encuentre registrada inicialmente        
         select COUNT(fec_ini)        
         INTO FEC_INI 
         from ausencias_tmp 
-        where fec_ini = to_date(e_fecInicial,'YYYY-MM-DD') 
+        where fec_ini = to_date(e_fecInicial,v_formFecha) 
         and estado in ('P','C') 
         and cod_epl=e_codigo_epl;
         
@@ -96,10 +98,10 @@ BEGIN
                 --VALIDA QUE LA FECHA NO SEA UN DIA FESTIVO
                 SELECT COUNT(FEC_FER)
                 INTO FEC_FER
-                FROM feriados WHERE FEC_FER=to_date(e_fecInicial,'YYYY-MM-DD');
+                FROM feriados WHERE FEC_FER=to_date(e_fecInicial,v_formFecha);
                 
                 --OBTIENE EL NUMERO DEL DIA EN LA SEMANA. 6 Y 7 (SABADO Y DOMINGO)
-                v_diaFestivo := TO_CHAR(TO_DATE(e_fecInicial,'YYYY-MM-DD'),'D');
+                v_diaFestivo := TO_CHAR(TO_DATE(e_fecInicial,v_formFecha),'D');
                 
                 IF (v_diaFestivo=6) OR (v_diaFestivo=7) THEN
                     --SI ES UN DIA FESTIVO O SI ES UN SABADO O DOMINGO
@@ -118,7 +120,7 @@ BEGIN
                         ELSE
                             v_cantDias := e_dias-1;
                             v_bandera := 0;
-                            v_startDate := (TO_DATE(e_fecInicial,'YYYY-MM-DD'));
+                            v_startDate := (TO_DATE(e_fecInicial,v_formFecha));
                             v_fechaFestivo := v_startDate;  
                             FEC_FER := '0';     
                             
@@ -178,7 +180,7 @@ BEGIN
                             INTO COD_CON
                             FROM ausencias_tmp
                             WHERE cod_con=v_cod_con and cod_aus=v_cod_aus and estado in ('P','C') and cod_epl=e_codigo_epl
-                            and (to_date(e_fecInicial,'YYYY-MM-DD') between fec_ini 
+                            and (to_date(e_fecInicial,v_formFecha) between fec_ini 
                             and fec_fin or v_acu_vaca between fec_ini and fec_fin); 
                             
                             IF (COD_CON >0) THEN
