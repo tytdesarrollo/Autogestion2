@@ -196,12 +196,13 @@ $session = Yii::$app->session;
 	<div class="tab-pane fade" id="info">
 	
 	<!--    BLOQUE 1    -->
-	
+		
 		<div class="block-header">
 			<h2><?= @$bloque1[0] ?><small><?= @$bloque1[1] ?></small></h2>
 		</div>
-		<div class="row">
+		<div class="row">		
 			<div class="col-md-3">
+			<?PHP if($bloque1[0]!="INACTIVO"){ ?>
 				<div class="panel bg-blue-std widget-extrasmall-htl">
 					<div class="panel-body">
 						<div class="dis-inline-block">
@@ -229,9 +230,9 @@ $session = Yii::$app->session;
 						<i class="material-icons">&#xE8DF;</i>
 					</div>
 				</div>
-				
+				<?PHP }; ?>	
 	<!--    BLOQUE 2    -->
-				
+			<?PHP if($bloque2[0]!="INACTIVO"){ ?>	
 				<div class="panel panel-contact">
 					<div class="panel-body">
 						<h2 class="fnt__Medium">Datos Personales</h2>
@@ -250,9 +251,9 @@ $session = Yii::$app->session;
 						</div>
 					</div>
 				</div>
-				
+				<?PHP }; ?>	
 	<!--    BLOQUE 4    -->
-				
+			<?PHP if($bloque4[0]!="INACTIVO"){ ?>	
 				<div class="panel panel-contact">
 					<div class="panel-body">
 						<h2 class="fnt__Medium">Datos Informativos</h2>
@@ -278,13 +279,13 @@ $session = Yii::$app->session;
 						</table>
 					</div>
 				</div>
-			</div>		
-			
+				<?PHP }; ?>		
+			</div>					
 			<div class="col-md-9">
 				<div class="row">
 				
 	<!--    BLOQUE 3    -->
-				
+				<?PHP if($bloque3[0]!="INACTIVO"){ ?>
 					<div class="col-md-7">
 						<div class="panel">
 							<div class="panel-heading">
@@ -302,9 +303,14 @@ $session = Yii::$app->session;
 										</thead>
 										<tbody>
 											<tr>
-												<td><?= @$bloque3[0] ?></td>
-												<td><?= @$bloque3[1] ?></td>
-												<td><?= @$bloque3[2] ?></td>
+											<?PHP
+												foreach ($bloque3 as $BLOQUE3_KEY) {
+												
+												echo '									
+												<td>'.utf8_encode ($BLOQUE3_KEY).'</td>									
+												';
+												}									
+											?>												
 											</tr>
 										</tbody>
 									</table>
@@ -312,9 +318,9 @@ $session = Yii::$app->session;
 							</div>
 						</div>
 					</div>
-					
+				<?PHP }; ?>
 	<!--    BLOQUE 5    -->
-					
+				<?PHP if($bloque5[0]!="INACTIVO"){ ?>	
 					<div class="col-md-5">
 						<div class="panel widget-small-htl">
 							<div class="row">
@@ -499,9 +505,9 @@ $session = Yii::$app->session;
 						</div>
 					</div>
 				</div>
-				
+			<?PHP }; ?>		
 	<!--    BLOQUE 6    -->
-				
+				<?PHP if($bloque6[0]!="INACTIVO"){ ?>
 				<div class="panel">
 					<div class="panel-heading">
 						<h4 class="fnt__Medium">Afiliaciones - Seguridad social</h4>
@@ -517,39 +523,35 @@ $session = Yii::$app->session;
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td><?= @$bloque6[0] ?></td>
-										<td><?= @$bloque6[1] ?></td>
-										<td><?= @$bloque6[2] ?></td>
-									</tr>
-									<tr>
-										<td><?= @$bloque6[3] ?></td>
-										<td><?= @$bloque6[4] ?></td>
-										<td><?= @$bloque6[5] ?></td>
-									</tr>
-									<tr>
-										<td><?= @$bloque6[6] ?></td>
-										<td><?= @$bloque6[7] ?></td>
-										<td><?= @$bloque6[8] ?></td>
-									</tr>
-									<tr>
-										<td><?= @$bloque6[9] ?></td>
-										<td><?= @$bloque6[10] ?></td>
-										<td><?= @$bloque6[11] ?></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td><?= @$bloque6[12] ?></td>
-										<td><?= @$bloque6[13] ?></td>
-									</tr>
+											<?PHP
+											$cont='0';
+											
+												foreach ($bloque6 as $BLOQUE6_KEY) {
+													
+													//IMPRIME TD A LOS MULTIPLOS DE 3 PARA REALIZAR EL SALTO DE LINEA
+														$div=$cont/3;
+														$multiplo=round($div)-$div;
+												
+												if($multiplo!=0){		
+												echo '
+												<td>'.$BLOQUE6_KEY.'</td>
+												';
+													}else{
+												echo '
+												</tr><tr><td>'.$BLOQUE6_KEY.'</td>
+												';													
+													}													
+														$cont++;
+												}											
+											?>	
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
-				
+				<?PHP }; ?>
 	<!--    BLOQUE 7    -->
-				
+				<?PHP if($bloque7[0]!="INACTIVO"){ ?>
 				<div class="panel">
 					<div class="panel-heading">
 						<h4 class="fnt__Medium">Deducibles de retención en la fuente</h4>
@@ -566,24 +568,35 @@ $session = Yii::$app->session;
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td><?= @$bloque7[0] ?></td>
-										<td><?= @$bloque7[1] ?></td>
-										<td><?= @$bloque7[2] ?></td>
-									</tr>
-									<tr>
-										<td><?= @$bloque7[3] ?></td>
-										<td><?= @$bloque7[4] ?></td>
-										<td><?= @$bloque7[5] ?></td>
-									</tr>								
+										<?PHP
+											$cont='0';
+											
+												foreach ($bloque7 as $BLOQUE7_KEY) {
+													
+													//IMPRIME TD A LOS MULTIPLOS DE 3 PARA REALIZAR EL SALTO DE LINEA
+														$div=$cont/3;
+														$multiplo=round($div)-$div;
+												
+												if($multiplo!=0){		
+												echo '
+												<td>'.$BLOQUE7_KEY.'</td>
+												';
+													}else{
+												echo '
+												</tr><tr><td>'.$BLOQUE7_KEY.'</td>
+												';													
+													}													
+														$cont++;
+												}											
+											?>								
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
-				
+				<?PHP }; ?>
 	<!--    BLOQUE 8    -->
-				
+				<?PHP if($bloque8[0]!="INACTIVO"){ ?>
 				<div class="panel">
 					<div class="panel-heading">
 						<h4 class="fnt__Medium">Certificados de beneficio</h4>
@@ -624,7 +637,7 @@ $session = Yii::$app->session;
 						</div>
 					</div>
 				</div>
-				
+			<?PHP }; ?>	
 	<!--    ZONA DE AYUDA    -->				
 				
 				<div class="content__help">

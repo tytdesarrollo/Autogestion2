@@ -19,11 +19,10 @@ class TwPcPersonalData extends Model{
 
 	$cedula = Yii::$app->session['cedula'];
 
-	$rol = '1';
+	//$rol = '2';
 
 	
   $CODIGO_EPL= $cedula;
-  $ROL= $rol;
   $BLOQUE1= '';
   $BLOQUE2= '';
   $BLOQUE3= '';
@@ -39,10 +38,9 @@ class TwPcPersonalData extends Model{
   $BLOQUE13= '';
   $BLOQUE14= '';
   
-		$rows = Yii::$app->telmovil->createCommand("BEGIN TW_PC_PERSONAL_DATA1 (:CODIGO_EPL,:ROL,:BLOQUE1,:BLOQUE2,:BLOQUE3,:BLOQUE4,:BLOQUE5,:BLOQUE6,:BLOQUE7,:BLOQUE8,:BLOQUE9,:BLOQUE10,:BLOQUE11,:BLOQUE12,:BLOQUE13,:BLOQUE14);	END;");
+		$rows = Yii::$app->telmovil->createCommand("BEGIN TW_PC_PERSONAL_DATA1 (:CODIGO_EPL,:BLOQUE1,:BLOQUE2,:BLOQUE3,:BLOQUE4,:BLOQUE5,:BLOQUE6,:BLOQUE7,:BLOQUE8,:BLOQUE9,:BLOQUE10,:BLOQUE11,:BLOQUE12,:BLOQUE13,:BLOQUE14);	END;");
 
 $rows->bindParam(":CODIGO_EPL", $CODIGO_EPL, PDO::PARAM_STR);
-$rows->bindParam(":ROL", $ROL, PDO::PARAM_STR);
 $rows->bindParam(":BLOQUE1", $BLOQUE1, PDO::PARAM_STR,1000); //DATOS PRINCIPALES
 $rows->bindParam(":BLOQUE2", $BLOQUE2, PDO::PARAM_STR,1000); //DATOS PERSONALES
 $rows->bindParam(":BLOQUE3", $BLOQUE3, PDO::PARAM_STR,1000); //CUENTA BANCARIA
