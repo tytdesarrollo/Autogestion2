@@ -32,11 +32,13 @@ class SiteController extends Controller
 
 	public function actionPrueba(){				
 	
-		$model = new TwPcEquipoNomina;
+$model = new TwPcPersonalData;
+
+		$twpcpersonaldata = $model->procedimiento();
 		
-		$twpcequiponomina = $model->EquipoNomina();
+		//convierto los bloques en arrays y divido los bloques por posicion
 		
-		$equipo = $twpcequiponomina[6];
+		$equipo = explode("*_", $twpcpersonaldata[8]);
 		
 		/*foreach ($PERIODOS as $PERIODO_KEY) {
 			$NOM_PERIODO_ARR[] = $PERIODO_KEY['PERIODO'];
@@ -358,7 +360,9 @@ class SiteController extends Controller
 		$bloque6 = explode("_*", $twpcpersonaldata[5]);
 		$bloque7 = explode("_*", $twpcpersonaldata[6]);
 		$bloque8 = explode("_*", $twpcpersonaldata[7]);
-		$bloque9 = explode("_*", $twpcpersonaldata[8]);
+		
+		$bloque9 = explode("*_", $twpcpersonaldata[8]);
+		
 		$bloque10 = explode("_*", $twpcpersonaldata[9]);
 		$bloque11 = explode("_*", $twpcpersonaldata[10]);
 		$bloque12 = explode("_*", $twpcpersonaldata[11]);

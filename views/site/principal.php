@@ -14,18 +14,85 @@ $session = Yii::$app->session;
 	<div class="tab-pane fade active in" id="principal">
 		<div class="row">
 			<div class="col-md-6">
-				<div class="panel panel-news">
-					<div class="panel-heading clearfix">
-						<div class="pull-left fnt__Medium"><?= @$bloque9[0]?></div>
-						<div class="pull-right fnt__Medium"><?= @$bloque9[2]?></div>
-					</div>
-					<div class="panel-body">
-						<?= @$bloque9[1]?>
-					</div>
-					<div class="panel-footer clearfix">
-						<button class="btn btn-default btn-sm pull-right">Entendido</button>
-					</div>
-				</div>
+				
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+  <?PHP											
+												for($i = 0 ; $i < count($bloque9)-1 ; $i++) {
+													
+													$BLOQUE9_KEY_ARR = explode("_*", $bloque9[$i]);
+													
+													if($i == 0){
+														
+						echo '<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>';
+	
+													}else{
+														
+						echo '<li data-target="#carousel-example-generic" data-slide-to="'.$i.'"></li>';
+    
+													}
+												}
+												?>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner mrg__bottom-20" role="listbox">
+  												
+							<?PHP											
+												for($i = 0 ; $i < count($bloque9)-1 ; $i++) {
+													
+													$BLOQUE9_KEY_ARR = explode("_*", $bloque9[$i]);
+													
+													if($i == 0){
+														
+													echo '<div class="item active">
+											<div class="panel panel-news no-mrg-bottom">
+												<div class="panel-heading clearfix">
+													<div class="pull-left fnt__Medium">'.$BLOQUE9_KEY_ARR[0].'</div>
+													<div class="pull-right fnt__Medium">'.$BLOQUE9_KEY_ARR[1].'</div>
+												</div>
+												<div class="panel-body">
+													'.$BLOQUE9_KEY_ARR[2].'
+												</div>
+												<div class="panel-footer clearfix">
+													<button class="btn btn-default btn-sm pull-right"></button>
+												</div>
+											</div>
+													</div>';
+														
+													}else{
+													
+													echo '<div class="item">
+											<div class="panel panel-news no-mrg-bottom">
+												<div class="panel-heading clearfix">
+													<div class="pull-left fnt__Medium">'.$BLOQUE9_KEY_ARR[0].'</div>
+													<div class="pull-right fnt__Medium">'.$BLOQUE9_KEY_ARR[1].'</div>
+												</div>
+												<div class="panel-body">
+													'.$BLOQUE9_KEY_ARR[2].'
+												</div>
+												<div class="panel-footer clearfix">
+													<button class="btn btn-default btn-sm pull-right"></button>
+												</div>
+											</div>
+													</div>';
+													
+													}	
+												}												
+							?>	
+   
+    
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+  </a>
+</div>
 				<?php 
 					if(@$session['menus'][0]=='TRUE'){
 				?>
