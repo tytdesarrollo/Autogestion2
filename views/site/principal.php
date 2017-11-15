@@ -1,5 +1,8 @@
 <?php
 use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Url;
+
 $this->title = 'Pagina Principal';
 $session = Yii::$app->session;
 ?>
@@ -193,18 +196,26 @@ $session = Yii::$app->session;
 				</div>
 				<?php 
 					if(@$session['menus'][3]=='TRUE'){
+				
+				$form = ActiveForm::begin([
+					"method" => "POST",
+					"id" => "compro-form",
+					"enableClientValidation" => false,
+					"enableAjaxValidation" => true,
+					]); 
 				?>
 				<div class="panel">
 					<div class="panel-heading">
 						<h4 class="fnt__Medium">Comprobantes de pago</h4>
-						<small>Genera de manera personalizada tus comprobantes de pago.</small>
+						<small>Genera de manera personalizada tus comprobantes de pago.</small><br>
+						<small>*DATO: presiona en el icono para ver alguno de tus últimos tres comprobantes.</small>
 						<?= Html::a('<i class="material-icons">&#xE53E;</i>', ['site/comprobantespago'], ['class'=>'btn btn-raised btn-float btn-blue-A700']) ?>						
 					</div>
 					<div class="panel-body">
 						<table class="table table-widget-comp-pago table-striped table-hover mrg__top-30">
 							<thead>
 								<tr>
-									<th> </th>
+									<th>Ver</th>
 									<th>Periodo</th>
 									<th>Año</th>
 									<th>Fecha</th>
@@ -212,29 +223,29 @@ $session = Yii::$app->session;
 							</thead>
 							<tbody>
 								<tr>
-									<td><a href="#"><i class="material-icons">&#xE8F4;</i></a></td>
+									<td><a onclick="Warn(<?= $bloque10[3];?>,<?= $bloque10[1];?>);"><i class="material-icons">&#xE8F4;</i></a></td>
 									<td><?= @$bloque10[0] ?></td>
 									<td><?= @$bloque10[1] ?></td>
 									<td><?= @$bloque10[2] ?></td>
 								</tr>
 								<tr>
-									<td><a href="#"><i class="material-icons">&#xE8F4;</i></a></td>
-									<td><?= @$bloque10[3] ?></td>
+									<td><a onclick="Warn(<?= $bloque10[7];?>,<?= $bloque10[1];?>);"><i class="material-icons">&#xE8F4;</i></a></td>
 									<td><?= @$bloque10[4] ?></td>
 									<td><?= @$bloque10[5] ?></td>
+									<td><?= @$bloque10[6] ?></td>
 								</tr>
 								<tr>
-									<td><a href="#"><i class="material-icons">&#xE8F4;</i></a></td>
-									<td><?= @$bloque10[6] ?></td>
-									<td><?= @$bloque10[7] ?></td>
+									<td><a onclick="Warn(<?= $bloque10[11];?>,<?= $bloque10[1];?>);"><i class="material-icons">&#xE8F4;</i></a></td>
 									<td><?= @$bloque10[8] ?></td>
+									<td><?= @$bloque10[9] ?></td>
+									<td><?= @$bloque10[10] ?></td>
 								</tr>
 							</tbody>
 						</table>
 						<div class="text-right "><small><em>*Últimos 3 comprobantes de pago.</em></small></div>
 					</div>
 				</div>
-				<?php 
+				<?php ActiveForm::end(); 
 					}
 				?>
 				<div class="row">
@@ -740,3 +751,27 @@ $session = Yii::$app->session;
 		</div>
 	</div>
 </div>
+
+<div class="modal fade modal-vrtl modal-pdfviewer" id="pdfViewer" tabindex="-1" role="dialog" aria-labelledby="pdfViewerLabel"> </div>
+
+		<script type="text/javascript">
+
+		function Warn(mes,ano) {
+			
+				$.ajax({
+					cache: false,
+					type: 'POST',
+					url: '<?php echo Url::toRoute(['site/pdf_comprobantespago']); ?>',
+					data: {'perenv':mes,'anoenv':ano},//$("#compro-form").serialize(), 
+					 
+					success: function(data){				
+						
+						$('#pdfViewer').modal('toggle').html(
+				'<div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><div class="header-box"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title txt__light-100" id="pdfViewerLabel">Comprobante de Pago</h3></div></div><div class="modal-body"><object class="box-pdf" data="<?php echo Url::toRoute(['site/pdf_comprobantespago']);?>" type="application/pdf"></object></div></div></div>'
+				);			
+											}
+				});			
+
+			};
+
+		</script>
