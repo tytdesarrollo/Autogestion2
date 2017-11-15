@@ -34,6 +34,8 @@ class SiteController extends Controller
 	
 $model = new TwPcPersonalData;
 
+		$this->layout=false;
+		
 		$twpcpersonaldata = $model->procedimiento();
 		
 		//convierto los bloques en arrays y divido los bloques por posicion
@@ -360,7 +362,7 @@ $model = new TwPcPersonalData;
 		$bloque6 = explode("_*", $twpcpersonaldata[5]);
 		$bloque7 = explode("_*", $twpcpersonaldata[6]);
 		$bloque8 = explode("_*", $twpcpersonaldata[7]);
-		
+		//CAMBIA EL ORDEN EN EL BLOQUE9 PARA REALIZAR POSTERIOR SEPARACION DEL ARRAY
 		$bloque9 = explode("*_", $twpcpersonaldata[8]);
 		
 		$bloque10 = explode("_*", $twpcpersonaldata[9]);
@@ -876,6 +878,15 @@ $model = new TwPcPersonalData;
 		Yii::$app->session['per_com'] = $resultado;			
 		
 		echo(($resultado)?json_encode($resultado):'');
+		
+		}
+		
+		//ANO ENVIADO SOLAMENTE DE LA VISTA PRINCIPAL PARA LOS 3 ULTIMOS COMPROBANTES
+		if (isset($_POST['anoenv'])){		
+		
+		$resultadoano = $_POST['anoenv'];
+		
+		Yii::$app->session['ano_com'] = $resultadoano;
 		
 		}
 			
