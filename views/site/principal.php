@@ -1,5 +1,8 @@
 <?php
 use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Url;
+
 $this->title = 'Pagina Principal';
 $session = Yii::$app->session;
 ?>
@@ -14,18 +17,85 @@ $session = Yii::$app->session;
 	<div class="tab-pane fade active in" id="principal">
 		<div class="row">
 			<div class="col-md-6">
-				<div class="panel panel-news">
-					<div class="panel-heading clearfix">
-						<div class="pull-left fnt__Medium"><?= @$bloque9[0]?></div>
-						<div class="pull-right fnt__Medium"><?= @$bloque9[2]?></div>
-					</div>
-					<div class="panel-body">
-						<?= @$bloque9[1]?>
-					</div>
-					<div class="panel-footer clearfix">
-						<button class="btn btn-default btn-sm pull-right">Entendido</button>
-					</div>
-				</div>
+				
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+  <?PHP											
+												for($i = 0 ; $i < count($bloque9)-1 ; $i++) {
+													
+													$BLOQUE9_KEY_ARR = explode("_*", $bloque9[$i]);
+													
+													if($i == 0){
+														
+						echo '<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>';
+	
+													}else{
+														
+						echo '<li data-target="#carousel-example-generic" data-slide-to="'.$i.'"></li>';
+    
+													}
+												}
+												?>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner mrg__bottom-20" role="listbox">
+  												
+							<?PHP											
+												for($i = 0 ; $i < count($bloque9)-1 ; $i++) {
+													
+													$BLOQUE9_KEY_ARR = explode("_*", $bloque9[$i]);
+													
+													if($i == 0){
+														
+													echo '<div class="item active">
+											<div class="panel panel-news no-mrg-bottom">
+												<div class="panel-heading clearfix">
+													<div class="pull-left fnt__Medium">'.$BLOQUE9_KEY_ARR[0].'</div>
+													<div class="pull-right fnt__Medium">'.$BLOQUE9_KEY_ARR[1].'</div>
+												</div>
+												<div class="panel-body">
+													'.$BLOQUE9_KEY_ARR[2].'
+												</div>
+												<div class="panel-footer clearfix">
+													<button class="btn btn-default btn-sm pull-right"></button>
+												</div>
+											</div>
+													</div>';
+														
+													}else{
+													
+													echo '<div class="item">
+											<div class="panel panel-news no-mrg-bottom">
+												<div class="panel-heading clearfix">
+													<div class="pull-left fnt__Medium">'.$BLOQUE9_KEY_ARR[0].'</div>
+													<div class="pull-right fnt__Medium">'.$BLOQUE9_KEY_ARR[1].'</div>
+												</div>
+												<div class="panel-body">
+													'.$BLOQUE9_KEY_ARR[2].'
+												</div>
+												<div class="panel-footer clearfix">
+													<button class="btn btn-default btn-sm pull-right"></button>
+												</div>
+											</div>
+													</div>';
+													
+													}	
+												}												
+							?>	
+   
+    
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+  </a>
+</div>
 				<?php 
 					if(@$session['menus'][0]=='TRUE'){
 				?>
@@ -126,18 +196,26 @@ $session = Yii::$app->session;
 				</div>
 				<?php 
 					if(@$session['menus'][3]=='TRUE'){
+				
+				$form = ActiveForm::begin([
+					"method" => "POST",
+					"id" => "compro-form",
+					"enableClientValidation" => false,
+					"enableAjaxValidation" => true,
+					]); 
 				?>
 				<div class="panel">
 					<div class="panel-heading">
 						<h4 class="fnt__Medium">Comprobantes de pago</h4>
-						<small>Genera de manera personalizada tus comprobantes de pago.</small>
+						<small>Genera de manera personalizada tus comprobantes de pago.</small><br>
+						<small>*DATO: presiona en el icono para ver alguno de tus últimos tres comprobantes.</small>
 						<?= Html::a('<i class="material-icons">&#xE53E;</i>', ['site/comprobantespago'], ['class'=>'btn btn-raised btn-float btn-blue-A700']) ?>						
 					</div>
 					<div class="panel-body">
 						<table class="table table-widget-comp-pago table-striped table-hover mrg__top-30">
 							<thead>
 								<tr>
-									<th> </th>
+									<th>Ver</th>
 									<th>Periodo</th>
 									<th>Año</th>
 									<th>Fecha</th>
@@ -145,29 +223,29 @@ $session = Yii::$app->session;
 							</thead>
 							<tbody>
 								<tr>
-									<td><a href="#"><i class="material-icons">&#xE8F4;</i></a></td>
+									<td><a onclick="Warn(<?= $bloque10[3];?>,<?= $bloque10[1];?>);"><i class="material-icons">&#xE8F4;</i></a></td>
 									<td><?= @$bloque10[0] ?></td>
 									<td><?= @$bloque10[1] ?></td>
 									<td><?= @$bloque10[2] ?></td>
 								</tr>
 								<tr>
-									<td><a href="#"><i class="material-icons">&#xE8F4;</i></a></td>
-									<td><?= @$bloque10[3] ?></td>
+									<td><a onclick="Warn(<?= $bloque10[7];?>,<?= $bloque10[1];?>);"><i class="material-icons">&#xE8F4;</i></a></td>
 									<td><?= @$bloque10[4] ?></td>
 									<td><?= @$bloque10[5] ?></td>
+									<td><?= @$bloque10[6] ?></td>
 								</tr>
 								<tr>
-									<td><a href="#"><i class="material-icons">&#xE8F4;</i></a></td>
-									<td><?= @$bloque10[6] ?></td>
-									<td><?= @$bloque10[7] ?></td>
+									<td><a onclick="Warn(<?= $bloque10[11];?>,<?= $bloque10[1];?>);"><i class="material-icons">&#xE8F4;</i></a></td>
 									<td><?= @$bloque10[8] ?></td>
+									<td><?= @$bloque10[9] ?></td>
+									<td><?= @$bloque10[10] ?></td>
 								</tr>
 							</tbody>
 						</table>
 						<div class="text-right "><small><em>*Últimos 3 comprobantes de pago.</em></small></div>
 					</div>
 				</div>
-				<?php 
+				<?php ActiveForm::end(); 
 					}
 				?>
 				<div class="row">
@@ -196,12 +274,13 @@ $session = Yii::$app->session;
 	<div class="tab-pane fade" id="info">
 	
 	<!--    BLOQUE 1    -->
-	
+		
 		<div class="block-header">
 			<h2><?= @$bloque1[0] ?><small><?= @$bloque1[1] ?></small></h2>
 		</div>
-		<div class="row">
+		<div class="row">		
 			<div class="col-md-3">
+			<?PHP if($bloque1[0]!="INACTIVO"){ ?>
 				<div class="panel bg-blue-std widget-extrasmall-htl">
 					<div class="panel-body">
 						<div class="dis-inline-block">
@@ -229,9 +308,9 @@ $session = Yii::$app->session;
 						<i class="material-icons">&#xE8DF;</i>
 					</div>
 				</div>
-				
+				<?PHP }; ?>	
 	<!--    BLOQUE 2    -->
-				
+			<?PHP if($bloque2[0]!="INACTIVO"){ ?>	
 				<div class="panel panel-contact">
 					<div class="panel-body">
 						<h2 class="fnt__Medium">Datos Personales</h2>
@@ -250,9 +329,9 @@ $session = Yii::$app->session;
 						</div>
 					</div>
 				</div>
-				
+				<?PHP }; ?>	
 	<!--    BLOQUE 4    -->
-				
+			<?PHP if($bloque4[0]!="INACTIVO"){ ?>	
 				<div class="panel panel-contact">
 					<div class="panel-body">
 						<h2 class="fnt__Medium">Datos Informativos</h2>
@@ -278,13 +357,13 @@ $session = Yii::$app->session;
 						</table>
 					</div>
 				</div>
-			</div>		
-			
+				<?PHP }; ?>		
+			</div>					
 			<div class="col-md-9">
 				<div class="row">
 				
 	<!--    BLOQUE 3    -->
-				
+				<?PHP if($bloque3[0]!="INACTIVO"){ ?>
 					<div class="col-md-7">
 						<div class="panel">
 							<div class="panel-heading">
@@ -302,9 +381,14 @@ $session = Yii::$app->session;
 										</thead>
 										<tbody>
 											<tr>
-												<td><?= @$bloque3[0] ?></td>
-												<td><?= @$bloque3[1] ?></td>
-												<td><?= @$bloque3[2] ?></td>
+											<?PHP
+												foreach ($bloque3 as $BLOQUE3_KEY) {
+												
+												echo '									
+												<td>'.utf8_encode ($BLOQUE3_KEY).'</td>									
+												';
+												}									
+											?>												
 											</tr>
 										</tbody>
 									</table>
@@ -312,9 +396,9 @@ $session = Yii::$app->session;
 							</div>
 						</div>
 					</div>
-					
+				<?PHP }; ?>
 	<!--    BLOQUE 5    -->
-					
+				<?PHP if($bloque5[0]!="INACTIVO"){ ?>	
 					<div class="col-md-5">
 						<div class="panel widget-small-htl">
 							<div class="row">
@@ -499,9 +583,9 @@ $session = Yii::$app->session;
 						</div>
 					</div>
 				</div>
-				
+			<?PHP }; ?>		
 	<!--    BLOQUE 6    -->
-				
+				<?PHP if($bloque6[0]!="INACTIVO"){ ?>
 				<div class="panel">
 					<div class="panel-heading">
 						<h4 class="fnt__Medium">Afiliaciones - Seguridad social</h4>
@@ -517,39 +601,35 @@ $session = Yii::$app->session;
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td><?= @$bloque6[0] ?></td>
-										<td><?= @$bloque6[1] ?></td>
-										<td><?= @$bloque6[2] ?></td>
-									</tr>
-									<tr>
-										<td><?= @$bloque6[3] ?></td>
-										<td><?= @$bloque6[4] ?></td>
-										<td><?= @$bloque6[5] ?></td>
-									</tr>
-									<tr>
-										<td><?= @$bloque6[6] ?></td>
-										<td><?= @$bloque6[7] ?></td>
-										<td><?= @$bloque6[8] ?></td>
-									</tr>
-									<tr>
-										<td><?= @$bloque6[9] ?></td>
-										<td><?= @$bloque6[10] ?></td>
-										<td><?= @$bloque6[11] ?></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td><?= @$bloque6[12] ?></td>
-										<td><?= @$bloque6[13] ?></td>
-									</tr>
+											<?PHP
+											$cont='0';
+											
+												foreach ($bloque6 as $BLOQUE6_KEY) {
+													
+													//IMPRIME TD A LOS MULTIPLOS DE 3 PARA REALIZAR EL SALTO DE LINEA
+														$div=$cont/3;
+														$multiplo=round($div)-$div;
+												
+												if($multiplo!=0){		
+												echo '
+												<td>'.$BLOQUE6_KEY.'</td>
+												';
+													}else{
+												echo '
+												</tr><tr><td>'.$BLOQUE6_KEY.'</td>
+												';													
+													}													
+														$cont++;
+												}											
+											?>	
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
-				
+				<?PHP }; ?>
 	<!--    BLOQUE 7    -->
-				
+				<?PHP if($bloque7[0]!="INACTIVO"){ ?>
 				<div class="panel">
 					<div class="panel-heading">
 						<h4 class="fnt__Medium">Deducibles de retención en la fuente</h4>
@@ -566,24 +646,35 @@ $session = Yii::$app->session;
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td><?= @$bloque7[0] ?></td>
-										<td><?= @$bloque7[1] ?></td>
-										<td><?= @$bloque7[2] ?></td>
-									</tr>
-									<tr>
-										<td><?= @$bloque7[3] ?></td>
-										<td><?= @$bloque7[4] ?></td>
-										<td><?= @$bloque7[5] ?></td>
-									</tr>								
+										<?PHP
+											$cont='0';
+											
+												foreach ($bloque7 as $BLOQUE7_KEY) {
+													
+													//IMPRIME TD A LOS MULTIPLOS DE 3 PARA REALIZAR EL SALTO DE LINEA
+														$div=$cont/3;
+														$multiplo=round($div)-$div;
+												
+												if($multiplo!=0){		
+												echo '
+												<td>'.$BLOQUE7_KEY.'</td>
+												';
+													}else{
+												echo '
+												</tr><tr><td>'.$BLOQUE7_KEY.'</td>
+												';													
+													}													
+														$cont++;
+												}											
+											?>								
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
-				
+				<?PHP }; ?>
 	<!--    BLOQUE 8    -->
-				
+				<?PHP if($bloque8[0]!="INACTIVO"){ ?>
 				<div class="panel">
 					<div class="panel-heading">
 						<h4 class="fnt__Medium">Certificados de beneficio</h4>
@@ -624,7 +715,7 @@ $session = Yii::$app->session;
 						</div>
 					</div>
 				</div>
-				
+			<?PHP }; ?>	
 	<!--    ZONA DE AYUDA    -->				
 				
 				<div class="content__help">
@@ -660,3 +751,27 @@ $session = Yii::$app->session;
 		</div>
 	</div>
 </div>
+
+<div class="modal fade modal-vrtl modal-pdfviewer" id="pdfViewer" tabindex="-1" role="dialog" aria-labelledby="pdfViewerLabel"> </div>
+
+		<script type="text/javascript">
+
+		function Warn(mes,ano) {
+			
+				$.ajax({
+					cache: false,
+					type: 'POST',
+					url: '<?php echo Url::toRoute(['site/pdf_comprobantespago']); ?>',
+					data: {'perenv':mes,'anoenv':ano},//$("#compro-form").serialize(), 
+					 
+					success: function(data){				
+						
+						$('#pdfViewer').modal('toggle').html(
+				'<div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><div class="header-box"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title txt__light-100" id="pdfViewerLabel">Comprobante de Pago</h3></div></div><div class="modal-body"><object class="box-pdf" data="<?php echo Url::toRoute(['site/pdf_comprobantespago']);?>" type="application/pdf"></object></div></div></div>'
+				);			
+											}
+				});			
+
+			};
+
+		</script>

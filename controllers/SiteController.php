@@ -21,33 +21,39 @@ use app\models\TwPcCertIngresos;
 use app\models\TwPcCertLaborales;
 use app\models\Ldap;
 use app\models\TwPcRolesPerfiles;
+use app\models\TwPcComprobantePago;
+use app\models\TwPcCronoCierreNomina;
+use app\models\TwPcEquipoNomina;
 
 
 class SiteController extends Controller
 { 	
 
 
-	public function actionPrueba(){	
+	public function actionPrueba(){				
+	
+$model = new TwPcPersonalData;
 
-			Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
-			Yii::$app->response->headers->add('Content-Type', 'application/pdf');	
+		$this->layout=false;
+		
+		$twpcpersonaldata = $model->procedimiento();
+		
+		//convierto los bloques en arrays y divido los bloques por posicion
+		
+		$equipo = explode("*_", $twpcpersonaldata[8]);
+		
+		/*foreach ($PERIODOS as $PERIODO_KEY) {
+			$NOM_PERIODO_ARR[] = $PERIODO_KEY['PERIODO'];
+			$ANO_PERIODO_ARR[] = $PERIODO_KEY['ANO_INI'];
+			$NUM_PERIODO_ARR[] = $PERIODO_KEY['NUM_PER'];
+			$JUN_PERIODO_ARR[] = $PERIODO_KEY['PERIODO'].'_*'.$PERIODO_KEY['ANO_INI'];
 			
-			// Load Component Yii2 TCPDF 
-			Yii::$app->get('tcpdf');
-	
-		$model = new TwPcCertLaborales;
-		
-		$twpccertlaborales = $model->procedimiento();
-		
-		//$BLOQUE2 = explode("_*", $twpccertlaborales[1]);
-		$BLOQUEA = $twpccertlaborales[0];
-		$BLOQUET = $twpccertlaborales[1];
-		$BLOQUEB = $twpccertlaborales[2];
-		$BLOQUEC = $twpccertlaborales[3];
 
-		return $this->render('prueba', ["encabezado"=>$BLOQUEA,"titulo"=>$BLOQUET,"cuerpo"=>$BLOQUEB,"pie"=>$BLOQUEC]);
+		}*/				
+		
+		return $this->render('prueba', ["equipo"=>$equipo]);
 	
-	}	
+	}
 
 	public function actionMenu()
 	{
@@ -356,7 +362,9 @@ class SiteController extends Controller
 		$bloque6 = explode("_*", $twpcpersonaldata[5]);
 		$bloque7 = explode("_*", $twpcpersonaldata[6]);
 		$bloque8 = explode("_*", $twpcpersonaldata[7]);
-		$bloque9 = explode("_*", $twpcpersonaldata[8]);
+		//CAMBIA EL ORDEN EN EL BLOQUE9 PARA REALIZAR POSTERIOR SEPARACION DEL ARRAY
+		$bloque9 = explode("*_", $twpcpersonaldata[8]);
+		
 		$bloque10 = explode("_*", $twpcpersonaldata[9]);
 		$bloque11 = explode("_*", $twpcpersonaldata[10]);
 		$bloque12 = explode("_*", $twpcpersonaldata[11]);
@@ -703,7 +711,7 @@ class SiteController extends Controller
     }
 	
 	public function actionCertificadolaboral()
-    {				
+    {
 		$this->layout='main_light';
         return $this->render('certificadolaboral');
 		
@@ -799,21 +807,144 @@ class SiteController extends Controller
 		
     }
 	public function actionComprobantespago()
-    {				
+    {	
 		$this->layout='main_light';
-        return $this->render('comprobantespago');
+		
+		$model = new TwPcComprobantePago;
+		
+		$twpccomprobantepago = $model->ComprobantePago();
+		
+		$PERIODOS = $twpccomprobantepago[1];
+		
+		foreach ($PERIODOS as $PERIODO_KEY) {
+			$ANO_PERIODO_ARR[] = $PERIODO_KEY['ANO_INI'];
+		}
+		
+		//ELIMINO LOS ANIOS DUPLICADOS
+		$ANO_PERIODO_FILT = array_unique($ANO_PERIODO_ARR);
+					
+        return $this->render('comprobantespago', ["ANO_PERIODO_ARR"=>$ANO_PERIODO_FILT]);
 		
     }
+	public function actionMenucomprobantespago()
+    {
+		
+		$model = new TwPcComprobantePago;
+		
+		$twpccomprobantepago = $model->ComprobantePago();
+		
+		$PERIODOS = $twpccomprobantepago[1];
+		
+		foreach ($PERIODOS as $PERIODO_KEY) {									
+									
+			if ($PERIODO_KEY['ANO_INI'] == $_POST['anoenv']) {
+								  
+			$NOM_PERIODO_ARR[] = $PERIODO_KEY['PERIODO'];
+			$NUR_PERIODO_ARR[] = $PERIODO_KEY['NUM_PER'];
+			
+				}
+			}
+		
+		if (isset($_POST['anoenv'])){		
+		
+		$resultado = $_POST['anoenv'];
+		
+		Yii::$app->session['ano_com'] = $resultado;			
+		
+		$ARRAY_PERIODO = array($NOM_PERIODO_ARR,$NUR_PERIODO_ARR);
+		
+		echo(($ARRAY_PERIODO)?json_encode($ARRAY_PERIODO):'');
+		
+	}
+		
+    }
+	public function actionPdf_comprobantespago()
+    {
+		
+		$model = new TwPcComprobantePago;		
+		
+		Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+		Yii::$app->response->headers->add('Content-Type', 'application/pdf');	
+			
+		// Load Component Yii2 TCPDF 
+		Yii::$app->get('tcpdf');
+		
+		//RECIBO PERIODO
+		
+		if (isset($_POST['perenv'])){		
+		
+		$resultado = $_POST['perenv'];
+		
+		Yii::$app->session['per_com'] = $resultado;			
+		
+		echo(($resultado)?json_encode($resultado):'');
+		
+		}
+		
+		//ANO ENVIADO SOLAMENTE DE LA VISTA PRINCIPAL PARA LOS 3 ULTIMOS COMPROBANTES
+		if (isset($_POST['anoenv'])){		
+		
+		$resultadoano = $_POST['anoenv'];
+		
+		Yii::$app->session['ano_com'] = $resultadoano;
+		
+		}
+			
+		$twpccomprobantepago = $model->ComprobantePago();	
+		
+			//POSICIONES PARA CURSORES
+		$ANIO = $twpccomprobantepago[0];
+		$PERIODOS = $twpccomprobantepago[1];
+		$BLOQUE3 = $twpccomprobantepago[2];
+		$BLOQUE5 = $twpccomprobantepago[3];
+		
+			//RECORRE LOS CURSORES
+		foreach ($ANIO as $ANO_KEY) {			
+			$ANO_ARR[] = $ANO_KEY['ANO_INI'];	
+		}
+		
+		foreach ($PERIODOS as $PERIODOS_KEY) {
+			$PERIODO_ARR[] = $PERIODOS_KEY['PERIODO'];
+		}		
+			
+			//POSICIONES PARA PROCEDIMIENTOS
+		$BLOQUE1 = explode("_*", $twpccomprobantepago[4]);
+		$BLOQUE2 = explode("_*", $twpccomprobantepago[5]);
+		$BLOQUE4 = explode("_*", $twpccomprobantepago[6]);
+		$BLOQUE6 = explode("_*", $twpccomprobantepago[7]);
+		$MESSAGE = explode("_*", $twpccomprobantepago[8]);
+		$OUTPUT = explode("_*", $twpccomprobantepago[9]);
+
+		
+		return $this->render('pdf_comprobantespago', ["bloque1"=>$BLOQUE1,"bloque2"=>$BLOQUE2, "bloque4"=>$BLOQUE4, "bloque6"=>$BLOQUE6, "bloque3_0"=>$BLOQUE3, "bloque5_0"=>$BLOQUE5]);
+	
+	}	
 	public function actionEquiponomina()
     {				
+		$model = new TwPcEquipoNomina;
 		
-        return $this->render('equiponomina');
+		$twpcequiponomina = $model->EquipoNomina();
+		
+		$bloque1 = $twpcequiponomina[0];
+		$bloque2 = $twpcequiponomina[1];
+		$bloque3 = $twpcequiponomina[2];
+		$bloque4 = $twpcequiponomina[3];
+		$bloque5 = $twpcequiponomina[4];
+		$bloque6 = $twpcequiponomina[5];
+		$bloque7 = $twpcequiponomina[6];
+		
+        return $this->render('equiponomina', ["bloque1"=>$bloque1,"bloque2"=>$bloque2,"bloque3"=>$bloque3,"bloque4"=>$bloque4,"bloque5"=>$bloque5,"bloque6"=>$bloque6,"bloque7"=>$bloque7]);
 		
     }
 	public function actionCronogramanomina()
     {				
+		$model = new TwPcCronoCierreNomina;
 		
-        return $this->render('cronogramanomina');
+		$twpccierrenomina = $model->CierreNomina();
+		
+		$crono = $twpccierrenomina[0];
+		
+        return $this->render('cronogramanomina', ["crono"=>$crono]);
 		
     }
 	public function actionActualidadlaboral()
