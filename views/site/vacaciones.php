@@ -578,10 +578,10 @@ $this->title = 'Vacaciones';
 												<div class="col-sm-10 col-sm-offset-1">
 													<div class="form-group label-floating mrg__top-15">
 														<label for="title" class="control-label">Titulo</label>
-															<input type="text" name="title" class="form-control" id="title">
+															<input type="text" name="title" class="form-control" id="title" required>
 													</div>
 													<div class="form-group select-m mrg__top-15">
-														<label for="color" class="control-label dis-block">Color</label>
+														<label for="color" class="control-label dis-block">Color (opcional)</label>
 														<div class="mad-select">
 															<ul>
 																<li data-value="0">Seleccione...</li>
@@ -598,12 +598,19 @@ $this->title = 'Vacaciones';
 													</div>
 													<div class="form-group mrg__top-15">
 														<label for="start" class="control-label">Fecha Inicial</label>
-														<input type="text" name="start" class="form-control" id="start" readonly>
+														<input type="text" name="start" class="form-control" id="start" disabled>
 													</div>
+													
 													<div class="form-group mrg__top-15">
-														<label for="end" class="control-label">Fecha Final</label>
-														<input type="text" name="end" class="form-control" id="end" readonly>
+													  
+													  <label for="start" class="control-label">Seleccione Cantidad de Dias a Tomar </label>
+														<p class="range-field"></br>
+														  <input type="range" id="rango" min="1" max="15" value="15"/><span id="valor"> </span>
+														</p>
+
 													</div>
+													
+													
 												</div>
 											</div>
 										</div>
@@ -701,5 +708,16 @@ $this->title = 'Vacaciones';
 		</div>
 	</div>
 </div>
+<script>
 
+var slider = document.getElementById("rango");
+var output = document.getElementById("valor");
+output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function() {
+    output.innerHTML = this.value;
+} 
+
+</script>
 

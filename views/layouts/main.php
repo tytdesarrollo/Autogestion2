@@ -397,20 +397,24 @@ $session = Yii::$app->session;
 				center: 'title',
 				right: 'next'
 			},
+			navLinks: true,
 			height: 'auto',
-			businessHours: true,
+			businessHours: { dow: [1,2,3,4,5,6] },
 			editable: false,
-			eventLimit: true, // allow "more" link when too many events
+			eventLimit: false, // allow "more" link when too many events
 			selectable: true,
 			selectHelper: true,
 			selectOverlap: false,
 			select: function(start, end) {
 				
-				$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
-				$('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
+				$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD'));
+				//$('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
 				$('#ModalAdd').modal('show');
 				
 			},
+			
+			//FUNCION DOBLE CLICK PARA ELIMINAR, AUN NO ES NECESARIO
+			/*
 			eventRender: function(event, element) {
 				element.bind('dblclick', function() {
 					$('#ModalEdit #id').val(event.id);
@@ -419,7 +423,8 @@ $session = Yii::$app->session;
 					$('#ModalEdit').modal('show');
 					
 				});
-			},
+			},*/
+			
 			eventDrop: function(event, delta, revertFunc) { // si changement de position
 
 				edit(event);
@@ -467,7 +472,73 @@ $session = Yii::$app->session;
 						
 			<?php endforeach; ?>
 					
+			{
+        id:    'Festivo',
+		title: 'Festivo',
+        start: '2018-01-01',
+        end:   '2018-01-01',
+		color: 'RED',
+			},
+			
+			{
+        id:    'Festivo2',
+		title: 'Festivo2',
+        start: '2018-01-08',
+        end:   '2018-01-08',
+		color: 'RED',
+			},
+			
+			{
+        id:    'Domingo',
+		title: 'Domingo',
+        start: '2017-12-31',
+        end:   '2017-12-31',
+		color: 'BLUE',
+			},
+			
+			{
+        id:    'Domingo',
+		title: 'Domingo',
+        start: '2018-01-07',
+        end:   '2018-01-07',
+		color: 'BLUE',
+			},
+			
+			{
+        id:    'Domingo',
+		title: 'Domingo',
+        start: '2018-01-14',
+        end:   '2018-01-14',
+		color: 'BLUE',
+			},
+			
+			{
+        id:    'Domingo',
+		title: 'Domingo',
+        start: '2018-01-21',
+        end:   '2018-01-21',
+		color: 'BLUE',
+			},
+			
+			{
+        id:    'Domingo',
+		title: 'Domingo',
+        start: '2018-01-28',
+        end:   '2018-01-28',
+		color: 'BLUE',
+			},
+		{
+        id:    'vacaciones',
+		title: 'vaa',
+        start: '2018-01-03',
+        end:   '2018-01-10',
+		color: 'BLACK',
+			},
+					
+					
 			]
+			
+			 
 			
 			<?php }; ?>
 		});
