@@ -435,112 +435,18 @@ $session = Yii::$app->session;
 				edit(event);
 
 			},
-			
-			<?php
-				if(isset($events)){			
-			?>
 
 			events: [
-			
-			<?php
-								
-			foreach($events as $event): 
-			
-				$start = explode(" ", $event['START']);
-				$end = explode(" ", $event['END']);
-				if($start[1] == '00:00:00'){
-					$start = $start[0];
-				}else{
-					$start = $event['START'];
-				}
-				if($end[1] == '00:00:00'){
-					$end = $end[0];
-				}else{
-					$end = $event['END'];
-				}
-			?>
-				{
-					id: '<?php echo $event['ID']; ?>',
-					title: '<?php echo $event['TITLE']; ?>',
-					start: '<?php echo $start; ?>',
-					end: '<?php echo $end; ?>',
-					color: '<?php echo $event['COLOR']; ?>',
-					overlap: false,
-					
-					
-				},
-						
-			<?php endforeach; ?>
-					
+		
 			{
-        id:    'Festivo',
-		title: 'Festivo',
-        start: '2018-01-01',
-        end:   '2018-01-01',
-		color: 'RED',
-			},
-			
-			{
-        id:    'Festivo2',
-		title: 'Festivo2',
-        start: '2018-01-08',
-        end:   '2018-01-08',
-		color: 'RED',
-			},
-			
-			{
-        id:    'Domingo',
-		title: 'Domingo',
-        start: '2017-12-31',
-        end:   '2017-12-31',
-		color: 'BLUE',
-			},
-			
-			{
-        id:    'Domingo',
-		title: 'Domingo',
-        start: '2018-01-07',
-        end:   '2018-01-07',
-		color: 'BLUE',
-			},
-			
-			{
-        id:    'Domingo',
-		title: 'Domingo',
-        start: '2018-01-14',
-        end:   '2018-01-14',
-		color: 'BLUE',
-			},
-			
-			{
-        id:    'Domingo',
-		title: 'Domingo',
-        start: '2018-01-21',
-        end:   '2018-01-21',
-		color: 'BLUE',
-			},
-			
-			{
-        id:    'Domingo',
-		title: 'Domingo',
-        start: '2018-01-28',
-        end:   '2018-01-28',
-		color: 'BLUE',
-			},
-		{
-        id:    'vacaciones',
-		title: 'vaa',
-        start: '2018-01-03',
-        end:   '2018-01-10',
-		color: 'BLACK',
-			},
-					
+        id:    id,
+		title: title,
+        start: start,
+        end:   end,
+		color: color,
+			},					
 					
 			]
-			
-			 
-			
-			<?php }; ?>
 		});
 		
 		function edit(event){

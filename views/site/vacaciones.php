@@ -710,14 +710,26 @@ $this->title = 'Vacaciones';
 </div>
 <script>
 
+//CONTADOR DE DIAS
 var slider = document.getElementById("rango");
 var output = document.getElementById("valor");
-output.innerHTML = slider.value; // Display the default slider value
+output.innerHTML = slider.value; 
 
-// Update the current slider value (each time you drag the slider handle)
 slider.oninput = function() {
     output.innerHTML = this.value;
 } 
 
-</script>
+//DIAS REFLEJADOS EN EL CALENDARIO
+var id;
+var title;
+var start;
+var end;
+var color;
 
+        id=    'Festivo';
+		title= 'Festivo';
+        start= '2018-01-01';
+        end=   '2018-01-01';
+		color= 'RED';
+
+</script>
