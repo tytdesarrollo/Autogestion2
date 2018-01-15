@@ -4,7 +4,6 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 
 $this->title = 'Certificado de ingresos y retención';
-
 ?>
 
 <div class="mod-docs">
@@ -40,7 +39,9 @@ $this->title = 'Certificado de ingresos y retención';
 
 							<div class="mad-select" id="pdfSelect">
 								<ul>
-								<?php foreach($anoscerti as $row): ?>
+								<li class="selected" data-value="0">seleccione</li>
+								<?php
+								foreach($anoscerti as $row): ?>
 									<li data-value="<?= $row ?>"><?= $row ?></li>		
 								<?php endforeach ?>
 								</ul>

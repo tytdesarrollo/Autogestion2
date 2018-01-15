@@ -22,12 +22,14 @@ class TwPcCertIngresos extends Model{
   $BLOQUE2= '';
 
   
-		$rows = Yii::$app->telmovil->createCommand("BEGIN TW_PC_CERT_INGRESOS1 (:CODIGO_EPL,:ANO_FORMU,:BLOQUE1,:BLOQUE2);	END;");
+		$rows = Yii::$app->telmovil->createCommand("BEGIN TW_PC_CERT_INGRESOS1 (:CODIGO_EPL,:ANO_FORMU,:BLOQUE1,:BLOQUE2,:OUTPUT,:MESSAGE);	END;");
 
 $rows->bindParam(":CODIGO_EPL", $CODIGO_EPL, PDO::PARAM_STR);
 $rows->bindParam(":ANO_FORMU", $ANO_FORMU, PDO::PARAM_STR);
 $rows->bindParam(":BLOQUE1", $BLOQUE1, PDO::PARAM_STR,1000);
 $rows->bindParam(":BLOQUE2", $BLOQUE2, PDO::PARAM_STR,1000);
+$rows->bindParam(":OUTPUT", $BLOQUE3, PDO::PARAM_STR,1000);
+$rows->bindParam(":MESSAGE", $BLOQUE4, PDO::PARAM_STR,1000);
 
 $rows->execute();
 

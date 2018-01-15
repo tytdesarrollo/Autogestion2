@@ -74,6 +74,13 @@ $request = Yii::$app->request;
 		</div>
 	</div>
 </div>
+<?php $form2 = ActiveForm::begin([
+					"method" => "post",
+					"id" => "remember-form",
+					"enableClientValidation" => false,
+					"enableAjaxValidation" => true,
+					]); 
+					?>
 <div class="modal fade modal-std modal-vertically-center" id="recordarpass" tabindex="-1" role="dialog" aria-labelledby="recordarpassLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -84,11 +91,8 @@ $request = Yii::$app->request;
 			<div class="modal-body">
 				<div class="text-justify">
 					<p>Por favor ingresa tu número de cédula y te enviaremos las instrucciones para restaurar tu contraseña al correo electrónico que tengas registrado en nómina.<br /> Gracias por utilizar este servicio.</p>
-					<div class="clearfix"></div>
-					<div class="form-group label-floating mrg__top-15">
-						<label class="control-label" for="email">Cédula</label>
-						<input class="form-control" id="email" type="text">
-					</div>
+					<div class="clearfix"></div>					
+					<?= $form2->field($model2, 'cedula', ['options' => ['class' => 'form-group label-floating mrg__top-15']])->textInput(['autofocus' => true]) ?>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -97,6 +101,7 @@ $request = Yii::$app->request;
 		</div>
 	</div>
 </div>
+<?php ActiveForm::end(); ?>
 <footer class="footer-login text-center">
 	<p class="txt__light-100">Power by Talentos & Tecnología</p>
 </footer>
@@ -141,18 +146,17 @@ if($request->get('activate')){
        success: function (data) {
           
 		  if (data == 0){
-                                        swal("", "A ocurrido un error al enviar las instrucciones a tu correo, por favor intenta de nuevo.", "error");  
+                                       swal("", "A ocurrido un error al enviar las instrucciones a tu correo, por favor intenta de nuevo.", "error"); 
 										
 								}
                                 else{
 																	
-									swal("", data, "error");  
+									swal("", data, "success");
 									
 								}
 						}
 				});  
-				  
-			 // swal("", "Hemos enviado las instrucciones de activación al correo electrónico que tienes registrado en nómina, por favor revisa tu bandeja de entrada.", "success");   
+
 			  } else {
 			  swal("Cancelado", "Tu usuario aún no ha sido activado, por favor activalo.", "error");  
 			  } 
@@ -168,6 +172,14 @@ if($request->get('error')){
 <script>
  $(document).ready(function(){
   swal(<?php echo '"'.$request->get('error').'"'; ?>, "", "error");
+ });
+</script>
+
+<?php }elseif($request->get('remember')){ ?>
+
+<script>
+ $(document).ready(function(){
+  swal(<?php echo '"'.$request->get('remember').'"'; ?>, "", "success");
  });
 </script>
 

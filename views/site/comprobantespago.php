@@ -18,6 +18,13 @@ $this->title = 'Comprobante de pago';
 			</div>
 			<div class="col-md-8 col-md-offset-2">
 				<div class="panel panel-default">
+				<?php $form = ActiveForm::begin([
+					"method" => "POST",
+					"id" => "compro-form",
+					"enableClientValidation" => false,
+					"enableAjaxValidation" => true,
+					]); 
+					?>
 					<div class="panel-body">
 						<div class="box-compago-drw">
 							<img src="img/compago_drw.svg" alt="Comprobante de pago">
@@ -28,62 +35,101 @@ $this->title = 'Comprobante de pago';
 							<label class="control-label" for="compagoSelect">
 								Año
 							</label>
-							<div class="mad-select">
+							<div class="mad-select" id="ano">
 								<ul>
-									<li data-value="1">2016</li>
-									<li data-value="2">2015</li>
-									<li data-value="3">2014</li>
-									<li data-value="4">2013</li>
-									<li data-value="5">2012</li>
-									<li data-value="6">2011</li>
-									<li data-value="7">2010</li>
+								<li class="selected" data-value="0" OnClick="ocultv();">Seleccione</li>
+								<?php
+								foreach($ANO_PERIODO_ARR as $row): ?>
+									<li data-value="<?= $row ?>" OnClick="setTimeout(show, 50);"><?= $row ?></li>		
+								<?php endforeach ?>
 								</ul>
-								<input type="hidden" id="compagoSelect" name="myOptions" value="1" class="form-control">
+								<input type="hidden" id="anoenv" name="anoenv" value="0" class="form-control">
 							</div>
 						</div>
-						<div class="form-group select-m">
-							<label class="control-label" for="certRetecionSelect">
-								Periodo
-							</label>
-							<div class="mad-select">
-								<ul>
-									<li data-value="1">2016</li>
-									<li data-value="2">2015</li>
-									<li data-value="3">2014</li>
-									<li data-value="4">2013</li>
-									<li data-value="5">2012</li>
-									<li data-value="6">2011</li>
-									<li data-value="7">2010</li>
-								</ul>
-								<input type="hidden" id="compagoPeriodoSelect" name="myOptions" value="1" class="form-control">
-							</div>
+						
+						<div id="divper" name="divper">
+						<div class="form-group select-m"><label class="control-label" for="compagoPeriodoSelect">Periodo</label><div id="dier" class="mad-select">
+						<ul id="periodo">
+						
+						</ul>
+						<input type="hidden" id="perenv" name="perenv" value="0" class="form-control"></div></div>
 						</div>
 						<div class="form-group text-right">
-							<button type="button" class="btn btn-raised btn-primary visible-lg-inline-block" data-toggle="modal" data-target="#pdfViewer">Generar</button>
-							<a href="img/comprobante_pago.pdf" target="_blank" class="btn btn-raised btn-primary hidden-lg">Generar</a>
-							<button class="btn btn-raised btn-primary">Enviar al correo</button>
+						<?= Html::Button('Generar', ['class' => 'btn btn-raised btn-primary', 'data-toggle'=>"modal",  'name' => 'btnPdf', 'id' => 'btnPdf', 'onclick'=>'Warn();']) ?>
+						<?= Html::Button('Enviar al correo', ['class' => 'btn btn-raised btn-primary', 'name' => 'enviar-button']) ?>
 						</div>
 					</div>
+					<?php ActiveForm::end(); ?>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="modal fade modal-vrtl modal-pdfviewer" id="pdfViewer" tabindex="-1" role="dialog" aria-labelledby="pdfViewerLabel">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<div class="header-box">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h3 class="modal-title txt__light-100" id="pdfViewerLabel">Comprobante de pago</h3>
-				</div>
-			</div>
-			<div class="modal-body">
-				<object class="box-pdf" data="img/comprobante_pago.pdf" type="application/pdf">
-					<embed src="img/comprobante_pago.pdf" type="application/pdf"></embed>
-						<a href="img/comprobante_pago.pdf">comprobante de pago.</a>
-                </object>
-			</div>
-		</div>
-	</div>
-</div>
+<div class="modal fade modal-vrtl modal-pdfviewer" id="pdfViewer" tabindex="-1" role="dialog" aria-labelledby="pdfViewerLabel"> </div>
+
+<script type="text/javascript">
+
+	document.getElementById("divper").style.display = 'none';
+	
+
+	function ocultv(){
+		document.getElementById("divper").style.display = 'none';
+		};
+
+	function show() {
+	
+	document.getElementById("divper").style.display = 'block';
+
+	$.ajax({
+		
+				cache: false,
+				type: 'POST',
+				url: '<?php echo Url::toRoute(['site/menucomprobantespago']); ?>',
+				data: $("#compro-form").serialize(),
+				dataType: 'json',
+				success: function(data){	
+		
+						nomPer = data[0];
+						nurPer = data[1];
+						var li = new Array();
+						
+						for(var i=0;i<nurPer.length;i++){
+
+							
+							if(i==0){
+								li=li+'<li class="selected" data-value="0">Seleccione</li>';
+							}
+							
+						li=li+'<li data-value="'+nurPer[i]+'">'+nomPer[i]+'</li>';
+						}
+
+						$("#periodo").html(li);
+						$("#dier .mad-select-drop").html(li);
+		
+				}
+				});	
+	};
+	
+</script>
+
+<script type="text/javascript">
+
+function Warn() {
+	
+		$.ajax({
+            cache: false,
+            type: 'POST',
+            url: '<?php echo Url::toRoute(['site/pdf_comprobantespago']); ?>',
+            data: $("#compro-form").serialize(), 
+			 
+			success: function(data){				
+				
+				$('#pdfViewer').modal('toggle').html(
+        '<div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><div class="header-box"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title txt__light-100" id="pdfViewerLabel">Comprobante de Pago</h3></div></div><div class="modal-body"><object class="box-pdf" data="<?php echo Url::toRoute(['site/pdf_comprobantespago']);?>" type="application/pdf"></object></div></div></div>'
+		);			
+									}
+        });			
+
+	};
+
+</script>

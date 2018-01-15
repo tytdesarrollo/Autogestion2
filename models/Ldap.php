@@ -10,14 +10,14 @@ class Ldap extends Model{
     {
 
 // VARIABLES USUARIO Y CONTRASEÑA
-//$usuario = "v.bello";
-//$clave = "TYTcali2016";  
+//$usuario = "vladimir";
+//$clave = "TYTcali2017";  
 	$usuario =  Yii::$app->request->get('usuario');
 	$clave = Yii::$app->request->get('clave');
 
 	// DATOS PARA DIRECTORIO ACTIVO
-	$directorio01 = "talentos";
-	$dominio01 = "local";
+	$directorio01 = "TALENTOS";
+	$dominio01 = "LOCAL";
 	
 	//parametro para habilitar el directorio activo, si es "true" esta habilitado y omite base de datos, si es "false" pasa a validar con base de datos
 	$directorioactivo = "true";
