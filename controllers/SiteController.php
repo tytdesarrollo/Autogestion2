@@ -24,6 +24,7 @@ use app\models\TwPcRolesPerfiles;
 use app\models\TwPcComprobantePago;
 use app\models\TwPcCronoCierreNomina;
 use app\models\TwPcEquipoNomina;
+use app\models\TwPcHorasExtrasHistorial;
 
 
 class SiteController extends Controller
@@ -639,9 +640,21 @@ $model = new TwPcPersonalData;
 			// Si es ordenador de escritorio has lo que necesites
 			$events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
 			
+			
+			//INICIO DE LOGICA PARA TURNOS
+			
+			$model = new TwPcHorasExtrasHistorial;
+
+			$twpchorasextrashistorial = $model->HorasExtras();
+			
+			$HHEXTRAS = $twpchorasextrashistorial[0];
+			$HHMESSAGE = $twpchorasextrashistorial[1];
+			$HHOUTPUT = $twpchorasextrashistorial[2];
+
+			
 			$this->view->params['customParam'] = $events;
 				
-                return $this->render('turnos',['events' => $events]);
+                return $this->render('turnos',['HHEXTRAS' => $HHEXTRAS, 'HHOUTPUT' => $HHOUTPUT, 'HHMESSAGE' => $HHMESSAGE]);
 			}        
 		
     }

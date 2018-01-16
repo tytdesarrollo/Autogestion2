@@ -3,6 +3,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 $this->title = 'Trabajo por Turnos';
+
 ?>
 
 <div class="bg-turnos">
@@ -468,7 +469,7 @@ $this->title = 'Trabajo por Turnos';
 					</div>
 					<div class="info-item info-item-rgt" style="min-height: 388px;">
 						<div class="bg-dark-54 text-center pdg__16">
-							<h3 class="no-mrg">Historial horas extras</h3>
+							<h3 class="no-mrg">Historial Horas Extras</h3>
 						</div>
 						<div class="pdg__16">
 							<table class="table">
@@ -482,47 +483,32 @@ $this->title = 'Trabajo por Turnos';
 										<th>Estado</th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
-										<td>11001</td>
-										<td>24-04-2016</td>
-										<td>24-04-2016</td>
-										<td>2</td>
-										<td>Recargo nocturno ordinario</td>
-										<td>Aprobado</td>
-									</tr>
-									<tr>
-										<td>11002</td>
-										<td>24-04-2016</td>
-										<td>24-04-2016</td>
-										<td>1</td>
-										<td>Recargo nocturno ordinario</td>
-										<td>Aprobado</td>
-									</tr>
-									<tr>
-										<td>11003</td>
-										<td>24-04-2016</td>
-										<td>24-04-2016</td>
-										<td>4</td>
-										<td>Recargo nocturno ordinario</td>
-										<td>Aprobado</td>
-									</tr>
-									<tr>
-										<td>11004</td>
-										<td>24-04-2016</td>
-										<td>24-04-2016</td>
-										<td>2</td>
-										<td>Recargo nocturno ordinario</td>
-										<td>Aprobado</td>
-									</tr>
-									<tr>
-										<td>11005</td>
-										<td>24-04-2016</td>
-										<td>24-04-2016</td>
-										<td>4</td>
-										<td>Recargo nocturno ordinario</td>
-										<td>Aprobado</td>
-									</tr>
+								<tbody>									
+									<?php
+									if ($HHOUTPUT=="1"){
+										
+									foreach ($HHEXTRAS as $HHEXTRAS_KEY) {
+												
+												echo '
+										<tr>												
+												<td>'.utf8_encode ($HHEXTRAS_KEY['CONSECUTIVO']).'</td>
+												<td>'.utf8_encode ($HHEXTRAS_KEY['FEC_SOLICITUD']).'</td>
+												<td>'.utf8_encode ($HHEXTRAS_KEY['FEC_H_EXTRAS']).'</td>
+												<td>'.utf8_encode ($HHEXTRAS_KEY['HORAS']).'</td>
+												<td>'.utf8_encode ($HHEXTRAS_KEY['CONCEPTO']).'</td>
+												<td>'.utf8_encode ($HHEXTRAS_KEY['ESTADO']).'</td>
+										</tr>
+												';
+												}	
+									}else{
+										
+										echo '
+										<tr>												
+												<td>'.utf8_encode ($HHMESSAGE).'</td>												
+										</tr>
+										';										
+									}									
+											?>	
 								</tbody>
 							</table>
 						</div>
@@ -697,5 +683,52 @@ $this->title = 'Trabajo por Turnos';
 		</div>
 	</div>
 </div>
+<script>
+			//DIAS REFLEJADOS EN EL CALENDARIO
+			var id=[];
+			var title=[];
+			var start=[];
+			var end=[];
+			var color=[];
 
+			<?PHP 
+			$COLOR="RED";
+					//FECHAS DE ETIQUETAS
 
+						foreach ($HHEXTRAS as $HHEXTRAS_KEY) { 
+
+				/*	//COLORES DE ETIQUETAS
+
+						switch ($HHEXTRAS_KEY['ESTADO']) {
+						case 'Rechazado':
+							   $COLOR="RED";
+								break;
+						case 'Pendiente por aprobar jefe':
+							   $COLOR="RED";
+								break;
+						case 'Pendiente por aprobar gerente':
+							   $COLOR="RED";
+								break;
+						case 'Aprobado por gerente':
+							   $COLOR="RED";
+								break;
+						}*/
+						
+						//$FECHAHEXT = new DateTime($HHEXTRAS_KEY['FEC_H_EXTRAS']);
+			?>
+
+					//id=    '15120';
+					id.push('<?= utf8_encode($HHEXTRAS_KEY['CONSECUTIVO']) ?>');
+					//title= '15120';
+					title.push('<?= utf8_encode($HHEXTRAS_KEY['CONSECUTIVO']) ?>');
+				    //start= '2018-01-01';
+					start.push('<?= $HHEXTRAS_KEY['FEC_H_EXTRAS'] ?>');
+					//end=   '2018-01-01';
+					end.push('<?= $HHEXTRAS_KEY['FEC_H_EXTRAS'] ?>');
+					//color= 'RED';
+					color.push('<?= $COLOR ?>');
+
+			<?PHP }; ?>
+			
+			console.log(id);
+</script>
