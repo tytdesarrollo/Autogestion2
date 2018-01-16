@@ -438,13 +438,18 @@ $session = Yii::$app->session;
 
 			events: [
 		
-			{
+			
+			//	console.log('cualquier bobada');
+		//	for (i = 0; i < id.length; i++) {
+			{	 
         id:    id,
 		title: title,
         start: start,
         end:   end,
 		color: color,
-			},					
+			},	
+		//}
+							
 					
 			]
 		});
