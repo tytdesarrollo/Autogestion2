@@ -684,51 +684,6 @@ $this->title = 'Trabajo por Turnos';
 	</div>
 </div>
 <script>
-			//DIAS REFLEJADOS EN EL CALENDARIO
-			var id=[];
-			var title=[];
-			var start=[];
-			var end=[];
-			var color=[];
-
-			<?PHP 
-			$COLOR="RED";
-					//FECHAS DE ETIQUETAS
-
-						foreach ($HHEXTRAS as $HHEXTRAS_KEY) { 
-
-				/*	//COLORES DE ETIQUETAS
-
-						switch ($HHEXTRAS_KEY['ESTADO']) {
-						case 'Rechazado':
-							   $COLOR="RED";
-								break;
-						case 'Pendiente por aprobar jefe':
-							   $COLOR="RED";
-								break;
-						case 'Pendiente por aprobar gerente':
-							   $COLOR="RED";
-								break;
-						case 'Aprobado por gerente':
-							   $COLOR="RED";
-								break;
-						}*/
-						
-						//$FECHAHEXT = new DateTime($HHEXTRAS_KEY['FEC_H_EXTRAS']);
-			?>
-
-					//id=    '15120';
-					id.push('<?= utf8_encode($HHEXTRAS_KEY['CONSECUTIVO']) ?>');
-					//title= '15120';
-					title.push('<?= utf8_encode($HHEXTRAS_KEY['CONSECUTIVO']) ?>');
-				    //start= '2018-01-01';
-					start.push('<?= $HHEXTRAS_KEY['FEC_H_EXTRAS'] ?>');
-					//end=   '2018-01-01';
-					end.push('<?= $HHEXTRAS_KEY['FEC_H_EXTRAS'] ?>');
-					//color= 'RED';
-					color.push('<?= $COLOR ?>');
-
-			<?PHP }; ?>
-			
-			console.log(id);
+//DEFINO UNA BANDERA PARA HEREDAR PROPIEDADES DEL CALENDARIO, 0 ES TURNOS Y 1 ES VACACIONES
+var bandera = "0";
 </script>
