@@ -3,6 +3,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 $this->title = 'Vacaciones';
+
 ?>
 
 <div class="bg-vacaciones">
@@ -709,7 +710,6 @@ $this->title = 'Vacaciones';
 	</div>
 </div>
 <script>
-
 //CONTADOR DE DIAS
 var slider = document.getElementById("rango");
 var output = document.getElementById("valor");
@@ -719,17 +719,6 @@ slider.oninput = function() {
     output.innerHTML = this.value;
 } 
 
-//DIAS REFLEJADOS EN EL CALENDARIO
-var id;
-var title;
-var start;
-var end;
-var color;
-
-        id=    'Festivo';
-		title= 'Festivo';
-        start= '2018-01-01';
-        end=   '2018-01-01';
-		color= 'RED';
-
+//DEFINO UNA BANDERA PARA HEREDAR PROPIEDADES DEL CALENDARIO, 0 ES TURNOS Y 1 ES VACACIONES
+var bandera = "1";
 </script>
