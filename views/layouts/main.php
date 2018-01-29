@@ -9,7 +9,7 @@ use yii\bootstrap\NavBar;
 use yii\bootstrap\Dropdown;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
-
+use yii\helpers\Url;
 
 AppAsset::register($this);
 
@@ -29,8 +29,7 @@ $session = Yii::$app->session;
 	<script src="../web/js/modernizr.custom.js"></script>
 </head>
 <body>
-	<?php $this->beginBody() ?>
-	<?php @$events = $this->params['customParam']; ?>
+	<?php $this->beginBody() ?>	
 <div class="headerbar"></div>
 <header id="header" class="clearfix">
 	<nav id="menu" class="navbar">
@@ -391,26 +390,34 @@ $session = Yii::$app->session;
 <script>
 	$(document).ready(function() {
 		
+		if(bandera==1){
+		
+		//PROPIEDADES PARA VACACIONES
+		
 		$('#calendar').fullCalendar({
 			header: {
 				left: 'prev',
 				center: 'title',
 				right: 'next'
 			},
+			navLinks: true,
 			height: 'auto',
-			businessHours: true,
+			businessHours: { dow: [1,2,3,4,5,6] },
 			editable: false,
-			eventLimit: true, // allow "more" link when too many events
+			eventLimit: false, // allow "more" link when too many events
 			selectable: true,
 			selectHelper: true,
 			selectOverlap: false,
 			select: function(start, end) {
 				
-				$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
-				$('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
+				$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD'));
+				//$('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
 				$('#ModalAdd').modal('show');
 				
 			},
+			
+			//FUNCION DOBLE CLICK PARA ELIMINAR, AUN NO ES NECESARIO
+			/*
 			eventRender: function(event, element) {
 				element.bind('dblclick', function() {
 					$('#ModalEdit #id').val(event.id);
@@ -419,7 +426,8 @@ $session = Yii::$app->session;
 					$('#ModalEdit').modal('show');
 					
 				});
-			},
+			},*/
+			
 			eventDrop: function(event, delta, revertFunc) { // si changement de position
 
 				edit(event);
@@ -430,47 +438,120 @@ $session = Yii::$app->session;
 				edit(event);
 
 			},
-			
-			<?php
-				if(isset($events)){			
-			?>
 
-			events: [
-			
-			<?php
-								
-			foreach($events as $event): 
-			
-				$start = explode(" ", $event['START']);
-				$end = explode(" ", $event['END']);
-				if($start[1] == '00:00:00'){
-					$start = $start[0];
-				}else{
-					$start = $event['START'];
-				}
-				if($end[1] == '00:00:00'){
-					$end = $end[0];
-				}else{
-					$end = $event['END'];
-				}
-			?>
-				{
-					id: '<?php echo $event['ID']; ?>',
-					title: '<?php echo $event['TITLE']; ?>',
-					start: '<?php echo $start; ?>',
-					end: '<?php echo $end; ?>',
-					color: '<?php echo $event['COLOR']; ?>',
-					overlap: false,
-					
-					
-				},
-						
-			<?php endforeach; ?>
-					
-			]
-			
-			<?php }; ?>
+			events: function(start, end, timezone, callback) {
+	    	 $.ajax({
+	            url:'<?php echo Url::toRoute(['site/jsoncalendar', 'bandera' => '1']);?>', 
+	            dataType:'json',
+	            success: function (data) {  
+	            	var arrayDatos = $.map(data, function(value, index) {
+	                    return [value];
+	                });  
+
+	            	console.log(arrayDatos);
+	            	var events = [];	
+
+	            	for(var i=0 ; i<arrayDatos.length ; i++){
+	            		 events.push({
+
+		                 	id: data[i]['CONSECUTIVO'],
+	                        title: "ID ".concat(data[i]['CONSECUTIVO']),
+	                        start: data[i]['FEC_INI'],                        
+	                        end: data[i]['FEC_FIN'],
+	                        color: data[i]['COLOR']
+	                    }); 
+	            	}  	            	          	
+	               
+	                callback(events);
+	                
+	            }
+	        });
+	        
+	    }
 		});
+		
+		}else if(bandera==0){
+			
+			//PROPIEDADES PARA TURNOS
+			
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev',
+				center: 'title',
+				right: 'next'
+			},
+			navLinks: true,
+			height: 'auto',
+			businessHours: { dow: [1,2,3,4,5,6] },
+			editable: false,
+			eventLimit: false, // allow "more" link when too many events
+			selectable: true,
+			selectHelper: true,
+			selectOverlap: true,
+			select: function(start, end) {
+				
+				$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD'));
+				//$('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
+				$('#ModalAdd').modal('show');
+				
+			},
+			
+			//FUNCION DOBLE CLICK PARA ELIMINAR, AUN NO ES NECESARIO
+			/*
+			eventRender: function(event, element) {
+				element.bind('dblclick', function() {
+					$('#ModalEdit #id').val(event.id);
+					$('#ModalEdit #title').val(event.title);
+					$('#ModalEdit #color').val(event.color);
+					$('#ModalEdit').modal('show');
+					
+				});
+			},*/
+			
+			eventDrop: function(event, delta, revertFunc) { // si changement de position
+
+				edit(event);
+
+			},
+			eventResize: function(event,dayDelta,minuteDelta,revertFunc) { // si changement de longueur
+
+				edit(event);
+
+			},
+
+			events: function(start, end, timezone, callback) {
+	    	 $.ajax({
+	            url:'<?php echo Url::toRoute(['site/jsoncalendar', 'bandera' => '0']);?>', 
+	            dataType:'json',
+	            success: function (data) {  
+	            	var arrayDatos = $.map(data, function(value, index) {
+	                    return [value];
+	                });  
+
+	            	console.log(arrayDatos);
+	            	var events = [];	
+
+	            	for(var i=0 ; i<arrayDatos.length ; i++){
+	            		 events.push({
+
+		                 	id: data[i]['CONSECUTIVO'],
+	                        title: "ID ".concat(data[i]['CONSECUTIVO']),
+	                        start: data[i]['FEC_H_EXTRAS'],                        
+	                        end: data[i]['FEC_H_EXTRAS'],
+	                        color: data[i]['COLOR']
+	                    }); 
+	            	}  	            	          	
+	               
+	                callback(events);
+	                
+	            }
+	        });
+	        
+	    }
+		});
+			
+			
+		}
 		
 		function edit(event){
 			start = event.start.format('YYYY-MM-DD HH:mm:ss');

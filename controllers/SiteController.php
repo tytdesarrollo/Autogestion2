@@ -24,6 +24,8 @@ use app\models\TwPcRolesPerfiles;
 use app\models\TwPcComprobantePago;
 use app\models\TwPcCronoCierreNomina;
 use app\models\TwPcEquipoNomina;
+use app\models\TwPcHorasExtrasHistorial;
+use app\models\TwPcVacaciones;
 
 
 class SiteController extends Controller
@@ -248,7 +250,7 @@ $model = new TwPcPersonalData;
     public function actionVacaciones()
     {        		
 		
-		$tablet_browser = 0;
+			$tablet_browser = 0;
 			$mobile_browser = 0;
 			$body_class = 'desktop';
 			 
@@ -293,28 +295,18 @@ $model = new TwPcPersonalData;
 			}
 			if ($tablet_browser > 0) {
 			// Si es tablet has lo que necesites
-			$events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
-			
-			$this->view->params['customParam'] = $events;
 
-                return $this->render('mvacaciones',['events' => $events]);
+                return $this->render('mvacaciones');
 
 			}
 			else if ($mobile_browser > 0) {
 			// Si es dispositivo mobil has lo que necesites			
-			   $events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
-			
-			$this->view->params['customParam'] = $events;
-
-                return $this->render('mvacaciones',['events' => $events]);
+			  
+                return $this->render('mvacaciones');
 			}
 			else {
-			// Si es ordenador de escritorio has lo que necesites
-			$events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
-			
-			$this->view->params['customParam'] = $events;
 				
-                return $this->render('vacaciones',['events' => $events]);
+                return $this->render('vacaciones');
 			}        
 		
     }
@@ -620,28 +612,30 @@ $model = new TwPcPersonalData;
 			}
 			if ($tablet_browser > 0) {
 			// Si es tablet has lo que necesites
-			$events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
 			
-			$this->view->params['customParam'] = $events;
-
-                return $this->render('mturnos',['events' => $events]);
+                return $this->render('mturnos');
 
 			}
 			else if ($mobile_browser > 0) {
 			// Si es dispositivo mobil has lo que necesites			
-			   $events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
-			
-			$this->view->params['customParam'] = $events;
 
-                return $this->render('mturnos',['events' => $events]);
+                return $this->render('mturnos');
 			}
-			else {
-			// Si es ordenador de escritorio has lo que necesites
-			$events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
+			else {			
 			
-			$this->view->params['customParam'] = $events;
+			//INICIO DE LOGICA PARA TURNOS
+			
+			$model = new TwPcHorasExtrasHistorial;
+
+			$twpchorasextrashistorial = $model->HorasExtras();
+			
+			$HHEXTRAS = $twpchorasextrashistorial[0];
+			$HHMESSAGE = $twpchorasextrashistorial[1];
+			$HHOUTPUT = $twpchorasextrashistorial[2];			
+						
+			//$this->view->params['customParam'] = $events;
 				
-                return $this->render('turnos',['events' => $events]);
+                return $this->render('turnos',['HHEXTRAS' => $HHEXTRAS, 'HHOUTPUT' => $HHOUTPUT, 'HHMESSAGE' => $HHMESSAGE]);
 			}        
 		
     }
@@ -952,5 +946,32 @@ $model = new TwPcPersonalData;
 		
         return $this->render('actualidadlaboral');
 		
+    }
+	public function actionJsoncalendar()
+	{
+		
+		if(Yii::$app->request->get('bandera')=='0'){
+		
+		//TURNOS, SI RECIBO 0
+		$model = new TwPcHorasExtrasHistorial;
+
+		$twpchorasextrashistorial = $model->HorasExtras();
+		
+		$HHEXTRAS = $twpchorasextrashistorial[0];		
+				
+    	echo json_encode($HHEXTRAS);
+		
+		}else if(Yii::$app->request->get('bandera')=='1'){
+		
+		//VACACIONES, SI RECIBO 1 
+		$model = new TwPcVacaciones;
+
+		$twpcvacaciones = $model->Vacaciones();
+		
+		$HVACACIONES = $twpcvacaciones[0];
+		
+		echo json_encode($HVACACIONES);
+		
+		}
     }
 }
