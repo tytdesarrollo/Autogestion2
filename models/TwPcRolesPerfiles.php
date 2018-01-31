@@ -8,6 +8,30 @@ use PDO;
 use yii\base\Model;
 
 class TwPcRolesPerfiles extends Model{
+	
+	////////MENUS////////
+	//posicion en array - item menu
+	//        0         -  vacaoines
+	//        1         -  horas extras
+	//        2         -  certificado laboral
+	//        3         -  comprobantes de pago
+	//        4         -  certificado de ingreso y retencion
+	//        5         -  equipo de nomina
+	//        6         -  actualidad laboral
+	//        7         -  cronograma novedades cierre de nomina
+	
+	////////SUBMENUS////////
+	//posicion en array - item submenu
+	//        0         -  solicitar vacaciones
+	//        1         -  aceptar y rechazar vacaciones
+	//        2         -  solicitar horas extras
+	//        3         -  aceptar y rechazar horas extras
+	//        4         -  generar certificado laboral 
+	//        5         -  generar comprobante de pago
+	//        6         -  generar certificado de ingreso y retencion
+	//        7         -  informacion de equipo de nomina
+	//        8         -  informacion de actividad laboral
+	//        9         -  informacion cronograma cierre de nomina
 
 	public function spMenus(){
 		$db = Yii::$app->params['orcl'];		
