@@ -26,6 +26,7 @@ use app\models\TwPcCronoCierreNomina;
 use app\models\TwPcEquipoNomina;
 use app\models\TwPcHorasExtrasHistorial;
 use app\models\TwPcVacaciones;
+use app\models\TwPcHorasExtras;
 
 
 class SiteController extends Controller
@@ -648,18 +649,24 @@ $model = new TwPcPersonalData;
 			else {			
 			
 			//INICIO DE LOGICA PARA TURNOS
-			
+			//historiales de horas extras
 			$model = new TwPcHorasExtrasHistorial;
 
 			$twpchorasextrashistorial = $model->HorasExtras();
 			
 			$HHEXTRAS = $twpchorasextrashistorial[0];
-			$HHMESSAGE = $twpchorasextrashistorial[1];
-			$HHOUTPUT = $twpchorasextrashistorial[2];			
+			$HHEXTRASTOP = $twpchorasextrashistorial[1];
+			$HHMESSAGE = $twpchorasextrashistorial[2];
+			$HHOUTPUT = $twpchorasextrashistorial[3];			
 						
-			//$this->view->params['customParam'] = $events;
+			//Conceptos de horas extras
+			$model = new TwPcHorasExtras;
+
+			$twpchorasextras = $model->HorasExtrasVal();
+			
+			$HCONCEPTOS = $twpchorasextras[0];			
 				
-                return $this->render('turnos',['HHEXTRAS' => $HHEXTRAS, 'HHOUTPUT' => $HHOUTPUT, 'HHMESSAGE' => $HHMESSAGE]);
+                return $this->render('turnos',['HHEXTRAS' => $HHEXTRAS,'HHEXTRASTOP' => $HHEXTRASTOP, 'HHOUTPUT' => $HHOUTPUT, 'HHMESSAGE' => $HHMESSAGE, 'HCONCEPTOS' => $HCONCEPTOS]);
 			}        
 		
     }
@@ -997,8 +1004,17 @@ $model = new TwPcPersonalData;
 		echo json_encode($HVACACIONES);
 		
 		}
-    }
+		
+		//VALIDACIONES DE TURNOS
+			$model = new TwPcHorasExtras;
 
+			$twpchorasextras = $model->HorasExtrasVal();
+			
+			$HMSSG = $twpchorasextras[1];	
+			$HOUTPT = $twpchorasextras[2];	
+			
+
+    }
     public function actionAutorzacionvacap1(){
 
     	$c1 = $_GET['cantidad'];
