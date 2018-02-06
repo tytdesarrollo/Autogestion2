@@ -3,8 +3,6 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 $this->title = 'Vacaciones';
-
-$autorizaciones = Yii::$app->session['submenus'][1];
 ?>
 <script src="/Autogestion2/web/js/jquery.js"></script>	
 <link rel="stylesheet" href="/Autogestion2/web/css/tingle.min.css">
@@ -44,9 +42,11 @@ $autorizaciones = Yii::$app->session['submenus'][1];
 				<!--<button type="button" class="btn btn-default btn-fab" data-toggle="modal" data-target="#modtabs">
 					<i class="material-icons">&#xE02F;</i>
 				</button>-->
-				<button type="button" class="btn btn-default btn-fab" data-toggle="modal" data-target="#record">
-					<i class="material-icons">&#xE889;</i>
-				</button>
+				<?php if (is_array($vacasHistorial)): ?>
+					<button type="button" class="btn btn-default btn-fab" data-toggle="modal" data-target="#record" onclick="cambioPestana(5)">
+						<i class="material-icons">&#xE889;</i>
+					</button>
+				<?php endif ?>					
 				<button type="button" class="btn btn-default btn-fab" data-toggle="modal" data-target="#help">
 					<i class="material-icons">&#xE887;</i>
 				</button>
@@ -253,7 +253,7 @@ $autorizaciones = Yii::$app->session['submenus'][1];
 							                <div class="col-sm-12 text-center">
 							                    <ul class="pagination" id="paginationView4">
 							                        <li id="liprimero4"><a href="#" id="primero4" onclick="clickFirst(4)">Primero</a></li>
-							                        <li id="liback4"><a href="#" onclick="clickBack(3)">&laquo;</a></li>
+							                        <li id="liback4"><a href="#" onclick="clickBack(4)">&laquo;</a></li>
 							                        <li id="li14" class="active"><a href="#" id="p13" onclick="clickPage(1,4)">1</a></li>
 							                        <li id="li24"><a href="#" id="p24" onclick="clickPage(2,4)">2</a></li>
 							                        <li id="li34"><a href="#" id="p34" onclick="clickPage(3,4)">3</a></li>
@@ -296,61 +296,49 @@ $autorizaciones = Yii::$app->session['submenus'][1];
 									<h3 class="fnt__Medium">Historial solicitudes de vacaciones</h3>
 								</div>
 								<div class="body">
+									<div class="row">											
+										<div class="form-inline">			
+											<div class="pull-right">			
+												<div class="form-group">													
+													<input type="text" class="form-control" id="search5" placeholder="Filtro">
+												</div>											
+												<button onclick="searchClick(5)" class="btn btn-default">Buscar</button>
+											</div>													
+											<div div="col-6">
+												<select id="cantidadXP5" class="form-control" style="width:120px">
+													<option value="10">10 registros</option>
+													<option value="20">20 registros</option>
+													<option value="30">30 registros</option>
+													<option value="40">40 registros</option>
+													<option value="50">50 registros</option>
+												</select>
+											</div>
+										</div>											
+									</div>																			
+									<div class="row">											
+						                <div class="col-sm-12 text-center">
+						                    <ul class="pagination" id="paginationView5">
+						                        <li id="liprimero5"><a href="#" id="primero5" onclick="clickFirst(5)">Primero</a></li>
+						                        <li id="liback5"><a href="#" onclick="clickBack(5)">&laquo;</a></li>
+						                        <li id="li15" class="active"><a href="#" id="p13" onclick="clickPage(1,5)">1</a></li>
+						                        <li id="li25"><a href="#" id="p25" onclick="clickPage(2,5)">2</a></li>
+						                        <li id="li35"><a href="#" id="p35" onclick="clickPage(3,5)">3</a></li>
+						                        <li id="li45"><a href="#" id="p45" onclick="clickPage(4,5)">4</a></li>
+						                        <li id="li55"><a href="#" id="p55" onclick="clickPage(5,5)">5</a></li>
+						                        <li id="li65"><a href="#" id="p65" onclick="clickPage(6,5)">6</a></li>
+						                        <li id="li75"><a href="#" id="p75" onclick="clickPage(7,5)">7</a></li>
+						                        <li id="li85"><a href="#" id="p85" onclick="clickPage(8,5)">8</a></li>
+						                        <li id="li95"><a href="#" id="p95" onclick="clickPage(9,5)">9</a></li>
+						                        <li id="li105"><a href="#" id="p105" onclick="clickPage(10,5)">10</a></li>
+						                        <li id="linext5"><a href="#" onclick="clickNext(5)">&raquo;</a></li>
+						                        <li id="liultimo5"><a href="#" id="ultimo5" onclick="clickLast(5)">Ultimo</a></li>
+						                    </ul>
+						                </div>
+						            </div>							            					            
 									<div class="table-responsive">
-										<table class="table">
-											<thead>
-												<tr>
-													<th>Consecutivo</th>
-													<th>Fecha solicitud</th>
-													<th>Fecha inicio</th>
-													<th>Fecha fin</th>
-													<th>Días hábiles</th>
-													<th>Estado</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>00001</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00002</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00003</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00004</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00005</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-											</tbody>
-										</table>
+										<div id="datosTabla5">												
+						                    			
+                						</div>   											
 									</div>
 								</div>
 							</div>
@@ -412,18 +400,24 @@ $autorizaciones = Yii::$app->session['submenus'][1];
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>24-04-2016</td>
-										<td>24-04-2016</td>
-										<td>7</td>
-										<td>Pendiente</td>
-									</tr>
-									<tr>
-										<td>24-04-2016</td>
-										<td>24-04-2016</td>
-										<td>5</td>
-										<td>Pendiente</td>
-									</tr>
+										<?php if (is_array($vacasvigentes)): ?>
+											<?php foreach ($vacasvigentes as $key1): ?>
+												<tr>
+													<td><?=$key1['FEC_INI_PERIODO']?></td>
+													<td><?=$key1['FEC_FIN_PERIODO']?></td>
+													<td><?=$key1['DIAS']?></td>
+													<td>Pendiente</td>
+												</tr>										
+											<?php endforeach ?>
+										<?php else: ?>
+											<tr>
+												<td>no hay dato</td>
+												<td>no hay dato</td>
+												<td>no hay dato</td>
+												<td>no hay dato</td>
+											</tr>
+										<?php endif ?>
+											
 								</tbody>
 							</table>
 						</div>
@@ -432,7 +426,7 @@ $autorizaciones = Yii::$app->session['submenus'][1];
 						<div class="content-main-days">
 							<div class="content-days bg-amber-A700 center-block">
 								<p class="text-ini">Cuentas con</p>
-								<span class="text-number">12</span>
+								<span class="text-number"><?=$diaspedientes?></span>
 								<p class="text-end">Días</p>
 							</div>
 						</div>
@@ -455,43 +449,14 @@ $autorizaciones = Yii::$app->session['submenus'][1];
 							<!-- Modal -->
 							<div class="modal fade modal-header-gray" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								<div class="modal-dialog" role="document">
-									<div class="modal-content">
-										
-										<?php $form = ActiveForm::begin([
-											'method' => 'POST',
-											'options' => [
-														'class' => ' '
-													 ],
-											'action' => ['site/addevent'],
-										]);
-										?>
+									<div class="modal-content">	
 										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="cerrarVacacionesV"><span aria-hidden="true">&times;</span></button>
 											<h3 class="fnt__Medium">Solicitud de vacaciones</h3>
 										</div>
 										<div class="modal-body">
 											<div class="row">
-												<div class="col-sm-10 col-sm-offset-1">
-													<div class="form-group label-floating mrg__top-15">
-														<label for="title" class="control-label">Titulo</label>
-															<input type="text" name="title" class="form-control" id="title" required>
-													</div>
-													<div class="form-group select-m mrg__top-15">
-														<label for="color" class="control-label dis-block">Color (opcional)</label>
-														<div class="mad-select">
-															<ul>
-																<li data-value="0">Seleccione...</li>
-																<li style="color:#0071c5;" data-value="1">Azul Oscuro</li>
-																<li style="color:#40E0D0;" data-value="2">Turquesa</li>
-																<li style="color:#008000;" data-value="3">Verde</li>
-																<li style="color:#FFD700;" data-value="4">Amarillo</li>
-																<li style="color:#FF8C00;" data-value="5">Naranja</li>
-																<li style="color:#FF0000;" data-value="6">Rojo</li>
-																<li style="color:#000;" data-value="7">Negro</li>
-															</ul>
-															<input type="hidden" id="color" name="color" value="0" class="form-control">
-														</div>
-													</div>
+												<div class="col-sm-10 col-sm-offset-1">																										
 													<div class="form-group mrg__top-15">
 														<label for="start" class="control-label">Fecha Inicial</label>
 														<input type="text" name="start" class="form-control" id="start" disabled>
@@ -501,7 +466,7 @@ $autorizaciones = Yii::$app->session['submenus'][1];
 													  
 													  <label for="start" class="control-label">Seleccione Cantidad de Dias a Tomar </label>
 														<p class="range-field"></br>
-														  <input type="range" id="rango" min="1" max="15" value="15"/><span id="valor"> </span>
+														  <input type="range" id="rango" min="1" max="<?=$diaspedientes?>" value="1"/><span id="valor"> </span>
 														</p>
 
 													</div>
@@ -512,9 +477,8 @@ $autorizaciones = Yii::$app->session['submenus'][1];
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar Solicitud</button>
-											<button type="submit" class="btn btn-primary">Guardar Fecha</button>
+											<button type="submit" class="btn btn-primary" onclick="validarVacaciones()">Envir Solicitud</button>
 										</div>
-										<?php $form->end() ?>
 									</div>
 								</div>
 							</div>
@@ -551,7 +515,7 @@ $autorizaciones = Yii::$app->session['submenus'][1];
 						</div>
 						<div class="slide-item detail pdg__16">
 							<div class="text-center pdg__16">
-								<h3 class="no-mrg fnt__Medium">Vacaciones solicitadas</h3>
+								<h3 class="no-mrg fnt__Medium">Ultimas 5 vacaciones solicitadas</h3>
 							</div>
 							<div class="table-responsive">
 								<table class="table">
@@ -564,36 +528,33 @@ $autorizaciones = Yii::$app->session['submenus'][1];
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>24-04-2016</td>
-											<td>24-04-2016</td>
-											<td>10</td>
-											<td><div class="label-table label-success">Aprobado</div></td>
-										</tr>
-										<tr>
-											<td>24-04-2016</td>
-											<td>24-04-2016</td>
-											<td>10</td>
-											<td><div class="label-table label-success">Aprobado</div></td>
-										</tr>
-										<tr>
-											<td>24-04-2016</td>
-											<td>24-04-2016</td>
-											<td>10</td>
-											<td><div class="label-table label-success">Aprobado</div></td>
-										</tr>
-										<tr>
-											<td>24-04-2016</td>
-											<td>24-04-2016</td>
-											<td>10</td>
-											<td><div class="label-table label-success">Aprobado</div></td>
-										</tr>
-										<tr>
-											<td>24-04-2016</td>
-											<td>24-04-2016</td>
-											<td>10</td>
-											<td><div class="label-table label-success">Aprobado</div></td>
-										</tr>
+										<?php  $limite = 1;?>
+										<?php if (is_array($vacasHistorial)): ?>
+											<?php foreach ($vacasHistorial as $key2): ?>											
+													<tr>
+														<td><?=$key2['FEC_INI']?></td>
+														<td><?=$key2['FEC_FIN']?></td>
+														<td><?=$key2['DIAS']?></td>
+														<?php if (strcmp($key2['ESTADO'],"APROBADO") === 0): ?>
+															<td><div class="label-table label-success">Aprobado</div></td>	
+														<?php elseif (strcmp($key2['ESTADO'],"RECHAZADO") === 0): ?>
+															<td><div class="label-table" style="background-color: #CB4335; color: #ffffff;">Rechazado</div></td>	
+														<?php elseif (strcmp($key2['ESTADO'],"PENDIENTE") === 0): ?>
+															<td><div class="label-table"  style="background-color: #808B96; color: #ffffff;">Pendiente</div></td>	
+														<?php endif ?>
+													</tr>				
+													<?php if($limite++ >= 5):?>
+														<?php break; ?>														
+													<?php endif ?>
+											<?php endforeach ?>
+										<?php else: ?>
+												<tr>
+													<td>no hay dato</td>
+													<td>no hay dato</td>
+													<td>no hay dato</td>
+													<td>no hay dato</td>
+												</tr>
+										<?php endif ?>
 									</tbody>
 								</table>
 							</div>
@@ -622,7 +583,7 @@ var bandera = "1";
 
 <script type="text/javascript">
 	/*variables de la session*/
-		var cedula = '<?=Yii::$app->session['cedula']?>';//'52513735';
+		var cedula = '52513735'; //'<?=Yii::$app->session['cedula']?>';//'52513735';
 		var autorizaciones = '<?=Yii::$app->session['submenus'][1]?>';
 	/**/
 
@@ -630,11 +591,14 @@ var bandera = "1";
 		var aceptarSolicitudes = '<?php echo Url::toRoute(['site/aceptarsolicitudesvaca']);?>';
 		var rechazarSolicitud = '<?php echo Url::toRoute(['site/rechazarsolicitudesvaca']);?>';		
 		var editarSolicitud = '<?php echo Url::toRoute(['site/editarsolicitudvaca']); ?>';
+		var validaVacacas = '<?php echo Url::toRoute(['site/validadvacaciones']); ?>';
 		var pestana1 = '<?php echo Url::toRoute(['site/autorzacionvacap1']); ?>';
 		var pestana2 = '<?php echo Url::toRoute(['site/autorzacionvacap2']); ?>';
 		var pestana3 = '<?php echo Url::toRoute(['site/autorzacionvacap3']); ?>';
 		var pestana4 = '<?php echo Url::toRoute(['site/autorzacionvacap4']); ?>';
+		var pestana5 = '<?php echo Url::toRoute(['site/historialvacas']); ?>';
 		var calculoFechas = '<?php echo Url::toRoute(['site/calculafecha']); ?>';
+		var enviarvacaciones = '<?php echo Url::toRoute(['site/enviarsolicitudvacas']); ?>';
 
 	/**/	
 	
@@ -660,6 +624,9 @@ var bandera = "1";
 				break;
 			case 4:
 				solicitudesXep4(pagination, pageXp);
+				break;
+			case 5:
+				historialVacaciones(pagination, pageXp);
 				break;
         }
 	}
@@ -690,6 +657,13 @@ var bandera = "1";
 				solicitudesXep4(1,filtro);
 				setGeneralValuesDefault(id);
 				break;
+			case 5:
+				limpiaFiltros(5);
+				reiniciarToggle();
+				historialVacaciones(1,filtro);
+				setGeneralValuesDefault(id);
+				break;
+
 		}
 	}
     
@@ -708,6 +682,9 @@ var bandera = "1";
 			case 4:
 				cambioPestana(id,$("#cantidadXP4").val());
 				break;
+			case 5:
+				cambioPestana(id,$("#cantidadXP5").val());
+				break;
 		}    	
     }
 
@@ -717,25 +694,36 @@ var bandera = "1";
     			$("#search2").val(''); $("#cantidadXP2").val('10');
     			$("#search3").val(''); $("#cantidadXP3").val('10');
     			$("#search4").val(''); $("#cantidadXP4").val('10');
+    			$("#search5").val(''); $("#cantidadXP5").val('10');
     			setOrder(1);
     			break;
     		case 2:
     			$("#search1").val(''); $("#cantidadXP1").val('10');
     			$("#search3").val(''); $("#cantidadXP3").val('10');
     			$("#search4").val(''); $("#cantidadXP4").val('10');
+    			$("#search5").val(''); $("#cantidadXP5").val('10');
     			setOrder(2);
     			break;
     		case 3:
     			$("#search1").val('');  $("#cantidadXP1").val('10');
     			$("#search2").val('');  $("#cantidadXP2").val('10');
     			$("#search4").val('');  $("#cantidadXP4").val('10');
+    			$("#search5").val('');  $("#cantidadXP5").val('10');
     			setOrder(3);
     			break;
     		case 4: 
     			$("#search1").val('');  $("#cantidadXP1").val('10');
     			$("#search2").val('');  $("#cantidadXP2").val('10');
     			$("#search3").val('');  $("#cantidadXP3").val('10');
+    			$("#search5").val('');  $("#cantidadXP5").val('10');
     			setOrder(4);
+    			break;
+    		case 5:
+    			$("#search1").val('');  $("#cantidadXP1").val('10');
+    			$("#search2").val('');  $("#cantidadXP2").val('10');
+    			$("#search3").val('');  $("#cantidadXP3").val('10');
+    			$("#search4").val('');  $("#cantidadXP4").val('10');
+    			setOrder(5);
     			break;
     	}
     	
@@ -756,6 +744,10 @@ var bandera = "1";
 
 	$("#cantidadXP4").change(function(event) {
 		cambioPestana(4,$(this).val());
+	});	
+
+	$("#cantidadXP5").change(function(event) {
+		cambioPestana(5,$(this).val());
 	});	
 
 </script>

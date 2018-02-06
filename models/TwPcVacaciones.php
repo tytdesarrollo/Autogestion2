@@ -281,4 +281,93 @@ class TwPcVacaciones extends Model{
 		return $c3;
 	}
 
+	public function historialEmpleado($c1,$c2,$c3,$c4,$c5){
+		//c1: cantidad de datos por pagina
+		//c2: pagina a visualizar
+		//c3: filtro de busqueda
+		//c4: order por columna
+		//c5: cedula de quien ingresa
+		//c6: cantidad de pestanas a generar
+		//c7: datos de l consulta
+		//
+		// TNS DE LA BASE DE DATOS
+		$db = Yii::$app->params['orcl'];		
+		//conexion con la base de datos
+		$conexion = oci_connect('TELEPRU', 'tytcali', $db);
+		//procedimiento a ejecutar
+		$stid = oci_parse($conexion, 'BEGIN TW_PC_HISTORIAL_EMPLEADO_MV(:c1,:c2,:c3,:c4,:c5,:c6,:c7); END;');
+		//parametros 		
+		$c6;
+		$c7 = oci_new_cursor($conexion);        
+		//
+		oci_bind_by_name($stid, ':c1', $c1, 10);
+		oci_bind_by_name($stid, ':c2', $c2, 10);
+		oci_bind_by_name($stid, ':c3', $c3, 50);
+		oci_bind_by_name($stid, ':c4', $c4, 50);
+		oci_bind_by_name($stid, ':c5', $c5, 30);
+		oci_bind_by_name($stid, ':c6', $c6, 10);
+		oci_bind_by_name($stid, ':c7', $c7, -1, OCI_B_CURSOR);
+		// ejecucion del procedimiento 
+		oci_execute($stid);
+		oci_execute($c7);
+		// datos del cursor
+		oci_fetch_all($c7, $cursor, null, null, OCI_FETCHSTATEMENT_BY_ROW);		
+		// array con los datos y la cantidad de pestanas 
+	    return array($cursor,$c6);	
+	}
+
+	public function validaVacaciones($c1,$c2,$c3){
+		//c1: codigo
+		//c2: fecha
+		//c3: dias
+		//c4: codigo de mensaje
+		//c5: mensaje
+		//
+		// TNS DE LA BASE DE DATOS
+		$db = Yii::$app->params['orcl'];		
+		//conexion con la base de datos
+		$conexion = oci_connect('TELEPRU', 'tytcali', $db);
+		//procedimiento a ejecutar
+		$stid = oci_parse($conexion, 'BEGIN TW_PC_VALIDAR_VACACIONES(:c1,:c2,:c3,:c4,:c5); END;');
+
+		oci_bind_by_name($stid, ':c1', $c1, 12);
+		oci_bind_by_name($stid, ':c2', $c2, 10);
+		oci_bind_by_name($stid, ':c3', $c3, 10);
+		oci_bind_by_name($stid, ':c4', $c4, 200);
+		oci_bind_by_name($stid, ':c5', $c5, 200);
+		// ejecucion del procedimiento 
+		oci_execute($stid);
+
+		//codigo y mensaje
+	    return array($c4,$c5);	
+	}
+
+	public function envioVacaciones($c1,$c2,$c3,$c4){
+		//c1: codigo
+		//c2: cantidad de dias
+		//c3: fecha inicial
+		//c4: fecha final
+		//c5: codigo
+		//c6: mensaje
+		//
+		// TNS DE LA BASE DE DATOS
+		$db = Yii::$app->params['orcl'];		
+		//conexion con la base de datos
+		$conexion = oci_connect('TELEPRU', 'tytcali', $db);
+		//procedimiento a ejecutar
+		$stid = oci_parse($conexion, 'BEGIN TW_PC_ENVIO_VACACIONES(:c1,:c2,:c3,:c4,:c5,:c6); END;');
+
+		oci_bind_by_name($stid, ':c1', $c1, 12);
+		oci_bind_by_name($stid, ':c2', $c2, 10);
+		oci_bind_by_name($stid, ':c3', $c3, 200);
+		oci_bind_by_name($stid, ':c4', $c4, 200);
+		oci_bind_by_name($stid, ':c5', $c5, 200);
+		oci_bind_by_name($stid, ':c6', $c6, 200);
+		// ejecucion del procedimiento 
+		oci_execute($stid);
+
+		//codigo y mensaje
+	    return array($c5,$c6);	
+	}
+
 }

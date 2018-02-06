@@ -120,6 +120,7 @@
 			            		swal.close();
 			            		cambioPestana(4);
 			            		arrToggle = new Array();
+			            		swal("!Solicitud rechazada!","La solicitud ha sido rechazada exitosamente.","success");
 			            	}
 			            },
 			            error: function(result) {
@@ -172,6 +173,7 @@
 		            		swal.close();
 		            		cambioPestana(4);
 		            		arrToggle = new Array();
+		            		swal("!Solicitudes aceptadas!","Las solicitudes han sido aceptadas exitosamente.","success");
 		            	}
 		            },
 		            error: function(result) {
@@ -226,7 +228,7 @@
 		            method: "GET",
 		            data: {'codigoepl':arrParams[1],"consecutivo":arrParams[0],"dias":arrParams[2],"fechaini":fechaIniNew,"fechafin":fechaFinNew},
 		            success: function (data){  
-		            		            	
+
 		            	if(data.localeCompare("true") == 0){
 		            		swal.close();
 		            		//muestra el modal de las tablas
@@ -469,6 +471,9 @@
 				break;
 			case "4":
 				cambioPestana(4,$("#cantidadXP4").val());
+				break;
+			case "5":
+				cambioPestana(5,$("#cantidadXP5").val());
 				break;
 			default:
 				console.log("no esta ingresando");

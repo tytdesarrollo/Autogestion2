@@ -4,7 +4,7 @@
 		if(search == '') {
 			search = " ";
 		}
-
+       
         $.ajax({
             url: pestana1, 
             dataType:'json',                                
@@ -277,7 +277,7 @@
         //filtros
         var search = $("#search4").val();
         if(search == '') {
-            search = " ";
+            search = "";
         }
 
         $.ajax({
@@ -467,7 +467,92 @@
             }
         });
 
-    }  
+    }      
+
+    function historialVacaciones(pagina = 1, filtro = 10){
+        //filtros
+        var search = $("#search5").val();
+        if(search == '') {
+            search = " ";
+        }
+
+
+        $.ajax({
+            url: pestana5, 
+            dataType:'json',                                
+            method: "GET",
+            data: {'cantidad':filtro,'pagina':pagina,'search':search,'column':columnParam, 'cedula':cedula},
+            success: function (data) {  
+                //un arrray contiene en arrays de cada columna devuelta por el json (consulta hecha a base de datos)
+                var arrayDatos = $.map(data, function(value, index) {
+                    return [value];
+                });     
+
+                var datos = arrayDatos[0];
+                var pestanas = arrayDatos[1];
+
+                setGeneralxPage(pestanas);      
+                paginationControl(pestanas,5);
+                
+                var cuerpo = 
+                    '<table class="table">'+
+                        '<thead>'+
+                            '<tr>'+
+                                '<th thcnsctv4" onclick="orderByClick(\'thcnsctv\',\'5\')" width="50">Consecutivo</th>'+
+                                '<th thfecsol4" onclick="orderByClick(\'thfecsol2\',\'5\')">Fecha solicitud</th>'+
+                                '<th thfecini4" onclick="orderByClick(\'thfecini\',\'5\')">Fecha inicio</th>'+
+                                '<th thfecfin4" onclick="orderByClick(\'thfecfin\',\'5\')">Fecha fin</th>'+
+                                '<th thdiahab4" onclick="orderByClick(\'thdiahab\',\'5\')" width="50">Días hábiles</th>'+
+                                '<th thestado4" onclick="orderByClick(\'thestado\',\'5\')">Estado</th>'+
+                            '</tr>'+
+                        '</thead>'+
+                        '<tbody>';
+
+                for (var i=0 ; i<datos.length ; i++) {
+                     cuerpo = cuerpo +
+                        '<tr>'+
+                            '<th scope="row">'+datos[i].CONSECUTIVO+'</th>'+                         
+                            '<td>'+datos[i].FEC_SOLICITUD+'</td>'+
+                            '<td>'+datos[i].FEC_INI+'</td>'+
+                            '<td>'+datos[i].FEC_FIN+'</td>'+
+                            '<td>'+datos[i].DIAS+'</td>';
+
+                    //ESTADO DE LA SOLICITUD
+                    if(datos[i].ESTADO.localeCompare("RECHAZADO") == 0){
+                        cuerpo = cuerpo + 
+                                '<td>'+
+                                    '<div class="label-table" style="background-color: #CB4335; color: #ffffff;">'+
+                                        'Rechazado'+
+                                    '</div>'+
+                                '</td>'+
+                            '<tr>';
+                    }else if(datos[i].ESTADO.localeCompare("APROBADO") == 0){
+                        cuerpo = cuerpo + 
+                                '<td>'+
+                                    '<div class="label-table label-success">'+
+                                        'Aprobado'+
+                                    '</div>'+
+                                '</td>'+
+                            '<tr>';
+                    }else{
+                        cuerpo = cuerpo + 
+                                '<td>'+
+                                    '<div class="label-table" style="background-color: #808B96; color: #ffffff;">'+
+                                        'Pendiente'+
+                                    '</div>'+
+                                '</td>'+
+                            '<tr>';
+                    }
+                }             
+
+                cuerpo = cuerpo +
+                        '</tbody>'+
+                    '</table>';
+                document.getElementById("datosTabla5").innerHTML = cuerpo;
+            }
+        });
+
+    }
 
     function calcularFechaFin(fecha , dias){
         $.ajax({
@@ -485,4 +570,97 @@
             }
         });
 
+    }
+
+    function validarVacaciones(){
+        var fechaSeleccionada = $("#start").val(); 
+        var diasSeleccionados = $("#rango").val();
+
+        $.ajax({
+            url:validaVacacas,
+            dataType:'json',
+            method: "GET",
+            data: {'fecha':formato(fechaSeleccionada),'dias':diasSeleccionados},
+            success: function (data){
+                //               
+                var arrayDatos = $.map(data, function(value, index) {
+                    return [value];
+                });   
+               
+                var fechaFinaliza = arrayDatos[0];
+                var mensajeError = arrayDatos[1];
+                var mensajeFiltro = 'Sus vacaciones inician el '+formato(fechaSeleccionada)+' hasta el '+formato(fechaFinaliza)+', '+diasSeleccionados+' habiles.';
+
+                if(fechaFinaliza.length != 1 && fechaFinaliza.length != 2 && fechaFinaliza.length != 4 && fechaFinaliza.length != 5){
+                    swal({
+                        title: "¿Está seguro de solicitar sus vacaciones?",
+                        text: mensajeFiltro,
+                        type: "info",
+                        showCancelButton: true,     
+                        cancelButtonColor: "#0288D1",
+                        confirmButtonClass: "btn-danger",
+                        cancelmButtonText: "Cancelar",
+                        confirmButtonText: "Si, aceptar",
+                        closeOnConfirm: false       
+                    },
+                    function(isConfirm){
+                        if(isConfirm){
+                            swal({
+                                title: "<div id='divLoader' class='loader center-block'></div>",
+                                text: "<div id='textoLoader'>Enviando solicitud de vacaciones...</div>",           
+                                html:true,
+                                showCancelButton: false,        
+                                showConfirmButton: false,       
+                                cancelButtonColor: "#0288D1",
+                                confirmButtonClass: "btn-danger",
+                                confirmButtonText: "",
+                                closeOnConfirm: false       
+                            });
+
+                            //Ejecuta el procedimiento despues de 3 segundos
+                            var delayInMilliseconds = 3000; //1 second
+
+                            setTimeout(function() {
+                                enviarSolicitudVacaciones(fechaFinaliza);
+                            }, delayInMilliseconds);
+                        }
+                    });
+                }else{
+                    $("#cerrarVacacionesV").click();
+                    swal("",mensajeError,"error");
+                }
+            }
+        });
+    }
+
+    function enviarSolicitudVacaciones(fechafin){
+        var fechaini = $("#start").val(); 
+        var diasvaca = $("#rango").val();
+         $.ajax({
+            url:enviarvacaciones,
+            dataType:'json',
+            method: "GET",
+            data: {'dias':diasvaca,'fechaini':formato(fechaini),'fechafin':formato(fechafin)},
+            success: function (data){
+                var arrayDatos = $.map(data, function(value, index) {
+                    return [value];
+                });  
+
+                var codigoMensaje = arrayDatos[0];
+                var cuerpoMensaje = arrayDatos[1];
+
+                if("1".localeCompare(codigoMensaje) == 0){
+                    $("#cerrarVacacionesV").click();
+                    swal("!Solicitud enviada!","Su solicitud ha sido enviada exitosamente.","success");
+                }else{
+                    $("#cerrarVacacionesV").click();
+                    swal("!Error!",cuerpoMensaje,"error");
+                }
+                
+            },
+            error: function(result) {
+                $("#cerrarVacacionesV").click();
+                swal("¡Error!","Intente de nuevo o comuníquese con el administrador!","error");
+            }
+        });
     }
