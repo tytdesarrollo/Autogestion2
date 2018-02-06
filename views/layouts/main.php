@@ -347,9 +347,10 @@ $session = Yii::$app->session;
     })();
 </script>
 <script>
-	$(function () {
-  
-	// /////
+
+	function madSelectUp(){
+		
+		// /////
 	// MAD-SELECT
 		var madSelectHover = 0;
 		$(".mad-select").each(function() {
@@ -357,6 +358,8 @@ $session = Yii::$app->session;
 				$ul = $(this).find("> ul"),
 				$ulDrop =  $ul.clone().addClass("mad-select-drop");
 
+			//console.log($(this).find("> ul"));
+			
 			$(this)
 			  .append('<i class="material-icons">arrow_drop_down</i>', $ulDrop)
 			  .on({
@@ -384,6 +387,13 @@ $session = Yii::$app->session;
 		$(document).on("mouseup", function(){
 			if(!madSelectHover) $(".mad-select-drop").removeClass("show");
 		});
+		
+	}
+
+	$(function () {
+		
+  //INICIALIZO POR DEFAULT EL MADSELECT SOBREPUESTO
+	madSelectUp();
 		  
 	});
 </script>
@@ -448,7 +458,7 @@ $session = Yii::$app->session;
 	                    return [value];
 	                });  
 
-	            	console.log(arrayDatos);
+	            	//console.log(arrayDatos);
 	            	var events = [];	
 
 	            	for(var i=0 ; i<arrayDatos.length ; i++){
@@ -528,7 +538,7 @@ $session = Yii::$app->session;
 	                    return [value];
 	                });  
 
-	            	console.log(arrayDatos);
+	            	//console.log(arrayDatos);
 	            	var events = [];	
 
 	            	for(var i=0 ; i<arrayDatos.length ; i++){
@@ -583,5 +593,29 @@ $session = Yii::$app->session;
 		}
 		
 	});
+	
+	
+	var $div = $('div[id^="panel"]:last');
+	
+	$("#cloneButton").on("click", function(){
+
+    //var $clonedForm = $firstForm.clone().prop('id', 'panel1' );;
+    var $clonedForm = $firstForm.clone();
+	$clonedForm.children("#buttonRe").append('<button id="removeButton">-</button>');
+    $div.after( $clonedForm ).appendTo('#nvid');	
+	
+    bindRemove($clonedForm);
+	});
+	
+	var $firstForm = $("#panel1");
+	
+	function bindRemove($form){
+    $form.find(".remove").on("click", function(){
+        $form.remove();
+		
+    });
+	}
+
+	bindRemove($firstForm);
 
 </script>
