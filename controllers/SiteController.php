@@ -1015,8 +1015,6 @@ $model = new TwPcPersonalData;
 			
 
     }
-}
-
     public function actionAutorzacionvacap1(){
 
     	$c1 = $_GET['cantidad'];
