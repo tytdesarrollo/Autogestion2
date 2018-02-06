@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -469,7 +469,7 @@ $this->title = 'Trabajo por Turnos';
 					</div>
 					<div class="info-item info-item-rgt" style="min-height: 388px;">
 						<div class="bg-dark-54 text-center pdg__16">
-							<h3 class="no-mrg">Historial Horas Extras</h3>
+							<h3 class="no-mrg">Ultimos 5 Registros de Turnos</h3>
 						</div>
 						<div class="pdg__16">
 							<table class="table">
@@ -487,16 +487,16 @@ $this->title = 'Trabajo por Turnos';
 									<?php
 									if ($HHOUTPUT=="1"){
 										
-									foreach ($HHEXTRAS as $HHEXTRAS_KEY) {
+									foreach ($HHEXTRASTOP as $HHEXTRASTOP_KEY) {
 												
 												echo '
 										<tr>												
-												<td>'.utf8_encode ($HHEXTRAS_KEY['CONSECUTIVO']).'</td>
-												<td>'.utf8_encode ($HHEXTRAS_KEY['FEC_SOLICITUD']).'</td>
-												<td>'.utf8_encode ($HHEXTRAS_KEY['FEC_H_EXTRAS']).'</td>
-												<td>'.utf8_encode ($HHEXTRAS_KEY['HORAS']).'</td>
-												<td>'.utf8_encode ($HHEXTRAS_KEY['CONCEPTO']).'</td>
-												<td>'.utf8_encode ($HHEXTRAS_KEY['ESTADO']).'</td>
+												<td>'.utf8_encode ($HHEXTRASTOP_KEY['CONSECUTIVO']).'</td>
+												<td>'.utf8_encode ($HHEXTRASTOP_KEY['FEC_SOLICITUD']).'</td>
+												<td>'.utf8_encode ($HHEXTRASTOP_KEY['FEC_H_EXTRAS']).'</td>
+												<td>'.utf8_encode ($HHEXTRASTOP_KEY['HORAS']).'</td>
+												<td>'.utf8_encode ($HHEXTRASTOP_KEY['CONCEPTO']).'</td>
+												<td>'.utf8_encode ($HHEXTRASTOP_KEY['ESTADO']).'</td>
 										</tr>
 												';
 												}	
@@ -524,76 +524,45 @@ $this->title = 'Trabajo por Turnos';
 							<div id="calendar" class="col-centered"></div>
 							<!-- Modal -->
 							<div class="modal fade modal-header-gray" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-								<div class="modal-dialog" role="document">
+								<div class="modal-dialog modal-lg" role="document">
 									<div class="modal-content">
 										
-										<?php $form = ActiveForm::begin([
-											'method' => 'POST',
-											'options' => [
-														'class' => ''
-													 ],
-											'action' => ['site/addevent'],
-										]);
-										?>
+										
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											<h3 class="fnt__Medium">Solicitud de horas extras</h3>
+											<h3 class="fnt__Medium">Registro de Horas Extras</h3>
 										</div>
 										<div class="modal-body">
 											<div class="row">
 												<div class="col-sm-10 col-sm-offset-1">
-													<div class="form-group label-floating mrg__top-15">
-														<label for="title" class="control-label">Titulo</label>
-														<input type="text" name="title" class="form-control" id="title">
+												
+													<div id="panelAdd">
+													
+<div id="panel1" class="panel panel-primary"><div class="panel-heading"><input type="text" name="start" class="form-control" id="start" align="right" style="color:#FFFFFF; text-align:right"; disabled></div><div class="panel-body"><div class="row"><div class="col-md-4"><div class="form-group select-m mrg__top-15"><label id="concepto" name="concepto" for="concepto" class="control-label dis-block">Seleccione el Concepto</label><div id="dier1" class="form-group"><select id="s1" class="form-control">
+
+									<?php										
+									foreach ($HCONCEPTOS as $HCONCEPTOS_KEY) {
+												
+												echo '
+										<option value="'.$HCONCEPTOS_KEY['COD_CON'].'">'.utf8_encode ($HCONCEPTOS_KEY['CONCEPTO']).' - '.$HCONCEPTOS_KEY['COD_CON'].'</option>';
+												}									
+											?>	
+
+</select><input type="hidden" id="concepto" name="concepto" value="0" class="form-control"></div></div></div><div class="col-md-4"><div class="form-group mrg__top-15 label-floating"><label for="i2" class="control-label">Cantidad de Horas</label><input type="number" name="hora" id="hora" class="form-control" min="1" max="24" maxlength="4" size="4" required="required"></div></div></div></div><div id="buttonRe" class="remove"></div></div>
+<div id="nvid"></div>
+																		
 													</div>
-													<div class="form-group select-m mrg__top-15">
-														<label for="color" class="control-label dis-block">Color</label>
-														<div class="mad-select">
-															<ul>
-																<li data-value="0">Seleccione...</li>
-																<li style="color:#0071c5;" data-value="1">Azul Oscuro</li>
-																<li style="color:#40E0D0;" data-value="2">Turquesa</li>
-																<li style="color:#008000;" data-value="3">Verde</li>
-																<li style="color:#FFD700;" data-value="4">Amarillo</li>
-																<li style="color:#FF8C00;" data-value="5">Naranja</li>
-																<li style="color:#FF0000;" data-value="6">Rojo</li>
-																<li style="color:#000;" data-value="7">Negro</li>
-															</ul>
-															<input type="hidden" id="color" name="color" value="0" class="form-control">
-														</div>
-													</div>
-													<div class="form-group mrg__top-15">
-														<label for="start" class="control-label">Hora Inicial</label>
-														<input type="text" name="start" class="form-control" id="start" readonly>
-													</div>
-													<div class="form-group mrg__top-15">
-														<label for="end" class="control-label">Hora Final</label>
-														<input type="text" name="end" class="form-control" id="end" readonly>
-													</div>
-													<div class="form-group select-m mrg__top-15">
-														<label for="concepto" class="control-label dis-block">Concepto</label>
-														<div class="mad-select">
-															<ul>
-																<li data-value="0">Seleccione...</li>
-																<li data-value="1">Recargo nocturno ordinario - 1005</li>
-																<li data-value="2">Horas extras diurnas - 1006</li>
-																<li data-value="3">Horas extras nocturnas - 1007</li>
-																<li data-value="4">Horas extras festiva diurna - 1008</li>
-																<li data-value="5">Horas extras festiva nocturna - 1009</li>
-																<li data-value="6">Recargo nocturno dominical/festivo - 1118</li>
-																<li data-value="7">Recargo diurno dominical/festivo - 1119</li>
-															</ul>
-															<input type="hidden" id="concepto" name="concepto" value="0" class="form-control">
-														</div>
-													</div>
+																<button id="cloneButton">+</button>											
 												</div>
 											</div>
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar Solicitud</button>
-											<button type="submit" class="btn btn-primary">Guardar Fecha</button>
+											<button type="submit" class="btn btn-primary">Guardar Registros</button>
 										</div>
-										<?php $form->end() ?>
+								
+								
+								
 									</div>
 								</div>
 							</div>
@@ -685,5 +654,25 @@ $this->title = 'Trabajo por Turnos';
 </div>
 <script>
 //DEFINO UNA BANDERA PARA HEREDAR PROPIEDADES DEL CALENDARIO, 0 ES TURNOS Y 1 ES VACACIONES
-var bandera = "0";
+	var bandera = "0";
+
+//DIV POR CADA REGISTRO VALIDO
+
+function Warn() {
+	
+		$.ajax({
+            cache: false,
+            type: 'POST',
+            url: '<?php echo Url::toRoute(['site/jsoncalendar']); ?>',
+            data: $("#compro-form").serialize(), 
+			 
+			success: function(data){				
+				
+				/*$('#pdfViewer').modal('toggle').html(
+        '<div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><div class="header-box"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title txt__light-100" id="pdfViewerLabel">Comprobante de Pago</h3></div></div><div class="modal-body"><object class="box-pdf" data="<?php echo Url::toRoute(['site/pdf_comprobantespago']);?>" type="application/pdf"></object></div></div></div>'
+		);	*/		
+									}
+        });			
+
+	};
 </script>
