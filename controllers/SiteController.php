@@ -293,20 +293,44 @@ $model = new TwPcPersonalData;
 				  $tablet_browser++;
 				}
 			}
+			////////////////////////////////////////////////LOGICA//////////////////////////////////////////////////
+			//habilitar la opcion de autorizar empleados
+			$autorizaciones = Yii::$app->session['submenus'][1];
+			//modelo 
+			$vacaciones = new TwPcVacaciones();
+			//historial de vacacines del empleado 			
+    		$datos = $vacaciones->Vacaciones();
+    		//variables con los datos del empleado
+    		$vacasHistorial = $datos[0];
+    		$vacasvigentes = $datos[1];    		
+    		$diaspedientes = $datos[4];
+    		//validaciones
+    		if($datos[2] === 0){
+    			$vacasHistorial = $datos[2];
+    		}
+    		if($datos[3] === 0){
+    			$vacasvigentes = $datos[3];
+    		}
+
+    		//paginacion    		
+		   	
+
+			////////////////////////////////////////////////LOGICA//////////////////////////////////////////////////
+
 			if ($tablet_browser > 0) {
 			// Si es tablet has lo que necesites
 
-                return $this->render('mvacaciones');
+                return $this->render('mvacaciones',["autorizaciones"=>$autorizaciones,"vacasvigentes"=>$vacasvigentes,"vacasHistorial"=>$vacasHistorial,"diaspedientes"=>$diaspedientes]);
 
 			}
 			else if ($mobile_browser > 0) {
 			// Si es dispositivo mobil has lo que necesites			
 			  
-                return $this->render('mvacaciones');
+                return $this->render('mvacaciones',["autorizaciones"=>$autorizaciones,"vacasvigentes"=>$vacasvigentes,"vacasHistorial"=>$vacasHistorial,"diaspedientes"=>$diaspedientes]);
 			}
 			else {
 				
-                return $this->render('vacaciones');
+                return $this->render('vacaciones',["autorizaciones"=>$autorizaciones,"vacasvigentes"=>$vacasvigentes,"vacasHistorial"=>$vacasHistorial,"diaspedientes"=>$diaspedientes]);
 			}        
 		
     }
@@ -1082,5 +1106,41 @@ $model = new TwPcPersonalData;
 
     	echo $datos;
 
+    }
+
+    public function actionHistorialvacas(){
+    	$c1 = $_GET['cantidad'];
+    	$c2 = $_GET['pagina'];
+    	$c3 = $_GET['search'];
+    	$c4 = $_GET['column'];
+    	$c5 = $_GET['cedula'];
+
+    	$vacaciones = new TwPcVacaciones();
+    	$datos = $vacaciones->historialEmpleado($c1,$c2,$c3,$c4,$c5);
+
+    	echo json_encode($datos);
+    }
+
+    public function actionValidadvacaciones(){
+    	$c1 = Yii::$app->session['cedula'];
+		$c2 = $_GET['fecha'];
+		$c3 = $_GET['dias'];
+
+		$vacaciones = new TwPcVacaciones();
+    	$datos = $vacaciones->validaVacaciones($c1,$c2,$c3);
+
+		echo json_encode($datos);
+    }
+
+    public function actionEnviarsolicitudvacas(){
+    	$c1 = Yii::$app->session['cedula'];
+		$c2 = $_GET['dias'];
+		$c3 = $_GET['fechaini'];
+		$c4 = $_GET['fechafin'];
+
+		$vacaciones = new TwPcVacaciones();
+    	$datos = $vacaciones->envioVacaciones($c1,$c2,$c3,$c4);		
+		
+		echo json_encode($datos);
     }
 }
