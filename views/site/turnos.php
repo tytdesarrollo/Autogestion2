@@ -513,7 +513,7 @@ $this->title = 'Trabajo por Turnos';
 							</table>
 						</div>
 					</div>
-				</div>
+				</div>				
 				<div class="content-slide">
 					<div class="slide-box-back">
 						<!--<button class="btn btn-toggle no-mrg"><div><i class="material-icons shake animated infinite">&#xE5C8;</i></div></button>-->
@@ -523,6 +523,13 @@ $this->title = 'Trabajo por Turnos';
 							<!-- CALENDARIO -->
 							<div id="calendar" class="col-centered"></div>
 							<!-- Modal -->
+					<?php $form = ActiveForm::begin([
+					"method" => "POST",
+					"id" => "compro-form",
+					"enableClientValidation" => false,
+					"enableAjaxValidation" => true,
+					]); 
+					?>
 							<div class="modal fade modal-header-gray" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								<div class="modal-dialog modal-lg" role="document">
 									<div class="modal-content">
@@ -548,7 +555,7 @@ $this->title = 'Trabajo por Turnos';
 												}									
 											?>	
 
-</select><input type="hidden" id="concepto" name="concepto" value="0" class="form-control"></div></div></div><div class="col-md-4"><div class="form-group mrg__top-15 label-floating"><label for="i2" class="control-label">Cantidad de Horas</label><input type="number" name="hora" id="hora" class="form-control" min="1" max="24" maxlength="4" size="4" required="required"></div></div></div></div><div id="buttonRe" class="remove"></div></div>
+</select><input type="hidden" id="concepto" name="concepto" value="0" class="form-control"></div></div></div><div class="col-md-4"><div class="form-group mrg__top-15 label-floating"><label for="i2" class="control-label">Cantidad de Horas</label><input type="number" name="hora" id="hora" class="form-control" min="1" max="24" maxlength="4" size="4" onclick="validaturn()" required="required"></div></div></div></div><div id="buttonRe" class="remove"></div></div>
 <div id="nvid"></div>
 																		
 													</div>
@@ -566,6 +573,7 @@ $this->title = 'Trabajo por Turnos';
 									</div>
 								</div>
 							</div>
+							<?php ActiveForm::end(); ?>
 							<!-- Modal -->
 							<div class="modal fade modal-header-gray" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								<div class="modal-dialog" role="document">
@@ -658,19 +666,18 @@ $this->title = 'Trabajo por Turnos';
 
 //DIV POR CADA REGISTRO VALIDO
 
-function Warn() {
+function validaturn() {
 	
 		$.ajax({
             cache: false,
-            type: 'POST',
+            type: 'GET',
             url: '<?php echo Url::toRoute(['site/jsoncalendar']); ?>',
+			dataType: 'json',
             data: $("#compro-form").serialize(), 
 			 
 			success: function(data){				
 				
-				/*$('#pdfViewer').modal('toggle').html(
-        '<div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><div class="header-box"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title txt__light-100" id="pdfViewerLabel">Comprobante de Pago</h3></div></div><div class="modal-body"><object class="box-pdf" data="<?php echo Url::toRoute(['site/pdf_comprobantespago']);?>" type="application/pdf"></object></div></div></div>'
-		);	*/		
+				console.log(data);
 									}
         });			
 

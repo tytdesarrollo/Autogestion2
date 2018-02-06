@@ -1006,13 +1006,21 @@ $model = new TwPcPersonalData;
 		}
 		
 		//VALIDACIONES DE TURNOS
+		
+		//$he1 = $_GET['horaext'];
+			$he1 = '8';
+			//$he2 = $_GET['fechaext'];
+			$he2 = '06-02-2018';
+			//$he3 = $_GET['coneptext'];
+			$he3 = '1005';
+			
 			$model = new TwPcHorasExtras;
-
-			$twpchorasextras = $model->HorasExtrasVal();
 			
-			$HMSSG = $twpchorasextras[1];	
-			$HOUTPT = $twpchorasextras[2];	
+			$twpchorasextras = $model->HorasExtrasRec($he1,$he2,$he3);
 			
+			$HMSSG = $twpchorasextras[0];	
+			
+			echo json_encode($HMSSG);
 
     }
     public function actionAutorzacionvacap1(){
