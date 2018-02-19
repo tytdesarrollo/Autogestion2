@@ -523,13 +523,7 @@ $this->title = 'Trabajo por Turnos';
 							<!-- CALENDARIO -->
 							<div id="calendar" class="col-centered"></div>
 							<!-- Modal -->
-					<?php $form = ActiveForm::begin([
-					"method" => "POST",
-					"id" => "compro-form",
-					"enableClientValidation" => false,
-					"enableAjaxValidation" => true,
-					]); 
-					?>
+					
 							<div class="modal fade modal-header-gray" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								<div class="modal-dialog modal-lg" role="document">
 									<div class="modal-content">
@@ -545,27 +539,46 @@ $this->title = 'Trabajo por Turnos';
 												
 													<div id="panelAdd">
 													
-<div id="panel1" class="panel panel-primary"><div class="panel-heading"><input type="text" name="start" class="form-control" id="start" align="right" style="color:#FFFFFF; text-align:right"; disabled></div><div class="panel-body"><div class="row"><div class="col-md-4"><div class="form-group select-m mrg__top-15"><label id="concepto" name="concepto" for="concepto" class="control-label dis-block">Seleccione el Concepto</label><div id="dier1" class="form-group"><select id="s1" class="form-control">
-
-									<?php										
-									foreach ($HCONCEPTOS as $HCONCEPTOS_KEY) {
-												
-												echo '
-										<option value="'.$HCONCEPTOS_KEY['COD_CON'].'">'.utf8_encode ($HCONCEPTOS_KEY['CONCEPTO']).' - '.$HCONCEPTOS_KEY['COD_CON'].'</option>';
-												}									
-											?>	
-
-</select><input type="hidden" id="concepto" name="concepto" value="0" class="form-control"></div></div></div><div class="col-md-4"><div class="form-group mrg__top-15 label-floating"><label for="i2" class="control-label">Cantidad de Horas</label><input type="number" name="hora" id="hora" class="form-control" min="1" max="24" maxlength="4" size="4" onclick="validaturn()" required="required"></div></div></div></div><div id="buttonRe" class="remove"></div></div>
+<div id="panel1" class="panel panel-primary">
+	<div class="panel-heading"><input type="text" name="start" class="form-control" id="start" align="right" style="color:#FFFFFF; text-align:right"; disabled>
+	</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group select-m mrg__top-15"><label id="concepto" name="concepto" for="concepto" class="control-label dis-block">Seleccione el Concepto</label>
+						<div class="mad-select" id="s2" name="s2">
+							<ul id="concpt">
+								
+							</ul><input type="hidden" id="s1" name="s1" value="0" class="form-control">
+						</div>
+					</div>
+				</div>
+			<div class="col-md-4">
+				<div class="form-group mrg__top-15 label-floating">
+				<label for="i2" class="control-label">Cantidad de Horas</label>
+					<div class="numv">
+					<input type="number" name="hora" id="h" class="form-control" min="1" max="24" maxlength="4" size="4" value="1"  required="required">
+					</div>
+					<span class="help-block">Ingrese un numero entre 1 a 24</span>
+				</div>
+			</div>
+			</div>
+		</div>
+		<div id="buttonRe"></div>
+		<div class="form-group has-warning" id="warningLab">
+		<label class="control-label">*Formato incorrecto, elimine o edite correctamente para poder continuar.</label>
+		</div>
+</div>
 <div id="nvid"></div>
 																		
 													</div>
-																<button id="cloneButton">+</button>											
+																<button id="cloneButton" class="btn btn-primary" OnClick="capturedat()">Adicionar</button>											
 												</div>
 											</div>
 										</div>
 										<div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar Solicitud</button>
-											<button type="submit" class="btn btn-primary">Guardar Registros</button>
+											<button type="button" id="cancelarButton" class="btn btn-default" data-dismiss="modal">Cancelar Solicitud</button>
+											<button type="submit" OnClick="validaturn()" class="btn btn-primary">Guardar Registros</button>
 										</div>
 								
 								
@@ -573,7 +586,7 @@ $this->title = 'Trabajo por Turnos';
 									</div>
 								</div>
 							</div>
-							<?php ActiveForm::end(); ?>
+							
 							<!-- Modal -->
 							<div class="modal fade modal-header-gray" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								<div class="modal-dialog" role="document">
@@ -660,26 +673,107 @@ $this->title = 'Trabajo por Turnos';
 		</div>
 	</div>
 </div>
-<script>
+<script type="text/javascript">
+
 //DEFINO UNA BANDERA PARA HEREDAR PROPIEDADES DEL CALENDARIO, 0 ES TURNOS Y 1 ES VACACIONES
 	var bandera = "0";
-
-//DIV POR CADA REGISTRO VALIDO
-
-function validaturn() {
 	
-		$.ajax({
+	//CONSTRUYO EL SELECT
+	
+	var ARRCONC_KEY=<?= json_encode($ARRCON_KEY);?>;
+	var ARRCOD_KEY=<?= json_encode($ARRCOD_KEY);?>;
+	
+	//console.log(ARRCOD_KEY);
+	
+	var li = [];
+						
+						for(var i=0;i<ARRCOD_KEY.length;i++){
+
+							
+							if(i==0){
+								li=li+'<li class="selected" data-value="'+ARRCOD_KEY[i]+'">'+ARRCONC_KEY[i]+'</li>';
+								document.getElementById("s1").value=ARRCOD_KEY[i];
+							}else{
+							
+						li=li+'<li data-value="'+ARRCOD_KEY[i]+'">'+ARRCONC_KEY[i]+'</li>';
+							}
+						}
+
+						
+						document.getElementById("concpt").innerHTML = li;
+						document.getElementsByClassName("mad-select-drop").innerHTML = li;
+	
+	//CAPTURO LOS VALORES DEL FORMULARIO
+
+	function capturedat(){
+		
+		var numArr = [];
+		var conArr = [];
+		var fecArr = [];
+				
+		var num = document.querySelectorAll('input[name="hora"]');		
+		var con = document.querySelectorAll('input[name$="s1"]');		
+		var fec = document.querySelectorAll('input[name="start"]');		
+		
+		for(var i=0 ; i<num.length ; i++){
+			
+			numArr.push(num[i].value);
+			conArr.push(con[i].value);
+			fecArr.push(fec[i].value);
+		}
+
+		conStr=conArr.toString();
+		numStr=numArr.toString();
+		fecStr=fecArr.toString();
+		
+		/*console.log(conStr);
+		console.log(numStr);
+		console.log(fecStr);*/
+		
+		var parametros = {
+			"conStr":conStr,
+			"numStr":numStr,
+			"fecStr":fecStr
+		}
+	console.log(parametros);
+	
+	
+	$.ajax({
             cache: false,
-            type: 'GET',
-            url: '<?php echo Url::toRoute(['site/jsoncalendar']); ?>',
+            type: 'POST',
+            url: '<?= Url::toRoute(['site/jsoncalendar']); ?>',
+			data: parametros,
 			dataType: 'json',
-            data: $("#compro-form").serialize(), 
 			 
 			success: function(data){				
 				
-				console.log(data);
+				var valida = data;
+				console.log(valida);
+									}
+        });	
+	
+	}
+
+		/*//DIV POR CADA REGISTRO VALIDO
+
+		function validaturn() {
+			
+			console.log(parametros);
+	
+		$.ajax({
+            cache: false,
+            type: 'POST',
+            url: '<?= Url::toRoute(['site/jsoncalendar']); ?>',
+			data: fecStr,
+			dataType: 'json',
+			 
+			success: function(data){				
+				
+				var valida = data;
+				console.log(valida);
 									}
         });			
 
-	};
+	};*/
+
 </script>
