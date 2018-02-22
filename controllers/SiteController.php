@@ -26,7 +26,7 @@ use app\models\TwPcCronoCierreNomina;
 use app\models\TwPcEquipoNomina;
 use app\models\TwPcHorasExtrasHistorial;
 use app\models\TwPcVacaciones;
-use app\models\TwPcHorasExtras;
+use app\models\TwPcInsertHorasExtras;
 
 
 class SiteController extends Controller
@@ -660,13 +660,19 @@ $model = new TwPcPersonalData;
 			$HHOUTPUT = $twpchorasextrashistorial[3];			
 						
 			//Conceptos de horas extras
-			$model = new TwPcHorasExtras;
+			$model = new TwPcInsertHorasExtras;
 
 			$twpchorasextras = $model->HorasExtrasVal();
 			
 			$HCONCEPTOS = $twpchorasextras[0];			
+
+			foreach ($HCONCEPTOS as $HCONCEPTOS_KEY) {												
+										
+										$ARRCON_KEY[] = $HCONCEPTOS_KEY['CONCEPTO'];
+										$ARRCOD_KEY[] = $HCONCEPTOS_KEY['COD_CON'];
+												}									
 				
-                return $this->render('turnos',['HHEXTRAS' => $HHEXTRAS,'HHEXTRASTOP' => $HHEXTRASTOP, 'HHOUTPUT' => $HHOUTPUT, 'HHMESSAGE' => $HHMESSAGE, 'HCONCEPTOS' => $HCONCEPTOS]);
+                return $this->render('turnos',['HHEXTRAS' => $HHEXTRAS,'HHEXTRASTOP' => $HHEXTRASTOP, 'HHOUTPUT' => $HHOUTPUT, 'HHMESSAGE' => $HHMESSAGE, 'HCONCEPTOS' => $HCONCEPTOS, 'ARRCON_KEY' => $ARRCON_KEY, 'ARRCOD_KEY' => $ARRCOD_KEY]);
 			}        
 		
     }
@@ -989,8 +995,29 @@ $model = new TwPcPersonalData;
 		$twpchorasextrashistorial = $model->HorasExtras();
 		
 		$HHEXTRAS = $twpchorasextrashistorial[0];		
+		
+		//VALIDACIONES DE TURNOS
+		
+			@$he1 = $_POST['numStr'];
+			//$he1 = '1,2';
+			@$he2 = $_POST['fecStr'];
+			//$he2 = '19-02-2018,19-02-2018';
+			@$he3 = $_POST['conStr'];
+			//$he3 = '1005,1008';
+			@$he4 = $_POST['idStr'];
+			
+			$model = new TwPcInsertHorasExtras;
+			
+			$twpchorasextras = $model->HorasExtrasRec($he1,$he2,$he3,$he4);
+			
+			$HMSSG = $twpchorasextras[0];
+			$HOUTP = $twpchorasextras[1];
+			
+			//echo json_encode($HMSSG);
 				
-    	echo json_encode($HHEXTRAS);
+				$ARRHHEXTRAS= ["HHEXTRAS"=>$HHEXTRAS,"HMSSG"=>$HMSSG,"HOUTP"=>$HOUTP];
+				
+    	echo json_encode($ARRHHEXTRAS);
 		
 		}else if(Yii::$app->request->get('bandera')=='1'){
 		
@@ -1004,23 +1031,6 @@ $model = new TwPcPersonalData;
 		echo json_encode($HVACACIONES);
 		
 		}
-		
-		//VALIDACIONES DE TURNOS
-		
-		//$he1 = $_GET['horaext'];
-			$he1 = '8';
-			//$he2 = $_GET['fechaext'];
-			$he2 = '06-02-2018';
-			//$he3 = $_GET['coneptext'];
-			$he3 = '1005';
-			
-			$model = new TwPcHorasExtras;
-			
-			$twpchorasextras = $model->HorasExtrasRec($he1,$he2,$he3);
-			
-			$HMSSG = $twpchorasextras[0];	
-			
-			echo json_encode($HMSSG);
 
     }
     public function actionAutorzacionvacap1(){

@@ -7,7 +7,7 @@ use yii\db\Command;
 use PDO;
 use yii\base\Model;
 
-class TwPcHorasExtras extends Model{
+class TwPcInsertHorasExtras extends Model{
 
 	public function HorasExtrasVal(){
 		$db = Yii::$app->params['orcl'];		
@@ -19,9 +19,9 @@ class TwPcHorasExtras extends Model{
 		//Entrada
 		$CODIGO_EPL = Yii::$app->session['cedula'];
 		
-		$IN_HORAS = '5';
-		$IN_FECHA = '06-02-2018';
-		$IN_CONCEPTO = '1005';
+		$IN_HORAS = '';
+		$IN_FECHA = '';
+		$IN_CONCEPTO = '';
 		
 		//Salida
 		
@@ -36,7 +36,7 @@ class TwPcHorasExtras extends Model{
 		$OUTPUT;		
 
 		//LLAMA AL PROCEDIMIENTO					
-		$stid = oci_parse($CONEXION, 'BEGIN TW_PC_HORAS_EXTRAS(:IN_CODIGO_EPL,:IN_HORAS,:IN_FECHA,:IN_CONCEPTO,:BLOQUE1,:OUTPUT,:MESSAGE);END;');
+		$stid = oci_parse($CONEXION, 'BEGIN TW_PC_INSERT_HORAS_EXTRAS(:IN_CODIGO_EPL,:IN_HORAS,:IN_FECHA,:IN_CONCEPTO,:IN_INSERT,:BLOQUE1,:OUTPUT,:MESSAGE);END;');
 		//SE DECLARAN LOS CURSOR 
 		$BLOQUE1 = oci_new_cursor($CONEXION);	
 		//SE PASAN COMO PARAMETRO LOS CURSOR 
@@ -45,6 +45,7 @@ class TwPcHorasExtras extends Model{
 		oci_bind_by_name($stid, ':IN_HORAS',  $he1,200);
 		oci_bind_by_name($stid, ':IN_FECHA', $he2,200);
 		oci_bind_by_name($stid, ':IN_CONCEPTO', $he3,200);
+		oci_bind_by_name($stid, ':IN_INSERT', $he4,200);
 		oci_bind_by_name($stid, ':BLOQUE1', $BLOQUE1, -1, OCI_B_CURSOR);
 		oci_bind_by_name($stid, ':OUTPUT', $OUTPUT,200);		
 		oci_bind_by_name($stid, ':MESSAGE', $MESSAGE,200);
@@ -62,7 +63,7 @@ class TwPcHorasExtras extends Model{
 		return array ($cursor1);
 	}
 	
-	public function HorasExtrasRec($he1,$he2,$he3){
+	public function HorasExtrasRec($he1,$he2,$he3,$he4){
 		
 		$db = Yii::$app->params['orcl'];		
 		$usr = Yii::$app->params['usr'];		
@@ -83,7 +84,7 @@ class TwPcHorasExtras extends Model{
 		$OUTPUT;		
 
 		//LLAMA AL PROCEDIMIENTO					
-		$stid = oci_parse($CONEXION, 'BEGIN TW_PC_HORAS_EXTRAS(:IN_CODIGO_EPL,:IN_HORAS,:IN_FECHA,:IN_CONCEPTO,:BLOQUE1,:OUTPUT,:MESSAGE);END;');
+		$stid = oci_parse($CONEXION, 'BEGIN TW_PC_INSERT_HORAS_EXTRAS(:IN_CODIGO_EPL,:IN_HORAS,:IN_FECHA,:IN_CONCEPTO,:IN_INSERT,:BLOQUE1,:OUTPUT,:MESSAGE);END;');
 		//SE DECLARAN LOS CURSOR 
 		$BLOQUE1 = oci_new_cursor($CONEXION);	
 		//SE PASAN COMO PARAMETRO LOS CURSOR 
@@ -92,6 +93,7 @@ class TwPcHorasExtras extends Model{
 		oci_bind_by_name($stid, ':IN_HORAS',  $he1,200);
 		oci_bind_by_name($stid, ':IN_FECHA', $he2,200);
 		oci_bind_by_name($stid, ':IN_CONCEPTO', $he3,200);
+		oci_bind_by_name($stid, ':IN_INSERT', $he4,200);
 		oci_bind_by_name($stid, ':BLOQUE1', $BLOQUE1, -1, OCI_B_CURSOR);
 		oci_bind_by_name($stid, ':OUTPUT', $OUTPUT,200);		
 		oci_bind_by_name($stid, ':MESSAGE', $MESSAGE,200);
@@ -100,6 +102,6 @@ class TwPcHorasExtras extends Model{
 	    oci_execute($stid);
 
 	    //SE RETORNA LAS VARIABLES QUE CONTIENE LA INFROMACION DE LOS CURSORES
-		return array ($MESSAGE);
+		return array ($MESSAGE,$OUTPUT);
 	}
 }

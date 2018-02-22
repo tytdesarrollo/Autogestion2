@@ -399,7 +399,7 @@ $session = Yii::$app->session;
 </script>
 <script>
 	$(document).ready(function() {
-		
+
 		if(bandera==1){
 		
 		//PROPIEDADES PARA VACACIONES
@@ -500,7 +500,7 @@ $session = Yii::$app->session;
 			selectOverlap: true,
 			select: function(start, end) {
 				
-				$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD'));
+				$('#ModalAdd #start').val(moment(start).format('DD-MM-YYYY'));
 				//$('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
 				$('#ModalAdd').modal('show');
 				
@@ -534,7 +534,9 @@ $session = Yii::$app->session;
 	            url:'<?php echo Url::toRoute(['site/jsoncalendar', 'bandera' => '0']);?>', 
 	            dataType:'json',
 	            success: function (data) {  
-	            	var arrayDatos = $.map(data, function(value, index) {
+				var dathor=data['HHEXTRAS'];
+				//console.log(dathor);
+	            	var arrayDatos = $.map(dathor, function(value, index) {
 	                    return [value];
 	                });  
 
@@ -544,11 +546,11 @@ $session = Yii::$app->session;
 	            	for(var i=0 ; i<arrayDatos.length ; i++){
 	            		 events.push({
 
-		                 	id: data[i]['CONSECUTIVO'],
-	                        title: "ID ".concat(data[i]['CONSECUTIVO']),
-	                        start: data[i]['FEC_H_EXTRAS'],                        
-	                        end: data[i]['FEC_H_EXTRAS'],
-	                        color: data[i]['COLOR']
+		                 	id: dathor[i]['CONSECUTIVO'],
+	                        title: "ID ".concat(dathor[i]['CONSECUTIVO']),
+	                        start: dathor[i]['FEC_H_EXTRAS'],                        
+	                        end: dathor[i]['FEC_H_EXTRAS'],
+	                        color: dathor[i]['COLOR']
 	                    }); 
 	            	}  	            	          	
 	               
@@ -594,28 +596,128 @@ $session = Yii::$app->session;
 		
 	});
 	
+	//CLONAMOS EL DIV PRINCIPAL DE TURNOS PARA ELIMINAR LO DUPLICADO EN CASO DE CANCELAR LA SOLICITUD
+	var divClone = $("#panelAdd").html();	
 	
-	var $div = $('div[id^="panel"]:last');
+	$("#cancelarButton").on("click", function(){
+		
+		var nuevoEsquema = divClone;
+		idsAlerts = new Array("alertaError");
+		
+		$("#panelAdd").html(nuevoEsquema);
+		$firstForm = $("#panel1")
+		madSelectUp2("#s2");
+	});
 	
+	var idsAlerts = new Array("alertaError");
+	
+	//FUNCION PARA CLONAR LAS SOLICITUDES DE TURNOS
 	$("#cloneButton").on("click", function(){
+		
+		//var $clonedForm = $firstForm.clone().prop('id', 'panel1' );;
+		var $clonedForm = $firstForm.clone();
+		$clonedForm.children("#buttonRe").append('<button id="removeButton" class="btn btn-default">Quitar</button>');	
+		
+		// CAMBIO DE ID DEL DIV PRINCIPAL
+		var $div = $('div[id^="panel"]:last');
+		
+		$($div).each(function(i) {
+		$div.attr('id', $div.attr('id') + i);
+		});
+		
+		//	CAMBIO DE PROPIEDADES PARA INPUT DE DIAS
+		var $input = $('input[id^="h"]:last');
+		 
+		$($input).each(function(i) {
+		$input.attr('id', $input.attr('id') + i);
+		});
+		
+		//	CAMBIO DE PROPIEDADES PARA SELECT CONCEPTOS
+		var $select = $('div[id^="s2"]:last');
+		 
+		 
+		var nuevoId = "#"+$select.attr('id');
+		
+		$($select).each(function(i) {
+		$select.attr('id', $select.attr('id')+1);
+		});
 
-    //var $clonedForm = $firstForm.clone().prop('id', 'panel1' );;
-    var $clonedForm = $firstForm.clone();
-	$clonedForm.children("#buttonRe").append('<button id="removeButton">-</button>');
-    $div.after( $clonedForm ).appendTo('#nvid');	
-	
-    bindRemove($clonedForm);
+		//CLONO
+		$div.after( $clonedForm ).appendTo('#nvid');	
+		
+		bindRemove($clonedForm);
+		
+		madSelectUp2(nuevoId);
+		
+		var nuevoIdMensaje = idsAlerts[idsAlerts.length-1]+""+1;
+		
+		$("#alertaError").attr("id",nuevoIdMensaje);
+		
+		idsAlerts.push(nuevoIdMensaje);
 	});
 	
 	var $firstForm = $("#panel1");
 	
+	
 	function bindRemove($form){
-    $form.find(".remove").on("click", function(){
+    $form.find("#removeButton").on("click", function(){
         $form.remove();
 		
     });
 	}
 
 	bindRemove($firstForm);
+	
+	//////////////////////LA FUNCION DE MADSELECT SE DUPLICA PARA TENER NUEVAS PROPIEDADES DE CLONADO
 
+	function madSelectUp2(id){
+		
+		// /////
+	// MAD-SELECT
+		var madSelectHover = 0;
+		$(id).each(function() {			
+			
+			var ulCopy = $(this).find("> ul");	
+			var inputCopy = $(this).find("input");
+			
+			if($(this).find("> ul").hasClass("mad-select-drop")){	
+				$(this).find("> ul").remove();
+			}
+					
+			$(this).html(ulCopy[0]);						
+			$(this).find("#concpt").after(inputCopy);			
+			
+				
+			var $input = $(this).find("input"),
+				$ul = $(this).find("> ul"),
+				$ulDrop =  $ul.clone().addClass("mad-select-drop");
+			
+			$(this)
+			  .append('<i class="material-icons">arrow_drop_down</i>', $ulDrop)
+			  .on({
+			  hover : function() { madSelectHover ^= 1; },
+			  click : function() { $ulDrop.toggleClass("show");}
+			});
+
+			// PRESELECT
+			//$ul.add($ulDrop).find("li[data-value='"+ $input.val() +"']").addClass("selected");
+
+			// MAKE SELECTED
+			$ulDrop.on("click", "li", function(evt) {
+			  evt.stopPropagation();
+			  $input.val($(this).data("value")); // Update hidden input value
+			  $ul.find("li").eq($(this).index()).add(this).addClass("selected")
+				.siblings("li").removeClass("selected");
+			});
+			// UPDATE LIST SCROLL POSITION
+			$ul.on("click", function() {
+			  var liTop = $ulDrop.find("li.selected").position().top;
+			  $ulDrop.scrollTop(liTop + $ulDrop[0].scrollTop);
+			});
+		});
+
+		$(document).on("mouseup", function(){
+			if(!madSelectHover) $(".mad-select-drop").removeClass("show");
+		});		
+	}
 </script>

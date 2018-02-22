@@ -397,6 +397,7 @@ $this->title = 'Trabajo por Turnos';
 					</div>
 				</div>
 			</div>
+			<?php if(Yii::$app->request->get('refresh')!='1'){ ?>
 			<div class="modal fade modal-help" id="help" tabindex="-1" role="dialog" aria-labelledby="helpLabel">
 				<div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content">
@@ -426,6 +427,7 @@ $this->title = 'Trabajo por Turnos';
 					</div>
 				</div>
 			</div>
+			<?php };?>
 		</div>
 		<div class="cont-float-vac">
 			<button type="button" class="btn btn-raised btn-info" data-toggle="modal" data-target="#modtabs">
@@ -523,13 +525,7 @@ $this->title = 'Trabajo por Turnos';
 							<!-- CALENDARIO -->
 							<div id="calendar" class="col-centered"></div>
 							<!-- Modal -->
-					<?php $form = ActiveForm::begin([
-					"method" => "POST",
-					"id" => "compro-form",
-					"enableClientValidation" => false,
-					"enableAjaxValidation" => true,
-					]); 
-					?>
+					
 							<div class="modal fade modal-header-gray" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								<div class="modal-dialog modal-lg" role="document">
 									<div class="modal-content">
@@ -545,27 +541,46 @@ $this->title = 'Trabajo por Turnos';
 												
 													<div id="panelAdd">
 													
-<div id="panel1" class="panel panel-primary"><div class="panel-heading"><input type="text" name="start" class="form-control" id="start" align="right" style="color:#FFFFFF; text-align:right"; disabled></div><div class="panel-body"><div class="row"><div class="col-md-4"><div class="form-group select-m mrg__top-15"><label id="concepto" name="concepto" for="concepto" class="control-label dis-block">Seleccione el Concepto</label><div id="dier1" class="form-group"><select id="s1" class="form-control">
-
-									<?php										
-									foreach ($HCONCEPTOS as $HCONCEPTOS_KEY) {
-												
-												echo '
-										<option value="'.$HCONCEPTOS_KEY['COD_CON'].'">'.utf8_encode ($HCONCEPTOS_KEY['CONCEPTO']).' - '.$HCONCEPTOS_KEY['COD_CON'].'</option>';
-												}									
-											?>	
-
-</select><input type="hidden" id="concepto" name="concepto" value="0" class="form-control"></div></div></div><div class="col-md-4"><div class="form-group mrg__top-15 label-floating"><label for="i2" class="control-label">Cantidad de Horas</label><input type="number" name="hora" id="hora" class="form-control" min="1" max="24" maxlength="4" size="4" onclick="validaturn()" required="required"></div></div></div></div><div id="buttonRe" class="remove"></div></div>
+<div id="panel1" class="panel panel-primary">
+	<div class="panel-heading"><input type="text" name="start" class="form-control" id="start" align="right" style="color:#FFFFFF; text-align:right"; disabled>
+	</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group select-m mrg__top-15"><label id="concepto" name="concepto" for="concepto" class="control-label dis-block">Seleccione el Concepto</label>
+						<div class="mad-select" id="s2" name="s2">
+							<ul id="concpt">
+								
+							</ul><input type="hidden" id="s1" name="s1" value="0" class="form-control">
+						</div>
+					</div>
+				</div>
+			<div class="col-md-4">
+				<div class="form-group mrg__top-15 label-floating">
+				<label for="i2" class="control-label">Cantidad de Horas</label>
+					<div class="numv">
+					<input type="number" name="hora" id="h" class="form-control" min="1" max="24" maxlength="4" size="4" value="1"  required="required">
+					</div>
+					<span class="help-block">Ingrese un numero entre 1 a 24</span>
+				</div>
+			</div>
+			</div>
+		</div>
+		<div id="buttonRe"></div>
+		<div class="form-group has-warning" id="warningLab">
+		<label id="alertaError" class="control-label"></label>
+		</div>
+</div>
 <div id="nvid"></div>
 																		
 													</div>
-																<button id="cloneButton">+</button>											
+																<button id="cloneButton" class="btn btn-primary" OnClick="capturedat(this.id)">Adicionar</button>											
 												</div>
 											</div>
 										</div>
 										<div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar Solicitud</button>
-											<button type="submit" class="btn btn-primary">Guardar Registros</button>
+											<button type="button" id="cancelarButton" class="btn btn-default" data-dismiss="modal">Cancelar Solicitud</button>
+											<button id="saveButton" type="submit" OnClick="capturedat(this.id)" class="btn btn-primary">Guardar Registros</button>
 										</div>
 								
 								
@@ -573,7 +588,7 @@ $this->title = 'Trabajo por Turnos';
 									</div>
 								</div>
 							</div>
-							<?php ActiveForm::end(); ?>
+							
 							<!-- Modal -->
 							<div class="modal fade modal-header-gray" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								<div class="modal-dialog" role="document">
@@ -660,26 +675,160 @@ $this->title = 'Trabajo por Turnos';
 		</div>
 	</div>
 </div>
-<script>
+<script type="text/javascript">
+
 //DEFINO UNA BANDERA PARA HEREDAR PROPIEDADES DEL CALENDARIO, 0 ES TURNOS Y 1 ES VACACIONES
 	var bandera = "0";
-
-//DIV POR CADA REGISTRO VALIDO
-
-function validaturn() {
 	
-		$.ajax({
+	//CONSTRUYO EL SELECT
+	
+	var ARRCONC_KEY=<?= json_encode($ARRCON_KEY);?>;
+	var ARRCOD_KEY=<?= json_encode($ARRCOD_KEY);?>;
+	
+	//console.log(ARRCOD_KEY);
+	
+	var li = [];
+						
+						for(var i=0;i<ARRCOD_KEY.length;i++){
+
+							
+							if(i==0){
+								li=li+'<li class="selected" data-value="'+ARRCOD_KEY[i]+'">'+ARRCONC_KEY[i]+'</li>';
+								document.getElementById("s1").value=ARRCOD_KEY[i];
+							}else{
+							
+						li=li+'<li data-value="'+ARRCOD_KEY[i]+'">'+ARRCONC_KEY[i]+'</li>';
+							}
+						}
+
+						
+						document.getElementById("concpt").innerHTML = li;
+						document.getElementsByClassName("mad-select-drop").innerHTML = li;
+	
+	//CAPTURO LOS VALORES DEL FORMULARIO
+
+	function capturedat(id, cancel = false){
+		
+		var numArr = [];
+		var conArr = [];
+		var fecArr = [];
+				
+		var num = document.querySelectorAll('input[name="hora"]');		
+		var con = document.querySelectorAll('input[name$="s1"]');		
+		var fec = document.querySelectorAll('input[name="start"]');		
+		
+		for(var i=0 ; i<num.length ; i++){
+			
+			numArr.push(num[i].value);
+			conArr.push(con[i].value);
+			fecArr.push(fec[i].value);
+		}
+
+		conStr=conArr.toString();
+		numStr=numArr.toString();
+		fecStr=fecArr.toString();
+		
+		/*console.log(conStr);
+		console.log(numStr);
+		console.log(fecStr);*/
+		
+		//console.log(id);
+		switch (id){
+			case "saveButton":
+				id=1;
+			break;
+			case "cloneButton":
+				id=0;
+			break;
+		}
+		
+		var parametros = {
+			"conStr":conStr,
+			"numStr":numStr,
+			"fecStr":fecStr,
+			"idStr":id
+		}
+	//console.log(parametros);
+	
+	
+	$.ajax({
             cache: false,
-            type: 'GET',
-            url: '<?php echo Url::toRoute(['site/jsoncalendar']); ?>',
+            type: 'POST',
+            url: '<?= Url::toRoute(['site/jsoncalendar', 'bandera' => '0']); ?>',
+			data: parametros,
 			dataType: 'json',
-            data: $("#compro-form").serialize(), 
 			 
 			success: function(data){				
 				
-				console.log(data);
-									}
-        });			
+				var valida = data['HMSSG'];
+				var houpt = data['HOUTP'];
+				var mensajesArr = valida.split(",");
+				
+				//console.log(mensajesArr);
+				//console.log(idsAlerts);
+				
+				if(houpt==0){
+					for(var i=0 ; i<mensajesArr.length ; i++){
+						
+						var idAlert = idsAlerts[i+1];							
+						
+						
+						switch (id){
+							case 1:
+								if((i+1)== mensajesArr.length){
+									idAlert = idsAlerts[0]
+								}
+								
+								//console.log("idAlert "+idAlert);
+								break;						
+						}
 
-	};
+						if(cancel){
+							idAlert = idsAlerts[i];
+						}						
+						
+						var mensaje = mensajesArr[i];
+						
+						//console.log(idAlert+" - "+mensaje);
+						
+						document.getElementById(idAlert).innerHTML = mensaje;
+					}
+				
+				}else if(houpt==1){
+					
+				swal({
+				  title: "Importante!",
+				  text: valida,
+				  type: "warning",
+				  showCancelButton: true,
+				  confirmButtonColor: "#DD6B55",
+				  confirmButtonText: "Confirmar solicitud",
+				  cancelButtonText: "Cancelar solicitud",
+				  closeOnConfirm: false,
+				  closeOnCancel: false
+				},
+				function(isConfirm){
+				  if (isConfirm) {
+					  
+					  id=2;
+					  capturedat(id);
+						swal("Enviado!", "Tu solicitud de horas extras fueron registradas con éxito.", "success");
+						$('.confirm').click(function(){
+						window.location.href = '<?= Url::toRoute(['site/turnos', 'refresh' => '1']); ?>';
+						});
+				  } else {
+						swal("Cancelado!", "Aprovecha para verificar tu formulario antes de enviarlo a tu jefe.", "error");
+						
+						id=0;
+						capturedat(id, true);
+						
+				  }
+				});
+					
+				}
+				
+									}
+        });	
+	}
+
 </script>
