@@ -27,6 +27,8 @@ use app\models\TwPcEquipoNomina;
 use app\models\TwPcHorasExtrasHistorial;
 use app\models\TwPcVacaciones;
 use app\models\TwPcInsertHorasExtras;
+use app\models\TwPcInsertHoras;
+use app\models\TwPcHorasExtras;
 
 
 class SiteController extends Controller
@@ -647,32 +649,37 @@ $model = new TwPcPersonalData;
                 return $this->render('mturnos');
 			}
 			else {			
-			
-			//INICIO DE LOGICA PARA TURNOS
-			//historiales de horas extras
-			$model = new TwPcHorasExtrasHistorial;
 
-			$twpchorasextrashistorial = $model->HorasExtras();
+				//identifar si es genernte quien ingresa
+				$gerente = Yii::$app->session['gerente'];
 			
-			$HHEXTRAS = $twpchorasextrashistorial[0];
-			$HHEXTRASTOP = $twpchorasextrashistorial[1];
-			$HHMESSAGE = $twpchorasextrashistorial[2];
-			$HHOUTPUT = $twpchorasextrashistorial[3];			
-						
-			//Conceptos de horas extras
-			$model = new TwPcInsertHorasExtras;
+				//INICIO DE LOGICA PARA TURNOS
+				//historiales de horas extras
+				$model = new TwPcHorasExtrasHistorial;
 
-			$twpchorasextras = $model->HorasExtrasVal();
-			
-			$HCONCEPTOS = $twpchorasextras[0];			
-
-			foreach ($HCONCEPTOS as $HCONCEPTOS_KEY) {												
-										
-										$ARRCON_KEY[] = $HCONCEPTOS_KEY['CONCEPTO'];
-										$ARRCOD_KEY[] = $HCONCEPTOS_KEY['COD_CON'];
-												}									
+				$twpchorasextrashistorial = $model->HorasExtras();
 				
-                return $this->render('turnos',['HHEXTRAS' => $HHEXTRAS,'HHEXTRASTOP' => $HHEXTRASTOP, 'HHOUTPUT' => $HHOUTPUT, 'HHMESSAGE' => $HHMESSAGE, 'HCONCEPTOS' => $HCONCEPTOS, 'ARRCON_KEY' => $ARRCON_KEY, 'ARRCOD_KEY' => $ARRCOD_KEY]);
+				$HHEXTRAS = $twpchorasextrashistorial[0];
+				$HHEXTRASTOP = $twpchorasextrashistorial[1];
+				$HHMESSAGE = $twpchorasextrashistorial[2];
+				$HHOUTPUT = $twpchorasextrashistorial[3];			
+							
+				//Conceptos de horas extras
+				$model = new TwPcInsertHorasExtras;
+
+				$twpchorasextras = $model->HorasExtrasVal();
+				
+				$HCONCEPTOS = $twpchorasextras[0];			
+
+				foreach ($HCONCEPTOS as $HCONCEPTOS_KEY) {												
+											
+											$ARRCON_KEY[] = $HCONCEPTOS_KEY['CONCEPTO'];
+											$ARRCOD_KEY[] = $HCONCEPTOS_KEY['COD_CON'];
+													}									
+				
+				$autorizaciones = Yii::$app->session['submenus'][3];
+
+	            return $this->render('turnos',['HHEXTRAS' => $HHEXTRAS,'HHEXTRASTOP' => $HHEXTRASTOP, 'HHOUTPUT' => $HHOUTPUT, 'HHMESSAGE' => $HHMESSAGE, 'HCONCEPTOS' => $HCONCEPTOS, 'ARRCON_KEY' => $ARRCON_KEY, 'ARRCOD_KEY' => $ARRCOD_KEY,'gerente'=>$gerente,'autorizaciones'=>$autorizaciones]);
 			}        
 		
     }
@@ -1176,5 +1183,142 @@ $model = new TwPcPersonalData;
     	$datos = $vacaciones->envioVacaciones($c1,$c2,$c3,$c4);		
 		
 		echo json_encode($datos);
+    }
+
+    public function actionAutorzacionextrp1(){
+    	$c1 = $_GET['cantidad'];
+    	$c2 = $_GET['pagina'];
+    	$c3 = $_GET['search'];
+    	$c4 = $_GET['column'];
+    	$c5 = $_GET['cedula'];
+
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesEpl($c1,$c2,$c3,$c4,$c5);
+
+    	echo json_encode($datos);
+    }
+
+    public function actionAutorzacionextrp2(){
+    	$c1 = $_GET['cantidad'];
+    	$c2 = $_GET['pagina'];
+    	$c3 = $_GET['search'];
+    	$c4 = $_GET['column'];
+    	$c5 = $_GET['cedula'];
+
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesEp2($c1,$c2,$c3,$c4,$c5);
+
+    	echo json_encode($datos);
+    }
+
+    public function actionAutorzacionextrp3(){
+    	$c1 = $_GET['cantidad'];
+    	$c2 = $_GET['pagina'];
+    	$c3 = $_GET['search'];
+    	$c4 = $_GET['column'];
+    	$c5 = $_GET['cedula'];
+
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesEp3($c1,$c2,$c3,$c4,$c5);
+
+    	echo json_encode($datos);
+    }
+
+    public function actionAutorzacionextrp4(){
+    	$c1 = $_GET['cantidad'];
+    	$c2 = $_GET['pagina'];
+    	$c3 = $_GET['search'];
+    	$c4 = $_GET['column'];
+    	$c5 = $_GET['cedula'];
+
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesEp4($c1,$c2,$c3,$c4,$c5);
+
+    	echo json_encode($datos);
+    }
+
+    public function actionAutorzacionextrp5(){
+    	$c1 = $_GET['cantidad'];
+    	$c2 = $_GET['pagina'];
+    	$c3 = $_GET['search'];
+    	$c4 = $_GET['column'];
+    	$c5 = $_GET['cedula'];
+
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesEp5($c1,$c2,$c3,$c4,$c5);
+
+    	echo json_encode($datos);
+    }
+
+    public function actionAutorzacionextrp6(){
+    	$c1 = $_GET['cantidad'];
+    	$c2 = $_GET['pagina'];
+    	$c3 = $_GET['search'];
+    	$c4 = $_GET['column'];
+    	$c5 = $_GET['cedula'];
+
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesEp6($c1,$c2,$c3,$c4,$c5);
+
+    	echo json_encode($datos);
+    }
+
+    public function actionAceptarsolicitudesturnos(){
+    	$get1 = $_GET['solicitudes'];
+    	$c1 = array();
+
+    	for ($i=0; $i < count($get1); $i++) { 
+    		$c1[$i] = $get1[$i]['valor'];
+    	}
+    	
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesAceptar($c1);
+
+    	echo $datos;
+    }
+
+    public function actionRechazarsolicitudesturnos(){
+    	$get1 = $_GET['paramSp'];
+    	$c1 = array();
+    	$c1[0] = $get1;
+
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesRechazar($c1);
+
+    	echo $datos;
+    }
+
+    public function actionDetallegerenteturnos(){
+    	$c1 = $_GET['codigoepl'];    	
+
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->detalleHistorialHorasExtrasGere($c1);
+
+    	echo json_encode($datos);
+    }
+
+    public function actionAceptarsolicitudesturnosgre(){
+    	$get1 = $_GET['solicitudes'];
+    	$c1 = array();
+
+    	for ($i=0; $i < count($get1); $i++) { 
+    		$c1[$i] = $get1[$i]['valor'];
+    	}
+    	
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesAceptarGre($c1);
+
+    	echo $datos;
+    }
+
+    public function actionRechazasolicitudesturnosgre(){
+    	$get1 = $_GET['paramSp'];
+    	$c1 = array();
+    	$c1[0] = $get1;
+
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesRechazaGre($c1);
+
+    	echo $datos;
     }
 }

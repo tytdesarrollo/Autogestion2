@@ -75,4 +75,23 @@ class TwPcRolesPerfiles extends Model{
 	    //SE RETORNA LAS VARIABLES QUE CONTIENE LA INFROMACION DE LOS CURSORES
 		return array ($cursor1 , $cursor2);
 	}
+
+	public function spRolGerente($c1){
+		//c1: 
+		//
+		$db = Yii::$app->params['orcl'];
+		$usr = Yii::$app->params['usr'];
+		$psw = Yii::$app->params['psw'];
+		//conexion con la base de datos
+		$conexion = oci_connect($usr, $psw, $db);
+		//procedimiento a ejecutar
+		$stid = oci_parse($conexion, 'BEGIN PKG_AUTOGES_ROLES_Y_PERFILES.SP_AUTOGES_CONSULTA_ROLGERENTE(:c1,:c2); END;');		
+		//
+		oci_bind_by_name($stid, ':c1', $c1, 10);
+		oci_bind_by_name($stid, ':c2', $c2, 10);		
+		// ejecucion del procedimiento 
+		oci_execute($stid);				
+		// array con los datos y la cantidad de pestanas 
+	    return $c2;
+	}
 }

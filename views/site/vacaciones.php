@@ -4,7 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 $this->title = 'Vacaciones';
 ?>
-<script src="js/jquery.js"></script>	
+<?= Html::jsFile('@web/js/jquery.js') ?>
+<?= Html::jsFile('@web/js/tingle.min.js') ?>
+<?= Html::jsFile('@web/js/tablefunctionsvacas.js') ?>
+<?= Html::jsFile('@web/js/funcionesAjaxvacas.js') ?>
+
 <style type="text/css">
 	.loader {
 		border: 16px solid #f3f3f3;
@@ -367,13 +371,13 @@ $this->title = 'Vacaciones';
 				</div>
 			</div>
 		</div>
-		<?php //if (strcmp($autorizaciones,'TRUE') === 0): ?>
+		<?php if (strcmp($autorizaciones,'TRUE') === 0): ?>
 			<div class="cont-float-vac">
 				<button id="openModalId" type="button" class="btn btn-raised btn-info" data-toggle="modal" data-target="#modtabs">
 						<i class="material-icons">&#xE02F; </i>  Autorizaciones de empleados
 				</button>
 			</div>
-		<?php //endif ?>
+		<?php endif ?>
 		<div class="container-v">
 			<div class="box"></div>
 			<div class="content">
@@ -576,7 +580,7 @@ var bandera = "1";
 
 <script type="text/javascript">
 	/*variables de la session*/
-		var cedula = '52513735'; //'<?=Yii::$app->session['cedula']?>';//'52513735';
+		var cedula = '<?=Yii::$app->session['cedula']?>';//'52513735';
 		var autorizaciones = '<?=Yii::$app->session['submenus'][1]?>';
 	/**/
 
@@ -627,34 +631,24 @@ var bandera = "1";
 	function cambioPestana(id, filtro = 10){		
 		switch(id){
 			case 1:				
-				limpiaFiltros(1);
-				reiniciarToggle();
-				solicitudesXepl(1,filtro);				
-				setGeneralValuesDefault(id);				
+				limpiaFiltros(1); 			reiniciarToggle();
+				solicitudesXepl(1,filtro);	setGeneralValuesDefault(id);				
 				break;
 			case 2:
-				limpiaFiltros(2);
-				reiniciarToggle();
-				solicitudesXep2(1,filtro);
-				setGeneralValuesDefault(id);
+				limpiaFiltros(2);			reiniciarToggle();
+				solicitudesXep2(1,filtro);  setGeneralValuesDefault(id);
 				break;
 			case 3:
-				limpiaFiltros(3);
-				reiniciarToggle();
-				solicitudesXep3(1,filtro);
-				setGeneralValuesDefault(id);
+				limpiaFiltros(3);			reiniciarToggle();
+				solicitudesXep3(1,filtro);	setGeneralValuesDefault(id);
 				break;
 			case 4:
-				limpiaFiltros(4);
-				reiniciarToggle();
-				solicitudesXep4(1,filtro);
-				setGeneralValuesDefault(id);
+				limpiaFiltros(4);			reiniciarToggle();
+				solicitudesXep4(1,filtro);	setGeneralValuesDefault(id);
 				break;
 			case 5:
-				limpiaFiltros(5);
-				reiniciarToggle();
-				historialVacaciones(1,filtro);
-				setGeneralValuesDefault(id);
+				limpiaFiltros(5);				reiniciarToggle();
+				historialVacaciones(1,filtro);	setGeneralValuesDefault(id);
 				break;
 
 		}
@@ -682,45 +676,21 @@ var bandera = "1";
     }
 
     function limpiaFiltros(id){
-    	switch(id){
-    		case 1:
-    			$("#search2").val(''); $("#cantidadXP2").val('10');
-    			$("#search3").val(''); $("#cantidadXP3").val('10');
-    			$("#search4").val(''); $("#cantidadXP4").val('10');
-    			$("#search5").val(''); $("#cantidadXP5").val('10');
-    			setOrder(1);
-    			break;
-    		case 2:
-    			$("#search1").val(''); $("#cantidadXP1").val('10');
-    			$("#search3").val(''); $("#cantidadXP3").val('10');
-    			$("#search4").val(''); $("#cantidadXP4").val('10');
-    			$("#search5").val(''); $("#cantidadXP5").val('10');
-    			setOrder(2);
-    			break;
-    		case 3:
-    			$("#search1").val('');  $("#cantidadXP1").val('10');
-    			$("#search2").val('');  $("#cantidadXP2").val('10');
-    			$("#search4").val('');  $("#cantidadXP4").val('10');
-    			$("#search5").val('');  $("#cantidadXP5").val('10');
-    			setOrder(3);
-    			break;
-    		case 4: 
-    			$("#search1").val('');  $("#cantidadXP1").val('10');
-    			$("#search2").val('');  $("#cantidadXP2").val('10');
-    			$("#search3").val('');  $("#cantidadXP3").val('10');
-    			$("#search5").val('');  $("#cantidadXP5").val('10');
-    			setOrder(4);
-    			break;
-    		case 5:
-    			$("#search1").val('');  $("#cantidadXP1").val('10');
-    			$("#search2").val('');  $("#cantidadXP2").val('10');
-    			$("#search3").val('');  $("#cantidadXP3").val('10');
-    			$("#search4").val('');  $("#cantidadXP4").val('10');
-    			setOrder(5);
-    			break;
-    	}
-    	
-    }
+    	//recorre todos los filtros y los limpia
+    	for(var i=1 ; i<=6 ; i++){
+    		//si es el id ingresado no entra
+    		if(i != id){   			
+    			//id del buscador y de la cantidad
+    			var idJquery1 = "#search"+i;
+    			var idJquery2 = "#cantidadXP"+i;
+    			//camia el valor del buscador y de la cantidad
+    			$(idJquery1).val(''); 
+    			$(idJquery2).val('10');
+    		}
+    	}   
+
+    	setOrder(id);     	
+    }   
 
 
     $("#cantidadXP1").change(function(event) {

@@ -145,3 +145,11 @@
             }
         }
     }
+
+    function ocultarPaginador(id){
+       $("#"+id).hide()
+    }
+
+    function mostrarPaginador(id){
+        $("#"+id).show()   
+    }
