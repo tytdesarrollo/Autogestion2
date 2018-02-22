@@ -4,14 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 $this->title = 'Vacaciones';
 ?>
-<script src="/Autogestion2/web/js/jquery.js"></script>	
-<link rel="stylesheet" href="/Autogestion2/web/css/tingle.min.css">
-<script src="/Autogestion2/web/js/tingle.min.js"></script>
-<script src="/Autogestion2/web/js/paginationfsv-v1.0.js"></script>
-<script src="/Autogestion2/web/js/tablefunctionsvacas.js"></script>
-<script src="/Autogestion2/web/js/funcionesAjaxvacas.js"></script> 
-
-
+<script src="js/jquery.js"></script>	
 <style type="text/css">
 	.loader {
 		border: 16px solid #f3f3f3;
@@ -374,13 +367,13 @@ $this->title = 'Vacaciones';
 				</div>
 			</div>
 		</div>
-		<?php if (strcmp($autorizaciones,'TRUE') === 0): ?>
+		<?php //if (strcmp($autorizaciones,'TRUE') === 0): ?>
 			<div class="cont-float-vac">
 				<button id="openModalId" type="button" class="btn btn-raised btn-info" data-toggle="modal" data-target="#modtabs">
 						<i class="material-icons">&#xE02F; </i>  Autorizaciones de empleados
 				</button>
 			</div>
-		<?php endif ?>
+		<?php //endif ?>
 		<div class="container-v">
 			<div class="box"></div>
 			<div class="content">
@@ -477,7 +470,7 @@ $this->title = 'Vacaciones';
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar Solicitud</button>
-											<button type="submit" class="btn btn-primary" onclick="validarVacaciones()">Envir Solicitud</button>
+											<button type="submit" class="btn btn-primary" onclick="validarVacaciones()">Enviar Solicitud</button>
 										</div>
 									</div>
 								</div>

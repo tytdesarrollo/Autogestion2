@@ -397,6 +397,7 @@ $this->title = 'Trabajo por Turnos';
 					</div>
 				</div>
 			</div>
+			<?php if(Yii::$app->request->get('refresh')!='1'){ ?>
 			<div class="modal fade modal-help" id="help" tabindex="-1" role="dialog" aria-labelledby="helpLabel">
 				<div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content">
@@ -426,6 +427,7 @@ $this->title = 'Trabajo por Turnos';
 					</div>
 				</div>
 			</div>
+			<?php };?>
 		</div>
 		<div class="cont-float-vac">
 			<button type="button" class="btn btn-raised btn-info" data-toggle="modal" data-target="#modtabs">
@@ -566,19 +568,19 @@ $this->title = 'Trabajo por Turnos';
 		</div>
 		<div id="buttonRe"></div>
 		<div class="form-group has-warning" id="warningLab">
-		<label class="control-label">*Formato incorrecto, elimine o edite correctamente para poder continuar.</label>
+		<label id="alertaError" class="control-label"></label>
 		</div>
 </div>
 <div id="nvid"></div>
 																		
 													</div>
-																<button id="cloneButton" class="btn btn-primary" OnClick="capturedat()">Adicionar</button>											
+																<button id="cloneButton" class="btn btn-primary" OnClick="capturedat(this.id)">Adicionar</button>											
 												</div>
 											</div>
 										</div>
 										<div class="modal-footer">
 											<button type="button" id="cancelarButton" class="btn btn-default" data-dismiss="modal">Cancelar Solicitud</button>
-											<button type="submit" OnClick="validaturn()" class="btn btn-primary">Guardar Registros</button>
+											<button id="saveButton" type="submit" OnClick="capturedat(this.id)" class="btn btn-primary">Guardar Registros</button>
 										</div>
 								
 								
@@ -705,7 +707,7 @@ $this->title = 'Trabajo por Turnos';
 	
 	//CAPTURO LOS VALORES DEL FORMULARIO
 
-	function capturedat(){
+	function capturedat(id, cancel = false){
 		
 		var numArr = [];
 		var conArr = [];
@@ -730,50 +732,103 @@ $this->title = 'Trabajo por Turnos';
 		console.log(numStr);
 		console.log(fecStr);*/
 		
+		//console.log(id);
+		switch (id){
+			case "saveButton":
+				id=1;
+			break;
+			case "cloneButton":
+				id=0;
+			break;
+		}
+		
 		var parametros = {
 			"conStr":conStr,
 			"numStr":numStr,
-			"fecStr":fecStr
+			"fecStr":fecStr,
+			"idStr":id
 		}
-	console.log(parametros);
+	//console.log(parametros);
 	
 	
 	$.ajax({
             cache: false,
             type: 'POST',
-            url: '<?= Url::toRoute(['site/jsoncalendar']); ?>',
+            url: '<?= Url::toRoute(['site/jsoncalendar', 'bandera' => '0']); ?>',
 			data: parametros,
 			dataType: 'json',
 			 
 			success: function(data){				
 				
-				var valida = data;
-				console.log(valida);
+				var valida = data['HMSSG'];
+				var houpt = data['HOUTP'];
+				var mensajesArr = valida.split(",");
+				
+				//console.log(mensajesArr);
+				//console.log(idsAlerts);
+				
+				if(houpt==0){
+					for(var i=0 ; i<mensajesArr.length ; i++){
+						
+						var idAlert = idsAlerts[i+1];							
+						
+						
+						switch (id){
+							case 1:
+								if((i+1)== mensajesArr.length){
+									idAlert = idsAlerts[0]
+								}
+								
+								//console.log("idAlert "+idAlert);
+								break;						
+						}
+
+						if(cancel){
+							idAlert = idsAlerts[i];
+						}						
+						
+						var mensaje = mensajesArr[i];
+						
+						//console.log(idAlert+" - "+mensaje);
+						
+						document.getElementById(idAlert).innerHTML = mensaje;
+					}
+				
+				}else if(houpt==1){
+					
+				swal({
+				  title: "Importante!",
+				  text: valida,
+				  type: "warning",
+				  showCancelButton: true,
+				  confirmButtonColor: "#DD6B55",
+				  confirmButtonText: "Confirmar solicitud",
+				  cancelButtonText: "Cancelar solicitud",
+				  closeOnConfirm: false,
+				  closeOnCancel: false
+				},
+				function(isConfirm){
+				  if (isConfirm) {
+					  
+					  id=2;
+					  capturedat(id);
+						swal("Enviado!", "Tu solicitud de horas extras fueron registradas con éxito.", "success");
+						$('.confirm').click(function(){
+						window.location.href = '<?= Url::toRoute(['site/turnos', 'refresh' => '1']); ?>';
+						});
+				  } else {
+						swal("Cancelado!", "Aprovecha para verificar tu formulario antes de enviarlo a tu jefe.", "error");
+						
+						id=0;
+						capturedat(id, true);
+						
+				  }
+				});
+					
+				}
+				
 									}
         });	
-	
 	}
-
-		/*//DIV POR CADA REGISTRO VALIDO
-
-		function validaturn() {
-			
-			console.log(parametros);
-	
-		$.ajax({
-            cache: false,
-            type: 'POST',
-            url: '<?= Url::toRoute(['site/jsoncalendar']); ?>',
-			data: fecStr,
-			dataType: 'json',
-			 
-			success: function(data){				
-				
-				var valida = data;
-				console.log(valida);
-									}
-        });			
-
-	};*/
 
 </script>

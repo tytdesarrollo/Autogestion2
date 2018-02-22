@@ -995,8 +995,29 @@ $model = new TwPcPersonalData;
 		$twpchorasextrashistorial = $model->HorasExtras();
 		
 		$HHEXTRAS = $twpchorasextrashistorial[0];		
+		
+		//VALIDACIONES DE TURNOS
+		
+			@$he1 = $_POST['numStr'];
+			//$he1 = '1,2';
+			@$he2 = $_POST['fecStr'];
+			//$he2 = '19-02-2018,19-02-2018';
+			@$he3 = $_POST['conStr'];
+			//$he3 = '1005,1008';
+			@$he4 = $_POST['idStr'];
+			
+			$model = new TwPcInsertHorasExtras;
+			
+			$twpchorasextras = $model->HorasExtrasRec($he1,$he2,$he3,$he4);
+			
+			$HMSSG = $twpchorasextras[0];
+			$HOUTP = $twpchorasextras[1];
+			
+			//echo json_encode($HMSSG);
 				
-    	echo json_encode($HHEXTRAS);
+				$ARRHHEXTRAS= ["HHEXTRAS"=>$HHEXTRAS,"HMSSG"=>$HMSSG,"HOUTP"=>$HOUTP];
+				
+    	echo json_encode($ARRHHEXTRAS);
 		
 		}else if(Yii::$app->request->get('bandera')=='1'){
 		
@@ -1010,23 +1031,6 @@ $model = new TwPcPersonalData;
 		echo json_encode($HVACACIONES);
 		
 		}
-		
-		//VALIDACIONES DE TURNOS
-		
-			@$he1 = $_POST['numStr'];
-			//$he1 = '1,2';
-			@$he2 = $_POST['fecStr'];
-			//$he2 = '19-02-2018,19-02-2018';
-			@$he3 = $_POST['conStr'];
-			//$he3 = '1005,1008';
-			
-			$model = new TwPcInsertHorasExtras;
-			
-			$twpchorasextras = $model->HorasExtrasRec($he1,$he2,$he3);
-			
-			$HMSSG = $twpchorasextras[0];	
-			
-			echo json_encode($HMSSG);
 
     }
     public function actionAutorzacionvacap1(){

@@ -399,7 +399,7 @@ $session = Yii::$app->session;
 </script>
 <script>
 	$(document).ready(function() {
-		
+
 		if(bandera==1){
 		
 		//PROPIEDADES PARA VACACIONES
@@ -534,7 +534,9 @@ $session = Yii::$app->session;
 	            url:'<?php echo Url::toRoute(['site/jsoncalendar', 'bandera' => '0']);?>', 
 	            dataType:'json',
 	            success: function (data) {  
-	            	var arrayDatos = $.map(data, function(value, index) {
+				var dathor=data['HHEXTRAS'];
+				//console.log(dathor);
+	            	var arrayDatos = $.map(dathor, function(value, index) {
 	                    return [value];
 	                });  
 
@@ -544,11 +546,11 @@ $session = Yii::$app->session;
 	            	for(var i=0 ; i<arrayDatos.length ; i++){
 	            		 events.push({
 
-		                 	id: data[i]['CONSECUTIVO'],
-	                        title: "ID ".concat(data[i]['CONSECUTIVO']),
-	                        start: data[i]['FEC_H_EXTRAS'],                        
-	                        end: data[i]['FEC_H_EXTRAS'],
-	                        color: data[i]['COLOR']
+		                 	id: dathor[i]['CONSECUTIVO'],
+	                        title: "ID ".concat(dathor[i]['CONSECUTIVO']),
+	                        start: dathor[i]['FEC_H_EXTRAS'],                        
+	                        end: dathor[i]['FEC_H_EXTRAS'],
+	                        color: dathor[i]['COLOR']
 	                    }); 
 	            	}  	            	          	
 	               
@@ -600,12 +602,14 @@ $session = Yii::$app->session;
 	$("#cancelarButton").on("click", function(){
 		
 		var nuevoEsquema = divClone;
-			
+		idsAlerts = new Array("alertaError");
 		
 		$("#panelAdd").html(nuevoEsquema);
 		$firstForm = $("#panel1")
 		madSelectUp2("#s2");
 	});
+	
+	var idsAlerts = new Array("alertaError");
 	
 	//FUNCION PARA CLONAR LAS SOLICITUDES DE TURNOS
 	$("#cloneButton").on("click", function(){
@@ -644,6 +648,12 @@ $session = Yii::$app->session;
 		bindRemove($clonedForm);
 		
 		madSelectUp2(nuevoId);
+		
+		var nuevoIdMensaje = idsAlerts[idsAlerts.length-1]+""+1;
+		
+		$("#alertaError").attr("id",nuevoIdMensaje);
+		
+		idsAlerts.push(nuevoIdMensaje);
 	});
 	
 	var $firstForm = $("#panel1");
