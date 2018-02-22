@@ -1042,15 +1042,26 @@ $model = new TwPcPersonalData;
     }
     public function actionAutorzacionvacap1(){
 
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];	
-    	$c5 = $_GET['cedula'];	
+    	//$c1 = $_GET['cantidad'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	//$c2 = $_GET['pagina'];
+    	$c2 = Yii::$app->request->get('pagina');
+    	//$c3 = $_GET['search'];
+    	$c3 = Yii::$app->request->get('search');
+    	//$c4 = $_GET['column'];	
+    	$c4 = Yii::$app->request->get('column');
+    	//$c5 = $_GET['cedula'];	
+    	$c5 = Yii::$app->request->get('cedula');	
 
     	$vacaciones = new TwPcVacaciones();
-    	$datos = $vacaciones->solicitudesEpl($c1,$c2,$c3,$c4,$c5);
-
+    	$datosfv = $vacaciones->solicitudesEpl($c1,$c2,$c3,$c4,$c5);
+		
+		foreach ($datosfv[0] as $cursor){
+		$cursor = array_map("utf8_decode", $cursor);    
+		}
+		
+		$datos=[$cursor,$datosfv[1]];;
+		
     	echo json_encode($datos);
     }
 
