@@ -26,15 +26,15 @@
                     '<table class="table">'+
                         '<thead>'+
                             '<tr>'+
-                                '<th id="thcnsctv1" onclick="orderByClick(\'thcnsctv\',\'1\')" width="50">Consec</th>'+
-                                '<th id="thcodepl1" onclick="orderByClick(\'thcodepl\',\'1\')" width="80">Codigo empleado</th>'+
+                                '<th id="thcnsctv1" onclick="orderByClick(\'thcnsctv\',\'1\')">Consec</th>'+
+                                '<th id="thcodepl1" onclick="orderByClick(\'thcodepl\',\'1\')">Codigo empleado</th>'+
                                 '<th id="thcedula1" onclick="orderByClick(\'thcedula\',\'1\')">Cedula</th>'+
-                                '<th id="thnomape1" onclick="orderByClick(\'thnomape\',\'1\')" width="150">Nombres y apellidos</th>'+
-                                '<th id="tharecar1" onclick="orderByClick(\'tharecar\',\'1\')" width="150">Area / Cargo</th>'+
-                                '<th id="thfecsol1" onclick="orderByClick(\'thfecsol\',\'1\')" >Fecha solicitud</th>'+
-                                '<th id="thfecini1" onclick="orderByClick(\'thfecini\',\'1\')" >Fecha inicio</th>'+
+                                '<th id="thnomape1" onclick="orderByClick(\'thnomape\',\'1\')">Nombres y apellidos</th>'+
+                                '<th id="tharecar1" onclick="orderByClick(\'tharecar\',\'1\')">Area / Cargo</th>'+
+                                '<th id="thfecsol1" onclick="orderByClick(\'thfecsol\',\'1\')">Fecha solicitud</th>'+
+                                '<th id="thfecini1" onclick="orderByClick(\'thfecini\',\'1\')">Fecha inicio</th>'+
                                 '<th id="thfecfin1" onclick="orderByClick(\'thfecfin\',\'1\')">Fecha fin</th>'+
-                                '<th id="thdiahab1" onclick="orderByClick(\'thdiahab\',\'1\')" width="50">Días hábiles</th>'+
+                                '<th id="thdiahab1" onclick="orderByClick(\'thdiahab\',\'1\')">Días hábiles</th>'+
                                 '<th id="thestado1" onclick="orderByClick(\'thestado\',\'1\')">Estado</th>'+
                             '</tr>'+
                         '</thead>'+
@@ -85,6 +85,12 @@
                     '</table>';
                 
                 document.getElementById("datosTabla1").innerHTML = cuerpo;
+
+                if(datos[0].ESTADO.localeCompare("N/A") == 0){
+                    ocultarPaginador("paginationView1");
+                }else{
+                    mostrarPaginador("paginationView1");
+                }
             }
         });
     }
@@ -117,15 +123,15 @@
                     '<table class="table">'+
                         '<thead>'+
                             '<tr>'+
-                                '<th id="thcnsctv2" onclick="orderByClick(\'thcnsctv\',\'2\')" width="50">Consec</th>'+
-                                '<th id="thcodepl2" onclick="orderByClick(\'thcodepl\',\'2\')" width="80">Codigo empleado</th>'+
+                                '<th id="thcnsctv2" onclick="orderByClick(\'thcnsctv\',\'2\')">Consec</th>'+
+                                '<th id="thcodepl2" onclick="orderByClick(\'thcodepl\',\'2\')">Codigo empleado</th>'+
                                 '<th id="thcedula2" onclick="orderByClick(\'thcedula\',\'2\')">Cedula</th>'+
-                                '<th id="thnomape2" onclick="orderByClick(\'thnomape\',\'2\')" width="150">Nombres y apellidos</th>'+
-                                '<th id="tharecar2" onclick="orderByClick(\'tharecar\',\'2\')" width="150">Area / Cargo</th>'+
+                                '<th id="thnomape2" onclick="orderByClick(\'thnomape\',\'2\')">Nombres y apellidos</th>'+
+                                '<th id="tharecar2" onclick="orderByClick(\'tharecar\',\'2\')">Area / Cargo</th>'+
                                 '<th id="thfecsol2" onclick="orderByClick(\'thfecsol\',\'2\')">Fecha solicitud</th>'+
                                 '<th id="thfecini2" onclick="orderByClick(\'thfecini\',\'2\')">Fecha inicio</th>'+
                                 '<th id="thfecfin2" onclick="orderByClick(\'thfecfin\',\'2\')">Fecha fin</th>'+
-                                '<th id="thdiahab2" onclick="orderByClick(\'thdiahab\',\'2\')" width="50">Días hábiles</th>'+
+                                '<th id="thdiahab2" onclick="orderByClick(\'thdiahab\',\'2\')">Días hábiles</th>'+
                                 '<th id="thestado2" onclick="orderByClick(\'thestado\',\'2\')">Estado</th>'+
                             '</tr>'+
                         '</thead>'+
@@ -176,6 +182,12 @@
                     '</table>';
                 
                 document.getElementById("datosTabla2").innerHTML = cuerpo;
+
+                if(datos[0].ESTADO.localeCompare("N/A") == 0){
+                    ocultarPaginador("paginationView2");
+                }else{
+                    mostrarPaginador("paginationView2");
+                }
             }
         });
 
@@ -209,15 +221,15 @@
                     '<table class="table">'+
                         '<thead>'+
                             '<tr>'+
-                                '<th id="thcnsctv3" onclick="orderByClick(\'thcnsctv\',\'3\')" width="50">Consec</th>'+
-                                '<th id="thcodepl3" onclick="orderByClick(\'thcodepl\',\'3\')" width="80">Codigo empleado</th>'+
+                                '<th id="thcnsctv3" onclick="orderByClick(\'thcnsctv\',\'3\')">Consec</th>'+
+                                '<th id="thcodepl3" onclick="orderByClick(\'thcodepl\',\'3\')">Codigo empleado</th>'+
                                 '<th id="thcedula3" onclick="orderByClick(\'thcedula\',\'3\')">Cedula</th>'+
-                                '<th id="thnomape3" onclick="orderByClick(\'thnomape\',\'3\')" width="150">Nombres y apellidos</th>'+
-                                '<th id="tharecar3" onclick="orderByClick(\'tharecar\',\'3\')" width="150">Area / Cargo</th>'+
+                                '<th id="thnomape3" onclick="orderByClick(\'thnomape\',\'3\')">Nombres y apellidos</th>'+
+                                '<th id="tharecar3" onclick="orderByClick(\'tharecar\',\'3\')">Area / Cargo</th>'+
                                 '<th id="thfecsol3" onclick="orderByClick(\'thfecsol\',\'3\')">Fecha solicitud</th>'+
                                 '<th id="thfecini3" onclick="orderByClick(\'thfecini\',\'3\')">Fecha inicio</th>'+
                                 '<th id="thfecfin3" onclick="orderByClick(\'thfecfin\',\'3\')">Fecha fin</th>'+
-                                '<th id="thdiahab3" onclick="orderByClick(\'thdiahab\',\'3\')" width="50">Días hábiles</th>'+
+                                '<th id="thdiahab3" onclick="orderByClick(\'thdiahab\',\'3\')">Días hábiles</th>'+
                                 '<th id="thestado3" onclick="orderByClick(\'thestado\',\'3\')">Estado</th>'+
                             '</tr>'+
                         '</thead>'+
@@ -268,6 +280,12 @@
                     '</table>';
                 
                 document.getElementById("datosTabla3").innerHTML = cuerpo;
+
+                if(datos[0].ESTADO.localeCompare("N/A") == 0){
+                    ocultarPaginador("paginationView3");
+                }else{
+                    mostrarPaginador("paginationView3");
+                }
             }
         });
 
@@ -308,15 +326,15 @@
                     '<table class="table">'+
                         '<thead>'+
                             '<tr>'+
-                                '<th thcnsctv4" onclick="orderByClick(\'thcnsctv\',\'4\')" width="50">Consec</th>'+
-                                '<th thcodepl4" onclick="orderByClick(\'thcodepl\',\'4\')" width="80">Codigo empleado</th>'+
+                                '<th thcnsctv4" onclick="orderByClick(\'thcnsctv\',\'4\')">Consec</th>'+
+                                '<th thcodepl4" onclick="orderByClick(\'thcodepl\',\'4\')">Codigo empleado</th>'+
                                 '<th thcedula4" onclick="orderByClick(\'thcedula\',\'4\')">Cedula</th>'+
-                                '<th thnomape4" onclick="orderByClick(\'thnomape\',\'4\')" width="150">Nombres y apellidos</th>'+
-                                '<th tharecar4" onclick="orderByClick(\'tharecar\',\'4\')" width="150">Area / Cargo</th>'+
+                                '<th thnomape4" onclick="orderByClick(\'thnomape\',\'4\')">Nombres y apellidos</th>'+
+                                '<th tharecar4" onclick="orderByClick(\'tharecar\',\'4\')">Area / Cargo</th>'+
                                 '<th thfecsol4" onclick="orderByClick(\'thfecsol\',\'4\')">Fecha solicitud</th>'+
                                 '<th thfecini4" onclick="orderByClick(\'thfecini\',\'4\')">Fecha inicio</th>'+
                                 '<th thfecfin4" onclick="orderByClick(\'thfecfin\',\'4\')">Fecha fin</th>'+
-                                '<th thdiahab4" onclick="orderByClick(\'thdiahab\',\'4\')" width="50">Días hábiles</th>'+
+                                '<th thdiahab4" onclick="orderByClick(\'thdiahab\',\'4\')">Días hábiles</th>'+
                                 '<th thestado4" onclick="orderByClick(\'thestado\',\'4\')">Estado</th>'+
                                 '<th >Aceptar</th>'+
                                 edit+
@@ -464,6 +482,12 @@
                     '</table>';
                 
                 document.getElementById("datosTabla4").innerHTML = cuerpo;
+
+                if(datos[0].ESTADO.localeCompare("N/A") == 0){
+                    ocultarPaginador("paginationView4");
+                }else{
+                    mostrarPaginador("paginationView4");
+                }
             }
         });
 
@@ -498,11 +522,11 @@
                     '<table class="table">'+
                         '<thead>'+
                             '<tr>'+
-                                '<th thcnsctv4" onclick="orderByClick(\'thcnsctv\',\'5\')" width="50">Consecutivo</th>'+
+                                '<th thcnsctv4" onclick="orderByClick(\'thcnsctv\',\'5\')">Consecutivo</th>'+
                                 '<th thfecsol4" onclick="orderByClick(\'thfecsol2\',\'5\')">Fecha solicitud</th>'+
                                 '<th thfecini4" onclick="orderByClick(\'thfecini\',\'5\')">Fecha inicio</th>'+
                                 '<th thfecfin4" onclick="orderByClick(\'thfecfin\',\'5\')">Fecha fin</th>'+
-                                '<th thdiahab4" onclick="orderByClick(\'thdiahab\',\'5\')" width="50">Días hábiles</th>'+
+                                '<th thdiahab4" onclick="orderByClick(\'thdiahab\',\'5\')">Días hábiles</th>'+
                                 '<th thestado4" onclick="orderByClick(\'thestado\',\'5\')">Estado</th>'+
                             '</tr>'+
                         '</thead>'+
@@ -549,6 +573,12 @@
                         '</tbody>'+
                     '</table>';
                 document.getElementById("datosTabla5").innerHTML = cuerpo;
+
+                if(datos[0].ESTADO.localeCompare("N/A") == 0){
+                    ocultarPaginador("paginationView5");
+                }else{
+                    mostrarPaginador("paginationView5");
+                }
             }
         });
 
