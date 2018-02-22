@@ -9,7 +9,7 @@ use yii\bootstrap\NavBar;
 use yii\bootstrap\Dropdown;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
-
+use yii\helpers\Url;
 
 AppAsset::register($this);
 
@@ -29,8 +29,7 @@ $session = Yii::$app->session;
 	<script src="../web/js/modernizr.custom.js"></script>
 </head>
 <body>
-	<?php $this->beginBody() ?>
-	<?php @$events = $this->params['customParam']; ?>
+	<?php $this->beginBody() ?>	
 <div class="headerbar"></div>
 <header id="header" class="clearfix">
 	<nav id="menu" class="navbar">
@@ -348,9 +347,10 @@ $session = Yii::$app->session;
     })();
 </script>
 <script>
-	$(function () {
-  
-	// /////
+
+	function madSelectUp(){
+		
+		// /////
 	// MAD-SELECT
 		var madSelectHover = 0;
 		$(".mad-select").each(function() {
@@ -358,6 +358,8 @@ $session = Yii::$app->session;
 				$ul = $(this).find("> ul"),
 				$ulDrop =  $ul.clone().addClass("mad-select-drop");
 
+			//console.log($(this).find("> ul"));
+			
 			$(this)
 			  .append('<i class="material-icons">arrow_drop_down</i>', $ulDrop)
 			  .on({
@@ -385,11 +387,22 @@ $session = Yii::$app->session;
 		$(document).on("mouseup", function(){
 			if(!madSelectHover) $(".mad-select-drop").removeClass("show");
 		});
+		
+	}
+
+	$(function () {
+		
+  //INICIALIZO POR DEFAULT EL MADSELECT SOBREPUESTO
+	madSelectUp();
 		  
 	});
 </script>
 <script>
 	$(document).ready(function() {
+
+		if(bandera==1){
+		
+		//PROPIEDADES PARA VACACIONES
 		
 		$('#calendar').fullCalendar({
 			header: {
@@ -435,113 +448,122 @@ $session = Yii::$app->session;
 				edit(event);
 
 			},
-			
-			<?php
-				if(isset($events)){			
-			?>
 
-			events: [
-			
-			<?php
-								
-			foreach($events as $event): 
-			
-				$start = explode(" ", $event['START']);
-				$end = explode(" ", $event['END']);
-				if($start[1] == '00:00:00'){
-					$start = $start[0];
-				}else{
-					$start = $event['START'];
-				}
-				if($end[1] == '00:00:00'){
-					$end = $end[0];
-				}else{
-					$end = $event['END'];
-				}
-			?>
-				{
-					id: '<?php echo $event['ID']; ?>',
-					title: '<?php echo $event['TITLE']; ?>',
-					start: '<?php echo $start; ?>',
-					end: '<?php echo $end; ?>',
-					color: '<?php echo $event['COLOR']; ?>',
-					overlap: false,
-					
-					
-				},
-						
-			<?php endforeach; ?>
-					
-			{
-        id:    'Festivo',
-		title: 'Festivo',
-        start: '2018-01-01',
-        end:   '2018-01-01',
-		color: 'RED',
-			},
-			
-			{
-        id:    'Festivo2',
-		title: 'Festivo2',
-        start: '2018-01-08',
-        end:   '2018-01-08',
-		color: 'RED',
-			},
-			
-			{
-        id:    'Domingo',
-		title: 'Domingo',
-        start: '2017-12-31',
-        end:   '2017-12-31',
-		color: 'BLUE',
-			},
-			
-			{
-        id:    'Domingo',
-		title: 'Domingo',
-        start: '2018-01-07',
-        end:   '2018-01-07',
-		color: 'BLUE',
-			},
-			
-			{
-        id:    'Domingo',
-		title: 'Domingo',
-        start: '2018-01-14',
-        end:   '2018-01-14',
-		color: 'BLUE',
-			},
-			
-			{
-        id:    'Domingo',
-		title: 'Domingo',
-        start: '2018-01-21',
-        end:   '2018-01-21',
-		color: 'BLUE',
-			},
-			
-			{
-        id:    'Domingo',
-		title: 'Domingo',
-        start: '2018-01-28',
-        end:   '2018-01-28',
-		color: 'BLUE',
-			},
-		{
-        id:    'vacaciones',
-		title: 'vaa',
-        start: '2018-01-03',
-        end:   '2018-01-10',
-		color: 'BLACK',
-			},
-					
-					
-			]
-			
-			 
-			
-			<?php }; ?>
+			events: function(start, end, timezone, callback) {
+	    	 $.ajax({
+	            url:'<?php echo Url::toRoute(['site/jsoncalendar', 'bandera' => '1']);?>', 
+	            dataType:'json',
+	            success: function (data) {  
+	            	var arrayDatos = $.map(data, function(value, index) {
+	                    return [value];
+	                });  
+
+	            	//console.log(arrayDatos);
+	            	var events = [];	
+
+	            	for(var i=0 ; i<arrayDatos.length ; i++){
+	            		 events.push({
+
+		                 	id: data[i]['CONSECUTIVO'],
+	                        title: "ID ".concat(data[i]['CONSECUTIVO']),
+	                        start: data[i]['FEC_INI'],                        
+	                        end: data[i]['FEC_FIN'],
+	                        color: data[i]['COLOR']
+	                    }); 
+	            	}  	            	          	
+	               
+	                callback(events);
+	                
+	            }
+	        });
+	        
+	    }
 		});
+		
+		}else if(bandera==0){
+			
+			//PROPIEDADES PARA TURNOS
+			
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev',
+				center: 'title',
+				right: 'next'
+			},
+			navLinks: true,
+			height: 'auto',
+			businessHours: { dow: [1,2,3,4,5,6] },
+			editable: false,
+			eventLimit: false, // allow "more" link when too many events
+			selectable: true,
+			selectHelper: true,
+			selectOverlap: true,
+			select: function(start, end) {
+				
+				$('#ModalAdd #start').val(moment(start).format('DD-MM-YYYY'));
+				//$('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
+				$('#ModalAdd').modal('show');
+				
+			},
+			
+			//FUNCION DOBLE CLICK PARA ELIMINAR, AUN NO ES NECESARIO
+			/*
+			eventRender: function(event, element) {
+				element.bind('dblclick', function() {
+					$('#ModalEdit #id').val(event.id);
+					$('#ModalEdit #title').val(event.title);
+					$('#ModalEdit #color').val(event.color);
+					$('#ModalEdit').modal('show');
+					
+				});
+			},*/
+			
+			eventDrop: function(event, delta, revertFunc) { // si changement de position
+
+				edit(event);
+
+			},
+			eventResize: function(event,dayDelta,minuteDelta,revertFunc) { // si changement de longueur
+
+				edit(event);
+
+			},
+
+			events: function(start, end, timezone, callback) {
+	    	 $.ajax({
+	            url:'<?php echo Url::toRoute(['site/jsoncalendar', 'bandera' => '0']);?>', 
+	            dataType:'json',
+	            success: function (data) {  
+				var dathor=data['HHEXTRAS'];
+				//console.log(dathor);
+	            	var arrayDatos = $.map(dathor, function(value, index) {
+	                    return [value];
+	                });  
+
+	            	//console.log(arrayDatos);
+	            	var events = [];	
+
+	            	for(var i=0 ; i<arrayDatos.length ; i++){
+	            		 events.push({
+
+		                 	id: dathor[i]['CONSECUTIVO'],
+	                        title: "ID ".concat(dathor[i]['CONSECUTIVO']),
+	                        start: dathor[i]['FEC_H_EXTRAS'],                        
+	                        end: dathor[i]['FEC_H_EXTRAS'],
+	                        color: dathor[i]['COLOR']
+	                    }); 
+	            	}  	            	          	
+	               
+	                callback(events);
+	                
+	            }
+	        });
+	        
+	    }
+		});
+			
+			
+		}
 		
 		function edit(event){
 			start = event.start.format('YYYY-MM-DD HH:mm:ss');
@@ -573,5 +595,129 @@ $session = Yii::$app->session;
 		}
 		
 	});
+	
+	//CLONAMOS EL DIV PRINCIPAL DE TURNOS PARA ELIMINAR LO DUPLICADO EN CASO DE CANCELAR LA SOLICITUD
+	var divClone = $("#panelAdd").html();	
+	
+	$("#cancelarButton").on("click", function(){
+		
+		var nuevoEsquema = divClone;
+		idsAlerts = new Array("alertaError");
+		
+		$("#panelAdd").html(nuevoEsquema);
+		$firstForm = $("#panel1")
+		madSelectUp2("#s2");
+	});
+	
+	var idsAlerts = new Array("alertaError");
+	
+	//FUNCION PARA CLONAR LAS SOLICITUDES DE TURNOS
+	$("#cloneButton").on("click", function(){
+		
+		//var $clonedForm = $firstForm.clone().prop('id', 'panel1' );;
+		var $clonedForm = $firstForm.clone();
+		$clonedForm.children("#buttonRe").append('<button id="removeButton" class="btn btn-default">Quitar</button>');	
+		
+		// CAMBIO DE ID DEL DIV PRINCIPAL
+		var $div = $('div[id^="panel"]:last');
+		
+		$($div).each(function(i) {
+		$div.attr('id', $div.attr('id') + i);
+		});
+		
+		//	CAMBIO DE PROPIEDADES PARA INPUT DE DIAS
+		var $input = $('input[id^="h"]:last');
+		 
+		$($input).each(function(i) {
+		$input.attr('id', $input.attr('id') + i);
+		});
+		
+		//	CAMBIO DE PROPIEDADES PARA SELECT CONCEPTOS
+		var $select = $('div[id^="s2"]:last');
+		 
+		 
+		var nuevoId = "#"+$select.attr('id');
+		
+		$($select).each(function(i) {
+		$select.attr('id', $select.attr('id')+1);
+		});
 
+		//CLONO
+		$div.after( $clonedForm ).appendTo('#nvid');	
+		
+		bindRemove($clonedForm);
+		
+		madSelectUp2(nuevoId);
+		
+		var nuevoIdMensaje = idsAlerts[idsAlerts.length-1]+""+1;
+		
+		$("#alertaError").attr("id",nuevoIdMensaje);
+		
+		idsAlerts.push(nuevoIdMensaje);
+	});
+	
+	var $firstForm = $("#panel1");
+	
+	
+	function bindRemove($form){
+    $form.find("#removeButton").on("click", function(){
+        $form.remove();
+		
+    });
+	}
+
+	bindRemove($firstForm);
+	
+	//////////////////////LA FUNCION DE MADSELECT SE DUPLICA PARA TENER NUEVAS PROPIEDADES DE CLONADO
+
+	function madSelectUp2(id){
+		
+		// /////
+	// MAD-SELECT
+		var madSelectHover = 0;
+		$(id).each(function() {			
+			
+			var ulCopy = $(this).find("> ul");	
+			var inputCopy = $(this).find("input");
+			
+			if($(this).find("> ul").hasClass("mad-select-drop")){	
+				$(this).find("> ul").remove();
+			}
+					
+			$(this).html(ulCopy[0]);						
+			$(this).find("#concpt").after(inputCopy);			
+			
+				
+			var $input = $(this).find("input"),
+				$ul = $(this).find("> ul"),
+				$ulDrop =  $ul.clone().addClass("mad-select-drop");
+			
+			$(this)
+			  .append('<i class="material-icons">arrow_drop_down</i>', $ulDrop)
+			  .on({
+			  hover : function() { madSelectHover ^= 1; },
+			  click : function() { $ulDrop.toggleClass("show");}
+			});
+
+			// PRESELECT
+			//$ul.add($ulDrop).find("li[data-value='"+ $input.val() +"']").addClass("selected");
+
+			// MAKE SELECTED
+			$ulDrop.on("click", "li", function(evt) {
+			  evt.stopPropagation();
+			  $input.val($(this).data("value")); // Update hidden input value
+			  $ul.find("li").eq($(this).index()).add(this).addClass("selected")
+				.siblings("li").removeClass("selected");
+			});
+			// UPDATE LIST SCROLL POSITION
+			$ul.on("click", function() {
+			  var liTop = $ulDrop.find("li.selected").position().top;
+			  $ulDrop.scrollTop(liTop + $ulDrop[0].scrollTop);
+			});
+		});
+
+		$(document).on("mouseup", function(){
+			if(!madSelectHover) $(".mad-select-drop").removeClass("show");
+		});		
+	}
 </script>

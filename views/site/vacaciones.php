@@ -4,7 +4,33 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 $this->title = 'Vacaciones';
 ?>
+<?= Html::jsFile('@web/js/jquery.js') ?>
+<?= Html::jsFile('@web/js/tingle.min.js') ?>
+<?= Html::jsFile('@web/js/tablefunctionsvacas.js') ?>
+<?= Html::jsFile('@web/js/funcionesAjaxvacas.js') ?>
 
+<style type="text/css">
+	.loader {
+		border: 16px solid #f3f3f3;
+		border-radius: 50%;
+		border-top: 16px solid #3498db;
+		width: 120px;
+		height: 120px;
+		-webkit-animation: spin 2s linear infinite; /* Safari */
+		animation: spin 2s linear infinite;
+	}
+
+	/* Safari */
+	@-webkit-keyframes spin {
+	  	0% { -webkit-transform: rotate(0deg); }
+	  	100% { -webkit-transform: rotate(360deg); }
+	}
+
+	@keyframes spin {
+	  	0% { transform: rotate(0deg); }
+	  	100% { transform: rotate(360deg); }
+	}
+</style>
 <div class="bg-vacaciones">
 
 	<div class="container">
@@ -13,9 +39,11 @@ $this->title = 'Vacaciones';
 				<!--<button type="button" class="btn btn-default btn-fab" data-toggle="modal" data-target="#modtabs">
 					<i class="material-icons">&#xE02F;</i>
 				</button>-->
-				<button type="button" class="btn btn-default btn-fab" data-toggle="modal" data-target="#record">
-					<i class="material-icons">&#xE889;</i>
-				</button>
+				<?php if (is_array($vacasHistorial)): ?>
+					<button type="button" class="btn btn-default btn-fab" data-toggle="modal" data-target="#record" onclick="cambioPestana(5)">
+						<i class="material-icons">&#xE889;</i>
+					</button>
+				<?php endif ?>					
 				<button type="button" class="btn btn-default btn-fab" data-toggle="modal" data-target="#help">
 					<i class="material-icons">&#xE887;</i>
 				</button>
@@ -24,17 +52,17 @@ $this->title = 'Vacaciones';
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<button id="closeModalId" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<div class="container">
 								<div id="tabbar">
 									<ul class="nav nav-tabs">
-										<li class="active"><a href="#tab1" data-toggle="tab">Solicitudes por empleado</a></li>
+										<li class="active" onclick="cambioPestana(1)"><a href="#tab1" data-toggle="tab">Solicitudes por empleado</a></li>
 										<li class="divider"><div class="ln"></div></li>
-										<li><a href="#tab2" data-toggle="tab">Solicitudes rechazadas</a></li>
+										<li onclick="cambioPestana(2)"><a href="#tab2" data-toggle="tab">Solicitudes rechazadas</a></li>
 										<li class="divider"><div class="ln"></div></li>
-										<li><a href="#tab3" data-toggle="tab">Solicitudes vacaciones vigentes</a></li>
+										<li onclick="cambioPestana(3)"><a href="#tab3" data-toggle="tab">Solicitudes vacaciones vigentes</a></li>
 										<li class="divider"><div class="ln"></div></li>
-										<li><a href="#tab4" data-toggle="tab">Solicitudes por aprobar o rechazar</a></li>
+										<li onclick="cambioPestana(4)"><a href="#tab4" data-toggle="tab">Solicitudes por aprobar o rechazar</a></li>
 									</ul>
 								</div>
 							</div>
@@ -45,62 +73,50 @@ $this->title = 'Vacaciones';
 									<div class="heading">
 										<h3 class="fnt__Medium">Historial solicitudes de vacaciones</h3>
 									</div>
-									<div class="body">
+									<div class="body">	
+										<div class="row">											
+											<div class="form-inline">			
+												<div class="pull-right">			
+													<div class="form-group">													
+														<input type="text" class="form-control" id="search1" placeholder="Filtro">
+													</div>											
+													<button onclick="searchClick(1)" class="btn btn-default">Buscar</button>
+												</div>													
+												<div div="col-6">
+													<select id="cantidadXP1" class="form-control" style="width:120px">
+														<option value="10">10 registros</option>
+														<option value="20">20 registros</option>
+														<option value="30">30 registros</option>
+														<option value="40">40 registros</option>
+														<option value="50">50 registros</option>
+													</select>
+												</div>
+											</div>											
+										</div>
+										<div class="row">
+							                <div class="col-sm-12 text-center">
+							                    <ul class="pagination" id="paginationView1">
+							                        <li id="liprimero1"><a href="#" id="primero1" onclick="clickFirst(1)">Primero</a></li>
+							                        <li id="liback1"><a href="#" onclick="clickBack(1)">&laquo;</a></li>
+							                        <li id="li11" class="active"><a href="#" id="p11" onclick="clickPage(1,1)">1</a></li>
+							                        <li id="li21"><a href="#" id="p21" onclick="clickPage(2,1)">2</a></li>
+							                        <li id="li31"><a href="#" id="p31" onclick="clickPage(3,1)">3</a></li>
+							                        <li id="li41"><a href="#" id="p41" onclick="clickPage(4,1)">4</a></li>
+							                        <li id="li51"><a href="#" id="p51" onclick="clickPage(5,1)">5</a></li>
+							                        <li id="li61"><a href="#" id="p61" onclick="clickPage(6,1)">6</a></li>
+							                        <li id="li71"><a href="#" id="p71" onclick="clickPage(7,1)">7</a></li>
+							                        <li id="li81"><a href="#" id="p81" onclick="clickPage(8,1)">8</a></li>
+							                        <li id="li91"><a href="#" id="p91" onclick="clickPage(9,1)">9</a></li>
+							                        <li id="li101"><a href="#" id="p101" onclick="clickPage(10,1)">10</a></li>
+							                        <li id="linext1"><a href="#" onclick="clickNext(1)">&raquo;</a></li>
+							                        <li id="liultimo1"><a href="#" id="ultimo1" onclick="clickLast(1)">Ultimo</a></li>
+							                    </ul>
+							                </div>
+							            </div>
 										<div class="table-responsive">
-											<table class="table">
-												<thead>
-													<tr>
-														<th>Consecutivo</th>
-														<th>Fecha solicitud</th>
-														<th>Fecha inicio</th>
-														<th>Fecha fin</th>
-														<th>Días hábiles</th>
-														<th>Estado</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>00001</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td><div class="label-table label-success">Aprobado</div></td>
-													</tr>
-													<tr>
-														<td>00002</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td><div class="label-table label-success">Aprobado</div></td>
-													</tr>
-													<tr>
-														<td>00003</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td><div class="label-table label-success">Aprobado</div></td>
-													</tr>
-													<tr>
-														<td>00004</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td><div class="label-table label-success">Aprobado</div></td>
-													</tr>
-													<tr>
-														<td>00005</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td><div class="label-table label-success">Aprobado</div></td>
-													</tr>
-												</tbody>
-											</table>
+											<div id="datosTabla1">
+                                
+                    						</div>   											
 										</div>
 									</div>
 								</div>
@@ -109,61 +125,49 @@ $this->title = 'Vacaciones';
 										<h3 class="fnt__Medium">Historial solicitudes de vacaciones</h3>
 									</div>
 									<div class="body">
+										<div class="row">											
+											<div class="form-inline">			
+												<div class="pull-right">			
+													<div class="form-group">													
+														<input type="text" class="form-control" id="search2" placeholder="Filtro">
+													</div>											
+													<button onclick="searchClick(2)" class="btn btn-default">Buscar</button>
+												</div>													
+												<div div="col-6">
+													<select id="cantidadXP2" class="form-control" style="width:120px">
+														<option value="10">10 registros</option>
+														<option value="20">20 registros</option>
+														<option value="30">30 registros</option>
+														<option value="40">40 registros</option>
+														<option value="50">50 registros</option>
+													</select>
+												</div>
+											</div>											
+										</div>
+										<div class="row">
+							                <div class="col-sm-12 text-center">
+							                    <ul class="pagination" id="paginationView2">
+							                        <li id="liprimero2"><a href="#" id="primero2" onclick="clickFirst(2)">Primero</a></li>
+							                        <li id="liback2"><a href="#" onclick="clickBack(2)">&laquo;</a></li>
+							                        <li id="li12" class="active"><a href="#" id="p12" onclick="clickPage(1,2)">1</a></li>
+							                        <li id="li22"><a href="#" id="p22" onclick="clickPage(2,2)">2</a></li>
+							                        <li id="li32"><a href="#" id="p32" onclick="clickPage(3,2)">3</a></li>
+							                        <li id="li42"><a href="#" id="p42" onclick="clickPage(4,2)">4</a></li>
+							                        <li id="li52"><a href="#" id="p52" onclick="clickPage(5,2)">5</a></li>
+							                        <li id="li62"><a href="#" id="p62" onclick="clickPage(6,2)">6</a></li>
+							                        <li id="li72"><a href="#" id="p72" onclick="clickPage(7,2)">7</a></li>
+							                        <li id="li82"><a href="#" id="p82" onclick="clickPage(8,2)">8</a></li>
+							                        <li id="li92"><a href="#" id="p92" onclick="clickPage(9,2)">9</a></li>
+							                        <li id="li102"><a href="#" id="p102" onclick="clickPage(10,2)">10</a></li>
+							                        <li id="linext2"><a href="#" onclick="clickNext(2)">&raquo;</a></li>
+							                        <li id="liultimo2"><a href="#" id="ultimo2" onclick="clickLast(2)">Ultimo</a></li>
+							                    </ul>
+							                </div>
+							            </div>
 										<div class="table-responsive">
-											<table class="table">
-												<thead>
-													<tr>
-														<th>Consecutivo</th>
-														<th>Fecha solicitud</th>
-														<th>Fecha inicio</th>
-														<th>Fecha fin</th>
-														<th>Días hábiles</th>
-														<th>Estado</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>00001</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td><div class="label-table label-success">Aprobado</div></td>
-													</tr>
-													<tr>
-														<td>00002</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td><div class="label-table label-success">Aprobado</div></td>
-													</tr>
-													<tr>
-														<td>00003</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td><div class="label-table label-success">Aprobado</div></td>
-													</tr>
-													<tr>
-														<td>00004</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td><div class="label-table label-success">Aprobado</div></td>
-													</tr>
-													<tr>
-														<td>00005</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td><div class="label-table label-success">Aprobado</div></td>
-													</tr>
-												</tbody>
-											</table>
+											<div id="datosTabla2">
+                                
+                    						</div>   											
 										</div>
 									</div>
 								</div>
@@ -172,61 +176,49 @@ $this->title = 'Vacaciones';
 										<h3 class="fnt__Medium">Historial solicitudes de vacaciones</h3>
 									</div>
 									<div class="body">
+										<div class="row">											
+											<div class="form-inline">			
+												<div class="pull-right">			
+													<div class="form-group">													
+														<input type="text" class="form-control" id="search3" placeholder="Filtro">
+													</div>											
+													<button onclick="searchClick(3)" class="btn btn-default">Buscar</button>
+												</div>													
+												<div div="col-6">
+													<select id="cantidadXP3" class="form-control" style="width:120px">
+														<option value="10">10 registros</option>
+														<option value="20">20 registros</option>
+														<option value="30">30 registros</option>
+														<option value="40">40 registros</option>
+														<option value="50">50 registros</option>
+													</select>
+												</div>
+											</div>											
+										</div>
+										<div class="row">
+							                <div class="col-sm-12 text-center">
+							                    <ul class="pagination" id="paginationView3">
+							                        <li id="liprimero3"><a href="#" id="primero3" onclick="clickFirst(3)">Primero</a></li>
+							                        <li id="liback3"><a href="#" onclick="clickBack(3)">&laquo;</a></li>
+							                        <li id="li13" class="active"><a href="#" id="p13" onclick="clickPage(1,3)">1</a></li>
+							                        <li id="li23"><a href="#" id="p23" onclick="clickPage(2,3)">2</a></li>
+							                        <li id="li33"><a href="#" id="p33" onclick="clickPage(3,3)">3</a></li>
+							                        <li id="li43"><a href="#" id="p43" onclick="clickPage(4,3)">4</a></li>
+							                        <li id="li53"><a href="#" id="p53" onclick="clickPage(5,3)">5</a></li>
+							                        <li id="li63"><a href="#" id="p63" onclick="clickPage(6,3)">6</a></li>
+							                        <li id="li73"><a href="#" id="p73" onclick="clickPage(7,3)">7</a></li>
+							                        <li id="li83"><a href="#" id="p83" onclick="clickPage(8,3)">8</a></li>
+							                        <li id="li93"><a href="#" id="p93" onclick="clickPage(9,3)">9</a></li>
+							                        <li id="li103"><a href="#" id="p103" onclick="clickPage(10,3)">10</a></li>
+							                        <li id="linext3"><a href="#" onclick="clickNext(3)">&raquo;</a></li>
+							                        <li id="liultimo3"><a href="#" id="ultimo3" onclick="clickLast(3)">Ultimo</a></li>
+							                    </ul>
+							                </div>
+							            </div>
 										<div class="table-responsive">
-											<table class="table">
-												<thead>
-													<tr>
-														<th>Consecutivo</th>
-														<th>Fecha solicitud</th>
-														<th>Fecha inicio</th>
-														<th>Fecha fin</th>
-														<th>Días hábiles</th>
-														<th>Estado</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>00001</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td><div class="label-table label-success">Aprobado</div></td>
-													</tr>
-													<tr>
-														<td>00002</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td><div class="label-table label-success">Aprobado</div></td>
-													</tr>
-													<tr>
-														<td>00003</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td><div class="label-table label-success">Aprobado</div></td>
-													</tr>
-													<tr>
-														<td>00004</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td><div class="label-table label-success">Aprobado</div></td>
-													</tr>
-													<tr>
-														<td>00005</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td><div class="label-table label-success">Aprobado</div></td>
-													</tr>
-												</tbody>
-											</table>
+											<div id="datosTabla3">
+                                
+                    						</div>   											
 										</div>
 									</div>
 								</div>
@@ -234,155 +226,54 @@ $this->title = 'Vacaciones';
 									<div class="heading">
 										<h3 class="fnt__Medium">Solicitudes por aprobar o rechazar</h3>
 									</div>
-									<div class="body">
+									<div class="body">		
+										<div class="row">											
+											<div class="form-inline">			
+												<div class="pull-right">			
+													<div class="form-group">													
+														<input type="text" class="form-control" id="search4" placeholder="Filtro">
+													</div>											
+													<button onclick="searchClick(4)" class="btn btn-default">Buscar</button>
+												</div>													
+												<div div="col-6">
+													<select id="cantidadXP4" class="form-control" style="width:120px">
+														<option value="10">10 registros</option>
+														<option value="20">20 registros</option>
+														<option value="30">30 registros</option>
+														<option value="40">40 registros</option>
+														<option value="50">50 registros</option>
+													</select>
+												</div>
+											</div>											
+										</div>																			
+										<div class="row">											
+							                <div class="col-sm-12 text-center">
+							                    <ul class="pagination" id="paginationView4">
+							                        <li id="liprimero4"><a href="#" id="primero4" onclick="clickFirst(4)">Primero</a></li>
+							                        <li id="liback4"><a href="#" onclick="clickBack(4)">&laquo;</a></li>
+							                        <li id="li14" class="active"><a href="#" id="p13" onclick="clickPage(1,4)">1</a></li>
+							                        <li id="li24"><a href="#" id="p24" onclick="clickPage(2,4)">2</a></li>
+							                        <li id="li34"><a href="#" id="p34" onclick="clickPage(3,4)">3</a></li>
+							                        <li id="li44"><a href="#" id="p44" onclick="clickPage(4,4)">4</a></li>
+							                        <li id="li54"><a href="#" id="p54" onclick="clickPage(5,4)">5</a></li>
+							                        <li id="li64"><a href="#" id="p64" onclick="clickPage(6,4)">6</a></li>
+							                        <li id="li74"><a href="#" id="p74" onclick="clickPage(7,4)">7</a></li>
+							                        <li id="li84"><a href="#" id="p84" onclick="clickPage(8,4)">8</a></li>
+							                        <li id="li94"><a href="#" id="p94" onclick="clickPage(9,4)">9</a></li>
+							                        <li id="li104"><a href="#" id="p104" onclick="clickPage(10,4)">10</a></li>
+							                        <li id="linext4"><a href="#" onclick="clickNext(4)">&raquo;</a></li>
+							                        <li id="liultimo4"><a href="#" id="ultimo4" onclick="clickLast(4)">Ultimo</a></li>
+							                    </ul>
+							                </div>
+							            </div>							            					            
 										<div class="table-responsive">
-											<table class="table">
-												<thead>
-													<tr>
-														<th>Consec</th>
-														<th>Código</th>
-														<th>Cédula</th>
-														<th>Nombres y apellidos</th>
-														<th>Área</th>
-														<th>Cargo</th>
-														<th>Fecha inicial</th>
-														<th>Fecha final</th>
-														<th>Fecha solicitud</th>
-														<th>Días hábiles</th>
-														<th>Aceptar</th>
-														<th>Rechazar</th>
-														<th>Comentario rechazo</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>00001</td>
-														<td>12345678</td>
-														<td>12345678</td>
-														<td>John Doe</td>
-														<td>Gerencia</td>
-														<td>Jefe nómina</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td>
-															<div class="togglebutton">
-																<label>
-																	<input type="checkbox" checked>
-																</label>
-															</div>
-														</td>
-														<td>
-															<button type="button" class="btn btn-table btn-danger">
-																<i class="material-icons">&#xE15C;</i>
-															</button>
-														</td>
-														<td><input class="input-table" type="text"></td>
-													</tr>
-													<tr>
-														<td>00002</td>
-														<td>12345678</td>
-														<td>12345678</td>
-														<td>John Doe</td>
-														<td>Gerencia</td>
-														<td>Jefe nómina</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td>
-															<div class="togglebutton">
-																<label>
-																	<input type="checkbox">
-																</label>
-															</div>
-														</td>
-														<td>
-															<button type="button" class="btn btn-table btn-danger">
-																<i class="material-icons">&#xE15C;</i>
-															</button>
-														</td>
-														<td><input class="input-table" type="text"></td>
-													</tr>
-													<tr>
-														<td>00003</td>
-														<td>12345678</td>
-														<td>12345678</td>
-														<td>John Doe</td>
-														<td>Gerencia</td>
-														<td>Jefe nómina</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td>
-															<div class="togglebutton">
-																<label>
-																	<input type="checkbox">
-																</label>
-															</div>
-														</td>
-														<td>
-															<button type="button" class="btn btn-table btn-danger">
-																<i class="material-icons">&#xE15C;</i>
-															</button>
-														</td>
-														<td><input class="input-table" type="text"></td>
-													</tr>
-													<tr>
-														<td>00004</td>
-														<td>12345678</td>
-														<td>12345678</td>
-														<td>John Doe</td>
-														<td>Gerencia</td>
-														<td>Jefe nómina</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td>
-															<div class="togglebutton">
-																<label>
-																	<input type="checkbox">
-																</label>
-															</div>
-														</td>
-														<td>
-															<button type="button" class="btn btn-table btn-danger">
-																<i class="material-icons">&#xE15C;</i>
-															</button>
-														</td>
-														<td><input class="input-table" type="text"></td>
-													</tr>
-													<tr>
-														<td>00005</td>
-														<td>12345678</td>
-														<td>12345678</td>
-														<td>John Doe</td>
-														<td>Gerencia</td>
-														<td>Jefe nómina</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>24-04-2016</td>
-														<td>10</td>
-														<td>
-															<div class="togglebutton">
-																<label>
-																	<input type="checkbox">
-																</label>
-															</div>
-														</td>
-														<td>
-															<button type="button" class="btn btn-table btn-danger">
-																<i class="material-icons">&#xE15C;</i>
-															</button>
-														</td>
-														<td><input class="input-table" type="text"></td>
-													</tr>
-												</tbody>
-											</table>
+											<div id="datosTabla4">												
+							                    					
+                    						</div>   											
 										</div>
+										<div class="row">																					
+											<button type="button" id="solicitudAceptar" class="btn pull-right" onclick="aceptarVacaciones()" disabled="true">Enviar solicitud</button>
+										</div>	
 									</div>
 								</div>
 							</div>
@@ -402,61 +293,49 @@ $this->title = 'Vacaciones';
 									<h3 class="fnt__Medium">Historial solicitudes de vacaciones</h3>
 								</div>
 								<div class="body">
+									<div class="row">											
+										<div class="form-inline">			
+											<div class="pull-right">			
+												<div class="form-group">													
+													<input type="text" class="form-control" id="search5" placeholder="Filtro">
+												</div>											
+												<button onclick="searchClick(5)" class="btn btn-default">Buscar</button>
+											</div>													
+											<div div="col-6">
+												<select id="cantidadXP5" class="form-control" style="width:120px">
+													<option value="10">10 registros</option>
+													<option value="20">20 registros</option>
+													<option value="30">30 registros</option>
+													<option value="40">40 registros</option>
+													<option value="50">50 registros</option>
+												</select>
+											</div>
+										</div>											
+									</div>																			
+									<div class="row">											
+						                <div class="col-sm-12 text-center">
+						                    <ul class="pagination" id="paginationView5">
+						                        <li id="liprimero5"><a href="#" id="primero5" onclick="clickFirst(5)">Primero</a></li>
+						                        <li id="liback5"><a href="#" onclick="clickBack(5)">&laquo;</a></li>
+						                        <li id="li15" class="active"><a href="#" id="p13" onclick="clickPage(1,5)">1</a></li>
+						                        <li id="li25"><a href="#" id="p25" onclick="clickPage(2,5)">2</a></li>
+						                        <li id="li35"><a href="#" id="p35" onclick="clickPage(3,5)">3</a></li>
+						                        <li id="li45"><a href="#" id="p45" onclick="clickPage(4,5)">4</a></li>
+						                        <li id="li55"><a href="#" id="p55" onclick="clickPage(5,5)">5</a></li>
+						                        <li id="li65"><a href="#" id="p65" onclick="clickPage(6,5)">6</a></li>
+						                        <li id="li75"><a href="#" id="p75" onclick="clickPage(7,5)">7</a></li>
+						                        <li id="li85"><a href="#" id="p85" onclick="clickPage(8,5)">8</a></li>
+						                        <li id="li95"><a href="#" id="p95" onclick="clickPage(9,5)">9</a></li>
+						                        <li id="li105"><a href="#" id="p105" onclick="clickPage(10,5)">10</a></li>
+						                        <li id="linext5"><a href="#" onclick="clickNext(5)">&raquo;</a></li>
+						                        <li id="liultimo5"><a href="#" id="ultimo5" onclick="clickLast(5)">Ultimo</a></li>
+						                    </ul>
+						                </div>
+						            </div>							            					            
 									<div class="table-responsive">
-										<table class="table">
-											<thead>
-												<tr>
-													<th>Consecutivo</th>
-													<th>Fecha solicitud</th>
-													<th>Fecha inicio</th>
-													<th>Fecha fin</th>
-													<th>Días hábiles</th>
-													<th>Estado</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>00001</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00002</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00003</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00004</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-												<tr>
-													<td>00005</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>24-04-2016</td>
-													<td>10</td>
-													<td><div class="label-table label-success">Aprobado</div></td>
-												</tr>
-											</tbody>
-										</table>
+										<div id="datosTabla5">												
+						                    			
+                						</div>   											
 									</div>
 								</div>
 							</div>
@@ -492,11 +371,13 @@ $this->title = 'Vacaciones';
 				</div>
 			</div>
 		</div>
-		<div class="cont-float-vac">
-			<button type="button" class="btn btn-raised btn-info" data-toggle="modal" data-target="#modtabs">
-					<i class="material-icons">&#xE02F; </i>  Autorizaciones de empleados
-			</button>
-		</div>
+		<?php if (strcmp($autorizaciones,'TRUE') === 0): ?>
+			<div class="cont-float-vac">
+				<button id="openModalId" type="button" class="btn btn-raised btn-info" data-toggle="modal" data-target="#modtabs">
+						<i class="material-icons">&#xE02F; </i>  Autorizaciones de empleados
+				</button>
+			</div>
+		<?php endif ?>
 		<div class="container-v">
 			<div class="box"></div>
 			<div class="content">
@@ -516,18 +397,24 @@ $this->title = 'Vacaciones';
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>24-04-2016</td>
-										<td>24-04-2016</td>
-										<td>7</td>
-										<td>Pendiente</td>
-									</tr>
-									<tr>
-										<td>24-04-2016</td>
-										<td>24-04-2016</td>
-										<td>5</td>
-										<td>Pendiente</td>
-									</tr>
+										<?php if (is_array($vacasvigentes)): ?>
+											<?php foreach ($vacasvigentes as $key1): ?>
+												<tr>
+													<td><?=$key1['FEC_INI_PERIODO']?></td>
+													<td><?=$key1['FEC_FIN_PERIODO']?></td>
+													<td><?=$key1['DIAS']?></td>
+													<td>Pendiente</td>
+												</tr>										
+											<?php endforeach ?>
+										<?php else: ?>
+											<tr>
+												<td>no hay dato</td>
+												<td>no hay dato</td>
+												<td>no hay dato</td>
+												<td>no hay dato</td>
+											</tr>
+										<?php endif ?>
+											
 								</tbody>
 							</table>
 						</div>
@@ -536,7 +423,7 @@ $this->title = 'Vacaciones';
 						<div class="content-main-days">
 							<div class="content-days bg-amber-A700 center-block">
 								<p class="text-ini">Cuentas con</p>
-								<span class="text-number">12</span>
+								<span class="text-number"><?=$diaspedientes?></span>
 								<p class="text-end">Días</p>
 							</div>
 						</div>
@@ -559,43 +446,14 @@ $this->title = 'Vacaciones';
 							<!-- Modal -->
 							<div class="modal fade modal-header-gray" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								<div class="modal-dialog" role="document">
-									<div class="modal-content">
-										
-										<?php $form = ActiveForm::begin([
-											'method' => 'POST',
-											'options' => [
-														'class' => ' '
-													 ],
-											'action' => ['site/addevent'],
-										]);
-										?>
+									<div class="modal-content">	
 										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="cerrarVacacionesV"><span aria-hidden="true">&times;</span></button>
 											<h3 class="fnt__Medium">Solicitud de vacaciones</h3>
 										</div>
 										<div class="modal-body">
 											<div class="row">
-												<div class="col-sm-10 col-sm-offset-1">
-													<div class="form-group label-floating mrg__top-15">
-														<label for="title" class="control-label">Titulo</label>
-															<input type="text" name="title" class="form-control" id="title" required>
-													</div>
-													<div class="form-group select-m mrg__top-15">
-														<label for="color" class="control-label dis-block">Color (opcional)</label>
-														<div class="mad-select">
-															<ul>
-																<li data-value="0">Seleccione...</li>
-																<li style="color:#0071c5;" data-value="1">Azul Oscuro</li>
-																<li style="color:#40E0D0;" data-value="2">Turquesa</li>
-																<li style="color:#008000;" data-value="3">Verde</li>
-																<li style="color:#FFD700;" data-value="4">Amarillo</li>
-																<li style="color:#FF8C00;" data-value="5">Naranja</li>
-																<li style="color:#FF0000;" data-value="6">Rojo</li>
-																<li style="color:#000;" data-value="7">Negro</li>
-															</ul>
-															<input type="hidden" id="color" name="color" value="0" class="form-control">
-														</div>
-													</div>
+												<div class="col-sm-10 col-sm-offset-1">																										
 													<div class="form-group mrg__top-15">
 														<label for="start" class="control-label">Fecha Inicial</label>
 														<input type="text" name="start" class="form-control" id="start" disabled>
@@ -605,7 +463,7 @@ $this->title = 'Vacaciones';
 													  
 													  <label for="start" class="control-label">Seleccione Cantidad de Dias a Tomar </label>
 														<p class="range-field"></br>
-														  <input type="range" id="rango" min="1" max="15" value="15"/><span id="valor"> </span>
+														  <input type="range" id="rango" min="1" max="<?=$diaspedientes?>" value="1"/><span id="valor"> </span>
 														</p>
 
 													</div>
@@ -616,9 +474,8 @@ $this->title = 'Vacaciones';
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar Solicitud</button>
-											<button type="submit" class="btn btn-primary">Guardar Fecha</button>
+											<button type="submit" class="btn btn-primary" onclick="validarVacaciones()">Enviar Solicitud</button>
 										</div>
-										<?php $form->end() ?>
 									</div>
 								</div>
 							</div>
@@ -655,7 +512,7 @@ $this->title = 'Vacaciones';
 						</div>
 						<div class="slide-item detail pdg__16">
 							<div class="text-center pdg__16">
-								<h3 class="no-mrg fnt__Medium">Vacaciones solicitadas</h3>
+								<h3 class="no-mrg fnt__Medium">Ultimas 5 vacaciones solicitadas</h3>
 							</div>
 							<div class="table-responsive">
 								<table class="table">
@@ -668,36 +525,33 @@ $this->title = 'Vacaciones';
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>24-04-2016</td>
-											<td>24-04-2016</td>
-											<td>10</td>
-											<td><div class="label-table label-success">Aprobado</div></td>
-										</tr>
-										<tr>
-											<td>24-04-2016</td>
-											<td>24-04-2016</td>
-											<td>10</td>
-											<td><div class="label-table label-success">Aprobado</div></td>
-										</tr>
-										<tr>
-											<td>24-04-2016</td>
-											<td>24-04-2016</td>
-											<td>10</td>
-											<td><div class="label-table label-success">Aprobado</div></td>
-										</tr>
-										<tr>
-											<td>24-04-2016</td>
-											<td>24-04-2016</td>
-											<td>10</td>
-											<td><div class="label-table label-success">Aprobado</div></td>
-										</tr>
-										<tr>
-											<td>24-04-2016</td>
-											<td>24-04-2016</td>
-											<td>10</td>
-											<td><div class="label-table label-success">Aprobado</div></td>
-										</tr>
+										<?php  $limite = 1;?>
+										<?php if (is_array($vacasHistorial)): ?>
+											<?php foreach ($vacasHistorial as $key2): ?>											
+													<tr>
+														<td><?=$key2['FEC_INI']?></td>
+														<td><?=$key2['FEC_FIN']?></td>
+														<td><?=$key2['DIAS']?></td>
+														<?php if (strcmp($key2['ESTADO'],"APROBADO") === 0): ?>
+															<td><div class="label-table label-success">Aprobado</div></td>	
+														<?php elseif (strcmp($key2['ESTADO'],"RECHAZADO") === 0): ?>
+															<td><div class="label-table" style="background-color: #CB4335; color: #ffffff;">Rechazado</div></td>	
+														<?php elseif (strcmp($key2['ESTADO'],"PENDIENTE") === 0): ?>
+															<td><div class="label-table"  style="background-color: #808B96; color: #ffffff;">Pendiente</div></td>	
+														<?php endif ?>
+													</tr>				
+													<?php if($limite++ >= 5):?>
+														<?php break; ?>														
+													<?php endif ?>
+											<?php endforeach ?>
+										<?php else: ?>
+												<tr>
+													<td>no hay dato</td>
+													<td>no hay dato</td>
+													<td>no hay dato</td>
+													<td>no hay dato</td>
+												</tr>
+										<?php endif ?>
 									</tbody>
 								</table>
 							</div>
@@ -709,15 +563,154 @@ $this->title = 'Vacaciones';
 	</div>
 </div>
 <script>
-
+//CONTADOR DE DIAS
 var slider = document.getElementById("rango");
 var output = document.getElementById("valor");
-output.innerHTML = slider.value; // Display the default slider value
+output.innerHTML = slider.value; 
 
-// Update the current slider value (each time you drag the slider handle)
 slider.oninput = function() {
     output.innerHTML = this.value;
 } 
 
+//DEFINO UNA BANDERA PARA HEREDAR PROPIEDADES DEL CALENDARIO, 0 ES TURNOS Y 1 ES VACACIONES
+var bandera = "1";
 </script>
 
+
+
+<script type="text/javascript">
+	/*variables de la session*/
+		var cedula = '<?=Yii::$app->session['cedula']?>';//'52513735';
+		var autorizaciones = '<?=Yii::$app->session['submenus'][1]?>';
+	/**/
+
+	/*Variables de las ejecuciones con ajax*/
+		var aceptarSolicitudes = '<?php echo Url::toRoute(['site/aceptarsolicitudesvaca']);?>';
+		var rechazarSolicitud = '<?php echo Url::toRoute(['site/rechazarsolicitudesvaca']);?>';		
+		var editarSolicitud = '<?php echo Url::toRoute(['site/editarsolicitudvaca']); ?>';
+		var validaVacacas = '<?php echo Url::toRoute(['site/validadvacaciones']); ?>';
+		var pestana1 = '<?php echo Url::toRoute(['site/autorzacionvacap1']); ?>';
+		var pestana2 = '<?php echo Url::toRoute(['site/autorzacionvacap2']); ?>';
+		var pestana3 = '<?php echo Url::toRoute(['site/autorzacionvacap3']); ?>';
+		var pestana4 = '<?php echo Url::toRoute(['site/autorzacionvacap4']); ?>';
+		var pestana5 = '<?php echo Url::toRoute(['site/historialvacas']); ?>';
+		var calculoFechas = '<?php echo Url::toRoute(['site/calculafecha']); ?>';
+		var enviarvacaciones = '<?php echo Url::toRoute(['site/enviarsolicitudvacas']); ?>';
+
+	/**/	
+	
+	//control de jefes o administradores
+	if(autorizaciones.localeCompare("TRUE") == 0){
+		$(cambioPestana(1));	
+	}
+
+	function ejecute(id){
+		var pagination = generalPage;
+		var pageXp = $('select#cantidadXP'+id).val();
+        //CODIGO PARA EJECUTAR CADA VEZ QUE CAMBIE DE PAGINA
+        switch(id){
+        	case 1:
+        		//ejecuciones para solicitudes por empleado         		
+        		solicitudesXepl(pagination, pageXp);
+        		break;
+        	case 2:
+				solicitudesXep2(pagination, pageXp);
+				break;
+			case 3:
+				solicitudesXep3(pagination, pageXp);
+				break;
+			case 4:
+				solicitudesXep4(pagination, pageXp);
+				break;
+			case 5:
+				historialVacaciones(pagination, pageXp);
+				break;
+        }
+	}
+
+	function cambioPestana(id, filtro = 10){		
+		switch(id){
+			case 1:				
+				limpiaFiltros(1); 			reiniciarToggle();
+				solicitudesXepl(1,filtro);	setGeneralValuesDefault(id);				
+				break;
+			case 2:
+				limpiaFiltros(2);			reiniciarToggle();
+				solicitudesXep2(1,filtro);  setGeneralValuesDefault(id);
+				break;
+			case 3:
+				limpiaFiltros(3);			reiniciarToggle();
+				solicitudesXep3(1,filtro);	setGeneralValuesDefault(id);
+				break;
+			case 4:
+				limpiaFiltros(4);			reiniciarToggle();
+				solicitudesXep4(1,filtro);	setGeneralValuesDefault(id);
+				break;
+			case 5:
+				limpiaFiltros(5);				reiniciarToggle();
+				historialVacaciones(1,filtro);	setGeneralValuesDefault(id);
+				break;
+
+		}
+	}
+    
+
+    function searchClick(id){
+    	switch(id){
+			case 1:
+				cambioPestana(id,$("#cantidadXP1").val());
+				break;
+			case 2:
+				cambioPestana(id,$("#cantidadXP2").val());
+				break;
+			case 3:
+				cambioPestana(id,$("#cantidadXP3").val());
+				break;
+			case 4:
+				cambioPestana(id,$("#cantidadXP4").val());
+				break;
+			case 5:
+				cambioPestana(id,$("#cantidadXP5").val());
+				break;
+		}    	
+    }
+
+    function limpiaFiltros(id){
+    	//recorre todos los filtros y los limpia
+    	for(var i=1 ; i<=6 ; i++){
+    		//si es el id ingresado no entra
+    		if(i != id){   			
+    			//id del buscador y de la cantidad
+    			var idJquery1 = "#search"+i;
+    			var idJquery2 = "#cantidadXP"+i;
+    			//camia el valor del buscador y de la cantidad
+    			$(idJquery1).val(''); 
+    			$(idJquery2).val('10');
+    		}
+    	}   
+
+    	setOrder(id);     	
+    }   
+
+
+    $("#cantidadXP1").change(function(event) {
+		cambioPestana(1,$(this).val());
+	});
+
+	$("#cantidadXP2").change(function(event) {
+		cambioPestana(2,$(this).val());
+	});
+
+	$("#cantidadXP3").change(function(event) {
+		cambioPestana(3,$(this).val());
+	});
+
+	$("#cantidadXP4").change(function(event) {
+		cambioPestana(4,$(this).val());
+	});	
+
+	$("#cantidadXP5").change(function(event) {
+		cambioPestana(5,$(this).val());
+	});	
+
+</script>
