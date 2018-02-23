@@ -84,8 +84,10 @@ class TwPcVacaciones extends Model{
 		// ejecucion del procedimiento 
 		oci_execute($stid);
 		oci_execute($c7);
+		
 		// datos del cursor
 		oci_fetch_all($c7, $cursor, null, null, OCI_FETCHSTATEMENT_BY_ROW);		
+		
 		// array con los datos y la cantidad de pestanas 
 	    return array($cursor,$c6);		
 	}
