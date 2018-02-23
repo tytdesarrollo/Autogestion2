@@ -28,7 +28,6 @@ use app\models\TwPcHorasExtrasHistorial;
 use app\models\TwPcVacaciones;
 use app\models\TwPcInsertHorasExtras;
 use app\models\TwPcInsertHoras;
-use app\models\TwPcHorasExtras;
 
 
 class SiteController extends Controller
@@ -1042,74 +1041,95 @@ $model = new TwPcPersonalData;
     }
     public function actionAutorzacionvacap1(){
 
-    	//$c1 = $_GET['cantidad'];
     	$c1 = Yii::$app->request->get('cantidad');
-    	//$c2 = $_GET['pagina'];
     	$c2 = Yii::$app->request->get('pagina');
-    	//$c3 = $_GET['search'];
     	$c3 = Yii::$app->request->get('search');
-    	//$c4 = $_GET['column'];	
     	$c4 = Yii::$app->request->get('column');
-    	//$c5 = $_GET['cedula'];	
-    	$c5 = Yii::$app->request->get('cedula');	
+    	$c5 = Yii::$app->request->get('cedula');
 
     	$vacaciones = new TwPcVacaciones();
-    	$datosfv = $vacaciones->solicitudesEpl($c1,$c2,$c3,$c4,$c5);
+    	$datos = $vacaciones->solicitudesEpl($c1,$c2,$c3,$c4,$c5);
 		
-		foreach ($datosfv[0] as $cursor){
-		$cursor = array_map("utf8_decode", $cursor);    
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
 		}
-		
-		$datos=[$cursor,$datosfv[1]];;
-		
-    	echo json_encode($datos);
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);    	
     }
 
     public function actionAutorzacionvacap2(){
 
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-		$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+		$c5 = Yii::$app->request->get('cedula');
 
     	$vacaciones = new TwPcVacaciones();
     	$datos = $vacaciones->solicitudesRechazadas($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);    
     }
 
     public function actionAutorzacionvacap3(){
 
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-    	$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+    	$c5 = Yii::$app->request->get('cedula');
 
     	$vacaciones = new TwPcVacaciones();
     	$datos = $vacaciones->solicitudesVigentes($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);    
     }
 
     public function actionAutorzacionvacap4(){
 
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-    	$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+    	$c5 = Yii::$app->request->get('cedula');
 
     	$vacaciones = new TwPcVacaciones();
     	$datos = $vacaciones->solicitudesAcepRech($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1],$datos[2]);
+		echo json_encode($datosTable);    
     }
 
     public function actionAceptarsolicitudesvaca(){
 
-    	$get1 = $_GET['solicitudes'];
+    	$get1 = Yii::$app->request->get('solicitudes');
     	$c1 = array();
 
     	for ($i=0; $i < count($get1); $i++) { 
@@ -1124,7 +1144,7 @@ $model = new TwPcPersonalData;
 
     public function actionRechazarsolicitudesvaca(){
 
-    	$get1 = $_GET['paramSp'];
+    	$get1 = Yii::$app->request->get('paramSp');
     	$c1 = array();
     	$c1[0] = $get1;
 
@@ -1136,22 +1156,22 @@ $model = new TwPcPersonalData;
 
     public function actionEditarsolicitudvaca(){
 
-    	$c1 = $_GET['codigoepl'];
-		$c2 = $_GET['consecutivo'];
-		$c3 = $_GET['dias'];
-		$c4 = $_GET['fechaini'];
-		$c5 = $_GET['fechafin'];
+    	$c1 = Yii::$app->request->get('codigoepl');
+		$c2 = Yii::$app->request->get('consecutivo');
+		$c3 = Yii::$app->request->get('dias');
+		$c4 = Yii::$app->request->get('fechaini');
+		$c5 = Yii::$app->request->get('fechafin');
 
 		$vacaciones = new TwPcVacaciones();
     	$datos = $vacaciones->solicitudesEditar($c1,$c2,$c3,$c4,$c5);
 
-    	echo "true";
+    	echo $datos;
     }
 
     public function actionCalculafecha(){
 
-    	$c1 = $_GET['fecha'];
-    	$c2 = $_GET['dias'];    	    	
+    	$c1 = Yii::$app->request->get('fecha');
+    	$c2 = Yii::$app->request->get('dias');
     	
     	$vacaciones = new TwPcVacaciones();
     	$datos = $vacaciones->calcularFecha($c1,$c2);
@@ -1161,22 +1181,30 @@ $model = new TwPcPersonalData;
     }
 
     public function actionHistorialvacas(){
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-    	$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+    	$c5 = Yii::$app->request->get('cedula');
 
     	$vacaciones = new TwPcVacaciones();
     	$datos = $vacaciones->historialEmpleado($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);    
     }
 
     public function actionValidadvacaciones(){
     	$c1 = Yii::$app->session['cedula'];
-		$c2 = $_GET['fecha'];
-		$c3 = $_GET['dias'];
+		$c2 = Yii::$app->request->get('fecha');
+		$c3 = Yii::$app->request->get('dias');
 
 		$vacaciones = new TwPcVacaciones();
     	$datos = $vacaciones->validaVacaciones($c1,$c2,$c3);
@@ -1186,9 +1214,9 @@ $model = new TwPcPersonalData;
 
     public function actionEnviarsolicitudvacas(){
     	$c1 = Yii::$app->session['cedula'];
-		$c2 = $_GET['dias'];
-		$c3 = $_GET['fechaini'];
-		$c4 = $_GET['fechafin'];
+		$c2 = Yii::$app->request->get('dias'); 
+		$c3 = Yii::$app->request->get('fechaini');
+		$c4 = Yii::$app->request->get('fechafin');
 
 		$vacaciones = new TwPcVacaciones();
     	$datos = $vacaciones->envioVacaciones($c1,$c2,$c3,$c4);		
@@ -1197,137 +1225,192 @@ $model = new TwPcPersonalData;
     }
 
     public function actionAutorzacionextrp1(){
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-    	$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+    	$c5 = Yii::$app->request->get('cedula');
 
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesEpl($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);    
     }
 
     public function actionAutorzacionextrp2(){
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-    	$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+    	$c5 = Yii::$app->request->get('cedula');
 
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesEp2($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);    
     }
 
     public function actionAutorzacionextrp3(){
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-    	$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+    	$c5 = Yii::$app->request->get('cedula');
 
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesEp3($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);    
     }
 
     public function actionAutorzacionextrp4(){
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-    	$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+    	$c5 = Yii::$app->request->get('cedula');
 
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesEp4($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);
     }
 
     public function actionAutorzacionextrp5(){
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-    	$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+    	$c5 = Yii::$app->request->get('cedula');
 
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesEp5($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);
     }
 
     public function actionAutorzacionextrp6(){
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-    	$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+    	$c5 = Yii::$app->request->get('cedula');
 
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesEp6($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);
     }
 
     public function actionAceptarsolicitudesturnos(){
-    	$get1 = $_GET['solicitudes'];
+    	$get1 = Yii::$app->request->get('solicitudes');
     	$c1 = array();
 
     	for ($i=0; $i < count($get1); $i++) { 
     		$c1[$i] = $get1[$i]['valor'];
     	}
     	
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesAceptar($c1);
 
     	echo $datos;
     }
 
     public function actionRechazarsolicitudesturnos(){
-    	$get1 = $_GET['paramSp'];
+    	$get1 = Yii::$app->request->get('paramSp');
     	$c1 = array();
     	$c1[0] = $get1;
 
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesRechazar($c1);
 
     	echo $datos;
     }
 
     public function actionDetallegerenteturnos(){
-    	$c1 = $_GET['codigoepl'];    	
+    	$c1 = Yii::$app->request->get('codigoepl');
 
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->detalleHistorialHorasExtrasGere($c1);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+		
+		echo json_encode($datosTable);
     }
 
     public function actionAceptarsolicitudesturnosgre(){
-    	$get1 = $_GET['solicitudes'];
+    	$get1 = Yii::$app->request->get('solicitudes');
     	$c1 = array();
 
     	for ($i=0; $i < count($get1); $i++) { 
     		$c1[$i] = $get1[$i]['valor'];
     	}
     	
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesAceptarGre($c1);
 
     	echo $datos;
     }
 
     public function actionRechazasolicitudesturnosgre(){
-    	$get1 = $_GET['paramSp'];
+    	$get1 = Yii::$app->request->get('paramSp');
     	$c1 = array();
     	$c1[0] = $get1;
 
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesRechazaGre($c1);
 
     	echo $datos;
