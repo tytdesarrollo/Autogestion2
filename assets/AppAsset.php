@@ -20,13 +20,15 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
         'css/site_dark.css',
-		'css/fullcalendar.css',
+		'css/fullcalendar.css',		
+        'css/tingle.min.css'
     ];
     public $js = [
 		'js/classie.js',
 		'js/menumodal.js',
 		'js/moment.min.js',
-		'js/fullcalendar.min.js',
+		'js/fullcalendar.min.js',		
+		'js/paginationfsv-v1.0.js',		
     ];
     public $depends = [
         'yii\web\YiiAsset',

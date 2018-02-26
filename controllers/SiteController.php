@@ -18,28 +18,51 @@ use PDO;
 use app\models\TwPcIdentity;
 use app\models\TwPcPersonalData;
 use app\models\TwPcCertIngresos;
+use app\models\TwPcCertLaborales;
 use app\models\Ldap;
-use app\models\RolesPerfiles;
+use app\models\TwPcRolesPerfiles;
+use app\models\TwPcComprobantePago;
+use app\models\TwPcCronoCierreNomina;
+use app\models\TwPcEquipoNomina;
+use app\models\TwPcHorasExtrasHistorial;
+use app\models\TwPcVacaciones;
+use app\models\TwPcInsertHorasExtras;
+use app\models\TwPcInsertHoras;
+use app\models\TwPcHorasExtras;
 
 
 class SiteController extends Controller
 { 	
 
 
-	public function actionPrueba(){	
-
-		$model = new RolesPerfiles;
-		$rolesperfiles = $model->spMenus();
-		$menus = $rolesperfiles[0];
-		$submenus = $rolesperfiles[1];
-
-		return $this->render('prueba', ["menus"=>$submenus]);
+	public function actionPrueba(){				
 	
-	}	
+$model = new TwPcPersonalData;
+
+		$this->layout=false;
+		
+		$twpcpersonaldata = $model->procedimiento();
+		
+		//convierto los bloques en arrays y divido los bloques por posicion
+		
+		$equipo = explode("*_", $twpcpersonaldata[8]);
+		
+		/*foreach ($PERIODOS as $PERIODO_KEY) {
+			$NOM_PERIODO_ARR[] = $PERIODO_KEY['PERIODO'];
+			$ANO_PERIODO_ARR[] = $PERIODO_KEY['ANO_INI'];
+			$NUM_PERIODO_ARR[] = $PERIODO_KEY['NUM_PER'];
+			$JUN_PERIODO_ARR[] = $PERIODO_KEY['PERIODO'].'_*'.$PERIODO_KEY['ANO_INI'];
+			
+
+		}*/				
+		
+		return $this->render('prueba', ["equipo"=>$equipo]);
+	
+	}
 
 	public function actionMenu()
 	{
-		$model = new RolesPerfiles;
+		$model = new TwPcRolesPerfiles;
 		$rolesperfiles = $model->spMenus();
 		$menus = $rolesperfiles[0];
 		$submenus = $rolesperfiles[1];
@@ -230,7 +253,7 @@ class SiteController extends Controller
     public function actionVacaciones()
     {        		
 		
-		$tablet_browser = 0;
+			$tablet_browser = 0;
 			$mobile_browser = 0;
 			$body_class = 'desktop';
 			 
@@ -273,30 +296,44 @@ class SiteController extends Controller
 				  $tablet_browser++;
 				}
 			}
+			////////////////////////////////////////////////LOGICA//////////////////////////////////////////////////
+			//habilitar la opcion de autorizar empleados
+			$autorizaciones = Yii::$app->session['submenus'][1];
+			//modelo 
+			$vacaciones = new TwPcVacaciones();
+			//historial de vacacines del empleado 			
+    		$datos = $vacaciones->Vacaciones();
+    		//variables con los datos del empleado
+    		$vacasHistorial = $datos[0];
+    		$vacasvigentes = $datos[1];    		
+    		$diaspedientes = $datos[4];
+    		//validaciones
+    		if($datos[2] === 0){
+    			$vacasHistorial = $datos[2];
+    		}
+    		if($datos[3] === 0){
+    			$vacasvigentes = $datos[3];
+    		}
+
+    		//paginacion    		
+		   	
+
+			////////////////////////////////////////////////LOGICA//////////////////////////////////////////////////
+
 			if ($tablet_browser > 0) {
 			// Si es tablet has lo que necesites
-			$events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
-			
-			$this->view->params['customParam'] = $events;
 
-                return $this->render('mvacaciones',['events' => $events]);
+                return $this->render('mvacaciones',["autorizaciones"=>$autorizaciones,"vacasvigentes"=>$vacasvigentes,"vacasHistorial"=>$vacasHistorial,"diaspedientes"=>$diaspedientes]);
 
 			}
 			else if ($mobile_browser > 0) {
 			// Si es dispositivo mobil has lo que necesites			
-			   $events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
-			
-			$this->view->params['customParam'] = $events;
-
-                return $this->render('mvacaciones',['events' => $events]);
+			  
+                return $this->render('mvacaciones',["autorizaciones"=>$autorizaciones,"vacasvigentes"=>$vacasvigentes,"vacasHistorial"=>$vacasHistorial,"diaspedientes"=>$diaspedientes]);
 			}
 			else {
-			// Si es ordenador de escritorio has lo que necesites
-			$events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
-			
-			$this->view->params['customParam'] = $events;
 				
-                return $this->render('vacaciones',['events' => $events]);
+                return $this->render('vacaciones',["autorizaciones"=>$autorizaciones,"vacasvigentes"=>$vacasvigentes,"vacasHistorial"=>$vacasHistorial,"diaspedientes"=>$diaspedientes]);
 			}        
 		
     }
@@ -344,7 +381,9 @@ class SiteController extends Controller
 		$bloque6 = explode("_*", $twpcpersonaldata[5]);
 		$bloque7 = explode("_*", $twpcpersonaldata[6]);
 		$bloque8 = explode("_*", $twpcpersonaldata[7]);
-		$bloque9 = explode("_*", $twpcpersonaldata[8]);
+		//CAMBIA EL ORDEN EN EL BLOQUE9 PARA REALIZAR POSTERIOR SEPARACION DEL ARRAY
+		$bloque9 = explode("*_", $twpcpersonaldata[8]);
+		
 		$bloque10 = explode("_*", $twpcpersonaldata[9]);
 		$bloque11 = explode("_*", $twpcpersonaldata[10]);
 		$bloque12 = explode("_*", $twpcpersonaldata[11]);
@@ -358,7 +397,7 @@ class SiteController extends Controller
 		
 
 		//=======================================PERFILES=========================================
-		$model = new RolesPerfiles;
+		$model = new TwPcRolesPerfiles;
 		$rolesperfiles = $model->spMenus();
 		$menus = $rolesperfiles[0];
 		$submenus = $rolesperfiles[1];
@@ -600,28 +639,47 @@ class SiteController extends Controller
 			}
 			if ($tablet_browser > 0) {
 			// Si es tablet has lo que necesites
-			$events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
 			
-			$this->view->params['customParam'] = $events;
-
-                return $this->render('mturnos',['events' => $events]);
+                return $this->render('mturnos');
 
 			}
 			else if ($mobile_browser > 0) {
 			// Si es dispositivo mobil has lo que necesites			
-			   $events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
-			
-			$this->view->params['customParam'] = $events;
 
-                return $this->render('mturnos',['events' => $events]);
+                return $this->render('mturnos');
 			}
-			else {
-			// Si es ordenador de escritorio has lo que necesites
-			$events = Yii::$app->mysqldb->createCommand("SELECT ID AS ID, TITLE AS TITLE, START AS START, END AS END, COLOR AS COLOR FROM EVENTS")->queryAll();
+			else {			
+
+				//identifar si es genernte quien ingresa
+				$gerente = Yii::$app->session['gerente'];
 			
-			$this->view->params['customParam'] = $events;
+				//INICIO DE LOGICA PARA TURNOS
+				//historiales de horas extras
+				$model = new TwPcHorasExtrasHistorial;
+
+				$twpchorasextrashistorial = $model->HorasExtras();
 				
-                return $this->render('turnos',['events' => $events]);
+				$HHEXTRAS = $twpchorasextrashistorial[0];
+				$HHEXTRASTOP = $twpchorasextrashistorial[1];
+				$HHMESSAGE = $twpchorasextrashistorial[2];
+				$HHOUTPUT = $twpchorasextrashistorial[3];			
+							
+				//Conceptos de horas extras
+				$model = new TwPcInsertHorasExtras;
+
+				$twpchorasextras = $model->HorasExtrasVal();
+				
+				$HCONCEPTOS = $twpchorasextras[0];			
+
+				foreach ($HCONCEPTOS as $HCONCEPTOS_KEY) {												
+											
+											$ARRCON_KEY[] = $HCONCEPTOS_KEY['CONCEPTO'];
+											$ARRCOD_KEY[] = $HCONCEPTOS_KEY['COD_CON'];
+													}									
+				
+				$autorizaciones = Yii::$app->session['submenus'][3];
+
+	            return $this->render('turnos',['HHEXTRAS' => $HHEXTRAS,'HHEXTRASTOP' => $HHEXTRASTOP, 'HHOUTPUT' => $HHOUTPUT, 'HHMESSAGE' => $HHMESSAGE, 'HCONCEPTOS' => $HCONCEPTOS, 'ARRCON_KEY' => $ARRCON_KEY, 'ARRCOD_KEY' => $ARRCOD_KEY,'gerente'=>$gerente,'autorizaciones'=>$autorizaciones]);
 			}        
 		
     }
@@ -691,9 +749,52 @@ class SiteController extends Controller
     }
 	
 	public function actionCertificadolaboral()
-    {				
+    {
 		$this->layout='main_light';
         return $this->render('certificadolaboral');
+		
+    }
+	public function actionPdf_certificadolaboral()
+    {				
+	
+	if (isset($_POST['optionsRadios'])&&isset($_POST['optionsText'])){		
+		
+		$radio = $_POST['optionsRadios'];
+		$text = $_POST['optionsText'];
+		
+		Yii::$app->session['checklab'] = $radio;		
+		Yii::$app->session['textlab'] = $text;		
+		
+		echo(($radio)?json_encode($radio):'');		
+		echo(($text)?json_encode($text):'');		
+		
+	}else{
+		
+		$radio = 'ERROR';
+		$text = 'ERROR';
+		
+		echo(($radio)?json_encode($radio):'');
+		echo(($text)?json_encode($text):'');
+		
+	}
+	
+		$model = new TwPcCertLaborales;
+	
+			Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+			Yii::$app->response->headers->add('Content-Type', 'application/pdf');	
+			
+			// Load Component Yii2 TCPDF 
+			Yii::$app->get('tcpdf');
+		
+		$twpccertlaborales = $model->procedimiento();
+		
+		//$BLOQUE2 = explode("_*", $twpccertlaborales[1]);
+		$BLOQUEA = $twpccertlaborales[0];
+		$BLOQUET = $twpccertlaborales[1];
+		$BLOQUEB = $twpccertlaborales[2];
+		$BLOQUEC = $twpccertlaborales[3];
+		
+        return $this->render('pdf_certificadolaboral', ["encabezado"=>$BLOQUEA,"titulo"=>$BLOQUET,"cuerpo"=>$BLOQUEB,"pie"=>$BLOQUEC]);
 		
     }
 	public function actionCertificadosretencion()
@@ -706,7 +807,7 @@ class SiteController extends Controller
 		$twpccertingresos = $model->procedimiento();
 		
 		$BLOQUE2 = explode("_*", $twpccertingresos[1]);
-		
+				
         return $this->render('certificadosretencion',["anoscerti"=>$BLOQUE2]);
 		
     }
@@ -744,21 +845,144 @@ class SiteController extends Controller
 		
     }
 	public function actionComprobantespago()
-    {				
+    {	
 		$this->layout='main_light';
-        return $this->render('comprobantespago');
+		
+		$model = new TwPcComprobantePago;
+		
+		$twpccomprobantepago = $model->ComprobantePago();
+		
+		$PERIODOS = $twpccomprobantepago[1];
+		
+		foreach ($PERIODOS as $PERIODO_KEY) {
+			$ANO_PERIODO_ARR[] = $PERIODO_KEY['ANO_INI'];
+		}
+		
+		//ELIMINO LOS ANIOS DUPLICADOS
+		$ANO_PERIODO_FILT = array_unique($ANO_PERIODO_ARR);
+					
+        return $this->render('comprobantespago', ["ANO_PERIODO_ARR"=>$ANO_PERIODO_FILT]);
 		
     }
+	public function actionMenucomprobantespago()
+    {
+		
+		$model = new TwPcComprobantePago;
+		
+		$twpccomprobantepago = $model->ComprobantePago();
+		
+		$PERIODOS = $twpccomprobantepago[1];
+		
+		foreach ($PERIODOS as $PERIODO_KEY) {									
+									
+			if ($PERIODO_KEY['ANO_INI'] == $_POST['anoenv']) {
+								  
+			$NOM_PERIODO_ARR[] = $PERIODO_KEY['PERIODO'];
+			$NUR_PERIODO_ARR[] = $PERIODO_KEY['NUM_PER'];
+			
+				}
+			}
+		
+		if (isset($_POST['anoenv'])){		
+		
+		$resultado = $_POST['anoenv'];
+		
+		Yii::$app->session['ano_com'] = $resultado;			
+		
+		$ARRAY_PERIODO = array($NOM_PERIODO_ARR,$NUR_PERIODO_ARR);
+		
+		echo(($ARRAY_PERIODO)?json_encode($ARRAY_PERIODO):'');
+		
+	}
+		
+    }
+	public function actionPdf_comprobantespago()
+    {
+		
+		$model = new TwPcComprobantePago;		
+		
+		Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+		Yii::$app->response->headers->add('Content-Type', 'application/pdf');	
+			
+		// Load Component Yii2 TCPDF 
+		Yii::$app->get('tcpdf');
+		
+		//RECIBO PERIODO
+		
+		if (isset($_POST['perenv'])){		
+		
+		$resultado = $_POST['perenv'];
+		
+		Yii::$app->session['per_com'] = $resultado;			
+		
+		echo(($resultado)?json_encode($resultado):'');
+		
+		}
+		
+		//ANO ENVIADO SOLAMENTE DE LA VISTA PRINCIPAL PARA LOS 3 ULTIMOS COMPROBANTES
+		if (isset($_POST['anoenv'])){		
+		
+		$resultadoano = $_POST['anoenv'];
+		
+		Yii::$app->session['ano_com'] = $resultadoano;
+		
+		}
+			
+		$twpccomprobantepago = $model->ComprobantePago();	
+		
+			//POSICIONES PARA CURSORES
+		$ANIO = $twpccomprobantepago[0];
+		$PERIODOS = $twpccomprobantepago[1];
+		$BLOQUE3 = $twpccomprobantepago[2];
+		$BLOQUE5 = $twpccomprobantepago[3];
+		
+			//RECORRE LOS CURSORES
+		foreach ($ANIO as $ANO_KEY) {			
+			$ANO_ARR[] = $ANO_KEY['ANO_INI'];	
+		}
+		
+		foreach ($PERIODOS as $PERIODOS_KEY) {
+			$PERIODO_ARR[] = $PERIODOS_KEY['PERIODO'];
+		}		
+			
+			//POSICIONES PARA PROCEDIMIENTOS
+		$BLOQUE1 = explode("_*", $twpccomprobantepago[4]);
+		$BLOQUE2 = explode("_*", $twpccomprobantepago[5]);
+		$BLOQUE4 = explode("_*", $twpccomprobantepago[6]);
+		$BLOQUE6 = explode("_*", $twpccomprobantepago[7]);
+		$MESSAGE = explode("_*", $twpccomprobantepago[8]);
+		$OUTPUT = explode("_*", $twpccomprobantepago[9]);
+
+		
+		return $this->render('pdf_comprobantespago', ["bloque1"=>$BLOQUE1,"bloque2"=>$BLOQUE2, "bloque4"=>$BLOQUE4, "bloque6"=>$BLOQUE6, "bloque3_0"=>$BLOQUE3, "bloque5_0"=>$BLOQUE5]);
+	
+	}	
 	public function actionEquiponomina()
     {				
+		$model = new TwPcEquipoNomina;
 		
-        return $this->render('equiponomina');
+		$twpcequiponomina = $model->EquipoNomina();
+		
+		$bloque1 = $twpcequiponomina[0];
+		$bloque2 = $twpcequiponomina[1];
+		$bloque3 = $twpcequiponomina[2];
+		$bloque4 = $twpcequiponomina[3];
+		$bloque5 = $twpcequiponomina[4];
+		$bloque6 = $twpcequiponomina[5];
+		$bloque7 = $twpcequiponomina[6];
+		
+        return $this->render('equiponomina', ["bloque1"=>$bloque1,"bloque2"=>$bloque2,"bloque3"=>$bloque3,"bloque4"=>$bloque4,"bloque5"=>$bloque5,"bloque6"=>$bloque6,"bloque7"=>$bloque7]);
 		
     }
 	public function actionCronogramanomina()
     {				
+		$model = new TwPcCronoCierreNomina;
 		
-        return $this->render('cronogramanomina');
+		$twpccierrenomina = $model->CierreNomina();
+		
+		$crono = $twpccierrenomina[0];
+		
+        return $this->render('cronogramanomina', ["crono"=>$crono]);
 		
     }
 	public function actionActualidadlaboral()
@@ -766,5 +990,346 @@ class SiteController extends Controller
 		
         return $this->render('actualidadlaboral');
 		
+    }
+	public function actionJsoncalendar()
+	{
+		
+		if(Yii::$app->request->get('bandera')=='0'){
+		
+		//TURNOS, SI RECIBO 0
+		$model = new TwPcHorasExtrasHistorial;
+
+		$twpchorasextrashistorial = $model->HorasExtras();
+		
+		$HHEXTRAS = $twpchorasextrashistorial[0];		
+		
+		//VALIDACIONES DE TURNOS
+		
+			@$he1 = $_POST['numStr'];
+			//$he1 = '1,2';
+			@$he2 = $_POST['fecStr'];
+			//$he2 = '19-02-2018,19-02-2018';
+			@$he3 = $_POST['conStr'];
+			//$he3 = '1005,1008';
+			@$he4 = $_POST['idStr'];
+			
+			$model = new TwPcInsertHorasExtras;
+			
+			$twpchorasextras = $model->HorasExtrasRec($he1,$he2,$he3,$he4);
+			
+			$HMSSG = $twpchorasextras[0];
+			$HOUTP = $twpchorasextras[1];
+			
+			//echo json_encode($HMSSG);
+				
+				$ARRHHEXTRAS= ["HHEXTRAS"=>$HHEXTRAS,"HMSSG"=>$HMSSG,"HOUTP"=>$HOUTP];
+				
+    	echo json_encode($ARRHHEXTRAS);
+		
+		}else if(Yii::$app->request->get('bandera')=='1'){
+		
+		//VACACIONES, SI RECIBO 1 
+		$model = new TwPcVacaciones;
+
+		$twpcvacaciones = $model->Vacaciones();
+		
+		$HVACACIONES = $twpcvacaciones[0];
+		
+		echo json_encode($HVACACIONES);
+		
+		}
+
+    }
+    public function actionAutorzacionvacap1(){
+
+    	//$c1 = $_GET['cantidad'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	//$c2 = $_GET['pagina'];
+    	$c2 = Yii::$app->request->get('pagina');
+    	//$c3 = $_GET['search'];
+    	$c3 = Yii::$app->request->get('search');
+    	//$c4 = $_GET['column'];	
+    	$c4 = Yii::$app->request->get('column');
+    	//$c5 = $_GET['cedula'];	
+    	$c5 = Yii::$app->request->get('cedula');	
+
+    	$vacaciones = new TwPcVacaciones();
+    	$datosfv = $vacaciones->solicitudesEpl($c1,$c2,$c3,$c4,$c5);
+		
+		foreach ($datosfv[0] as $cursor){
+		$cursor = array_map("utf8_decode", $cursor);    
+		}
+		
+		$datos=[$cursor,$datosfv[1]];;
+		
+    	echo json_encode($datos);
+    }
+
+    public function actionAutorzacionvacap2(){
+
+    	$c1 = $_GET['cantidad'];
+    	$c2 = $_GET['pagina'];
+    	$c3 = $_GET['search'];
+    	$c4 = $_GET['column'];
+		$c5 = $_GET['cedula'];
+
+    	$vacaciones = new TwPcVacaciones();
+    	$datos = $vacaciones->solicitudesRechazadas($c1,$c2,$c3,$c4,$c5);
+
+    	echo json_encode($datos);
+    }
+
+    public function actionAutorzacionvacap3(){
+
+    	$c1 = $_GET['cantidad'];
+    	$c2 = $_GET['pagina'];
+    	$c3 = $_GET['search'];
+    	$c4 = $_GET['column'];
+    	$c5 = $_GET['cedula'];
+
+    	$vacaciones = new TwPcVacaciones();
+    	$datos = $vacaciones->solicitudesVigentes($c1,$c2,$c3,$c4,$c5);
+
+    	echo json_encode($datos);
+    }
+
+    public function actionAutorzacionvacap4(){
+
+    	$c1 = $_GET['cantidad'];
+    	$c2 = $_GET['pagina'];
+    	$c3 = $_GET['search'];
+    	$c4 = $_GET['column'];
+    	$c5 = $_GET['cedula'];
+
+    	$vacaciones = new TwPcVacaciones();
+    	$datos = $vacaciones->solicitudesAcepRech($c1,$c2,$c3,$c4,$c5);
+
+    	echo json_encode($datos);
+    }
+
+    public function actionAceptarsolicitudesvaca(){
+
+    	$get1 = $_GET['solicitudes'];
+    	$c1 = array();
+
+    	for ($i=0; $i < count($get1); $i++) { 
+    		$c1[$i] = $get1[$i]['valor'];
+    	}
+    	
+    	$vacaciones = new TwPcVacaciones();
+    	$datos = $vacaciones->solicitudesAceptar($c1);
+
+    	echo $datos;
+    }
+
+    public function actionRechazarsolicitudesvaca(){
+
+    	$get1 = $_GET['paramSp'];
+    	$c1 = array();
+    	$c1[0] = $get1;
+
+    	$vacaciones = new TwPcVacaciones();
+    	$datos = $vacaciones->solicitudesRechazar($c1);
+
+    	echo $datos;
+    }
+
+    public function actionEditarsolicitudvaca(){
+
+    	$c1 = $_GET['codigoepl'];
+		$c2 = $_GET['consecutivo'];
+		$c3 = $_GET['dias'];
+		$c4 = $_GET['fechaini'];
+		$c5 = $_GET['fechafin'];
+
+		$vacaciones = new TwPcVacaciones();
+    	$datos = $vacaciones->solicitudesEditar($c1,$c2,$c3,$c4,$c5);
+
+    	echo "true";
+    }
+
+    public function actionCalculafecha(){
+
+    	$c1 = $_GET['fecha'];
+    	$c2 = $_GET['dias'];    	    	
+    	
+    	$vacaciones = new TwPcVacaciones();
+    	$datos = $vacaciones->calcularFecha($c1,$c2);
+
+    	echo $datos;
+
+    }
+
+    public function actionHistorialvacas(){
+    	$c1 = $_GET['cantidad'];
+    	$c2 = $_GET['pagina'];
+    	$c3 = $_GET['search'];
+    	$c4 = $_GET['column'];
+    	$c5 = $_GET['cedula'];
+
+    	$vacaciones = new TwPcVacaciones();
+    	$datos = $vacaciones->historialEmpleado($c1,$c2,$c3,$c4,$c5);
+
+    	echo json_encode($datos);
+    }
+
+    public function actionValidadvacaciones(){
+    	$c1 = Yii::$app->session['cedula'];
+		$c2 = $_GET['fecha'];
+		$c3 = $_GET['dias'];
+
+		$vacaciones = new TwPcVacaciones();
+    	$datos = $vacaciones->validaVacaciones($c1,$c2,$c3);
+
+		echo json_encode($datos);
+    }
+
+    public function actionEnviarsolicitudvacas(){
+    	$c1 = Yii::$app->session['cedula'];
+		$c2 = $_GET['dias'];
+		$c3 = $_GET['fechaini'];
+		$c4 = $_GET['fechafin'];
+
+		$vacaciones = new TwPcVacaciones();
+    	$datos = $vacaciones->envioVacaciones($c1,$c2,$c3,$c4);		
+		
+		echo json_encode($datos);
+    }
+
+    public function actionAutorzacionextrp1(){
+    	$c1 = $_GET['cantidad'];
+    	$c2 = $_GET['pagina'];
+    	$c3 = $_GET['search'];
+    	$c4 = $_GET['column'];
+    	$c5 = $_GET['cedula'];
+
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesEpl($c1,$c2,$c3,$c4,$c5);
+
+    	echo json_encode($datos);
+    }
+
+    public function actionAutorzacionextrp2(){
+    	$c1 = $_GET['cantidad'];
+    	$c2 = $_GET['pagina'];
+    	$c3 = $_GET['search'];
+    	$c4 = $_GET['column'];
+    	$c5 = $_GET['cedula'];
+
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesEp2($c1,$c2,$c3,$c4,$c5);
+
+    	echo json_encode($datos);
+    }
+
+    public function actionAutorzacionextrp3(){
+    	$c1 = $_GET['cantidad'];
+    	$c2 = $_GET['pagina'];
+    	$c3 = $_GET['search'];
+    	$c4 = $_GET['column'];
+    	$c5 = $_GET['cedula'];
+
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesEp3($c1,$c2,$c3,$c4,$c5);
+
+    	echo json_encode($datos);
+    }
+
+    public function actionAutorzacionextrp4(){
+    	$c1 = $_GET['cantidad'];
+    	$c2 = $_GET['pagina'];
+    	$c3 = $_GET['search'];
+    	$c4 = $_GET['column'];
+    	$c5 = $_GET['cedula'];
+
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesEp4($c1,$c2,$c3,$c4,$c5);
+
+    	echo json_encode($datos);
+    }
+
+    public function actionAutorzacionextrp5(){
+    	$c1 = $_GET['cantidad'];
+    	$c2 = $_GET['pagina'];
+    	$c3 = $_GET['search'];
+    	$c4 = $_GET['column'];
+    	$c5 = $_GET['cedula'];
+
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesEp5($c1,$c2,$c3,$c4,$c5);
+
+    	echo json_encode($datos);
+    }
+
+    public function actionAutorzacionextrp6(){
+    	$c1 = $_GET['cantidad'];
+    	$c2 = $_GET['pagina'];
+    	$c3 = $_GET['search'];
+    	$c4 = $_GET['column'];
+    	$c5 = $_GET['cedula'];
+
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesEp6($c1,$c2,$c3,$c4,$c5);
+
+    	echo json_encode($datos);
+    }
+
+    public function actionAceptarsolicitudesturnos(){
+    	$get1 = $_GET['solicitudes'];
+    	$c1 = array();
+
+    	for ($i=0; $i < count($get1); $i++) { 
+    		$c1[$i] = $get1[$i]['valor'];
+    	}
+    	
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesAceptar($c1);
+
+    	echo $datos;
+    }
+
+    public function actionRechazarsolicitudesturnos(){
+    	$get1 = $_GET['paramSp'];
+    	$c1 = array();
+    	$c1[0] = $get1;
+
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesRechazar($c1);
+
+    	echo $datos;
+    }
+
+    public function actionDetallegerenteturnos(){
+    	$c1 = $_GET['codigoepl'];    	
+
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->detalleHistorialHorasExtrasGere($c1);
+
+    	echo json_encode($datos);
+    }
+
+    public function actionAceptarsolicitudesturnosgre(){
+    	$get1 = $_GET['solicitudes'];
+    	$c1 = array();
+
+    	for ($i=0; $i < count($get1); $i++) { 
+    		$c1[$i] = $get1[$i]['valor'];
+    	}
+    	
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesAceptarGre($c1);
+
+    	echo $datos;
+    }
+
+    public function actionRechazasolicitudesturnosgre(){
+    	$get1 = $_GET['paramSp'];
+    	$c1 = array();
+    	$c1[0] = $get1;
+
+    	$horasextras = new TwPcHorasExtras();
+    	$datos = $horasextras->solicitudesRechazaGre($c1);
+
+    	echo $datos;
     }
 }

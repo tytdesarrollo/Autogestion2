@@ -24,90 +24,21 @@ $this->title = 'Cronograma cierre novedades de nómina';
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>Enero</td>
-									<td>Martes</td>
-									<td>12</td>
-									<td>Martes</td>
-									<td>26</td>
-								</tr>
-								<tr>
-									<td>Febrero</td>
-									<td>Viernes</td>
-									<td>12</td>
-									<td>Viernes</td>
-									<td>26</td>
-								</tr>
-								<tr>
-									<td>Marzo</td>
-									<td>Viernes</td>
-									<td>11</td>
-									<td>Miercoles</td>
-									<td>23</td>
-								</tr>
-								<tr>
-									<td>Abril</td>
-									<td>Lunes</td>
-									<td>11</td>
-									<td>Martes</td>
-									<td>26</td>
-								</tr>
-								<tr>
-									<td>Mayo</td>
-									<td>Jueves</td>
-									<td>12</td>
-									<td>Jueves</td>
-									<td>26</td>
-								</tr>
-								<tr>
-									<td>Junio</td>
-									<td>Viernes</td>
-									<td>10</td>
-									<td>Viernes</td>
-									<td>24</td>
-								</tr>
-								<tr>
-									<td>Julio</td>
-									<td>Lunes</td>
-									<td>11</td>
-									<td>Martes</td>
-									<td>26</td>
-								</tr>
-								<tr>
-									<td>Agosto</td>
-									<td>Viernes</td>
-									<td>12</td>
-									<td>Viernes</td>
-									<td>26</td>
-								</tr>
-								<tr>
-									<td>Septiembre</td>
-									<td>Lunes</td>
-									<td>12</td>
-									<td>Lunes</td>
-									<td>26</td>
-								</tr>
-								<tr>
-									<td>Octubre</td>
-									<td>Miercoles</td>
-									<td>12</td>
-									<td>Miercoles</td>
-									<td>26</td>
-								</tr>
-								<tr>
-									<td>Noviembre</td>
-									<td>Viernes</td>
-									<td>11</td>
-									<td>Viernes</td>
-									<td>25</td>
-								</tr>
-								<tr>
-									<td>Diciembre</td>
-									<td>Miercoles</td>
-									<td>7</td>
-									<td>Martes</td>
-									<td>20</td>
-								</tr>
+								<?PHP
+									foreach ($crono as $CRONO_KEY) {
+									
+									echo '
+									<tr>
+									<td>'.$CRONO_KEY['MES'].'</td>
+									<td>'.utf8_encode ($CRONO_KEY['DIA']).'</td>
+									<td>'.$CRONO_KEY['CIERRE'].'</td>
+									<td>'.utf8_encode ($CRONO_KEY['DIA_CIERRE']).'</td>
+									<td>'.$CRONO_KEY['PAGO'].'</td>
+									</tr>
+									';
+									}
+									
+									?>								
 							</tbody>
 						</table>
 					</div>
