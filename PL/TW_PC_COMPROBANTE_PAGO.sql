@@ -340,7 +340,7 @@ BEGIN
                 BEGIN        
                     --DEDUCCIONES
                     OPEN BLOQUE5 FOR
-                    SELECT h.codcon2 AS CODCON2,h.nomcon2 AS NOMCON2,TO_CHAR('$ '||to_char(h.val2,'FM99G999G999')) AS VALOR2,
+                    SELECT h.codcon2 AS CODCON2,h.nomcon2 AS NOMCON2,CASE WHEN (H.VAL2) IS NULL THEN null ELSE TO_CHAR('$ '||to_char(h.val2,'FM99G999G999')) END AS VALOR2,
                     CASE WHEN h.campo5 IS NULL THEN ' ' ELSE TO_CHAR('$ '||to_char(h.campo5,'FM99G999G999')) END AS SALDO2 
                     FROM det_compro h, TOTALES_PAGO T, cuotas c, 
                     (select x.cod_epl, x.numerocomp, min(x.cnsctvo) consecutivo from det_compro x where x.cod_epl = CODIGO_EPL  and   x.numerocomp in 

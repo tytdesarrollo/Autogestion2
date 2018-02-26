@@ -9,30 +9,30 @@ create or replace PROCEDURE   TW_PC_PERSONAL_DATA1
 
 **************************************  DECLARACION DE VARIABLE  *****************************************************************/
 (
-    CODIGO_EPL 		IN EMPLEADOS_BASIC.COD_EPL%TYPE, 
-    BLOQUE1 		OUT VARCHAR2, 
-	BLOQUE2 		OUT VARCHAR2, 
-	BLOQUE3 		OUT VARCHAR2, 
-	BLOQUE4 		OUT VARCHAR2, 
-    BLOQUE5 		OUT VARCHAR2, 
-	BLOQUE6 		OUT CLOB, 
-	BLOQUE7 		OUT VARCHAR2, 
-	BLOQUE8 		OUT VARCHAR2,
-    BLOQUE9 		OUT CLOB, 
-	BLOQUE10 		OUT VARCHAR2, 
-	BLOQUE11 		OUT VARCHAR2, 
-	BLOQUE12 		OUT VARCHAR2,
-    BLOQUE13 		OUT VARCHAR2, 
-	BLOQUE14 		OUT VARCHAR2
+    CODIGO_EPL      IN EMPLEADOS_BASIC.COD_EPL%TYPE, 
+    BLOQUE1         OUT VARCHAR2, 
+    BLOQUE2         OUT VARCHAR2, 
+    BLOQUE3         OUT VARCHAR2, 
+    BLOQUE4         OUT VARCHAR2, 
+    BLOQUE5         OUT VARCHAR2, 
+    BLOQUE6         OUT CLOB, 
+    BLOQUE7         OUT VARCHAR2, 
+    BLOQUE8         OUT VARCHAR2,
+    BLOQUE9         OUT CLOB, 
+    BLOQUE10        OUT VARCHAR2, 
+    BLOQUE11        OUT VARCHAR2, 
+    BLOQUE12        OUT VARCHAR2,
+    BLOQUE13        OUT VARCHAR2, 
+    BLOQUE14        OUT VARCHAR2
 )
 IS
 
 ROL_PREDETERMINADO      VARCHAR2(10); -- VARIABLE QUE CONTIENE EL ROL PREDETERMINADO DEL EMPLEADO
-BLOQUE1AA				VARCHAR2(1000); 
-BLOQUE2BB				VARCHAR2(1000); 
-BLOQUE3CC				VARCHAR2(500); 
-BLOQUE4DD				VARCHAR2(100); 
-NUM_DOCUMENTO			EMPLEADOS_BASIC.CEDULA%TYPE; -- NUMERO DE CEDULA
+BLOQUE1AA               VARCHAR2(1000); 
+BLOQUE2BB               VARCHAR2(1000); 
+BLOQUE3CC               VARCHAR2(500); 
+BLOQUE4DD               VARCHAR2(100); 
+NUM_DOCUMENTO           EMPLEADOS_BASIC.CEDULA%TYPE; -- NUMERO DE CEDULA
 TIPO_DOC                EMPLEADOS_BASIC.TIPO_DOC%TYPE;
 TIPO_DOC2               VARCHAR(100); -- TIPO DOCUMENTO (C.C - C.E - PASAPORTE - T.I)
 NOMBRE_EPL              EMPLEADOS_BASIC.NOM_EPL%TYPE;
@@ -144,27 +144,27 @@ VNoticias               VARCHAR2(2000);
     CURSOR ULT_NOTICIAS -- ULTIMAS NOTICIAS   ---------   BLOQUE 9
     IS
     SELECT TITULO, CONTENIDO, FECHA AS FEC_NOTI
-    FROM ( SELECT * FROM FEEDNEWS ORDER BY ID DESC ) 
-    WHERE ROWNUM <= 3;   
+    FROM ( SELECT * FROM FEEDNEWS ORDER BY ID DESC )
+    ORDER BY FEC_NOTI DESC;
 
     Procedure Meses(VPeriodo IN TOTALES_PAGO.PER_INI%TYPE, VNmes OUT VARCHAR2) -- PASO EL PERIODO DE LOS COMPROBANTES DE PAGO A MESES
     Is
     BEGIN
-		CASE VPeriodo
-			WHEN 1 THEN VNmes := 'Enero';
-			WHEN 2 THEN VNmes := 'Febrero';
-			WHEN 3 THEN VNmes := 'Marzo';
-			WHEN 4 THEN VNmes := 'Abril';
-			WHEN 5 THEN VNmes := 'Mayo';
-			WHEN 6 THEN VNmes := 'Junio';
-			WHEN 7 THEN VNmes := 'Julio';
-			WHEN 8 THEN VNmes := 'Agosto';
-			WHEN 9 THEN VNmes := 'Septiembre';
-			WHEN 10 THEN VNmes := 'Octubre';
-			WHEN 11 THEN VNmes := 'Noviembre';
-			ELSE
-			VNmes := 'Diciembre';
-		END CASE;
+        CASE VPeriodo
+            WHEN 1 THEN VNmes := 'Enero';
+            WHEN 2 THEN VNmes := 'Febrero';
+            WHEN 3 THEN VNmes := 'Marzo';
+            WHEN 4 THEN VNmes := 'Abril';
+            WHEN 5 THEN VNmes := 'Mayo';
+            WHEN 6 THEN VNmes := 'Junio';
+            WHEN 7 THEN VNmes := 'Julio';
+            WHEN 8 THEN VNmes := 'Agosto';
+            WHEN 9 THEN VNmes := 'Septiembre';
+            WHEN 10 THEN VNmes := 'Octubre';
+            WHEN 11 THEN VNmes := 'Noviembre';
+            ELSE
+            VNmes := 'Diciembre';
+        END CASE;
     END; 
 BEGIN         
     /* ----------------------------------------------------------------------------------------------------------------------------------
@@ -172,91 +172,91 @@ BEGIN
     -------------------------------------------------------------------------------------------------------------------------------------*/
     BEGIN               
         BEGIN
-			SELECT (B.NOM_EPL||' '||B.APE_EPL), CAR.NOM_CAR, CONT.NOM_CTO, B.FEC_ING, 
-				CASE WHEN GR.COD_GRU='2' THEN 'INTEGRAL' ELSE 'BÁSICO' END  
-			INTO NOMBRE_EPL, CARGO, CONTRATO,FEC_INGRESO, TIP_SALARIO
-			FROM EMPLEADOS_BASIC B, CARGOS CAR, CONTRATOS CONT, EPL_GRUPOS GR
-			WHERE B.COD_EPL=CODIGO_EPL 
-			AND B.COD_CAR=CAR.COD_CAR 
-			AND B.COD_CTO=CONT.COD_CTO 
-			AND GR.COD_EPL=B.COD_EPL 
-			AND GR.COD_GRU IN (1,2)  
-			AND B.ESTADO='A';
-			
-			BLOQUE1AA := INITCAP(NOMBRE_EPL||'_*'||CARGO||'_*'||TIP_SALARIO||'_*'||CONTRATO||'_*'||FEC_INGRESO);
-		EXCEPTION
-			When no_data_found Then
-			BLOQUE1AA := 'INACTIVO';
+            SELECT (B.NOM_EPL||' '||B.APE_EPL), CAR.NOM_CAR, CONT.NOM_CTO, B.FEC_ING, 
+                CASE WHEN GR.COD_GRU='2' THEN 'INTEGRAL' ELSE 'BÁSICO' END  
+            INTO NOMBRE_EPL, CARGO, CONTRATO,FEC_INGRESO, TIP_SALARIO
+            FROM EMPLEADOS_BASIC B, CARGOS CAR, CONTRATOS CONT, EPL_GRUPOS GR
+            WHERE B.COD_EPL=CODIGO_EPL 
+            AND B.COD_CAR=CAR.COD_CAR 
+            AND B.COD_CTO=CONT.COD_CTO 
+            AND GR.COD_EPL=B.COD_EPL 
+            AND GR.COD_GRU IN (1,2)  
+            AND B.ESTADO='A';
+            
+            BLOQUE1AA := INITCAP(NOMBRE_EPL||'_*'||CARGO||'_*'||TIP_SALARIO||'_*'||CONTRATO||'_*'||FEC_INGRESO);
+        EXCEPTION
+            When no_data_found Then
+            BLOQUE1AA := 'INACTIVO';
         END;
     END;        
     /* ----------------------------------------------------------------------------------------------------------------------------------
     ========================================================= BLOQUE 2 ==================================================================                                                                                                                                    
     -------------------------------------------------------------------------------------------------------------------------------------*/
     BEGIN
-		SELECT B.CEDULA, B.TIPO_DOC, GR.EMAIL, CI.NOM_CIU, DE.NOM_DEP
-		INTO NUM_DOCUMENTO, TIPO_DOC, CORREO, CIUDAD, DEPARTA
-		FROM EMPLEADOS_BASIC B, EMPLEADOS_GRAL GR, CIUDADES CI, DEPARTAMENTOS DE
-		WHERE B.COD_EPL=CODIGO_EPL 
-		AND B.COD_EPL=GR.COD_EPL 
-		AND GR.COD_CIU=CI.COD_CIU 
-		AND B.COD_DEP=DE.COD_DEP 
-		AND B.ESTADO='A';
-	
-		IF (TIPO_DOC='C') THEN
-			TIPO_DOC2 := 'C.C.';
-			ELSE
-			IF (TIPO_DOC='E') THEN
-				TIPO_DOC2 := 'C.E.';
-				ELSE
-				IF (TIPO_DOC='P') THEN
-					TIPO_DOC2:= 'Pasaporte';
-					ELSE
-					IF (TIPO_DOC='T') THEN
-						TIPO_DOC2 := 'T.I.';
-					END IF;
-				END IF;
-			END IF;
-		END IF;
-	 
-		BEGIN   
-			-- JEFE INMEDIATO             
-			SELECT (nom_epl||' '||ape_epl) 
-			INTO NOM_JEFE
-			FROM EMPLEADOS_GRAL GRA, EMPLEADOS_BASIC EB 
-			WHERE GRA.COD_EPL=CODIGO_EPL AND GRA.COD_JEFE=EB.COD_EPL;         
-		EXCEPTION
-			When no_data_found Then
-			NOM_JEFE :='No tiene'; 
-		END;
-		
-		BLOQUE2BB := (CORREO||'_*'||TIPO_DOC2||' '||NUM_DOCUMENTO||'_*'||CIUDAD||'_*'||INITCAP(NOM_JEFE||'_*'||DEPARTA)); 
-	EXCEPTION
-		When no_data_found Then
-		BLOQUE2BB := 'INACTIVO';
-	END;       
+        SELECT B.CEDULA, B.TIPO_DOC, GR.EMAIL, CI.NOM_CIU, DE.NOM_DEP
+        INTO NUM_DOCUMENTO, TIPO_DOC, CORREO, CIUDAD, DEPARTA
+        FROM EMPLEADOS_BASIC B, EMPLEADOS_GRAL GR, CIUDADES CI, DEPARTAMENTOS DE
+        WHERE B.COD_EPL=CODIGO_EPL 
+        AND B.COD_EPL=GR.COD_EPL 
+        AND GR.COD_CIU=CI.COD_CIU 
+        AND B.COD_DEP=DE.COD_DEP 
+        AND B.ESTADO='A';
+    
+        IF (TIPO_DOC='C') THEN
+            TIPO_DOC2 := 'C.C.';
+            ELSE
+            IF (TIPO_DOC='E') THEN
+                TIPO_DOC2 := 'C.E.';
+                ELSE
+                IF (TIPO_DOC='P') THEN
+                    TIPO_DOC2:= 'Pasaporte';
+                    ELSE
+                    IF (TIPO_DOC='T') THEN
+                        TIPO_DOC2 := 'T.I.';
+                    END IF;
+                END IF;
+            END IF;
+        END IF;
+     
+        BEGIN   
+            -- JEFE INMEDIATO             
+            SELECT (nom_epl||' '||ape_epl) 
+            INTO NOM_JEFE
+            FROM EMPLEADOS_GRAL GRA, EMPLEADOS_BASIC EB 
+            WHERE GRA.COD_EPL=CODIGO_EPL AND GRA.COD_JEFE=EB.COD_EPL;         
+        EXCEPTION
+            When no_data_found Then
+            NOM_JEFE :='No tiene'; 
+        END;
+        
+        BLOQUE2BB := (CORREO||'_*'||TIPO_DOC2||' '||NUM_DOCUMENTO||'_*'||CIUDAD||'_*'||INITCAP(NOM_JEFE||'_*'||DEPARTA)); 
+    EXCEPTION
+        When no_data_found Then
+        BLOQUE2BB := 'INACTIVO';
+    END;       
     /* ----------------------------------------------------------------------------------------------------------------------------------
     ========================================================= BLOQUE 3 ==================================================================                                                                                                                                    
     -------------------------------------------------------------------------------------------------------------------------------------*/
-    BEGIN                         	
-		SELECT CASE WHEN A.COD_BAN=13 THEN SUBSTR(A.COD_SUC,2,3)||A.NUM_CTA ELSE A.NUM_CTA END, 
-			C.NOM_BAN, A.TIP_CTA
-		INTO CUENTA, NOM_BANCO, TIPO_CUENTA   
-		FROM EPL_CONSIGNA A, BANCOS C
-		WHERE A.COD_BAN=C.COD_BAN 
-		AND A.COD_EPL=CODIGO_EPL 
-		AND A.ESTADO='A';           
-	   
-		IF (TIPO_CUENTA='1') THEN            
-			TIPO_CUENTA2 :=  'CORRIENTE';                      
-		ELSE            
-			TIPO_CUENTA2 := 'AHORROS';                    
-		END IF;
-		
-		BLOQUE3CC := (NOM_BANCO||'_*'||CUENTA||'_*'||INITCAP(TIPO_CUENTA2)); 		
-	EXCEPTION
-		When no_data_found Then
-		BLOQUE3CC := 'INACTIVO';
-	END;  
+    BEGIN                           
+        SELECT CASE WHEN A.COD_BAN=13 THEN SUBSTR(A.COD_SUC,2,3)||A.NUM_CTA ELSE A.NUM_CTA END, 
+            C.NOM_BAN, A.TIP_CTA
+        INTO CUENTA, NOM_BANCO, TIPO_CUENTA   
+        FROM EPL_CONSIGNA A, BANCOS C
+        WHERE A.COD_BAN=C.COD_BAN 
+        AND A.COD_EPL=CODIGO_EPL 
+        AND A.ESTADO='A';           
+       
+        IF (TIPO_CUENTA='1') THEN            
+            TIPO_CUENTA2 :=  'CORRIENTE';                      
+        ELSE            
+            TIPO_CUENTA2 := 'AHORROS';                    
+        END IF;
+        
+        BLOQUE3CC := (NOM_BANCO||'_*'||CUENTA||'_*'||INITCAP(TIPO_CUENTA2));        
+    EXCEPTION
+        When no_data_found Then
+        BLOQUE3CC := 'INACTIVO';
+    END;  
     /* ----------------------------------------------------------------------------------------------------------------------------------
     ========================================================= BLOQUE 4 ==================================================================                                                                                                                                    
     -------------------------------------------------------------------------------------------------------------------------------------*/
@@ -274,7 +274,7 @@ BEGIN
             ELSE            
                 DEC_RENTA2 := 'Si';                    
             END IF;     
-		END;                
+        END;                
 
         BEGIN
             SELECT EB.RTE_FTE
@@ -287,22 +287,22 @@ BEGIN
                 ELSE 
                 PROCE_RETEFUEN := '1';
             END IF;
-		EXCEPTION
-			When no_data_found Then
-			DEC_RENTA2 := 'INACTIVO';
-		END;  		
+        EXCEPTION
+            When no_data_found Then
+            DEC_RENTA2 := 'INACTIVO';
+        END;        
         
         BEGIN
             SELECT VALOREND 
             INTO CUOTA_MAX
             FROM CAP_ENDEUDAMIENTO 
             WHERE COD_EPL=CODIGO_EPL 
-			ORDER BY ANO DESC, MES DESC;            
-		EXCEPTION
-			When no_data_found Then
-			CUOTA_MAX := '0';
-		END;  
-		BLOQUE4DD := (DEC_RENTA2||'_*'||PROCE_RETEFUEN||'_*'||PORCENRETE||'_*'||CUOTA_MAX);
+            ORDER BY ANO DESC, MES DESC;            
+        EXCEPTION
+            When no_data_found Then
+            CUOTA_MAX := '0';
+        END;  
+        BLOQUE4DD := (DEC_RENTA2||'_*'||PROCE_RETEFUEN||'_*'||PORCENRETE||'_*'||CUOTA_MAX);
     END;
     /* ----------------------------------------------------------------------------------------------------------------------------------
     ========================================================= BLOQUE 5 ==================================================================                                                                                                                                    
@@ -328,8 +328,7 @@ BEGIN
             SELECT CASE WHEN COD_GRU='2' THEN 'INTEGRAL' ELSE 'BÁSICO' END
             INTO TIP_SALARIO
             FROM EPL_GRUPOS
-            WHERE COD_EPL=CODIGO_EPL 
-			AND COD_GRU IN (1,2);               
+            WHERE COD_EPL=CODIGO_EPL AND COD_GRU IN (1,2);               
                                 
             IF (TIP_SALARIO='BÁSICO') THEN-- PARA SALARIO BASICO                
                 BEGIN
@@ -477,7 +476,7 @@ BEGIN
         TITULO := RegNoticias.TITULO;
         CONTENIDO := RegNoticias.CONTENIDO;
         FEC_NOTI := RegNoticias.FEC_NOTI;               
-        VNoticias := VNoticias || TITULO||'_*'||CONTENIDO||'_*'||FEC_NOTI||'_*';    
+        VNoticias := VNoticias || TITULO||'_*'||FEC_NOTI||'_*'||CONTENIDO||'*_';    
     End Loop;           
     /* ----------------------------------------------------------------------------------------------------------------------------------
     ========================================================= BLOQUE 10 ==================================================================                                                                                                                                    
@@ -489,7 +488,7 @@ BEGIN
         ANO_INI := RegPago.ANO_INI;
         FECHA := RegPago.FECHA;    
         Meses(PER_INI,VNmes);        
-        VCadena := VCadena || VNmes||'_*'||ANO_INI||'_*'||FECHA||'_*';    
+        VCadena := VCadena || VNmes||'_*'||ANO_INI||'_*'||FECHA||'_*'||PER_INI||'_*';    
     End Loop;       
     /* ----------------------------------------------------------------------------------------------------------------------------------
     ========================================================= BLOQUE 11 ==================================================================                                                                                                                                    
@@ -501,14 +500,14 @@ BEGIN
             VCurDias := VCurDias + Registro.DIAS;
         End Loop;
     End;
-	
-	-- IDENTIFICAR EL ROL PREDETEMRINADO QUE TIENE ASIGNADO
-	ROL_PREDETERMINADO := PKG_AUTOGES_ROLES_Y_PERFILES.FN_IDENTIF_ROL_PREDETERMINADO(CODIGO_EPL);	
+    
+    -- IDENTIFICAR EL ROL PREDETEMRINADO QUE TIENE ASIGNADO
+    ROL_PREDETERMINADO := PKG_AUTOGES_ROLES_Y_PERFILES.FN_IDENTIF_ROL_PREDETERMINADO(CODIGO_EPL);   
                 
-    IF (ROL_PREDETERMINADO='ADMIN' || ROL_PREDETERMINADO='JEFE' || ROL_PREDETERMINADO='RASO') THEN -- EJEMPLO PERFIL GERENTE  		
-        BLOQUE1 := BLOQUE1AA;		
-        BLOQUE2 := BLOQUE2BB;		
-        BLOQUE3 := BLOQUE3CC;		
+    IF (ROL_PREDETERMINADO = 'ADMIN' OR ROL_PREDETERMINADO = 'JEFE' OR ROL_PREDETERMINADO = 'RASO') THEN -- EJEMPLO PERFIL GERENTE          
+        BLOQUE1 := BLOQUE1AA;       
+        BLOQUE2 := BLOQUE2BB;       
+        BLOQUE3 := BLOQUE3CC;       
         BLOQUE4 := BLOQUE4DD;
         BLOQUE5 := NOVEDAD;
         BLOQUE6 := BLOQUE_BASINT||CAJA_COMP||'_*'||NOM_COMPENSACION;
@@ -523,22 +522,22 @@ BEGIN
         BLOQUE12 := 'ACTIVO';
         BLOQUE13 := 'ACTIVO';
         BLOQUE14 := 'ACTIVO';             
-	ELSE                    
+    ELSE                    
         IF (ROL_PREDETERMINADO='SENA') THEN -- EJEMPLO PERFIL SENA
             BLOQUE1 := BLOQUE1AA;
             BLOQUE2 := BLOQUE2BB;
             BLOQUE3 := BLOQUE3CC;
-			BLOQUE4 :='INACTIVO';
-			BLOQUE5 := 'INACTIVO';
-			BLOQUE6 := 'INACTIVO';
-			BLOQUE7 := 'INACTIVO';
-			BLOQUE8 := 'INACTIVO';        
-			BLOQUE9 := 'INACTIVO'; 
-			BLOQUE10 := 'INACTIVO';        
-			BLOQUE11 := 'INACTIVO';    
-			BLOQUE12 := 'INACTIVO';
-			BLOQUE13 := 'INACTIVO';
-			BLOQUE14 := 'INACTIVO';  			
+            BLOQUE4 :='INACTIVO';
+            BLOQUE5 := 'INACTIVO';
+            BLOQUE6 := 'INACTIVO';
+            BLOQUE7 := 'INACTIVO';
+            BLOQUE8 := 'INACTIVO';        
+            BLOQUE9 := 'INACTIVO'; 
+            BLOQUE10 := 'INACTIVO';        
+            BLOQUE11 := 'INACTIVO';    
+            BLOQUE12 := 'INACTIVO';
+            BLOQUE13 := 'INACTIVO';
+            BLOQUE14 := 'INACTIVO';             
         END IF;                            
     END IF;
 END TW_PC_PERSONAL_DATA1;
