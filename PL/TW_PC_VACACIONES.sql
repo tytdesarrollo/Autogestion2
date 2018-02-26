@@ -52,13 +52,15 @@ BEGIN
         IF (v_cantHistorial > 0) THEN
             --Historial de vacaciones del usuario
             OPEN  BLOQUE1 FOR    
-            SELECT CNSCTVO, FEC_SOLICITUD,FEC_INI, FEC_FIN, DIAS, 
-                CASE  WHEN ESTADO= 'C' THEN 'APROBADO' WHEN ESTADO='R' THEN 'RECHAZADO' ELSE 'PENDIENTE' END AS ESTADO 
+            SELECT CNSCTVO AS CONSECUTIVO, TO_CHAR(FEC_SOLICITUD,'YYYY-MM-DD') FEC_SOLICITUD,TO_CHAR(FEC_INI,'YYYY-MM-DD') FEC_INI, TO_CHAR(FEC_FIN,'YYYY-MM-DD') FEC_FIN, DIAS, 
+                CASE  WHEN ESTADO= 'C' THEN 'APROBADO' WHEN ESTADO='R' THEN 'RECHAZADO' ELSE 'PENDIENTE' END AS ESTADO,
+                CASE  WHEN ESTADO= 'C' THEN 'GREEN' WHEN ESTADO='R' THEN 'RED' ELSE 'GREY' END AS COLOR
             FROM ausencias_tmp 
             WHERE cod_con=vcod_con 
             AND cod_aus=vcod_aus 
             AND estado IN ('P','R','C') 
-            AND cod_epl=IN_CODIGO_EPL;
+            AND cod_epl=IN_CODIGO_EPL
+            ORDER BY FEC_INI desc;
             
             OUTPUT_B1 := '1';   
         ELSE
@@ -82,7 +84,7 @@ BEGIN
         IF (v_cantPeriodos > 0) THEN        
             --Periodos pendientes de vacaciones por disfrutar
             OPEN BLOQUE2 FOR
-            SELECT FEC_INI_PER, FEC_FIN_PER, DIAS
+            SELECT TO_CHAR(FEC_INI_PER,'YYYY-MM-DD') AS FEC_INI_PERIODO, TO_CHAR(FEC_FIN_PER,'YYYY-MM-DD') AS FEC_FIN_PERIODO, DIAS
             FROM VACACIONES_PENDIENTES WHERE COD_EPL = IN_CODIGO_EPL
             ORDER BY FEC_INI_PER;
             
