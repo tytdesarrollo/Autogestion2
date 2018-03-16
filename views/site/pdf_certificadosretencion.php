@@ -5,6 +5,9 @@
 //die;
 
 $GLOBALS['datos'] = $datos[0];
+//$GLOBALS['tipo'] = $tiprend;
+
+//var_dump($tiprend)or die;
 
 // Extend the TCPDF class to create custom Header and Footer
 class MYPDF extends TCPDF {
@@ -216,14 +219,17 @@ $html = '<span>'.$datos[93].'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
 // ---------------------------------------------------------
-
-//Close and output PDF document
-$pdf->Output('CertificadoIR.pdf', 'I');
-
+	if($tiprend=="btnPdf"){
+//imprime el reporte
+		$pdf->Output('CertificadoIR.pdf', 'I');
+		
+	}else if($tiprend=="envPdf"){
+//guarda el reporte		
+		$pdf->Output(__DIR__ . '/../reportes/'.$NMBR, 'F');
+		
+	}
 //============================================================+
 // END OF FILE
 //============================================================+
-
-
 
 ?>
