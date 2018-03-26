@@ -371,13 +371,13 @@ $this->title = 'Vacaciones';
 				</div>
 			</div>
 		</div>
-		<?php //if (strcmp($autorizaciones,'TRUE') === 0): ?>
+		<?php if (strcmp($autorizaciones,'TRUE') === 0): ?>
 			<div class="cont-float-vac">
 				<button id="openModalId" type="button" class="btn btn-raised btn-info" data-toggle="modal" data-target="#modtabs">
 						<i class="material-icons">&#xE02F; </i>  Autorizaciones de empleados
 				</button>
 			</div>
-		<?php //endif ?>
+		<?php endif ?>
 		<div class="container-v">
 			<div class="box"></div>
 			<div class="content">
@@ -580,8 +580,8 @@ var bandera = "1";
 
 <script type="text/javascript">
 	/*variables de la session*/
-		//var cedula = '<?=Yii::$app->session['cedula']?>';//'52513735';
-		var cedula = '52513735';//'52513735';
+		var cedula = '<?=Yii::$app->session['cedula']?>';//'52513735';
+		//var cedula = '52513735';//'52513735';
 		var autorizaciones = '<?=Yii::$app->session['submenus'][1]?>';
 	/**/
 
@@ -601,9 +601,9 @@ var bandera = "1";
 	/**/	
 	
 	//control de jefes o administradores
-	if(autorizaciones.localeCompare("TRUE") == 0){
+	/*if(autorizaciones.localeCompare("TRUE") == 0){*/
 		$(cambioPestana(1));	
-	}
+	/*}*/
 
 	function ejecute(id){
 		var pagination = generalPage;

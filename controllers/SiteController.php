@@ -28,6 +28,7 @@ use app\models\TwPcHorasExtrasHistorial;
 use app\models\TwPcVacaciones;
 use app\models\TwPcInsertHorasExtras;
 use app\models\TwPcInsertHoras;
+use app\models\TwPcArchivos;
 
 
 class SiteController extends Controller
@@ -811,7 +812,9 @@ $model = new TwPcPersonalData;
 		
     }
 	public function actionPdf_certificadosretencion()
-    {				
+    {		
+
+		$tiprend=Yii::$app->request->get('tiprend');
 	
 	if (isset($_POST['myOptions'])){		
 		
@@ -828,6 +831,19 @@ $model = new TwPcPersonalData;
 		
 	}
 	
+	//Modelo para genera el nombre del archivo temporal del pdf
+	
+	$model = new TwPcArchivos;
+	
+	$c1=Yii::$app->session['cedula'];
+	$c2="pdf";
+	$c3="Archivo adjunto en Certificado y Retenciones";
+	
+	$nombreArchivo = $model->nombreArchivo($c1,$c2,$c3);
+	
+	$NMBR = $nombreArchivo;
+	
+	//Modelo para implementar el pdf del certificadosretencion
 	$model = new TwPcCertIngresos;
 	
 			Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
@@ -840,7 +856,7 @@ $model = new TwPcPersonalData;
 			
 			$BLOQUE1 = explode("_*", $twpccertingresos[0]);
 		
-        return $this->render('pdf_certificadosretencion', ["datos"=>$BLOQUE1]);
+        return $this->render('pdf_certificadosretencion', ["datos"=>$BLOQUE1, "tiprend"=>$tiprend, "NMBR"=>$NMBR]);
 		
     }
 	public function actionComprobantespago()
