@@ -29,6 +29,7 @@ use app\models\TwPcVacaciones;
 use app\models\TwPcInsertHorasExtras;
 use app\models\TwPcInsertHoras;
 use app\models\TwPcArchivos;
+use app\models\TwPcEliminaArchivos;
 
 
 class SiteController extends Controller
@@ -242,6 +243,17 @@ $model = new TwPcPersonalData;
 		
     public function actionSalida()
     {
+		
+		// Escaneo y elimino los archivos generados para este usuario en la carpeta reportes
+		
+		$model = new TwPcEliminaArchivos;
+		
+		$twpceliminaarchivos = $model->EliminaArchivo();
+		
+		foreach ($twpceliminaarchivos as $key) {			
+			@unlink('../views/reportes/'.$key['NOMBRE_ARCHIVO']);
+		}
+
 		//Elimino session de la cedula que es el parametro principal
 		Yii::$app->session['cedula'];
 		
@@ -367,6 +379,19 @@ $model = new TwPcPersonalData;
 
     public function actionPrincipal()
     {	
+	
+	// Primero escaneo y elimino los archivos generados para este usuario en la carpeta reportes
+		
+		$model = new TwPcEliminaArchivos;
+		
+		$twpceliminaarchivos = $model->EliminaArchivo();
+		
+		foreach ($twpceliminaarchivos as $key) {			
+			@unlink('../views/reportes/'.$key['NOMBRE_ARCHIVO']);
+		}
+		
+	// Inicia logica de la pantalla principal
+		
 		$model = new TwPcPersonalData;
 
 		$twpcpersonaldata = $model->procedimiento();
@@ -778,6 +803,21 @@ $model = new TwPcPersonalData;
 		
 	}
 	
+	//Modelo para genera el nombre del archivo temporal del pdf
+	$tiprend=Yii::$app->request->get('tiprend');
+	
+	$model = new TwPcArchivos;
+	
+	$c1=Yii::$app->session['cedula'];
+	$c2="pdf";
+	$c3="Archivo adjunto en Carta Laboral";
+	
+	$nombreArchivo = $model->nombreArchivo($c1,$c2,$c3);
+	
+	$NMBR = $nombreArchivo;
+	
+	//Modelo para implementar el pdf del certificado
+	
 		$model = new TwPcCertLaborales;
 	
 			Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
@@ -794,7 +834,7 @@ $model = new TwPcPersonalData;
 		$BLOQUEB = $twpccertlaborales[2];
 		$BLOQUEC = $twpccertlaborales[3];
 		
-        return $this->render('pdf_certificadolaboral', ["encabezado"=>$BLOQUEA,"titulo"=>$BLOQUET,"cuerpo"=>$BLOQUEB,"pie"=>$BLOQUEC]);
+        return $this->render('pdf_certificadolaboral', ["encabezado"=>$BLOQUEA,"titulo"=>$BLOQUET,"cuerpo"=>$BLOQUEB,"pie"=>$BLOQUEC, "tiprend"=>$tiprend, "NMBR"=>$NMBR]);
 		
     }
 	public function actionCertificadosretencion()
@@ -813,8 +853,6 @@ $model = new TwPcPersonalData;
     }
 	public function actionPdf_certificadosretencion()
     {		
-
-		$tiprend=Yii::$app->request->get('tiprend');
 	
 	if (isset($_POST['myOptions'])){		
 		
@@ -832,6 +870,7 @@ $model = new TwPcPersonalData;
 	}
 	
 	//Modelo para genera el nombre del archivo temporal del pdf
+	$tiprend=Yii::$app->request->get('tiprend');
 	
 	$model = new TwPcArchivos;
 	
@@ -914,6 +953,21 @@ $model = new TwPcPersonalData;
 	public function actionPdf_comprobantespago()
     {
 		
+	//Modelo para genera el nombre del archivo temporal del pdf
+	$tiprend=Yii::$app->request->get('tiprend');
+	
+	$model = new TwPcArchivos;
+	
+	$c1=Yii::$app->session['cedula'];
+	$c2="pdf";
+	$c3="Archivo adjunto en Comprobante de Pago";
+	
+	$nombreArchivo = $model->nombreArchivo($c1,$c2,$c3);
+	
+	$NMBR = $nombreArchivo;
+	
+	//Modelo para implementar el pdf del certificado
+		
 		$model = new TwPcComprobantePago;		
 		
 		Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
@@ -969,7 +1023,7 @@ $model = new TwPcPersonalData;
 		$OUTPUT = explode("_*", $twpccomprobantepago[9]);
 
 		
-		return $this->render('pdf_comprobantespago', ["bloque1"=>$BLOQUE1,"bloque2"=>$BLOQUE2, "bloque4"=>$BLOQUE4, "bloque6"=>$BLOQUE6, "bloque3_0"=>$BLOQUE3, "bloque5_0"=>$BLOQUE5]);
+		return $this->render('pdf_comprobantespago', ["bloque1"=>$BLOQUE1,"bloque2"=>$BLOQUE2, "bloque4"=>$BLOQUE4, "bloque6"=>$BLOQUE6, "bloque3_0"=>$BLOQUE3, "bloque5_0"=>$BLOQUE5, "tiprend"=>$tiprend, "NMBR"=>$NMBR]);
 	
 	}	
 	public function actionEquiponomina()
