@@ -52,8 +52,8 @@ $this->title = 'Certificado laboral';
 							<input class="form-control" id="focusedInput1" type="text" name="optionsText">
 						</div>
 						<div class="form-group text-right">
-						<?= Html::Button('Generar', ['class' => 'btn btn-raised btn-primary', 'data-toggle'=>"modal",  'name' => 'btnPdf', 'id' => 'btnPdf', 'onclick'=>'Warn();']) ?>
-						<?= Html::Button('Enviar al correo', ['class' => 'btn btn-raised btn-primary', 'name' => 'enviar-button']) ?>
+						<?= Html::Button('Generar', ['class' => 'btn btn-raised btn-primary', 'data-toggle'=>"modal",  'name' => 'btnPdf', 'id' => 'btnPdf', 'onclick'=>'Warn(this.id);']) ?>
+						<?= Html::Button('Enviar al correo', ['class' => 'btn btn-raised btn-primary', 'name' => 'enviar-button', 'id' => 'envPdf', 'onclick'=>'Warn(this.id);']) ?>
 						</div>
 						<?php ActiveForm::end(); ?>
 					</div>
@@ -65,19 +65,30 @@ $this->title = 'Certificado laboral';
 <div class="modal fade modal-vrtl modal-pdfviewer" id="pdfViewer" tabindex="-1" role="dialog" aria-labelledby="pdfViewerLabel"> </div>
 <script type="text/javascript">
 
-function Warn() {
+//TU CORREO ELECTRONICOS
+var correoelectronico= <?= json_encode(Yii::$app->session['datopersonaldos'][0]); ?>;
+
+function Warn(id) {
 	
 $.ajax({
              cache: false,
              type: 'POST',
-             url: '<?php echo Url::toRoute(['site/pdf_certificadolaboral']); ?>',
+             url: '<?php echo Url::toRoute(['site/pdf_certificadolaboral', 'tiprend' => '']); ?>'+id,
              data: $("#carta-form").serialize(), 
 			 
-			success: function(data){				
+			success: function(data){	
+
+			if(id=='btnPdf'){					
 				
 				$('#pdfViewer').modal('toggle').html(
-        '<div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><div class="header-box"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title txt__light-100" id="pdfViewerLabel">Certificado Laboral</h3></div></div><div class="modal-body"><object class="box-pdf" data="<?php echo Url::toRoute(['site/pdf_certificadolaboral']);?>" type="application/pdf"></object></div></div></div>'
+        '<div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><div class="header-box"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title txt__light-100" id="pdfViewerLabel">Certificado Laboral</h3></div></div><div class="modal-body"><object class="box-pdf" data="<?php echo Url::toRoute(['site/pdf_certificadolaboral', 'tiprend' => '']); ?>'+id+'" type="application/pdf"></object></div></div></div>'
 		);
+			
+			}else if(id=='envPdf'){
+				
+				swal("Enviado!", "Tu certficado ha sido enviado al correo "+correoelectronico, "success");
+				
+			}
 			
 									}
 	             

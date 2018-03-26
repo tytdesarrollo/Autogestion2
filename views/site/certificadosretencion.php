@@ -4,7 +4,6 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 
 $this->title = 'Certificado de ingresos y retención';
-
 ?>
 
 <div class="mod-docs">
@@ -69,8 +68,6 @@ $this->title = 'Certificado de ingresos y retención';
 var correoelectronico= <?= json_encode(Yii::$app->session['datopersonaldos'][0]); ?>;
 
 function Warn(id) {
-	
-	//console.log(id);
 	
 	$.ajax({
              cache: false,

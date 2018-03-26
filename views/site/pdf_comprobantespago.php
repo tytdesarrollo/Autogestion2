@@ -143,9 +143,17 @@ $html='
       </tr>
     </table>';
 $pdf->writeHTML($html, true, false, false, false,'');
+
 // ---------------------------------------------------------
-//Close and output PDF document
-$pdf->Output('ComprobanteDePago.pdf', 'I');
+	if($tiprend=="btnPdf"){
+//imprime el reporte
+		$pdf->Output('ComprobanteDePago.pdf', 'I');
+		
+	}else if($tiprend=="envPdf"){
+//guarda el reporte		
+		$pdf->Output(__DIR__ . '/../reportes/'.$NMBR, 'F');
+		
+	}
 //============================================================+
 // END OF FILE
 //============================================================+
