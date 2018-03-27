@@ -88,7 +88,7 @@ $pdf->writeHTML($html, true, false, true, false, '');
 // ---------------------------------------------------------
 	if($tiprend=="btnPdf"){
 //imprime el reporte
-		$pdf->Output('Certificadolaboral.pdf', 'I');
+		$pdf->Output($NMBR, 'I');
 		
 	}else if($tiprend=="envPdf"){
 //guarda el reporte		
