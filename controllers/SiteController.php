@@ -345,7 +345,16 @@ $model = new TwPcPersonalData;
 			}
 			else {
 				
-                return $this->render('vacaciones',["autorizaciones"=>$autorizaciones,"vacasvigentes"=>$vacasvigentes,"vacasHistorial"=>$vacasHistorial,"diaspedientes"=>$diaspedientes]);
+				//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
+		if (isset(Yii::$app->session['cedula'])){
+		
+         return $this->render('vacaciones',["autorizaciones"=>$autorizaciones,"vacasvigentes"=>$vacasvigentes,"vacasHistorial"=>$vacasHistorial,"diaspedientes"=>$diaspedientes]);
+									
+									}else{
+										
+										 return $this->goHome();
+										
+											}
 			}        
 		
     }
@@ -390,6 +399,9 @@ $model = new TwPcPersonalData;
 			@unlink('../views/reportes/'.$key['NOMBRE_ARCHIVO']);
 		}
 		
+	//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
+		if (isset(Yii::$app->session['cedula'])){
+		
 	// Inicia logica de la pantalla principal
 		
 		$model = new TwPcPersonalData;
@@ -420,7 +432,6 @@ $model = new TwPcPersonalData;
 		Yii::$app->session['datopersonal'] = $bloque1;
 		Yii::$app->session['datopersonaldos'] = $bloque2;		
 		
-
 		//=======================================PERFILES=========================================
 		$model = new TwPcRolesPerfiles;
 		$rolesperfiles = $model->spMenus();
@@ -441,10 +452,6 @@ $model = new TwPcPersonalData;
 		Yii::$app->session['menus'] = $arraym;
 		Yii::$app->session['submenus'] = $arraysm;
 		//================================================================================
-
-
-		//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
-		if (isset(Yii::$app->session['cedula'])){
 		
         return $this->render('principal', ["bloque1"=>$bloque1,"bloque2"=>$bloque2,"bloque3"=>$bloque3,"bloque4"=>$bloque4,"bloque5"=>$bloque5,"bloque6"=>$bloque6,"bloque7"=>$bloque7,"bloque8"=>$bloque8,"bloque9"=>$bloque9,"bloque10"=>$bloque10,"bloque11"=>$bloque11,"bloque12"=>$bloque12,"bloque13"=>$bloque13,"bloque14"=>$bloque14]);
 									
@@ -673,7 +680,10 @@ $model = new TwPcPersonalData;
 
                 return $this->render('mturnos');
 			}
-			else {			
+			else {
+
+				//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
+				if (isset(Yii::$app->session['cedula'])){
 
 				//identifar si es genernte quien ingresa
 				$gerente = Yii::$app->session['gerente'];
@@ -703,8 +713,14 @@ $model = new TwPcPersonalData;
 													}									
 				
 				$autorizaciones = Yii::$app->session['submenus'][3];
-
-	            return $this->render('turnos',['HHEXTRAS' => $HHEXTRAS,'HHEXTRASTOP' => $HHEXTRASTOP, 'HHOUTPUT' => $HHOUTPUT, 'HHMESSAGE' => $HHMESSAGE, 'HCONCEPTOS' => $HCONCEPTOS, 'ARRCON_KEY' => $ARRCON_KEY, 'ARRCOD_KEY' => $ARRCOD_KEY,'gerente'=>$gerente,'autorizaciones'=>$autorizaciones]);
+		
+        return $this->render('turnos',['HHEXTRAS' => $HHEXTRAS,'HHEXTRASTOP' => $HHEXTRASTOP, 'HHOUTPUT' => $HHOUTPUT, 'HHMESSAGE' => $HHMESSAGE, 'HCONCEPTOS' => $HCONCEPTOS, 'ARRCON_KEY' => $ARRCON_KEY, 'ARRCOD_KEY' => $ARRCOD_KEY,'gerente'=>$gerente,'autorizaciones'=>$autorizaciones]);
+									
+									}else{
+										
+										 return $this->goHome();
+										
+											}
 			}        
 		
     }
@@ -776,8 +792,17 @@ $model = new TwPcPersonalData;
 	public function actionCertificadolaboral()
     {
 		$this->layout='main_light';
-        return $this->render('certificadolaboral');
 		
+		//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
+		if (isset(Yii::$app->session['cedula'])){
+		
+        return $this->render('certificadolaboral');
+									
+									}else{
+										
+										 return $this->goHome();
+										
+											}
     }
 	public function actionPdf_certificadolaboral()
     {				
@@ -806,16 +831,22 @@ $model = new TwPcPersonalData;
 	//Modelo para genera el nombre del archivo temporal del pdf
 	$tiprend=Yii::$app->request->get('tiprend');
 	
+	if($tiprend=='envPdf'){
+	
 	$model = new TwPcArchivos;
 	
 	$c1=Yii::$app->session['cedula'];
 	$c2="pdf";
-	$c3="Archivo adjunto en Carta Laboral";
+	$c3="Archivo adjunto en Certificado Laboral";
 	
 	$nombreArchivo = $model->nombreArchivo($c1,$c2,$c3);
 	
 	$NMBR = $nombreArchivo;
 	
+	}else{
+		
+	$NMBR = Yii::$app->session['cedula'].".pdf";
+	}
 	//Modelo para implementar el pdf del certificado
 	
 		$model = new TwPcCertLaborales;
@@ -847,9 +878,17 @@ $model = new TwPcPersonalData;
 		$twpccertingresos = $model->procedimiento();
 		
 		$BLOQUE2 = explode("_*", $twpccertingresos[1]);
-				
-        return $this->render('certificadosretencion',["anoscerti"=>$BLOQUE2]);
+			
+		//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
+		if (isset(Yii::$app->session['cedula'])){
 		
+        return $this->render('certificadosretencion',["anoscerti"=>$BLOQUE2]);
+									
+									}else{
+										
+										 return $this->goHome();
+										
+											}
     }
 	public function actionPdf_certificadosretencion()
     {		
@@ -872,6 +911,8 @@ $model = new TwPcPersonalData;
 	//Modelo para genera el nombre del archivo temporal del pdf
 	$tiprend=Yii::$app->request->get('tiprend');
 	
+	if($tiprend=='envPdf'){
+	
 	$model = new TwPcArchivos;
 	
 	$c1=Yii::$app->session['cedula'];
@@ -882,6 +923,10 @@ $model = new TwPcPersonalData;
 	
 	$NMBR = $nombreArchivo;
 	
+	}else{
+		
+	$NMBR = Yii::$app->session['cedula'].".pdf";
+	}
 	//Modelo para implementar el pdf del certificadosretencion
 	$model = new TwPcCertIngresos;
 	
@@ -902,6 +947,9 @@ $model = new TwPcPersonalData;
     {	
 		$this->layout='main_light';
 		
+		//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
+		if (isset(Yii::$app->session['cedula'])){
+		
 		$model = new TwPcComprobantePago;
 		
 		$twpccomprobantepago = $model->ComprobantePago();
@@ -914,9 +962,14 @@ $model = new TwPcPersonalData;
 		
 		//ELIMINO LOS ANIOS DUPLICADOS
 		$ANO_PERIODO_FILT = array_unique($ANO_PERIODO_ARR);
-					
-        return $this->render('comprobantespago', ["ANO_PERIODO_ARR"=>$ANO_PERIODO_FILT]);
 		
+        return $this->render('comprobantespago', ["ANO_PERIODO_ARR"=>$ANO_PERIODO_FILT]);
+									
+									}else{
+										
+										 return $this->goHome();
+										
+											}
     }
 	public function actionMenucomprobantespago()
     {
@@ -956,6 +1009,8 @@ $model = new TwPcPersonalData;
 	//Modelo para genera el nombre del archivo temporal del pdf
 	$tiprend=Yii::$app->request->get('tiprend');
 	
+	if($tiprend=='envPdf'){
+	
 	$model = new TwPcArchivos;
 	
 	$c1=Yii::$app->session['cedula'];
@@ -966,6 +1021,10 @@ $model = new TwPcPersonalData;
 	
 	$NMBR = $nombreArchivo;
 	
+	}else{
+		
+	$NMBR = Yii::$app->session['cedula'].".pdf";
+	}
 	//Modelo para implementar el pdf del certificado
 		
 		$model = new TwPcComprobantePago;		
@@ -1040,8 +1099,16 @@ $model = new TwPcPersonalData;
 		$bloque6 = $twpcequiponomina[5];
 		$bloque7 = $twpcequiponomina[6];
 		
-        return $this->render('equiponomina', ["bloque1"=>$bloque1,"bloque2"=>$bloque2,"bloque3"=>$bloque3,"bloque4"=>$bloque4,"bloque5"=>$bloque5,"bloque6"=>$bloque6,"bloque7"=>$bloque7]);
+		//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
+		if (isset(Yii::$app->session['cedula'])){
 		
+         return $this->render('equiponomina', ["bloque1"=>$bloque1,"bloque2"=>$bloque2,"bloque3"=>$bloque3,"bloque4"=>$bloque4,"bloque5"=>$bloque5,"bloque6"=>$bloque6,"bloque7"=>$bloque7]);
+									
+									}else{
+										
+										 return $this->goHome();
+										
+											}
     }
 	public function actionCronogramanomina()
     {				
@@ -1051,14 +1118,31 @@ $model = new TwPcPersonalData;
 		
 		$crono = $twpccierrenomina[0];
 		
-        return $this->render('cronogramanomina', ["crono"=>$crono]);
+		//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
+		if (isset(Yii::$app->session['cedula'])){
+		
+                return $this->render('cronogramanomina', ["crono"=>$crono]);
+									
+									}else{
+										
+										 return $this->goHome();
+										
+											}
 		
     }
 	public function actionActualidadlaboral()
     {				
 		
-        return $this->render('actualidadlaboral');
+		//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
+		if (isset(Yii::$app->session['cedula'])){
 		
+                return $this->render('actualidadlaboral');
+									
+									}else{
+										
+										 return $this->goHome();
+										
+											}
     }
 	public function actionJsoncalendar()
 	{
