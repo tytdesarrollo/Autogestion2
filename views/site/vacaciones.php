@@ -581,6 +581,7 @@ var bandera = "1";
 <script type="text/javascript">
 	/*variables de la session*/
 		var cedula = '<?=Yii::$app->session['cedula']?>';//'52513735';
+		//var cedula = '52513735';//'52513735';
 		var autorizaciones = '<?=Yii::$app->session['submenus'][1]?>';
 	/**/
 
@@ -600,9 +601,9 @@ var bandera = "1";
 	/**/	
 	
 	//control de jefes o administradores
-	if(autorizaciones.localeCompare("TRUE") == 0){
+	/*if(autorizaciones.localeCompare("TRUE") == 0){*/
 		$(cambioPestana(1));	
-	}
+	/*}*/
 
 	function ejecute(id){
 		var pagination = generalPage;

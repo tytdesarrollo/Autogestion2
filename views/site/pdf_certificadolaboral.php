@@ -86,10 +86,15 @@ $html = '<span>'.$pie.'</span>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
 // ---------------------------------------------------------
-
-//Close and output PDF document
-$pdf->Output('Certificadolaboral.pdf', 'I');
-
+	if($tiprend=="btnPdf"){
+//imprime el reporte
+		$pdf->Output($NMBR, 'I');
+		
+	}else if($tiprend=="envPdf"){
+//guarda el reporte		
+		$pdf->Output(__DIR__ . '/../reportes/'.$NMBR, 'F');
+		
+	}
 //============================================================+
 // END OF FILE
 //============================================================+

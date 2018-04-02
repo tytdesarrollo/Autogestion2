@@ -28,7 +28,8 @@ use app\models\TwPcHorasExtrasHistorial;
 use app\models\TwPcVacaciones;
 use app\models\TwPcInsertHorasExtras;
 use app\models\TwPcInsertHoras;
-use app\models\TwPcHorasExtras;
+use app\models\TwPcArchivos;
+use app\models\TwPcEliminaArchivos;
 
 
 class SiteController extends Controller
@@ -242,6 +243,17 @@ $model = new TwPcPersonalData;
 		
     public function actionSalida()
     {
+		
+		// Escaneo y elimino los archivos generados para este usuario en la carpeta reportes
+		
+		$model = new TwPcEliminaArchivos;
+		
+		$twpceliminaarchivos = $model->EliminaArchivo();
+		
+		foreach ($twpceliminaarchivos as $key) {			
+			@unlink('../views/reportes/'.$key['NOMBRE_ARCHIVO']);
+		}
+
 		//Elimino session de la cedula que es el parametro principal
 		Yii::$app->session['cedula'];
 		
@@ -333,7 +345,16 @@ $model = new TwPcPersonalData;
 			}
 			else {
 				
-                return $this->render('vacaciones',["autorizaciones"=>$autorizaciones,"vacasvigentes"=>$vacasvigentes,"vacasHistorial"=>$vacasHistorial,"diaspedientes"=>$diaspedientes]);
+				//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
+		if (isset(Yii::$app->session['cedula'])){
+		
+         return $this->render('vacaciones',["autorizaciones"=>$autorizaciones,"vacasvigentes"=>$vacasvigentes,"vacasHistorial"=>$vacasHistorial,"diaspedientes"=>$diaspedientes]);
+									
+									}else{
+										
+										 return $this->goHome();
+										
+											}
 			}        
 		
     }
@@ -367,6 +388,22 @@ $model = new TwPcPersonalData;
 
     public function actionPrincipal()
     {	
+	
+	// Primero escaneo y elimino los archivos generados para este usuario en la carpeta reportes
+		
+		$model = new TwPcEliminaArchivos;
+		
+		$twpceliminaarchivos = $model->EliminaArchivo();
+		
+		foreach ($twpceliminaarchivos as $key) {			
+			@unlink('../views/reportes/'.$key['NOMBRE_ARCHIVO']);
+		}
+		
+	//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
+		if (isset(Yii::$app->session['cedula'])){
+		
+	// Inicia logica de la pantalla principal
+		
 		$model = new TwPcPersonalData;
 
 		$twpcpersonaldata = $model->procedimiento();
@@ -395,7 +432,6 @@ $model = new TwPcPersonalData;
 		Yii::$app->session['datopersonal'] = $bloque1;
 		Yii::$app->session['datopersonaldos'] = $bloque2;		
 		
-
 		//=======================================PERFILES=========================================
 		$model = new TwPcRolesPerfiles;
 		$rolesperfiles = $model->spMenus();
@@ -416,10 +452,6 @@ $model = new TwPcPersonalData;
 		Yii::$app->session['menus'] = $arraym;
 		Yii::$app->session['submenus'] = $arraysm;
 		//================================================================================
-
-
-		//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
-		if (isset(Yii::$app->session['cedula'])){
 		
         return $this->render('principal', ["bloque1"=>$bloque1,"bloque2"=>$bloque2,"bloque3"=>$bloque3,"bloque4"=>$bloque4,"bloque5"=>$bloque5,"bloque6"=>$bloque6,"bloque7"=>$bloque7,"bloque8"=>$bloque8,"bloque9"=>$bloque9,"bloque10"=>$bloque10,"bloque11"=>$bloque11,"bloque12"=>$bloque12,"bloque13"=>$bloque13,"bloque14"=>$bloque14]);
 									
@@ -648,7 +680,10 @@ $model = new TwPcPersonalData;
 
                 return $this->render('mturnos');
 			}
-			else {			
+			else {
+
+				//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
+				if (isset(Yii::$app->session['cedula'])){
 
 				//identifar si es genernte quien ingresa
 				$gerente = Yii::$app->session['gerente'];
@@ -678,8 +713,14 @@ $model = new TwPcPersonalData;
 													}									
 				
 				$autorizaciones = Yii::$app->session['submenus'][3];
-
-	            return $this->render('turnos',['HHEXTRAS' => $HHEXTRAS,'HHEXTRASTOP' => $HHEXTRASTOP, 'HHOUTPUT' => $HHOUTPUT, 'HHMESSAGE' => $HHMESSAGE, 'HCONCEPTOS' => $HCONCEPTOS, 'ARRCON_KEY' => $ARRCON_KEY, 'ARRCOD_KEY' => $ARRCOD_KEY,'gerente'=>$gerente,'autorizaciones'=>$autorizaciones]);
+		
+        return $this->render('turnos',['HHEXTRAS' => $HHEXTRAS,'HHEXTRASTOP' => $HHEXTRASTOP, 'HHOUTPUT' => $HHOUTPUT, 'HHMESSAGE' => $HHMESSAGE, 'HCONCEPTOS' => $HCONCEPTOS, 'ARRCON_KEY' => $ARRCON_KEY, 'ARRCOD_KEY' => $ARRCOD_KEY,'gerente'=>$gerente,'autorizaciones'=>$autorizaciones]);
+									
+									}else{
+										
+										 return $this->goHome();
+										
+											}
 			}        
 		
     }
@@ -751,8 +792,17 @@ $model = new TwPcPersonalData;
 	public function actionCertificadolaboral()
     {
 		$this->layout='main_light';
-        return $this->render('certificadolaboral');
 		
+		//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
+		if (isset(Yii::$app->session['cedula'])){
+		
+        return $this->render('certificadolaboral');
+									
+									}else{
+										
+										 return $this->goHome();
+										
+											}
     }
 	public function actionPdf_certificadolaboral()
     {				
@@ -778,6 +828,27 @@ $model = new TwPcPersonalData;
 		
 	}
 	
+	//Modelo para genera el nombre del archivo temporal del pdf
+	$tiprend=Yii::$app->request->get('tiprend');
+	
+	if($tiprend=='envPdf'){
+	
+	$model = new TwPcArchivos;
+	
+	$c1=Yii::$app->session['cedula'];
+	$c2="pdf";
+	$c3="Archivo adjunto en Certificado Laboral";
+	
+	$nombreArchivo = $model->nombreArchivo($c1,$c2,$c3);
+	
+	$NMBR = $nombreArchivo;
+	
+	}else{
+		
+	$NMBR = Yii::$app->session['cedula'].".pdf";
+	}
+	//Modelo para implementar el pdf del certificado
+	
 		$model = new TwPcCertLaborales;
 	
 			Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
@@ -794,7 +865,7 @@ $model = new TwPcPersonalData;
 		$BLOQUEB = $twpccertlaborales[2];
 		$BLOQUEC = $twpccertlaborales[3];
 		
-        return $this->render('pdf_certificadolaboral', ["encabezado"=>$BLOQUEA,"titulo"=>$BLOQUET,"cuerpo"=>$BLOQUEB,"pie"=>$BLOQUEC]);
+        return $this->render('pdf_certificadolaboral', ["encabezado"=>$BLOQUEA,"titulo"=>$BLOQUET,"cuerpo"=>$BLOQUEB,"pie"=>$BLOQUEC, "tiprend"=>$tiprend, "NMBR"=>$NMBR]);
 		
     }
 	public function actionCertificadosretencion()
@@ -807,12 +878,20 @@ $model = new TwPcPersonalData;
 		$twpccertingresos = $model->procedimiento();
 		
 		$BLOQUE2 = explode("_*", $twpccertingresos[1]);
-				
-        return $this->render('certificadosretencion',["anoscerti"=>$BLOQUE2]);
+			
+		//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
+		if (isset(Yii::$app->session['cedula'])){
 		
+        return $this->render('certificadosretencion',["anoscerti"=>$BLOQUE2]);
+									
+									}else{
+										
+										 return $this->goHome();
+										
+											}
     }
 	public function actionPdf_certificadosretencion()
-    {				
+    {		
 	
 	if (isset($_POST['myOptions'])){		
 		
@@ -829,6 +908,26 @@ $model = new TwPcPersonalData;
 		
 	}
 	
+	//Modelo para genera el nombre del archivo temporal del pdf
+	$tiprend=Yii::$app->request->get('tiprend');
+	
+	if($tiprend=='envPdf'){
+	
+	$model = new TwPcArchivos;
+	
+	$c1=Yii::$app->session['cedula'];
+	$c2="pdf";
+	$c3="Archivo adjunto en Certificado y Retenciones";
+	
+	$nombreArchivo = $model->nombreArchivo($c1,$c2,$c3);
+	
+	$NMBR = $nombreArchivo;
+	
+	}else{
+		
+	$NMBR = Yii::$app->session['cedula'].".pdf";
+	}
+	//Modelo para implementar el pdf del certificadosretencion
 	$model = new TwPcCertIngresos;
 	
 			Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
@@ -841,12 +940,15 @@ $model = new TwPcPersonalData;
 			
 			$BLOQUE1 = explode("_*", $twpccertingresos[0]);
 		
-        return $this->render('pdf_certificadosretencion', ["datos"=>$BLOQUE1]);
+        return $this->render('pdf_certificadosretencion', ["datos"=>$BLOQUE1, "tiprend"=>$tiprend, "NMBR"=>$NMBR]);
 		
     }
 	public function actionComprobantespago()
     {	
 		$this->layout='main_light';
+		
+		//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
+		if (isset(Yii::$app->session['cedula'])){
 		
 		$model = new TwPcComprobantePago;
 		
@@ -860,9 +962,14 @@ $model = new TwPcPersonalData;
 		
 		//ELIMINO LOS ANIOS DUPLICADOS
 		$ANO_PERIODO_FILT = array_unique($ANO_PERIODO_ARR);
-					
-        return $this->render('comprobantespago', ["ANO_PERIODO_ARR"=>$ANO_PERIODO_FILT]);
 		
+        return $this->render('comprobantespago', ["ANO_PERIODO_ARR"=>$ANO_PERIODO_FILT]);
+									
+									}else{
+										
+										 return $this->goHome();
+										
+											}
     }
 	public function actionMenucomprobantespago()
     {
@@ -898,6 +1005,27 @@ $model = new TwPcPersonalData;
     }
 	public function actionPdf_comprobantespago()
     {
+		
+	//Modelo para genera el nombre del archivo temporal del pdf
+	$tiprend=Yii::$app->request->get('tiprend');
+	
+	if($tiprend=='envPdf'){
+	
+	$model = new TwPcArchivos;
+	
+	$c1=Yii::$app->session['cedula'];
+	$c2="pdf";
+	$c3="Archivo adjunto en Comprobante de Pago";
+	
+	$nombreArchivo = $model->nombreArchivo($c1,$c2,$c3);
+	
+	$NMBR = $nombreArchivo;
+	
+	}else{
+		
+	$NMBR = Yii::$app->session['cedula'].".pdf";
+	}
+	//Modelo para implementar el pdf del certificado
 		
 		$model = new TwPcComprobantePago;		
 		
@@ -954,7 +1082,7 @@ $model = new TwPcPersonalData;
 		$OUTPUT = explode("_*", $twpccomprobantepago[9]);
 
 		
-		return $this->render('pdf_comprobantespago', ["bloque1"=>$BLOQUE1,"bloque2"=>$BLOQUE2, "bloque4"=>$BLOQUE4, "bloque6"=>$BLOQUE6, "bloque3_0"=>$BLOQUE3, "bloque5_0"=>$BLOQUE5]);
+		return $this->render('pdf_comprobantespago', ["bloque1"=>$BLOQUE1,"bloque2"=>$BLOQUE2, "bloque4"=>$BLOQUE4, "bloque6"=>$BLOQUE6, "bloque3_0"=>$BLOQUE3, "bloque5_0"=>$BLOQUE5, "tiprend"=>$tiprend, "NMBR"=>$NMBR]);
 	
 	}	
 	public function actionEquiponomina()
@@ -971,8 +1099,16 @@ $model = new TwPcPersonalData;
 		$bloque6 = $twpcequiponomina[5];
 		$bloque7 = $twpcequiponomina[6];
 		
-        return $this->render('equiponomina', ["bloque1"=>$bloque1,"bloque2"=>$bloque2,"bloque3"=>$bloque3,"bloque4"=>$bloque4,"bloque5"=>$bloque5,"bloque6"=>$bloque6,"bloque7"=>$bloque7]);
+		//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
+		if (isset(Yii::$app->session['cedula'])){
 		
+         return $this->render('equiponomina', ["bloque1"=>$bloque1,"bloque2"=>$bloque2,"bloque3"=>$bloque3,"bloque4"=>$bloque4,"bloque5"=>$bloque5,"bloque6"=>$bloque6,"bloque7"=>$bloque7]);
+									
+									}else{
+										
+										 return $this->goHome();
+										
+											}
     }
 	public function actionCronogramanomina()
     {				
@@ -982,14 +1118,31 @@ $model = new TwPcPersonalData;
 		
 		$crono = $twpccierrenomina[0];
 		
-        return $this->render('cronogramanomina', ["crono"=>$crono]);
+		//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
+		if (isset(Yii::$app->session['cedula'])){
+		
+                return $this->render('cronogramanomina', ["crono"=>$crono]);
+									
+									}else{
+										
+										 return $this->goHome();
+										
+											}
 		
     }
 	public function actionActualidadlaboral()
     {				
 		
-        return $this->render('actualidadlaboral');
+		//VALIDO SI LA SESSION SE ENCUENTRA ACTIVA, SINO LA DEVUELVO AL INDEX
+		if (isset(Yii::$app->session['cedula'])){
 		
+                return $this->render('actualidadlaboral');
+									
+									}else{
+										
+										 return $this->goHome();
+										
+											}
     }
 	public function actionJsoncalendar()
 	{
@@ -1042,63 +1195,95 @@ $model = new TwPcPersonalData;
     }
     public function actionAutorzacionvacap1(){
 
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];	
-    	$c5 = $_GET['cedula'];	
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+    	$c5 = Yii::$app->request->get('cedula');
 
     	$vacaciones = new TwPcVacaciones();
     	$datos = $vacaciones->solicitudesEpl($c1,$c2,$c3,$c4,$c5);
+		
+    	$datosTable = array();
 
-    	echo json_encode($datos);
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);    	
     }
 
     public function actionAutorzacionvacap2(){
 
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-		$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+		$c5 = Yii::$app->request->get('cedula');
 
     	$vacaciones = new TwPcVacaciones();
     	$datos = $vacaciones->solicitudesRechazadas($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);    
     }
 
     public function actionAutorzacionvacap3(){
 
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-    	$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+    	$c5 = Yii::$app->request->get('cedula');
 
     	$vacaciones = new TwPcVacaciones();
     	$datos = $vacaciones->solicitudesVigentes($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);    
     }
 
     public function actionAutorzacionvacap4(){
 
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-    	$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+    	$c5 = Yii::$app->request->get('cedula');
 
     	$vacaciones = new TwPcVacaciones();
     	$datos = $vacaciones->solicitudesAcepRech($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1],$datos[2]);
+		echo json_encode($datosTable);    
     }
 
     public function actionAceptarsolicitudesvaca(){
 
-    	$get1 = $_GET['solicitudes'];
+    	$get1 = Yii::$app->request->get('solicitudes');
     	$c1 = array();
 
     	for ($i=0; $i < count($get1); $i++) { 
@@ -1113,7 +1298,7 @@ $model = new TwPcPersonalData;
 
     public function actionRechazarsolicitudesvaca(){
 
-    	$get1 = $_GET['paramSp'];
+    	$get1 = Yii::$app->request->get('paramSp');
     	$c1 = array();
     	$c1[0] = $get1;
 
@@ -1125,22 +1310,22 @@ $model = new TwPcPersonalData;
 
     public function actionEditarsolicitudvaca(){
 
-    	$c1 = $_GET['codigoepl'];
-		$c2 = $_GET['consecutivo'];
-		$c3 = $_GET['dias'];
-		$c4 = $_GET['fechaini'];
-		$c5 = $_GET['fechafin'];
+    	$c1 = Yii::$app->request->get('codigoepl');
+		$c2 = Yii::$app->request->get('consecutivo');
+		$c3 = Yii::$app->request->get('dias');
+		$c4 = Yii::$app->request->get('fechaini');
+		$c5 = Yii::$app->request->get('fechafin');
 
 		$vacaciones = new TwPcVacaciones();
     	$datos = $vacaciones->solicitudesEditar($c1,$c2,$c3,$c4,$c5);
 
-    	echo "true";
+    	echo $datos;
     }
 
     public function actionCalculafecha(){
 
-    	$c1 = $_GET['fecha'];
-    	$c2 = $_GET['dias'];    	    	
+    	$c1 = Yii::$app->request->get('fecha');
+    	$c2 = Yii::$app->request->get('dias');
     	
     	$vacaciones = new TwPcVacaciones();
     	$datos = $vacaciones->calcularFecha($c1,$c2);
@@ -1150,22 +1335,30 @@ $model = new TwPcPersonalData;
     }
 
     public function actionHistorialvacas(){
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-    	$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+    	$c5 = Yii::$app->request->get('cedula');
 
     	$vacaciones = new TwPcVacaciones();
     	$datos = $vacaciones->historialEmpleado($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);    
     }
 
     public function actionValidadvacaciones(){
     	$c1 = Yii::$app->session['cedula'];
-		$c2 = $_GET['fecha'];
-		$c3 = $_GET['dias'];
+		$c2 = Yii::$app->request->get('fecha');
+		$c3 = Yii::$app->request->get('dias');
 
 		$vacaciones = new TwPcVacaciones();
     	$datos = $vacaciones->validaVacaciones($c1,$c2,$c3);
@@ -1175,9 +1368,9 @@ $model = new TwPcPersonalData;
 
     public function actionEnviarsolicitudvacas(){
     	$c1 = Yii::$app->session['cedula'];
-		$c2 = $_GET['dias'];
-		$c3 = $_GET['fechaini'];
-		$c4 = $_GET['fechafin'];
+		$c2 = Yii::$app->request->get('dias'); 
+		$c3 = Yii::$app->request->get('fechaini');
+		$c4 = Yii::$app->request->get('fechafin');
 
 		$vacaciones = new TwPcVacaciones();
     	$datos = $vacaciones->envioVacaciones($c1,$c2,$c3,$c4);		
@@ -1186,137 +1379,192 @@ $model = new TwPcPersonalData;
     }
 
     public function actionAutorzacionextrp1(){
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-    	$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+    	$c5 = Yii::$app->request->get('cedula');
 
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesEpl($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);    
     }
 
     public function actionAutorzacionextrp2(){
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-    	$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+    	$c5 = Yii::$app->request->get('cedula');
 
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesEp2($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);    
     }
 
     public function actionAutorzacionextrp3(){
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-    	$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+    	$c5 = Yii::$app->request->get('cedula');
 
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesEp3($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);    
     }
 
     public function actionAutorzacionextrp4(){
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-    	$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+    	$c5 = Yii::$app->request->get('cedula');
 
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesEp4($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);
     }
 
     public function actionAutorzacionextrp5(){
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-    	$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+    	$c5 = Yii::$app->request->get('cedula');
 
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesEp5($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);
     }
 
     public function actionAutorzacionextrp6(){
-    	$c1 = $_GET['cantidad'];
-    	$c2 = $_GET['pagina'];
-    	$c3 = $_GET['search'];
-    	$c4 = $_GET['column'];
-    	$c5 = $_GET['cedula'];
+    	$c1 = Yii::$app->request->get('cantidad');
+    	$c2 = Yii::$app->request->get('pagina');
+    	$c3 = Yii::$app->request->get('search');
+    	$c4 = Yii::$app->request->get('column');
+    	$c5 = Yii::$app->request->get('cedula');
 
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesEp6($c1,$c2,$c3,$c4,$c5);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos[0] as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+
+		$datosTable = array($datosTable,$datos[1]);
+		echo json_encode($datosTable);
     }
 
     public function actionAceptarsolicitudesturnos(){
-    	$get1 = $_GET['solicitudes'];
+    	$get1 = Yii::$app->request->get('solicitudes');
     	$c1 = array();
 
     	for ($i=0; $i < count($get1); $i++) { 
     		$c1[$i] = $get1[$i]['valor'];
     	}
     	
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesAceptar($c1);
 
     	echo $datos;
     }
 
     public function actionRechazarsolicitudesturnos(){
-    	$get1 = $_GET['paramSp'];
+    	$get1 = Yii::$app->request->get('paramSp');
     	$c1 = array();
     	$c1[0] = $get1;
 
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesRechazar($c1);
 
     	echo $datos;
     }
 
     public function actionDetallegerenteturnos(){
-    	$c1 = $_GET['codigoepl'];    	
+    	$c1 = Yii::$app->request->get('codigoepl');
 
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->detalleHistorialHorasExtrasGere($c1);
 
-    	echo json_encode($datos);
+    	$datosTable = array();
+
+		foreach ($datos as $cursor){
+			$cursor = array_map("utf8_decode", $cursor);    
+			array_push($datosTable, $cursor);
+		}
+		
+		echo json_encode($datosTable);
     }
 
     public function actionAceptarsolicitudesturnosgre(){
-    	$get1 = $_GET['solicitudes'];
+    	$get1 = Yii::$app->request->get('solicitudes');
     	$c1 = array();
 
     	for ($i=0; $i < count($get1); $i++) { 
     		$c1[$i] = $get1[$i]['valor'];
     	}
     	
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesAceptarGre($c1);
 
     	echo $datos;
     }
 
     public function actionRechazasolicitudesturnosgre(){
-    	$get1 = $_GET['paramSp'];
+    	$get1 = Yii::$app->request->get('paramSp');
     	$c1 = array();
     	$c1[0] = $get1;
 
-    	$horasextras = new TwPcHorasExtras();
+    	$horasextras = new TwPcInsertHorasExtras();
     	$datos = $horasextras->solicitudesRechazaGre($c1);
 
     	echo $datos;

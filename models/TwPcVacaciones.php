@@ -65,9 +65,11 @@ class TwPcVacaciones extends Model{
 		//c7: datos de l consulta
 		//
 		// TNS DE LA BASE DE DATOS
-		$db = Yii::$app->params['orcl'];		
+		$db = Yii::$app->params['orcl'];
+		$usr = Yii::$app->params['usr'];
+		$psw = Yii::$app->params['psw'];
 		//conexion con la base de datos
-		$conexion = oci_connect('TELEPRU', 'tytcali', $db);
+		$conexion = oci_connect($usr, $psw, $db);
 		//procedimiento a ejecutar
 		$stid = oci_parse($conexion, 'BEGIN TW_PC_SOLICITUDES_POR_EPL_MV(:c1,:c2,:c3,:c4,:c5,:c6,:c7); END;');
 		//parametros 		
@@ -84,8 +86,10 @@ class TwPcVacaciones extends Model{
 		// ejecucion del procedimiento 
 		oci_execute($stid);
 		oci_execute($c7);
+		
 		// datos del cursor
 		oci_fetch_all($c7, $cursor, null, null, OCI_FETCHSTATEMENT_BY_ROW);		
+		
 		// array con los datos y la cantidad de pestanas 
 	    return array($cursor,$c6);		
 	}
@@ -100,9 +104,11 @@ class TwPcVacaciones extends Model{
 		//c7: datos de l consulta
 		//
 		// TNS DE LA BASE DE DATOS
-		$db = Yii::$app->params['orcl'];		
+		$db = Yii::$app->params['orcl'];
+		$usr = Yii::$app->params['usr'];
+		$psw = Yii::$app->params['psw'];
 		//conexion con la base de datos
-		$conexion = oci_connect('TELEPRU', 'tytcali', $db);
+		$conexion = oci_connect($usr, $psw, $db);
 		//procedimiento a ejecutar
 		$stid = oci_parse($conexion, 'BEGIN TW_PC_SOLICITUDESRECHAZADAS_MV(:c1,:c2,:c3,:c4,:c5,:c6,:c7); END;');
 		//parametros 		
@@ -135,9 +141,11 @@ class TwPcVacaciones extends Model{
 		//c7: datos de l consulta
 		//
 		// TNS DE LA BASE DE DATOS
-		$db = Yii::$app->params['orcl'];		
+		$db = Yii::$app->params['orcl'];
+		$usr = Yii::$app->params['usr'];
+		$psw = Yii::$app->params['psw'];
 		//conexion con la base de datos
-		$conexion = oci_connect('TELEPRU', 'tytcali', $db);
+		$conexion = oci_connect($usr, $psw, $db);
 		//procedimiento a ejecutar
 		$stid = oci_parse($conexion, 'BEGIN TW_PC_SOLICITUDES_VIGENTES_MV(:c1,:c2,:c3,:c4,:c5,:c6,:c7); END;');
 		//parametros 		
@@ -169,11 +177,13 @@ class TwPcVacaciones extends Model{
 		//c6: cantidad de pestanas a generar
 		//c7: datos de l consulta
 		//c8: rol de la sesion
-		//
+		//		
 		// TNS DE LA BASE DE DATOS
-		$db = Yii::$app->params['orcl'];		
+		$db = Yii::$app->params['orcl'];
+		$usr = Yii::$app->params['usr'];
+		$psw = Yii::$app->params['psw'];
 		//conexion con la base de datos
-		$conexion = oci_connect('TELEPRU', 'tytcali', $db);
+		$conexion = oci_connect($usr, $psw, $db);
 		//procedimiento a ejecutar
 		$stid = oci_parse($conexion, 'BEGIN TW_PC_SOLICITUD_APROV_RECHA_MV(:c1,:c2,:c3,:c4,:c5,:c6,:c7,:c8); END;');
 		//parametros 		
@@ -201,9 +211,11 @@ class TwPcVacaciones extends Model{
 		//$c1  datos del empleado a confirmar solicitud
 		//
 		// TNS DE LA BASE DE DATOS
-		$db = Yii::$app->params['orcl'];		
+		$db = Yii::$app->params['orcl'];
+		$usr = Yii::$app->params['usr'];
+		$psw = Yii::$app->params['psw'];
 		//conexion con la base de datos
-		$conexion = oci_connect('TELEPRU', 'tytcali', $db);
+		$conexion = oci_connect($usr, $psw, $db);
 		//procedimiento a ejecutar
 		$stid = oci_parse($conexion, 'BEGIN TW_PC_SOLICITUD_ACEPTAR_MV(:c1); END;');
 
@@ -218,9 +230,11 @@ class TwPcVacaciones extends Model{
 		//$c1  datos del empleado a rechazar solicitud
 		//
 		// TNS DE LA BASE DE DATOS
-		$db = Yii::$app->params['orcl'];		
+		$db = Yii::$app->params['orcl'];
+		$usr = Yii::$app->params['usr'];
+		$psw = Yii::$app->params['psw'];
 		//conexion con la base de datos
-		$conexion = oci_connect('TELEPRU', 'tytcali', $db);
+		$conexion = oci_connect($usr, $psw, $db);
 		//procedimiento a ejecutar
 		$stid = oci_parse($conexion, 'BEGIN TW_PC_SOLICITUD_RECHAZA_MV(:c1); END;');
 
@@ -239,9 +253,11 @@ class TwPcVacaciones extends Model{
 		//c5: fecha de finalizacion
 
 		// TNS DE LA BASE DE DATOS
-		$db = Yii::$app->params['orcl'];		
+		$db = Yii::$app->params['orcl'];
+		$usr = Yii::$app->params['usr'];
+		$psw = Yii::$app->params['psw'];
 		//conexion con la base de datos
-		$conexion = oci_connect('TELEPRU', 'tytcali', $db);
+		$conexion = oci_connect($usr, $psw, $db);
 		//procedimiento a ejecutar
 		$stid = oci_parse($conexion, 'BEGIN TW_PC_SOLICITUD_EDITA_MV(:c1,:c2,:c3,:c4,:c5); END;');
 		
@@ -265,9 +281,11 @@ class TwPcVacaciones extends Model{
 		//c5: codigo de salida
 
 		// TNS DE LA BASE DE DATOS
-		$db = Yii::$app->params['orcl'];		
+		$db = Yii::$app->params['orcl'];
+		$usr = Yii::$app->params['usr'];
+		$psw = Yii::$app->params['psw'];
 		//conexion con la base de datos
-		$conexion = oci_connect('TELEPRU', 'tytcali', $db);
+		$conexion = oci_connect($usr, $psw, $db);
 		//procedimiento a ejecutar
 		$stid = oci_parse($conexion, 'BEGIN TW_PC_CALCULA_FECHA(:c1,:c2,:c3); END;');
 		
@@ -291,9 +309,11 @@ class TwPcVacaciones extends Model{
 		//c7: datos de l consulta
 		//
 		// TNS DE LA BASE DE DATOS
-		$db = Yii::$app->params['orcl'];		
+		$db = Yii::$app->params['orcl'];
+		$usr = Yii::$app->params['usr'];
+		$psw = Yii::$app->params['psw'];
 		//conexion con la base de datos
-		$conexion = oci_connect('TELEPRU', 'tytcali', $db);
+		$conexion = oci_connect($usr, $psw, $db);
 		//procedimiento a ejecutar
 		$stid = oci_parse($conexion, 'BEGIN TW_PC_HISTORIAL_EMPLEADO_MV(:c1,:c2,:c3,:c4,:c5,:c6,:c7); END;');
 		//parametros 		
@@ -324,9 +344,11 @@ class TwPcVacaciones extends Model{
 		//c5: mensaje
 		//
 		// TNS DE LA BASE DE DATOS
-		$db = Yii::$app->params['orcl'];		
+		$db = Yii::$app->params['orcl'];
+		$usr = Yii::$app->params['usr'];
+		$psw = Yii::$app->params['psw'];
 		//conexion con la base de datos
-		$conexion = oci_connect('TELEPRU', 'tytcali', $db);
+		$conexion = oci_connect($usr, $psw, $db);
 		//procedimiento a ejecutar
 		$stid = oci_parse($conexion, 'BEGIN TW_PC_VALIDAR_VACACIONES(:c1,:c2,:c3,:c4,:c5); END;');
 
@@ -351,9 +373,11 @@ class TwPcVacaciones extends Model{
 		//c6: mensaje
 		//
 		// TNS DE LA BASE DE DATOS
-		$db = Yii::$app->params['orcl'];		
+		$db = Yii::$app->params['orcl'];
+		$usr = Yii::$app->params['usr'];
+		$psw = Yii::$app->params['psw'];
 		//conexion con la base de datos
-		$conexion = oci_connect('TELEPRU', 'tytcali', $db);
+		$conexion = oci_connect($usr, $psw, $db);
 		//procedimiento a ejecutar
 		$stid = oci_parse($conexion, 'BEGIN TW_PC_ENVIO_VACACIONES(:c1,:c2,:c3,:c4,:c5,:c6); END;');
 
