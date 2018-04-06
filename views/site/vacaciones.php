@@ -463,9 +463,10 @@ $this->title = 'Vacaciones';
 													  
 													  <label for="start" class="control-label">Seleccione Cantidad de Dias a Tomar </label>
 														<p class="range-field"></br>
-														  <input type="range" id="rango" min="1" max="<?=$diaspedientes?>" value="1"/><span id="valor"> </span>
+														  <div class="range-value"><span id="valor"> </span></div>
+														  <input type="range" id="rango" class="slide-range" min="1" max="<?=$diaspedientes?>" value="1"/>
+														  
 														</p>
-
 													</div>
 													
 													
