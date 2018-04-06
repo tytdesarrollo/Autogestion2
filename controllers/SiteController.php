@@ -410,22 +410,22 @@ $model = new TwPcPersonalData;
 		
 		//convierto los bloques en arrays y divido los bloques por posicion
 		
-		$bloque1 = explode("_*", $twpcpersonaldata[0]);
-		$bloque2 = explode("_*", $twpcpersonaldata[1]);
-		$bloque3 = explode("_*", $twpcpersonaldata[2]);
-		$bloque4 = explode("_*", $twpcpersonaldata[3]);
-		$bloque5 = explode("_*", $twpcpersonaldata[4]);
-		$bloque6 = explode("_*", $twpcpersonaldata[5]);
-		$bloque7 = explode("_*", $twpcpersonaldata[6]);
-		$bloque8 = explode("_*", $twpcpersonaldata[7]);
+		$bloque1 = explode("_*", utf8_encode($twpcpersonaldata[0]));
+		$bloque2 = explode("_*", utf8_encode($twpcpersonaldata[1]));
+		$bloque3 = explode("_*", utf8_encode($twpcpersonaldata[2]));
+		$bloque4 = explode("_*", utf8_encode($twpcpersonaldata[3]));
+		$bloque5 = explode("_*", utf8_encode($twpcpersonaldata[4]));
+		$bloque6 = explode("_*", utf8_encode($twpcpersonaldata[5]));
+		$bloque7 = explode("_*", utf8_encode($twpcpersonaldata[6]));
+		$bloque8 = explode("_*", utf8_encode($twpcpersonaldata[7]));
 		//CAMBIA EL ORDEN EN EL BLOQUE9 PARA REALIZAR POSTERIOR SEPARACION DEL ARRAY
-		$bloque9 = explode("*_", $twpcpersonaldata[8]);
+		$bloque9 = explode("*_", utf8_encode($twpcpersonaldata[8]));
 		
-		$bloque10 = explode("_*", $twpcpersonaldata[9]);
-		$bloque11 = explode("_*", $twpcpersonaldata[10]);
-		$bloque12 = explode("_*", $twpcpersonaldata[11]);
-		$bloque13 = explode("_*", $twpcpersonaldata[12]);
-		$bloque14 = explode("_*", $twpcpersonaldata[13]);
+		$bloque10 = explode("_*", utf8_encode($twpcpersonaldata[9]));
+		$bloque11 = explode("_*", utf8_encode($twpcpersonaldata[10]));
+		$bloque12 = explode("_*", utf8_encode($twpcpersonaldata[11]));
+		$bloque13 = explode("_*", utf8_encode($twpcpersonaldata[12]));
+		$bloque14 = explode("_*", utf8_encode($twpcpersonaldata[13]));
 		
 		//envio los parametros del bloque de datos personales hacia el main
 		
@@ -860,10 +860,10 @@ $model = new TwPcPersonalData;
 		$twpccertlaborales = $model->procedimiento();
 		
 		//$BLOQUE2 = explode("_*", $twpccertlaborales[1]);
-		$BLOQUEA = $twpccertlaborales[0];
-		$BLOQUET = $twpccertlaborales[1];
-		$BLOQUEB = $twpccertlaborales[2];
-		$BLOQUEC = $twpccertlaborales[3];
+		$BLOQUEA = utf8_encode($twpccertlaborales[0]);
+		$BLOQUET = utf8_encode($twpccertlaborales[1]);
+		$BLOQUEB = utf8_encode($twpccertlaborales[2]);
+		$BLOQUEC = utf8_encode($twpccertlaborales[3]);
 		
         return $this->render('pdf_certificadolaboral', ["encabezado"=>$BLOQUEA,"titulo"=>$BLOQUET,"cuerpo"=>$BLOQUEB,"pie"=>$BLOQUEC, "tiprend"=>$tiprend, "NMBR"=>$NMBR]);
 		

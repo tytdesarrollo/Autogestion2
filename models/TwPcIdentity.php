@@ -12,41 +12,44 @@ class TwPcIdentity extends Model{
     public function procedimiento()
     {
 
-	$usuario =  Yii::$app->request->get('usuario');
-	$clave = Yii::$app->request->get('clave');
-	$operacion = Yii::$app->request->get('operacion');
-	$key_act = Yii::$app->request->get('tokenreset');
-
+		$ID_LOGIN = Yii::$app->session['usuario'];
+		$IN_PASS = Yii::$app->session['clave'];
+		$OPERACION = Yii::$app->session['operacion'];
+		$KEY_ACT = Yii::$app->session['tokenreset'];
+	//Strings
+		$EMPLOYEE_ID;		
+		$OUTPUT;	
+		$BLOQUEB;	
+		$MESSAGE;	
+		
 	// OPERACION L CONSULTA
 	// OPERACION C INSERT
 	// OPERACION U UPDATE olvidaste contraseña
 	// OPERACION T VALIDA TOKEN
 	// OPERACION F CREA PASS POR PRIMERA VEZ
-	
-  $ID_LOGIN= $usuario;
-  $IN_PASS= $clave;
-  $OPERACION= $operacion;
-  $KEY_ACT= $key_act;
-  $EMPLOYEE_ID= '';
-  $OUTPUT= '';
-  $MESSAGE= '';
+  
+	// TNS DE LA BASE DE DATOS
+    	$db = Yii::$app->params['orcl'];		
+		$usr = Yii::$app->params['usr'];		
+		$psw = Yii::$app->params['psw'];	
+		//conexion con la base de datos
+		$conexion = oci_connect($usr, $psw, $db);
   
   //LOS BEGIN DEL PROCEDIMIENTO ALMACENADO NO DEBEN CONTENER ESPACIOS ENTRE VARIABLES :, TENERLOS GENERA UN ERROR AL MOMENTO DE ENVIAR PETICIONES AL SERVIDOR
-  
-		$rows = Yii::$app->telmovil->createCommand("BEGIN TW_PC_IDENTITY (:ID_LOGIN,:IN_PASS,:OPERACION,:KEY_ACT,:EMPLOYEE_ID,:OUTPUT,:MESSAGE); END;");
+		
+		$stid = oci_parse($conexion, "BEGIN TW_PC_IDENTITY(:ID_LOGIN,:IN_PASS,:OPERACION,:KEY_ACT,:EMPLOYEE_ID,:OUTPUT,:MESSAGE); END;");
 
-$rows->bindParam(":ID_LOGIN", $ID_LOGIN, PDO::PARAM_STR);
-$rows->bindParam(":IN_PASS", $IN_PASS, PDO::PARAM_STR);
-$rows->bindParam(":OPERACION", $OPERACION, PDO::PARAM_STR);
-$rows->bindParam(":KEY_ACT", $KEY_ACT, PDO::PARAM_STR);
-$rows->bindParam(":EMPLOYEE_ID", $EMPLOYEE_ID, PDO::PARAM_INT,200);
-$rows->bindParam(":OUTPUT", $OUTPUT, PDO::PARAM_INT,200);
-$rows->bindParam(":MESSAGE", $MESSAGE, PDO::PARAM_STR,200);
-
-
-$rows->execute();
-
-return $twpcidentity = array($EMPLOYEE_ID,$OUTPUT,$MESSAGE);
+		oci_bind_by_name($stid, ':ID_LOGIN', $ID_LOGIN, 100);
+		oci_bind_by_name($stid, ':IN_PASS', $IN_PASS, 100);
+		oci_bind_by_name($stid, ':OPERACION', $OPERACION, 100);
+		oci_bind_by_name($stid, ':KEY_ACT', $KEY_ACT, 100);
+		oci_bind_by_name($stid, ':EMPLOYEE_ID', $EMPLOYEE_ID, 200);
+		oci_bind_by_name($stid, ':OUTPUT', $OUTPUT, 200);
+		oci_bind_by_name($stid, ':MESSAGE', $MESSAGE, 200);
+		//
+		oci_execute($stid);
+		//
+		return $twpcidentity = array($EMPLOYEE_ID,$OUTPUT,$MESSAGE);
 
 	}
 	
