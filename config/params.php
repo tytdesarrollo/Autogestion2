@@ -1,8 +1,10 @@
 <?php
 return[
 'adminEmail' => 'vladimir.bello@talentsw.com',
-'title' => 'Aplicación Yii',
+'title' => 'Autogestion v2',
 'salt' => 'fsddsflj38343lj0',
+
+//telmovil
 'usr' => 'TELEPRU',
 'psw' => 'tytcali',
 'orcl' => '(DESCRIPTION=
@@ -16,4 +18,11 @@ return[
 			      (SERVICE_NAME=orcl.talentos)
 			    )
 	  		)'
+			
+//tgt
+
+//fundacion
+
+//confidencial
+
 ];

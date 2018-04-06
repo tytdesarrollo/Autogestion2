@@ -243,9 +243,9 @@ $session = Yii::$app->session;
 							<li class="divider"></li>
 							<li>
 								<div class="pull-left">
-									<button class="btn btn-raised btn-default btn-sm">Actualizar</button>
+									<!-- <button class="btn btn-raised btn-default btn-sm">Actualizar</button>-->
 								</div>
-								<div class="pull-right">
+								<div class="pull-right"> 
 								<?= Html::beginForm(['/site/salida'],
 								'post', 
 								['class' => 'form-inline']); ?>

@@ -11,34 +11,36 @@ class TwPcCertLaborales extends Model{
 	
     public function procedimiento()
     {
-		
-	$cod_epl = Yii::$app->session['cedula'];
-	$tipo = Yii::$app->session['checklab'];
-	$destinatario = Yii::$app->session['textlab'];
+	
+		$CODIGO_EPL = Yii::$app->session['cedula'];
+		$TIPO = Yii::$app->session['checklab'];
+		$DESTINATARIO = Yii::$app->session['textlab'];
+	//Strings
+		$BLOQUEA;		
+		$BLOQUET;	
+		$BLOQUEB;	
+		$BLOQUEC;	
 
-  $BLOQUEA= '';
-  $BLOQUET= '';  
-  $BLOQUEB= '';
-  $BLOQUEC= '';
-  $CODIGO_EPL= $cod_epl;
-  $TIPO= $tipo;
-  $DESTINATARIO= $destinatario;
+		// TNS DE LA BASE DE DATOS
+    	$db = Yii::$app->params['orcl'];		
+		$usr = Yii::$app->params['usr'];		
+		$psw = Yii::$app->params['psw'];	
+		//conexion con la base de datos
+		$conexion = oci_connect($usr, $psw, $db);
+		//procedimiento a ejecutar
+		$stid = oci_parse($conexion, "BEGIN TW_PC_CERT_LABORALES1(:CODIGO_EPL,:TIPO,:DESTINATARIO,:BLOQUEA,:BLOQUET,:BLOQUEB,:BLOQUEC); END;");
 
-  
-		$rows = Yii::$app->telmovil->createCommand("BEGIN TW_PC_CERT_LABORALES1 (:CODIGO_EPL,:TIPO,:DESTINATARIO,:BLOQUEA,:BLOQUET,:BLOQUEB,:BLOQUEC);	END;");
-
-$rows->bindParam(":CODIGO_EPL", $CODIGO_EPL, PDO::PARAM_STR);
-$rows->bindParam(":TIPO", $TIPO, PDO::PARAM_STR);
-$rows->bindParam(":DESTINATARIO", $DESTINATARIO, PDO::PARAM_STR);
-$rows->bindParam(":BLOQUEA", $BLOQUEA, PDO::PARAM_STR,1000);
-$rows->bindParam(":BLOQUET", $BLOQUET, PDO::PARAM_STR,1000);
-$rows->bindParam(":BLOQUEB", $BLOQUEB, PDO::PARAM_STR,1000);
-$rows->bindParam(":BLOQUEC", $BLOQUEC, PDO::PARAM_STR,1000);
-
-
-$rows->execute();
-
-return $twpccertlaborales = array($BLOQUEA,$BLOQUET,$BLOQUEB,$BLOQUEC);
+		oci_bind_by_name($stid, ':CODIGO_EPL', $CODIGO_EPL, 100);
+		oci_bind_by_name($stid, ':TIPO', $TIPO, 100);
+		oci_bind_by_name($stid, ':DESTINATARIO', $DESTINATARIO, 1000);
+		oci_bind_by_name($stid, ':BLOQUEA', $BLOQUEA, 1000);
+		oci_bind_by_name($stid, ':BLOQUET', $BLOQUET, 1000);
+		oci_bind_by_name($stid, ':BLOQUEB', $BLOQUEB, 1000);
+		oci_bind_by_name($stid, ':BLOQUEC', $BLOQUEC, 1000);
+		//
+		oci_execute($stid);
+		//
+		return array($BLOQUEA,$BLOQUET,$BLOQUEB,$BLOQUEC);
 
 	}	
 }

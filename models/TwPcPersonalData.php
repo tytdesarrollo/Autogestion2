@@ -16,49 +16,52 @@ class TwPcPersonalData extends Model{
 		//SI EL BLOQUE RETORNA "INACTIVO" ES POR Q EL ROL DEL EMPLEADO NO PUEDE VISUALIZAR ESA INFORMACION
 		// 35326177
 		// 52513735
-
-	$cedula = Yii::$app->session['cedula'];
-
-	//$rol = '2';
-
 	
-  $CODIGO_EPL= $cedula;
-  $BLOQUE1= '';
-  $BLOQUE2= '';
-  $BLOQUE3= '';
-  $BLOQUE4= '';
-  $BLOQUE5= '';
-  $BLOQUE6= '';
-  $BLOQUE7= '';
-  $BLOQUE8= '';
-  $BLOQUE9= '';
-  $BLOQUE10= '';
-  $BLOQUE11= '';
-  $BLOQUE12= '';
-  $BLOQUE13= '';
-  $BLOQUE14= '';
+		$CODIGO_EPL = Yii::$app->session['cedula'];
+	//Strings
+		  $BLOQUE1;
+		  $BLOQUE2;
+		  $BLOQUE3;
+		  $BLOQUE4;
+		  $BLOQUE5;
+		  $BLOQUE6;
+		  $BLOQUE7;
+		  $BLOQUE8;
+		  $BLOQUE9;
+		  $BLOQUE10;
+		  $BLOQUE11;
+		  $BLOQUE12;
+		  $BLOQUE13;
+		  $BLOQUE14;
   
-		$rows = Yii::$app->telmovil->createCommand("BEGIN TW_PC_PERSONAL_DATA1 (:CODIGO_EPL,:BLOQUE1,:BLOQUE2,:BLOQUE3,:BLOQUE4,:BLOQUE5,:BLOQUE6,:BLOQUE7,:BLOQUE8,:BLOQUE9,:BLOQUE10,:BLOQUE11,:BLOQUE12,:BLOQUE13,:BLOQUE14);	END;");
+  // TNS DE LA BASE DE DATOS
+    	$db = Yii::$app->params['orcl'];		
+		$usr = Yii::$app->params['usr'];		
+		$psw = Yii::$app->params['psw'];	
+		//conexion con la base de datos
+		$conexion = oci_connect($usr, $psw, $db);
+		//procedimiento a ejecutar
+		$stid = oci_parse($conexion, "BEGIN TW_PC_PERSONAL_DATA1(:CODIGO_EPL,:BLOQUE1,:BLOQUE2,:BLOQUE3,:BLOQUE4,:BLOQUE5,:BLOQUE6,:BLOQUE7,:BLOQUE8,:BLOQUE9,:BLOQUE10,:BLOQUE11,:BLOQUE12,:BLOQUE13,:BLOQUE14); END;");
 
-$rows->bindParam(":CODIGO_EPL", $CODIGO_EPL, PDO::PARAM_STR);
-$rows->bindParam(":BLOQUE1", $BLOQUE1, PDO::PARAM_STR,1000); //DATOS PRINCIPALES
-$rows->bindParam(":BLOQUE2", $BLOQUE2, PDO::PARAM_STR,1000); //DATOS PERSONALES
-$rows->bindParam(":BLOQUE3", $BLOQUE3, PDO::PARAM_STR,1000); //CUENTA BANCARIA
-$rows->bindParam(":BLOQUE4", $BLOQUE4, PDO::PARAM_STR,1000); //DATOS INFORMATIVOS
-$rows->bindParam(":BLOQUE5", $BLOQUE5, PDO::PARAM_STR,1000); //NOVEDADES
-$rows->bindParam(":BLOQUE6", $BLOQUE6, PDO::PARAM_STR,1000); //AFILIACIONES SEGURIDAD SOCIAL
-$rows->bindParam(":BLOQUE7", $BLOQUE7, PDO::PARAM_STR,1000); //DEDUCIBLES DE RETENCION EN LA FUENTE
-$rows->bindParam(":BLOQUE8", $BLOQUE8, PDO::PARAM_STR,1000); //CERTIFICADOS DE BENEFICIO
-$rows->bindParam(":BLOQUE9", $BLOQUE9, PDO::PARAM_STR,1000); //NOTICIAS
-$rows->bindParam(":BLOQUE10", $BLOQUE10, PDO::PARAM_STR,1000); //WIDGET COMPROBANTES DE PAGO
-$rows->bindParam(":BLOQUE11", $BLOQUE11, PDO::PARAM_STR,1000); //WIDGET VACACIONES
-$rows->bindParam(":BLOQUE12", $BLOQUE12, PDO::PARAM_STR,1000); //WIDGET NOVEDADES
-$rows->bindParam(":BLOQUE13", $BLOQUE13, PDO::PARAM_STR,1000); //WIDGET CERTIFICADO LABORAL
-$rows->bindParam(":BLOQUE14", $BLOQUE14, PDO::PARAM_STR,1000); //WIDGET CERTIFICADO DE I Y R
-
-$rows->execute();
-
-return $twpcpersonaldata = array($BLOQUE1,$BLOQUE2,$BLOQUE3,$BLOQUE4,$BLOQUE5,$BLOQUE6,$BLOQUE7,$BLOQUE8,$BLOQUE9,$BLOQUE10,$BLOQUE11,$BLOQUE12,$BLOQUE13,$BLOQUE14);
-
+		oci_bind_by_name($stid, ':CODIGO_EPL', $CODIGO_EPL, 100);
+		oci_bind_by_name($stid, ':BLOQUE1', $BLOQUE1, 100); //DATOS PRINCIPALES
+		oci_bind_by_name($stid, ':BLOQUE2', $BLOQUE2, 1000); //DATOS PERSONALES
+		oci_bind_by_name($stid, ':BLOQUE3', $BLOQUE3, 1000); //CUENTA BANCARIA
+		oci_bind_by_name($stid, ':BLOQUE4', $BLOQUE4, 1000); //DATOS INFORMATIVOS
+		oci_bind_by_name($stid, ':BLOQUE5', $BLOQUE5, 1000); //NOVEDADES
+		oci_bind_by_name($stid, ':BLOQUE6', $BLOQUE6, 1000); //AFILIACIONES SEGURIDAD SOCIAL
+		oci_bind_by_name($stid, ':BLOQUE7', $BLOQUE7, 1000); //DEDUCIBLES DE RETENCION EN LA FUENTE
+		oci_bind_by_name($stid, ':BLOQUE8', $BLOQUE8, 1000); //CERTIFICADOS DE BENEFICIO
+		oci_bind_by_name($stid, ':BLOQUE9', $BLOQUE9, 1000); //NOTICIAS
+		oci_bind_by_name($stid, ':BLOQUE10', $BLOQUE10, 1000); //WIDGET COMPROBANTES DE PAGO
+		oci_bind_by_name($stid, ':BLOQUE11', $BLOQUE11, 1000); //WIDGET VACACIONES
+		oci_bind_by_name($stid, ':BLOQUE12', $BLOQUE12, 1000); //WIDGET NOVEDADES
+		oci_bind_by_name($stid, ':BLOQUE13', $BLOQUE13, 1000); //WIDGET CERTIFICADO LABORAL
+		oci_bind_by_name($stid, ':BLOQUE14', $BLOQUE14, 1000); //WIDGET CERTIFICADO DE I Y R
+		
+		//
+		oci_execute($stid);
+		//
+		return $twpcpersonaldata = array($BLOQUE1,$BLOQUE2,$BLOQUE3,$BLOQUE4,$BLOQUE5,$BLOQUE6,$BLOQUE7,$BLOQUE8,$BLOQUE9,$BLOQUE10,$BLOQUE11,$BLOQUE12,$BLOQUE13,$BLOQUE14);
 	}	
 }
