@@ -761,13 +761,13 @@ $session = Yii::$app->session;
 				$.ajax({
 					cache: false,
 					type: 'POST',
-					url: '<?php echo Url::toRoute(['site/pdf_comprobantespago']); ?>',
+					url: '<?php echo Url::toRoute(['site/pdf_comprobantespago', 'tiprend' => 'btnPdf']); ?>',
 					data: {'perenv':mes,'anoenv':ano},//$("#compro-form").serialize(), 
 					 
 					success: function(data){				
 						
 						$('#pdfViewer').modal('toggle').html(
-				'<div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><div class="header-box"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title txt__light-100" id="pdfViewerLabel">Comprobante de Pago</h3></div></div><div class="modal-body"><object class="box-pdf" data="<?php echo Url::toRoute(['site/pdf_comprobantespago']);?>" type="application/pdf"></object></div></div></div>'
+				'<div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><div class="header-box"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title txt__light-100" id="pdfViewerLabel">Comprobante de Pago</h3></div></div><div class="modal-body"><object class="box-pdf" data="<?php echo Url::toRoute(['site/pdf_comprobantespago', 'tiprend' => 'btnPdf']);?>" type="application/pdf"></object></div></div></div>'
 				);			
 											}
 				});			
