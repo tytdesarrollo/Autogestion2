@@ -804,55 +804,52 @@ $this->title = 'Trabajo por Turnos';
 							<div id="calendar" class="col-centered"></div>
 							<!-- Modal -->
 					
-							<div class="modal fade modal-header-gray" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							<div class="modal fade modal-header-gray modal-r-hextras" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								<div class="modal-dialog modal-lg" role="document">
 									<div class="modal-content">
-										
-										
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											<h3 class="fnt__Medium">Registro de Horas Extras</h3>
+											<h3 class="dis-inline-block">Registro de Horas Extras</h3>
+											<div class="pull-right cnt-btn-add-rhextra">
+												<button id="cloneButton" class="btn" OnClick="capturedat(this.id)"><i class="material-icons">&#xE148;</i>Adicionar</button>
+											</div>
 										</div>
 										<div class="modal-body">
-											<div class="row">
-												<div class="col-sm-10 col-sm-offset-1">
-												
-													<div id="panelAdd">
-													
-<div id="panel1" class="panel panel-primary">
-	<div class="panel-heading"><input type="text" name="start" class="form-control" id="start" align="right" style="color:#FFFFFF; text-align:right"; disabled>
-	</div>
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-md-4">
-					<div class="form-group select-m mrg__top-15"><label id="concepto" name="concepto" for="concepto" class="control-label dis-block">Seleccione el Concepto</label>
-						<div class="mad-select" id="s2" name="s2">
-							<ul id="concpt">
-								
-							</ul><input type="hidden" id="s1" name="s1" value="0" class="form-control">
-						</div>
-					</div>
-				</div>
-			<div class="col-md-4">
-				<div class="form-group mrg__top-15 label-floating">
-				<label for="i2" class="control-label">Cantidad de Horas</label>
-					<div class="numv">
-					<input type="number" name="hora" id="h" class="form-control" min="1" max="24" maxlength="4" size="4" value="1"  required="required">
-					</div>
-					<span class="help-block">Ingrese un numero entre 1 a 24</span>
-				</div>
-			</div>
-			</div>
-		</div>
-		<div id="buttonRe"></div>
-		<div class="form-group has-warning" id="warningLab">
-		<label id="alertaError" class="control-label"></label>
-		</div>
-</div>
-<div id="nvid"></div>
-																		
+											<div id="panelAdd" class="row">
+												<div id="nvid">
+													<div id="panel1" class="col-md-6">
+														<div class="panel panel-r-hextras">
+															<div class="panel-heading">
+																<input type="text" name="start" class="form-control" id="start" align="right" style="color:#FFFFFF; text-align:right"; disabled>
+															</div>
+															<div class="panel-body">
+																<div class="row">
+																	<div class="col-md-8">
+																		<div class="form-group select-m mrg__top-15"><label id="concepto" name="concepto" for="concepto" class="control-label dis-block">Seleccione el Concepto</label>
+																			<div class="mad-select" id="s2" name="s2">
+																				<ul id="concpt">
+																					
+																				</ul><input type="hidden" id="s1" name="s1" value="0" class="form-control">
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col-md-4">
+																		<div class="form-group mrg__top-15 label-floating">
+																		<label for="i2" class="control-label">Cantidad de Horas</label>
+																			<div class="numv">
+																			<input type="number" name="hora" id="h" class="form-control" min="1" max="24" maxlength="4" size="4" value="1"  required="required">
+																			</div>
+																			<span class="help-block">Máximo 24 horas</span>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="panel-footer">
+																<span id="alertaError" class="dis-inline-block txt-est-hextra"></span>
+																<div id="buttonRe" class="pull-right cnt-rbtn"></div>
+															</div>
+														</div>			
 													</div>
-																<button id="cloneButton" class="btn btn-primary" OnClick="capturedat(this.id)">Adicionar</button>											
 												</div>
 											</div>
 										</div>
@@ -1067,7 +1064,7 @@ $this->title = 'Trabajo por Turnos';
 						
 						var mensaje = mensajesArr[i];
 						
-						//console.log(idAlert+" - "+mensaje);
+						// console.log(idAlert+" - "+mensaje);
 						
 						document.getElementById(idAlert).innerHTML = mensaje;
 					}

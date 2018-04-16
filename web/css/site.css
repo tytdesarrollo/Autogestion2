@@ -2693,3 +2693,85 @@ input[type=range].slide-range:focus::-ms-fill-upper {
 	font-size: 6em;
 	font-weight: 500;
 }
+
+/* ESTILOS REGISTRO DE HORAS EXTRAS */
+.modal-r-hextras .modal-dialog{
+	height: 100%;
+	margin: 0px auto;
+	padding: 15px 0px;
+}
+.modal-r-hextras  .modal-header{
+	background-color: #1c3b6c;
+	color: #fff;
+}
+.modal-r-hextras  .modal-body{
+	max-height: calc(100vh - 156px);
+    overflow-y: auto;
+}
+.modal-r-hextras  .modal-footer{
+	padding: 7px !important;
+	background-color: #eee;
+	border-top: 1px solid #ccc;
+}
+.cnt-btn-add-rhextra{
+	padding-right: 5%;
+}
+.cnt-btn-add-rhextra .btn{
+	margin: 1px 0px;
+	padding: 8px 20px;
+	color: rgba(255,255,255,0.6);
+	outline: 0 !important;
+	-webkit-transition: color 0.2s ease;
+	-moz-transition: color 0.2s ease;
+	-o-transition: color 0.2s ease;
+	transition: color 0.2s ease;
+}
+.cnt-btn-add-rhextra .btn:hover{
+	color: rgba(255,255,255,1);
+}
+.cnt-btn-add-rhextra .btn i{
+	margin-right: 5px;
+	font-size: 28px;
+}
+.panel-r-hextras .panel-heading {
+	background-color: #616161;
+	-webkit-transition: background-color 0.3s ease;
+	-moz-transition: background-color 0.3s ease;
+	-o-transition: background-color 0.3s ease;
+	transition: background-color 0.3s ease;
+}
+.panel-r-hextras .panel-heading .form-group{
+	margin: 0;
+}
+.panel-r-hextras .panel-footer{
+	min-height: 49px;
+}
+.panel-r-hextras .mad-select{
+	width: 100%;
+}
+.txt-est-hextra{
+	margin: 5px 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: #444;
+	-webkit-transition: color 0.3s ease;
+	-moz-transition: color 0.3s ease;
+	-o-transition: color 0.3s ease;
+	transition: color 0.3s ease;
+}
+.cnt-rbtn .btn{
+	margin: 0;
+	color: #444;
+}
+.panel-r-hextras.success .panel-heading{
+	background-color: #009688;
+}
+.panel-r-hextras.success .txt-est-hextra{
+	color: #009688;
+}
+.panel-r-hextras.error .panel-heading{
+	background-color: #F44336;
+}
+.panel-r-hextras.error .txt-est-hextra{
+	color: #F44336;
+}
