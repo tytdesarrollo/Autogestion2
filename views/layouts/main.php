@@ -613,10 +613,10 @@ $session = Yii::$app->session;
 	
 	//FUNCION PARA CLONAR LAS SOLICITUDES DE TURNOS
 	$("#cloneButton").on("click", function(){
-		
 		//var $clonedForm = $firstForm.clone().prop('id', 'panel1' );;
 		var $clonedForm = $firstForm.clone();
-		$clonedForm.children("#buttonRe").append('<button id="removeButton" class="btn btn-default">Quitar</button>');	
+		// console.log($clonedForm);
+		$clonedForm.find("#buttonRe").append('<button id="removeButton" class="btn btn-sm btn-default{">Eliminar</button>');	
 		
 		// CAMBIO DE ID DEL DIV PRINCIPAL
 		var $div = $('div[id^="panel"]:last');
@@ -654,15 +654,31 @@ $session = Yii::$app->session;
 		$("#alertaError").attr("id",nuevoIdMensaje);
 		
 		idsAlerts.push(nuevoIdMensaje);
+		
+		 console.log(nuevoId);
 	});
 	
 	var $firstForm = $("#panel1");
 	
 	
 	function bindRemove($form){
-    $form.find("#removeButton").on("click", function(){
-        $form.remove();
+    $form.find("#removeButton").on("click", function(){       
 		
+		var idForm = $form[0].id;
+		
+		var span = $("#"+idForm).find(".txt-est-hextra");
+		var idspan = span[0].id;
+		var arrNew = new Array();
+		
+		for(var i=0 ; i<idsAlerts.length ; i++){
+			if(idspan.localeCompare(idsAlerts[i])!=0){
+				arrNew.push(idsAlerts[i]);
+			}
+		}
+		
+		idsAlerts = arrNew;
+		
+		$form.remove();
     });
 	}
 
