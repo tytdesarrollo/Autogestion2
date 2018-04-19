@@ -655,6 +655,7 @@ a.desc:after {
 }
 .block-header{
 	margin-bottom: 25px;
+	padding: 0px 90px;
 	position: relative;
 }
 .block-header h2{
@@ -792,6 +793,33 @@ li.modul:hover > a > .title-modul{
 	font-size: 13px;
 	color: #333333;
 	margin: 10px 0 0;
+}
+.cnt-help-noti .dropdown-menu{
+	margin-top: 6px;
+}
+.help-noti{
+	width: 18px;
+    height: 18px;
+    border-width: 2px;
+	border-style: solid;
+    border-radius: 50%;
+    opacity: 0.8;
+}
+.help-noti.gray{
+	background-color: grey;
+	border-color: #505050;
+}
+.help-noti.blue{
+	background-color: blue;
+	border-color: darkblue;
+}
+.help-noti.green{
+	background-color: green;
+	border-color: darkgreen;
+}
+.help-noti.red{
+	background-color: red;
+	border-color: darkred;
 }
 .tab-bar{
 	background-color: #00183f;
@@ -1238,6 +1266,10 @@ a.btn-float i.material-icons{
 }
 .info-item .table tbody > tr > td{
 	border-color: #ddd !important;
+}
+.info-item .item-nr-img{
+	margin: 20px auto;
+	width: 50%
 }
 .container-v .content .content-info .info-item.info-item-lft{
 	width: 40%;
