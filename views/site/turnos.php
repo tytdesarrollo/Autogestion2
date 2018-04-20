@@ -37,10 +37,50 @@ $this->title = 'Trabajo por Turnos';
 
 	<div class="container">
 		<div class="block-header clearfix mrg__top-15">
-			<div class="pull-right btn-group-sm">
-				<!--<button type="button" class="btn btn-default btn-fab" data-toggle="modal" data-target="#record">
-					<i class="material-icons">&#xE889;</i>
-				</button>-->
+			<div class="pull-right btn-group-sm btn-group-raised">
+				<div class="cnt-help-noti dis-inline-block dropdown">
+					<a href="#" class="dropdown-toggle btn btn-warning btn-fab" data-toggle="dropdown">
+						<i class="material-icons">&#xE645;</i>
+					</a>
+					<ul class="dropdown-menu menu-profile">
+						<p class="txt-name fnt__Medium text-center">Notificación Etiquetas</p>
+						<li class="divider"></li>
+						<li>
+							<div class="dis-inline-block">
+								<p class="mrg__bottom-5">Pendiente por aprobar gerente</p>
+							</div>
+							<div class="dis-inline-block pull-right">
+								<div class="help-noti blue"></div>
+							</div>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<div class="dis-inline-block">
+								<p class="mrg__bottom-5">Pendiente por aprobar jefe</p>
+							</div>
+							<div class="dis-inline-block pull-right">
+								<div class="help-noti gray"></div>
+							</div>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<div class="dis-inline-block">
+								<p class="mrg__bottom-5">Aprobado</p>
+							</div>
+							<div class="dis-inline-block pull-right">
+								<div class="help-noti green"></div>
+							</div>
+						</li>
+						<li>
+							<div class="dis-inline-block">
+								<p class="mrg__bottom-5">Rechazado</p>
+							</div>
+							<div class="dis-inline-block pull-right">
+								<div class="help-noti red"></div>
+							</div>
+						</li>
+					</ul>
+				</div>
 				<button type="button" class="btn btn-default btn-fab" data-toggle="modal" data-target="#help">
 					<i class="material-icons">&#xE887;</i>
 				</button>
@@ -791,6 +831,10 @@ $this->title = 'Trabajo por Turnos';
 											?>	
 								</tbody>
 							</table>
+						</div>
+						<div style="display:none;">
+							<h3 class="text-center">No hay registros</h3>
+							<?= Html::img('@web/img/no_registros_horas_extra2.png', ['alt' => 'No hay registros', 'class' => 'img-responsive item-nr-img']) ?>
 						</div>
 					</div>
 				</div>				
