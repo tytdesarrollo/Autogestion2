@@ -448,6 +448,9 @@ $this->title = 'Vacaciones';
 								</tbody>
 							</table>
 						</div>
+						<div style="display:none;">
+							<?= Html::img('@web/img/no_registros_vacaciones.png', ['alt' => 'No hay registros', 'class' => 'img-responsive']) ?>
+						</div>
 					</div>
 					<div class="info-item text-center pdg__16">
 						<div class="content-main-days">
@@ -541,11 +544,11 @@ $this->title = 'Vacaciones';
 							</div>
 							<!-- /.CALENDARIO -->
 						</div>
-						<div class="slide-item detail pdg__16">
+						<div class="slide-item detail">
 							<div class="text-center pdg__16">
 								<h3 class="no-mrg fnt__Medium">Ultimas 5 vacaciones solicitadas</h3>
 							</div>
-							<div class="table-responsive">
+							<div class="table-responsive pdg__16">
 								<table class="table">
 									<thead>
 										<tr>
@@ -585,6 +588,9 @@ $this->title = 'Vacaciones';
 										<?php endif ?>
 									</tbody>
 								</table>
+							</div>
+							<div style="display:none;">
+								<?= Html::img('@web/img/no_registros_vacaciones_1.png', ['alt' => 'No hay registros', 'class' => 'img-responsive']) ?>
 							</div>
 						</div>
 					</div>

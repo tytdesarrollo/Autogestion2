@@ -1267,10 +1267,6 @@ a.btn-float i.material-icons{
 .info-item .table tbody > tr > td{
 	border-color: #ddd !important;
 }
-.info-item .item-nr-img{
-	margin: 20px auto;
-	width: 50%
-}
 .container-v .content .content-info .info-item.info-item-lft{
 	width: 40%;
 }
@@ -1363,6 +1359,7 @@ a.btn-float i.material-icons{
 .container-v .content .content-slide .slide-box .slide-item.detail{
 	position: absolute;
 	left: -100%;
+	padding: 16px 0px;
 	opacity: 0;
 }
 .container-v.sld-in .box:before{

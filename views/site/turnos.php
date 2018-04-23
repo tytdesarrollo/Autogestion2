@@ -833,8 +833,7 @@ $this->title = 'Trabajo por Turnos';
 							</table>
 						</div>
 						<div style="display:none;">
-							<h3 class="text-center">No hay registros</h3>
-							<?= Html::img('@web/img/no_registros_horas_extra2.png', ['alt' => 'No hay registros', 'class' => 'img-responsive item-nr-img']) ?>
+							<?= Html::img('@web/img/no_registros_horas_extra.png', ['alt' => 'No hay registros', 'class' => 'img-responsive']) ?>
 						</div>
 					</div>
 				</div>				
