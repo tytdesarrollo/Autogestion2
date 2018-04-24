@@ -20,15 +20,14 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
         'css/site_dark.css',
-		'css/fullcalendar.css',		
-        'css/tingle.min.css'
+		'css/fullcalendar.css'
     ];
     public $js = [
 		'js/classie.js',
 		'js/menumodal.js',
 		'js/moment.min.js',
 		'js/fullcalendar.min.js',		
-		'js/paginationfsv-v1.0.js',		
+		'js/paginationfsv-v1.0.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
@@ -37,5 +36,6 @@ class AppAsset extends AssetBundle
         'yii\bootstrap\BootMaterialJsAsset',
 		'yii\flickity\flickityPluginAsset',
 		'yii\sweetalert\sweetalertPluginAsset',
+		'yii\tingle\tinglePluginAsset',
     ];
 }
