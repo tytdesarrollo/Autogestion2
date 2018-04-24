@@ -83,5 +83,13 @@ return array (
     array (
       '@yii/tcpdf' => $vendorDir . '/yiisoft/yii2-tcpdf',
     ),
+  ),'yiisoft/yii2-tingle' => 
+  array (
+    'name' => 'yiisoft/yii2-tingle',
+    'version' => '0.13.2',
+    'alias' => 
+    array (
+      '@yii/tingle' => $vendorDir . '/yiisoft/yii2-tingle',
+    ),
   ),
 );
