@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 $this->title = 'Vacaciones';
 ?>
-
+<?= Html::jsFile('@web/js/jquery.js') ?>
 <style type="text/css">
 	.loader {
 		border: 16px solid #f3f3f3;
@@ -597,126 +597,6 @@ $this->title = 'Vacaciones';
 </div>
 <?= $this->registerJsFile('@web/js/tablefunctionsvacas.js', ['depends' => 'yii\tingle\tinglePluginAsset'])?>
 <?= $this->registerJsFile('@web/js/funcionesAjaxvacas.js', ['depends' => 'yii\tingle\tinglePluginAsset'])?>
-
-<?=$this->registerJs(
-    "
-		$(document).ready(function(){
-		// /* control de jefes o administradores */
-		/*if(autorizaciones.localeCompare('TRUE') == 0){*/
-			$(cambioPestana(1));	
-		/*}*/
-		});
-		
-		function ejecute(id){
-			var pagination = generalPage;
-			var pageXp = $('select#cantidadXP'+id).val();
-			// /* CODIGO PARA EJECUTAR CADA VEZ QUE CAMBIE DE PAGINA */
-			switch(id){
-				case 1:
-					// /* ejecuciones para solicitudes por empleado         		 */
-					solicitudesXepl(pagination, pageXp);
-					break;
-				case 2:
-					solicitudesXep2(pagination, pageXp);
-					break;
-				case 3:
-					solicitudesXep3(pagination, pageXp);
-					break;
-				case 4:
-					solicitudesXep4(pagination, pageXp);
-					break;
-				case 5:
-					historialVacaciones(pagination, pageXp);
-					break;
-			}
-		}
-		
-		function cambioPestana(id, filtro = 10){		
-			switch(id){
-				case 1:				
-					limpiaFiltros(1); 			reiniciarToggle();
-					solicitudesXepl(1,filtro);	setGeneralValuesDefault(id);				
-					break;
-				case 2:
-					limpiaFiltros(2);			reiniciarToggle();
-					solicitudesXep2(1,filtro);  setGeneralValuesDefault(id);
-					break;
-				case 3:
-					limpiaFiltros(3);			reiniciarToggle();
-					solicitudesXep3(1,filtro);	setGeneralValuesDefault(id);
-					break;
-				case 4:
-					limpiaFiltros(4);			reiniciarToggle();
-					solicitudesXep4(1,filtro);	setGeneralValuesDefault(id);
-					break;
-				case 5:
-					limpiaFiltros(5);				reiniciarToggle();
-					historialVacaciones(1,filtro);	setGeneralValuesDefault(id);
-					break;
-
-			}
-		}
-		
-		function searchClick(id){
-			switch(id){
-				case 1:
-					cambioPestana(id,$('#cantidadXP1').val());
-					break;
-				case 2:
-					cambioPestana(id,$('#cantidadXP2').val());
-					break;
-				case 3:
-					cambioPestana(id,$('#cantidadXP3').val());
-					break;
-				case 4:
-					cambioPestana(id,$('#cantidadXP4').val());
-					break;
-				case 5:
-					cambioPestana(id,$('#cantidadXP5').val());
-					break;
-			}    	
-		}
-		function limpiaFiltros(id){
-			// /* recorre todos los filtros y los limpia */
-			for(var i=1 ; i<=6 ; i++){
-				// /* si es el id ingresado no entra */
-				if(i != id){   			
-					// /* id del buscador y de la cantidad */
-					var idJquery1 = '#search'+i;
-					var idJquery2 = '#cantidadXP'+i;
-					// /* camia el valor del buscador y de la cantidad */
-					$(idJquery1).val(''); 
-					$(idJquery2).val('10');
-				}
-			}   
-
-			setOrder(id);     	
-		}   
-
-
-		$('#cantidadXP1').change(function(event) {
-			cambioPestana(1,$(this).val());
-		});
-
-		$('#cantidadXP2').change(function(event) {
-			cambioPestana(2,$(this).val());
-		});
-
-		$('#cantidadXP3').change(function(event) {
-			cambioPestana(3,$(this).val());
-		});
-
-		$('#cantidadXP4').change(function(event) {
-			cambioPestana(4,$(this).val());
-		});	
-
-		$('#cantidadXP5').change(function(event) {
-			cambioPestana(5,$(this).val());
-		});	
-		
-	 
-	"
-);?>
 <script>
 //CONTADOR DE DIAS
 var slider = document.getElementById("rango");
@@ -730,7 +610,7 @@ slider.oninput = function() {
 //DEFINO UNA BANDERA PARA HEREDAR PROPIEDADES DEL CALENDARIO, 0 ES TURNOS Y 1 ES VACACIONES
 var bandera = "1";
 </script>
-<script>
+<script type="text/javascript">
 	/*variables de la session*/
 		var cedula = '<?=Yii::$app->session['cedula']?>';//'52513735';		
 		var autorizaciones = '<?=Yii::$app->session['submenus'][1]?>';
@@ -751,4 +631,129 @@ var bandera = "1";
 		var vacacionesRefresh = '<?php echo Url::toRoute(['site/vacaciones','refresh' => '1']); ?>';
 
 	/**/	
+
+	$(document).ready(function() {	
+		//control de jefes o administradores
+		if(autorizaciones.localeCompare("TRUE") == 0){
+			$(cambioPestana(1));	
+		}
+	});
+	
+	function ejecute(id){
+		var pagination = generalPage;
+		var pageXp = $('select#cantidadXP'+id).val();
+        //CODIGO PARA EJECUTAR CADA VEZ QUE CAMBIE DE PAGINA
+        switch(id){
+        	case 1:
+        		//ejecuciones para solicitudes por empleado         		
+        		solicitudesXepl(pagination, pageXp);
+        		break;
+        	case 2:
+				solicitudesXep2(pagination, pageXp);
+				break;
+			case 3:
+				solicitudesXep3(pagination, pageXp);
+				break;
+			case 4:
+				solicitudesXep4(pagination, pageXp);
+				break;
+			case 5:
+				historialVacaciones(pagination, pageXp);
+				break;
+        }
+	}
+
+	function cambioPestana(id, filtro = 10){		
+		switch(id){
+			case 1:				
+				limpiaFiltros(1); 			reiniciarToggle();
+				solicitudesXepl(1,filtro);	setGeneralValuesDefault(id);				
+				break;
+			case 2:
+				limpiaFiltros(2);			reiniciarToggle();
+				solicitudesXep2(1,filtro);  setGeneralValuesDefault(id);
+				break;
+			case 3:
+				limpiaFiltros(3);			reiniciarToggle();
+				solicitudesXep3(1,filtro);	setGeneralValuesDefault(id);
+				break;
+			case 4:
+				limpiaFiltros(4);			reiniciarToggle();
+				solicitudesXep4(1,filtro);	setGeneralValuesDefault(id);
+				break;
+			case 5:
+				limpiaFiltros(5);				reiniciarToggle();
+				historialVacaciones(1,filtro);	setGeneralValuesDefault(id);
+				break;
+
+		}
+	}
+    
+
+    function searchClick(id){
+    	switch(id){
+			case 1:
+				cambioPestana(id,$("#cantidadXP1").val());
+				break;
+			case 2:
+				cambioPestana(id,$("#cantidadXP2").val());
+				break;
+			case 3:
+				cambioPestana(id,$("#cantidadXP3").val());
+				break;
+			case 4:
+				cambioPestana(id,$("#cantidadXP4").val());
+				break;
+			case 5:
+				cambioPestana(id,$("#cantidadXP5").val());
+				break;
+		}    	
+    }
+
+    function limpiaFiltros(id){
+    	//recorre todos los filtros y los limpia
+    	for(var i=1 ; i<=6 ; i++){
+    		//si es el id ingresado no entra
+    		if(i != id){   			
+    			//id del buscador y de la cantidad
+    			var idJquery1 = "#search"+i;
+    			var idJquery2 = "#cantidadXP"+i;
+    			//camia el valor del buscador y de la cantidad
+    			$(idJquery1).val(''); 
+    			$(idJquery2).val('10');
+    		}
+    	}   
+
+    	setOrder(id);     	
+    }   
+
+
+    $("#cantidadXP1").change(function(event) {
+		cambioPestana(1,$(this).val());
+	});
+
+	$("#cantidadXP2").change(function(event) {
+		cambioPestana(2,$(this).val());
+	});
+
+	$("#cantidadXP3").change(function(event) {
+		cambioPestana(3,$(this).val());
+	});
+
+	$("#cantidadXP4").change(function(event) {
+		cambioPestana(4,$(this).val());
+	});	
+
+	$("#cantidadXP5").change(function(event) {
+		cambioPestana(5,$(this).val());
+	});	
+
+
+	function modalVacaciones(fechaIni,fechaFin,dias){
+		$('#ModalAdd #start').val(fechaIni);
+		$('#rango').val(dias);
+		$('#valor').html(dias);
+		$('#ModalAdd').modal('show');
+	}
+
 </script>
