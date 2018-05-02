@@ -5,10 +5,6 @@ use yii\widgets\ActiveForm;
 $this->title = 'Vacaciones';
 ?>
 <?= Html::jsFile('@web/js/jquery.js') ?>
-<?= Html::jsFile('@web/js/tingle.min.js') ?>
-<?= Html::jsFile('@web/js/tablefunctionsvacas.js') ?>
-<?= Html::jsFile('@web/js/funcionesAjaxvacas.js') ?>
-
 <style type="text/css">
 	.loader {
 		border: 16px solid #f3f3f3;
@@ -448,6 +444,9 @@ $this->title = 'Vacaciones';
 								</tbody>
 							</table>
 						</div>
+						<div style="display:none;">
+							<?= Html::img('@web/img/no_registros_vacaciones.png', ['alt' => 'No hay registros', 'class' => 'img-responsive']) ?>
+						</div>
 					</div>
 					<div class="info-item text-center pdg__16">
 						<div class="content-main-days">
@@ -541,11 +540,11 @@ $this->title = 'Vacaciones';
 							</div>
 							<!-- /.CALENDARIO -->
 						</div>
-						<div class="slide-item detail pdg__16">
+						<div class="slide-item detail">
 							<div class="text-center pdg__16">
 								<h3 class="no-mrg fnt__Medium">Ultimas 5 vacaciones solicitadas</h3>
 							</div>
-							<div class="table-responsive">
+							<div class="table-responsive pdg__16">
 								<table class="table">
 									<thead>
 										<tr>
@@ -586,6 +585,9 @@ $this->title = 'Vacaciones';
 									</tbody>
 								</table>
 							</div>
+							<div style="display:none;">
+								<?= Html::img('@web/img/no_registros_vacaciones_1.png', ['alt' => 'No hay registros', 'class' => 'img-responsive']) ?>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -593,6 +595,8 @@ $this->title = 'Vacaciones';
 		</div>
 	</div>
 </div>
+<?= $this->registerJsFile('@web/js/tablefunctionsvacas.js', ['depends' => 'yii\tingle\tinglePluginAsset'])?>
+<?= $this->registerJsFile('@web/js/funcionesAjaxvacas.js', ['depends' => 'yii\tingle\tinglePluginAsset'])?>
 <script>
 //CONTADOR DE DIAS
 var slider = document.getElementById("rango");
@@ -606,13 +610,9 @@ slider.oninput = function() {
 //DEFINO UNA BANDERA PARA HEREDAR PROPIEDADES DEL CALENDARIO, 0 ES TURNOS Y 1 ES VACACIONES
 var bandera = "1";
 </script>
-
-
-
 <script type="text/javascript">
 	/*variables de la session*/
-		var cedula = '<?=Yii::$app->session['cedula']?>';//'52513735';
-		//var cedula = '52513735';//'52513735';
+		var cedula = '<?=Yii::$app->session['cedula']?>';//'52513735';		
 		var autorizaciones = '<?=Yii::$app->session['submenus'][1]?>';
 	/**/
 
@@ -628,14 +628,17 @@ var bandera = "1";
 		var pestana5 = '<?php echo Url::toRoute(['site/historialvacas']); ?>';
 		var calculoFechas = '<?php echo Url::toRoute(['site/calculafecha']); ?>';
 		var enviarvacaciones = '<?php echo Url::toRoute(['site/enviarsolicitudvacas']); ?>';
+		var vacacionesRefresh = '<?php echo Url::toRoute(['site/vacaciones','refresh' => '1']); ?>';
 
 	/**/	
-	
-	//control de jefes o administradores
-	/*if(autorizaciones.localeCompare("TRUE") == 0){*/
-		$(cambioPestana(1));	
-	/*}*/
 
+	$(document).ready(function() {	
+		//control de jefes o administradores
+		if(autorizaciones.localeCompare("TRUE") == 0){
+			$(cambioPestana(1));	
+		}
+	});
+	
 	function ejecute(id){
 		var pagination = generalPage;
 		var pageXp = $('select#cantidadXP'+id).val();
@@ -744,5 +747,13 @@ var bandera = "1";
 	$("#cantidadXP5").change(function(event) {
 		cambioPestana(5,$(this).val());
 	});	
+
+
+	function modalVacaciones(fechaIni,fechaFin,dias){
+		$('#ModalAdd #start').val(fechaIni);
+		$('#rango').val(dias);
+		$('#valor').html(dias);
+		$('#ModalAdd').modal('show');
+	}
 
 </script>
