@@ -655,7 +655,7 @@ $session = Yii::$app->session;
 		
 		idsAlerts.push(nuevoIdMensaje);
 		
-		 console.log(nuevoId);
+		// console.log(nuevoId);
 	});
 	
 	var $firstForm = $("#panel1");

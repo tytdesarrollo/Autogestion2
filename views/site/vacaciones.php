@@ -34,7 +34,7 @@ $this->title = 'Vacaciones';
 			<div class="pull-right btn-group-sm btn-group-raised">
 				<div class="cnt-help-noti dis-inline-block dropdown">
 					<a href="#" class="dropdown-toggle btn btn-warning btn-fab" data-toggle="dropdown">
-						<i class="material-icons">&#xE645;</i>
+						<i class="material-icons">&#xE001;</i>
 					</a>
 					<ul class="dropdown-menu menu-profile">
 						<p class="txt-name fnt__Medium text-center">Notificación Etiquetas</p>
