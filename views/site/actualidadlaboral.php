@@ -19,4 +19,4 @@ $this->title = 'Actualidad laboral';
 			</div>
 		</div>
 	</div>
-</div>
+</div> 
